@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOJA CAOS 77</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
         body {
             background: linear-gradient(135deg, #1a1a1a, #333);
             min-height: 100vh;
@@ -32,7 +27,7 @@
         h1 { color: #ff6a00; margin-bottom: 10px; font-size: 24px; }
         h2 { color: #ff6a00; margin-bottom: 20px; font-size: 20px; }
         p { color: #aaa; margin-bottom: 20px; }
-        input, textarea {
+        input {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
@@ -97,13 +92,6 @@
             margin-left: 10px;
         }
         .apagar:hover { background: #cc0000; }
-        .cabecalho {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .cabecalho h2 { margin: 0; }
     </style>
 </head>
 <body>
@@ -129,311 +117,269 @@
     </div>
 
     <div id="tela-farm" class="caixa-pagina escondido">
-        <div class="cabecalho">
-            <h2>📋 CONTROLE DE FARM</h2>
-        </div>
-        
+        <h2>📋 CONTROLE DE FARM</h2>
         <input type="date" id="data-farm">
         <input type="number" id="qtd-fragmentos" placeholder="Quantidade de fragmentos produzidos" min="0">
         <button onclick="registrarFarm()">✅ REGISTRAR</button>
         <p id="msg-farm"></p>
-
         <h3 style="margin-top:20px; color:#aaa;">Últimos Registros</h3>
         <div id="lista-farm" class="lista-registros"></div>
         <button onclick="voltarPainel()" class="btn-secundario" style="margin-top:15px;">⬅️ VOLTAR</button>
     </div>
 
     <div id="tela-caixa" class="caixa-pagina escondido">
-        <div class="cabecalho">
-            <h2>💰 CAIXA DA EMPRESA</h2>
-        </div>
-
+        <h2>💰 CAIXA DA EMPRESA</h2>
         <p style="font-size:16px; color:#aaa;">Saldo Atual</p>
         <div class="saldo-grande" id="saldo-atual">R$ 0,00</div>
-
         <input type="number" id="valor-movimento" placeholder="Valor (R$)" min="0" step="0.01">
         <input type="text" id="descricao-movimento" placeholder="Descrição">
         <button onclick="registrarEntrada()">⬆️ ENTRADA</button>
         <button onclick="registrarSaida()" class="btn-secundario">⬇️ SAÍDA</button>
         <p id="msg-caixa"></p>
-
         <h3 style="margin-top:20px; color:#aaa;">Movimentações</h3>
         <div id="lista-caixa" class="lista-registros"></div>
         <button onclick="voltarPainel()" class="btn-secundario" style="margin-top:15px;">⬅️ VOLTAR</button>
     </div>
 
     <div id="tela-relatorios" class="caixa-pagina escondido">
-        <div class="cabecalho">
-            <h2>📊 RELATÓRIOS</h2>
-        </div>
-
+        <h2>📊 RELATÓRIOS</h2>
         <div class="card">
             <strong>📋 TOTAL DE FRAGMENTOS</strong><br>
             <span id="total-fragmentos" style="font-size:22px;">0</span> unidades
         </div>
-
         <div class="card">
             <strong>💰 SALDO DO CAIXA</strong><br>
             <span id="total-caixa" style="font-size:22px; color:#00ff88;">R$ 0,00</span>
         </div>
-
         <div class="card">
             <strong>📅 DIAS REGISTRADOS</strong><br>
             <span id="dias-registrados">0</span> dias de farm
         </div>
-
         <h3 style="margin-top:25px; color:#aaa;">📝 HISTÓRICO COMPLETO</h3>
         <div id="historico-completo" style="margin-top:15px; text-align:left;"></div>
-
         <button onclick="voltarPainel()" class="btn-secundario" style="margin-top:15px;">⬅️ VOLTAR</button>
     </div>
 
-    <script>
-        function fazerLogin() {
-            const usuario = document.getElementById('usuario').value;
-            const senha = document.getElementById('senha').value;
-            if (usuario === 'LOJA-CAOS-77' && senha === '777777') {
-                document.getElementById('tela-login').classList.add('escondido');
-                document.getElementById('tela-painel').classList.remove('escondido');
-                carregarDataHoje();
-            } else {
-                document.getElementById('erro-login').textContent = '❌ USUÁRIO OU SENHA INCORRETOS!';
-            }
-        }
+<script>
+function fazerLogin() {
+    const usuario = document.getElementById('usuario').value;
+    const senha = document.getElementById('senha').value;
+    if (usuario === 'LOJA-CAOS-77' && senha === '777777') {
+        document.getElementById('tela-login').classList.add('escondido');
+        document.getElementById('tela-painel').classList.remove('escondido');
+        carregarDataHoje();
+    } else {
+        document.getElementById('erro-login').textContent = '❌ USUÁRIO OU SENHA INCORRETOS!';
+    }
+}
 
-        function sair() {
-            document.getElementById('tela-painel').classList.add('escondido');
-            document.getElementById('tela-login').classList.remove('escondido');
-            document.getElementById('usuario').value = '';
-            document.getElementById('senha').value = '';
-            document.getElementById('erro-login').textContent = '';
-        }
+function sair() {
+    document.getElementById('tela-painel').classList.add('escondido');
+    document.getElementById('tela-login').classList.remove('escondido');
+    document.getElementById('usuario').value = '';
+    document.getElementById('senha').value = '';
+    document.getElementById('erro-login').textContent = '';
+}
 
-        function abrirPagina(pagina) {
-            document.getElementById('tela-painel').classList.add('escondido');
-            document.getElementById('tela-' + pagina).classList.remove('escondido');
-            if (pagina === 'farm') carregarListaFarm();
-            if (pagina === 'caixa') { atualizarSaldo(); carregarListaCaixa(); }
-            if (pagina === 'relatorios') carregarRelatorios();
-        }
+function abrirPagina(pagina) {
+    document.getElementById('tela-painel').classList.add('escondido');
+    document.getElementById('tela-' + pagina).classList.remove('escondido');
+    if (pagina === 'farm') carregarListaFarm();
+    if (pagina === 'caixa') { atualizarSaldo(); carregarListaCaixa(); }
+    if (pagina === 'relatorios') carregarRelatorios();
+}
 
-        function voltarPainel() {
-            document.querySelectorAll('.caixa-pagina').forEach(el => el.classList.add('escondido'));
-            document.getElementById('tela-painel').classList.remove('escondido');
-            document.querySelectorAll('input').forEach(el => el.value = '');
-            document.querySelectorAll('p[id^="msg-"]').forEach(el => el.textContent = '');
-        }
+function voltarPainel() {
+    document.querySelectorAll('.caixa-pagina').forEach(el => el.classList.add('escondido'));
+    document.getElementById('tela-painel').classList.remove('escondido');
+    document.getElementById('qtd-fragmentos').value = '';
+    document.getElementById('valor-movimento').value = '';
+    document.getElementById('descricao-movimento').value = '';
+    document.getElementById('msg-farm').textContent = '';
+    document.getElementById('msg-caixa').textContent = '';
+}
 
-        function carregarDataHoje() {
-            const hoje = new Date().toISOString().split('T')[0];
-            document.getElementById('data-farm').value = hoje;
-        }
+function carregarDataHoje() {
+    const hoje = new Date().toISOString().split('T')[0];
+    document.getElementById('data-farm').value = hoje;
+}
 
-        function registrarFarm() {
-            const data = document.getElementById('data-farm').value;
-            const qtd = parseInt(document.getElementById('qtd-fragmentos').value);
-            const msg = document.getElementById('msg-farm');
+function registrarFarm() {
+    const data = document.getElementById('data-farm').value;
+    const qtd = parseInt(document.getElementById('qtd-fragmentos').value);
+    const msg = document.getElementById('msg-farm');
+    if (!data || !qtd || qtd <= 0) {
+        msg.textContent = '❌ Preencha todos os campos!';
+        msg.className = 'erro';
+        return;
+    }
+    let registros = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
+    const indice = registros.findIndex(r => r.data === data);
+    if (indice >= 0) {
+        registros[indice].quantidade = qtd;
+        msg.textContent = '✅ Registro ATUALIZADO com sucesso!';
+    } else {
+        registros.unshift({ data: data, quantidade: qtd, criadoEm: new Date().toLocaleString('pt-BR') });
+        msg.textContent = '✅ Registrado com sucesso!';
+    }
+    msg.className = 'sucesso';
+    localStorage.setItem('registrosFarm', JSON.stringify(registros));
+    document.getElementById('qtd-fragmentos').value = '';
+    carregarListaFarm();
+}
 
-            if (!data || !qtd || qtd <= 0) {
-                msg.textContent = '❌ Preencha todos os campos!';
-                msg.className = 'erro';
-                return;
-            }
+function carregarListaFarm() {
+    const lista = document.getElementById('lista-farm');
+    const registros = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
+    if (registros.length === 0) {
+        lista.innerHTML = '<p style="color:#777; font-size:14px;">Nenhum registro ainda.</p>';
+        return;
+    }
+    lista.innerHTML = registros.map((r, i) => `
+        <div class="item-registro">
+            <strong>${formatarData(r.data)}</strong> — ${r.quantidade} fragmentos
+            <button class="apagar" onclick="apagarFarm(${i})">🗑️</button>
+        </div>
+    `).join('');
+}
 
-            let registros = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
-            const indice = registros.findIndex(r => r.data === data);
-            if (indice >= 0) {
-                registros[indice].quantidade = qtd;
-                registros[indice].atualizadoEm = new Date().toLocaleString('pt-BR');
-                msg.textContent = '✅ Registro ATUALIZADO com sucesso!';
-            } else {
-                registros.unshift({
-                    data: data,
-                    quantidade: qtd,
-                    criadoEm: new Date().toLocaleString('pt-BR')
-                });
-                msg.textContent = '✅ Registrado com sucesso!';
-            }
+function apagarFarm(indice) {
+    let registros = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
+    if (confirm('Tem certeza que deseja apagar?')) {
+        registros.splice(indice, 1);
+        localStorage.setItem('registrosFarm', JSON.stringify(registros));
+        carregarListaFarm();
+    }
+}
 
-            msg.className = 'sucesso';
-            localStorage.setItem('registrosFarm', JSON.stringify(registros));
-            document.getElementById('qtd-fragmentos').value = '';
-            carregarListaFarm();
-        }
+function registrarEntrada() {
+    const valor = parseFloat(document.getElementById('valor-movimento').value);
+    const desc = document.getElementById('descricao-movimento').value;
+    const msg = document.getElementById('msg-caixa');
+    if (!valor || valor <= 0 || !desc) {
+        msg.textContent = '❌ Preencha todos os campos!';
+        msg.className = 'erro';
+        return;
+    }
+    let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    caixa.unshift({ tipo: 'entrada', valor: valor, descricao: desc, data: new Date().toLocaleString('pt-BR') });
+    localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
+    msg.textContent = '✅ Entrada registrada!';
+    msg.className = 'sucesso';
+    document.getElementById('valor-movimento').value = '';
+    document.getElementById('descricao-movimento').value = '';
+    atualizarSaldo();
+    carregarListaCaixa();
+}
 
-        function carregarListaFarm() {
-            const lista = document.getElementById('lista-farm');
-            const registros = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
-            
-            if (registros.length === 0) {
-                lista.innerHTML = '<p style="color:#777; font-size:14px;">Nenhum registro ainda.</p>';
-                return;
-            }
+function registrarSaida() {
+    const valor = parseFloat(document.getElementById('valor-movimento').value);
+    const desc = document.getElementById('descricao-movimento').value;
+    const msg = document.getElementById('msg-caixa');
+    if (!valor || valor <= 0 || !desc) {
+        msg.textContent = '❌ Preencha todos os campos!';
+        msg.className = 'erro';
+        return;
+    }
+    let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    caixa.unshift({ tipo: 'saida', valor: valor, descricao: desc, data: new Date().toLocaleString('pt-BR') });
+    localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
+    msg.textContent = '✅ Saída registrada!';
+    msg.className = 'sucesso';
+    document.getElementById('valor-movimento').value = '';
+    document.getElementById('descricao-movimento').value = '';
+    atualizarSaldo();
+    carregarListaCaixa();
+}
 
-            lista.innerHTML = registros.map((r, i) => `
-                <div class="item-registro">
-                    <strong>${formatarData(r.data)}</strong> — ${r.quantidade} fragmentos
-                    <button class="apagar" onclick="apagarFarm(${i})">🗑️</button>
-                </div>
-            `).join('');
-        }
+function atualizarSaldo() {
+    const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    let saldo = 0;
+    caixa.forEach(m => {
+        if (m.tipo === 'entrada') saldo += m.valor;
+        else saldo -= m.valor;
+    });
+    document.getElementById('saldo-atual').textContent = formatarDinheiro(saldo);
+}
 
-        function apagarFarm(indice) {
-            let registros = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
-            if (confirm('Tem certeza que deseja apagar este registro?')) {
-                registros.splice(indice, 1);
-                localStorage.setItem('registrosFarm', JSON.stringify(registros));
-                carregarListaFarm();
-            }
-        }
+function carregarListaCaixa() {
+    const lista = document.getElementById('lista-caixa');
+    const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    if (caixa.length === 0) {
+        lista.innerHTML = '<p style="color:#777; font-size:14px;">Nenhuma movimentação ainda.</p>';
+        return;
+    }
+    lista.innerHTML = caixa.map((m, i) => `
+        <div class="item-registro">
+            <strong style="color:${m.tipo === 'entrada' ? '#00ff88' : '#ff4444'}">
+                ${m.tipo === 'entrada' ? '⬆️ ENTRADA' : '⬇️ SAÍDA'}
+            </strong><br>
+            ${m.descricao}<br>
+            ${formatarDinheiro(m.valor)} — ${m.data}
+            <button class="apagar" onclick="apagarCaixa(${i})">🗑️</button>
+        </div>
+    `).join('');
+}
 
-        function registrarEntrada() {
-            const valor = parseFloat(document.getElementById('valor-movimento').value);
-            const desc = document.getElementById('descricao-movimento').value;
-            const msg = document.getElementById('msg-caixa');
+function apagarCaixa(indice) {
+    let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    if (confirm('Tem certeza que deseja apagar?')) {
+        caixa.splice(indice, 1);
+        localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
+        atualizarSaldo();
+        carregarListaCaixa();
+    }
+}
 
-            if (!valor || valor <= 0 || !desc) {
-                msg.textContent = '❌ Preencha todos os campos!';
-                msg.className = 'erro';
-                return;
-            }
+function carregarRelatorios() {
+    const farm = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
+    const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
 
-            let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
-            caixa.unshift({
-                tipo: 'entrada',
-                valor: valor,
-                descricao: desc,
-                data: new Date().toLocaleString('pt-BR')
-            });
-            localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
-            
-            msg.textContent = '✅ Entrada registrada!';
-            msg.className = 'sucesso';
-            document.getElementById('valor-movimento').value = '';
-            document.getElementById('descricao-movimento').value = '';
-            atualizarSaldo();
-            carregarListaCaixa();
-        }
+    const totalFrags = farm.reduce((s, r) => s + r.quantidade, 0);
+    document.getElementById('total-fragmentos').textContent = totalFrags;
 
-        function registrarSaida() {
-            const valor = parseFloat(document.getElementById('valor-movimento').value);
-            const desc = document.getElementById('descricao-movimento').value;
-            const msg = document.getElementById('msg-caixa');
+    let saldo = 0;
+    caixa.forEach(m => {
+        if (m.tipo === 'entrada') saldo += m.valor;
+        else saldo -= m.valor;
+    });
+    document.getElementById('total-caixa').textContent = formatarDinheiro(saldo);
 
-            if (!valor || valor <= 0 || !desc) {
-                msg.textContent = '❌ Preencha todos os campos!';
-                msg.className = 'erro';
-                return;
-            }
+    document.getElementById('dias-registrados').textContent = farm.length;
 
-            let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
-            caixa.unshift({
-                tipo: 'saida',
-                valor: valor,
-                descricao: desc,
-                data: new Date().toLocaleString('pt-BR')
-            });
-            localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
-            
-            msg.textContent = '✅ Saída registrada!';
-            msg.className = 'sucesso';
-            document.getElementById('valor-movimento').value = '';
-            document.getElementById('descricao-movimento').value = '';
-            atualizarSaldo();
-            carregarListaCaixa();
-        }
+    const historico = document.getElementById('historico-completo');
+    let html = '';
 
-        function atualizarSaldo() {
-            const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
-            let saldo = 0;
-            caixa.forEach(m => {
-                if (m.tipo === 'entrada') saldo += m.valor;
-                else saldo -= m.valor;
-            });
-            document.getElementById('saldo-atual').textContent = formatarDinheiro(saldo);
-        }
+    if (farm.length === 0 && caixa.length === 0) {
+        historico.innerHTML = '<p style="color:#777;">Nenhum registro ainda.</p>';
+        return;
+    }
 
-        function carregarListaCaixa() {
-            const lista = document.getElementById('lista-caixa');
-            const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
-            
-            if (caixa.length === 0) {
-                lista.innerHTML = '<p style="color:#777; font-size:14px;">Nenhuma movimentação ainda.</p>';
-                return;
-            }
+    html += '<h4 style="color:#ff6a00; margin:15px 0 5px 0;">📋 FARM DE FRAGMENTOS</h4>';
+    if (farm.length === 0) html += '<p style="color:#777; font-size:13px;">Sem registros</p>';
+    else farm.forEach(r => {
+        html += `<p style="font-size:13px; color:#ccc;">📅 ${formatarData(r.data)} — ${r.quantidade} fragmentos</p>`;
+    });
 
-            lista.innerHTML = caixa.map((m, i) => `
-                <div class="item-registro">
-                    <strong style="color:${m.tipo === 'entrada' ? '#00ff88' : '#ff4444'}">
-                        ${m.tipo === 'entrada' ? '⬆️ ENTRADA' : '⬇️ SAÍDA'}
-                    </strong><br>
-                    ${m.descricao}<br>
-                    ${formatarDinheiro(m.valor)} — ${m.data}
-                    <button class="apagar" onclick="apagarCaixa(${i})">🗑️</button>
-                </div>
-            `).join('');
-        }
+    html += '<h4 style="color:#ff6a00; margin:20px 0 5px 0;">💰 MOVIMENTAÇÕES DE CAIXA</h4>';
+    if (caixa.length === 0) html += '<p style="color:#777; font-size:13px;">Sem movimentações</p>';
+    else caixa.forEach(m => {
+        const cor = m.tipo === 'entrada' ? '#00ff88' : '#ff4444';
+        const tipo = m.tipo === 'entrada' ? 'ENTRADA' : 'SAÍDA';
+        html += `<p style="font-size:13px; color:#ccc;"><span style="color:${cor}">${tipo}</span>: ${m.descricao} — ${formatarDinheiro(m.valor)} (${m.data})</p>`;
+    });
 
-        function apagarCaixa(indice) {
-            let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
-            if (confirm('Tem certeza que deseja apagar esta movimentação?')) {
-                caixa.splice(indice, 1);
-                localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
-                atualizarSaldo();
-                carregarListaCaixa();
-            }
-        }
+    historico.innerHTML = html;
+}
 
-        function carregarRelatorios() {
-            const farm = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
-            const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+function formatarData(dataStr) {
+    const partes = dataStr.split('-');
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
 
-            const totalFrags = farm.reduce((s, r) => s + r.quantidade, 0);
-            document.getElementById('total-fragmentos').textContent = totalFrags;
-
-            let saldo = 0;
-            caixa.forEach(m => {
-                if (m.tipo === 'entrada') saldo += m.valor;
-                else saldo -= m.valor;
-            });
-            document.getElementById('total-caixa').textContent = formatarDinheiro(saldo);
-
-            document.getElementById('dias-registrados').textContent = farm.length;
-
-            const historico = document.getElementById('historico-completo');
-            let html = '';
-
-            if (farm.length === 0 && caixa.length === 0) {
-                historico.innerHTML = '<p style="color:#777;">Nenhum registro ainda.</p>';
-                return;
-            }
-
-            html += '<h4 style="color:#ff6a00; margin:15px 0 5px 0;">📋 FARM DE FRAGMENTOS</h4>';
-            if (farm.length === 0) html += '<p style="color:#777; font-size:13px;">Sem registros</p>';
-            else farm.forEach(r => {
-                html += `<p style="font-size:13px; color:#ccc;">📅 ${formatarData(r.data)} — ${r.quantidade} fragmentos</p>`;
-            });
-
-            html += '<h4 style="color:#ff6a00; margin:20px 0 5px 0;">💰 MOVIMENTAÇÕES DE CAIXA</h4>';
-            if (caixa.length === 0) html += '<p style="color:#777; font-size:13px;">Sem movimentações</p>';
-            else caixa.forEach(m => {
-                const cor = m.tipo === 'entrada' ? '#00ff88' : '#ff4444';
-                const tipo = m.tipo === 'entrada' ? 'ENTRADA' : 'SAÍDA';
-                html += `<p style="font-size:13px; color:#ccc;"><span style="color:${cor}">${tipo}</span>: ${m.descricao} — ${formatarDinheiro(m.valor)} (${m.data})</p>`;
-            });
-
-            historico.innerHTML = html;
-        }
-
-        function formatarData(dataStr) {
-            const partes = dataStr.split('-');
-            return `${partes[2]}/${partes[1]}/${partes[0]}`;
-        }
-
-        function formatarDinheiro(valor) {
-            return 'R$ ' + valor.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        }
-    </script>
+function formatarDinheiro(valor) {
+    return 'R$ ' + valor.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+</script>
 </body>
 </html>
-

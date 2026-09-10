@@ -80,23 +80,18 @@
     </style>
 </head>
 <body>
-
-    <!-- TELA DE LOGIN -->
     <div id="tela-login" class="caixa-login">
         <h1>🔥 LOJA CAOS 77</h1>
         <p>Controle de Farm & Caixa</p>
-        
         <input type="text" id="usuario" placeholder="Usuário">
         <input type="password" id="senha" placeholder="Senha">
         <button onclick="fazerLogin()">ENTRAR</button>
         <p id="erro-login"></p>
     </div>
 
-    <!-- TELA DO PAINEL -->
     <div id="tela-painel" class="caixa-painel escondido">
         <h1>🔥 BEM-VINDO AO PAINEL</h1>
         <h3>LOJA CAOS 77 — Controle de Farm & Caixa</h3>
-        
         <div class="botoes">
             <button>📋 CONTROLE DE FARM</button>
             <button>💰 REGISTRO DE CAIXA</button>
@@ -109,7 +104,6 @@
         function fazerLogin() {
             const usuario = document.getElementById('usuario').value;
             const senha = document.getElementById('senha').value;
-            
             if (usuario === 'LOJA-CAOS-77' && senha === '777777') {
                 document.getElementById('tela-login').classList.add('escondido');
                 document.getElementById('tela-painel').classList.remove('escondido');
@@ -125,6 +119,5 @@
             document.getElementById('erro-login').textContent = '';
         }
     </script>
-    
 </body>
 </html>

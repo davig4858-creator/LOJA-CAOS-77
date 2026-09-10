@@ -254,7 +254,7 @@
                 
                 <div class="form-linha">
                     <input type="text" id="nome-pessoa" placeholder="Nome da pessoa">
-                    <input type="number" id="qtd-pessoa" placeholder="Quantidade" min="1">
+                    <input type="number" id="qtd-pessoa" placeholder="Quantidade" min="0">
                     <button onclick="adicionarPessoa()">➕ ADICIONAR</button>
                     <button id="btn-cancelar-edicao" class="escondido" onclick="cancelarEdicao()">✖ CANCELAR</button>
                 </div>
@@ -297,9 +297,9 @@
                 </div>
 
                 <div class="form-linha">
-                    <input type="number" id="qtd-entrada" placeholder="Qtd. Entrada" min="1">
+                    <input type="number" id="qtd-entrada" placeholder="Qtd. Entrada" min="0">
                     <button onclick="adicionarEstoque()">📥 ENTRADA</button>
-                    <input type="number" id="qtd-saida" placeholder="Qtd. Saída" min="1">
+                    <input type="number" id="qtd-saida" placeholder="Qtd. Saída" min="0">
                     <button onclick="retirarEstoque()">📤 SAÍDA</button>
                 </div>
                 <div class="form-linha" style="margin-top: 8px;">
@@ -369,7 +369,7 @@
                 <h2>📋 SAÍDAS DO DIA — CONTROLE DE VALORES</h2>
                 
                 <div class="form-linha">
-                    <input type="number" id="saida-qtd" placeholder="Qtd. Fragmentos" min="1">
+                    <input type="number" id="saida-qtd" placeholder="Qtd. Fragmentos" min="0">
                     <input type="text" id="saida-responsavel" placeholder="Responsável">
                     <input type="date" id="saida-data">
                     <button onclick="registrarSaidaDia()">➕ ADICIONAR</button>
@@ -450,14 +450,14 @@ function inicializarDados() {
 }
 
 // ======================================
-// PLANILHA DE FARMERS — CORRIGIDA ✅
+// PLANILHA DE FARMERS
 // ======================================
 function adicionarPessoa() {
     const nome = document.getElementById('nome-pessoa').value.trim();
     const qtd = parseInt(document.getElementById('qtd-pessoa').value);
     const msg = document.getElementById('msg-planilha');
 
-    if (!nome || !qtd || qtd <= 0) {
+    if (!nome || isNaN(qtd)) {
         msg.textContent = '❌ Preencha todos os campos!';
         msg.className = 'erro';
         return;
@@ -548,7 +548,7 @@ function apagarPessoa(indice) {
 function adicionarEstoque() {
     const qtd = parseInt(document.getElementById('qtd-entrada').value);
     const msg = document.getElementById('msg-estoque');
-    if (!qtd || qtd <= 0) { msg.textContent = '❌ Digite uma quantidade!'; msg.className = 'erro'; return; }
+    if (isNaN(qtd)) { msg.textContent = '❌ Digite uma quantidade!'; msg.className = 'erro'; return; }
     
     let atual = parseInt(localStorage.getItem('estoqueAtual') || '0');
     let historico = JSON.parse(localStorage.getItem('historicoEstoque') || '[]');
@@ -575,7 +575,7 @@ function retirarEstoque() {
     const msg = document.getElementById('msg-estoque');
     let atual = parseInt(localStorage.getItem('estoqueAtual') || '0');
     
-    if (!qtd || qtd <= 0) { msg.textContent = '❌ Digite uma quantidade!'; msg.className = 'erro'; return; }
+    if (isNaN(qtd)) { msg.textContent = '❌ Digite uma quantidade!'; msg.className = 'erro'; return; }
     if (qtd > atual) { msg.textContent = '❌ Estoque insuficiente!'; msg.className = 'erro'; return; }
     
     let historico = JSON.parse(localStorage.getItem('historicoEstoque') || '[]');
@@ -599,7 +599,7 @@ function retirarEstoque() {
 function atualizarValor() {
     const valor = parseFloat(document.getElementById('novo-valor').value);
     const msg = document.getElementById('msg-estoque');
-    if (!valor || valor <= 0) { msg.textContent = '❌ Digite um valor!'; msg.className = 'erro'; return; }
+    if (isNaN(valor) || valor <= 0) { msg.textContent = '❌ Digite um valor válido!'; msg.className = 'erro'; return; }
     localStorage.setItem('valorUnitario', valor.toString());
     msg.textContent = `✅ Valor atualizado: R$ ${valor.toFixed(2).replace('.', ',')}`;
     msg.className = 'sucesso';
@@ -638,7 +638,7 @@ function registrarEntrada() {
     const valor = parseFloat(document.getElementById('valor-caixa').value);
     const desc = document.getElementById('descricao-caixa').value.trim();
     const msg = document.getElementById('msg-caixa');
-    if (!valor || valor <= 0 || !desc) { msg.textContent = '❌ Preencha todos os campos!'; msg.className = 'erro'; return; }
+    if (isNaN(valor) || valor < 0 || !desc) { msg.textContent = '❌ Preencha todos os campos!'; msg.className = 'erro'; return; }
     
     let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
     caixa.unshift({ tipo: 'entrada', valor, descricao: desc, data: new Date().toLocaleString('pt-BR') });
@@ -656,7 +656,7 @@ function registrarSaida() {
     const valor = parseFloat(document.getElementById('valor-caixa').value);
     const desc = document.getElementById('descricao-caixa').value.trim();
     const msg = document.getElementById('msg-caixa');
-    if (!valor || valor <= 0 || !desc) { msg.textContent = '❌ Preencha todos os campos!'; msg.className = 'erro'; return; }
+    if (isNaN(valor) || valor < 0 || !desc) { msg.textContent = '❌ Preencha todos os campos!'; msg.className = 'erro'; return; }
     
     let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
     caixa.unshift({ tipo: 'saida', valor, descricao: desc, data: new Date().toLocaleString('pt-BR') });
@@ -718,7 +718,7 @@ function registrarSaidaDia() {
     const msg = document.getElementById('msg-saidas');
     const valorUnitario = parseFloat(localStorage.getItem('valorUnitario') || '0');
     
-    if (!qtd || qtd <= 0 || !resp || !data) {
+    if (isNaN(qtd) || !resp || !data) {
         msg.textContent = '❌ Preencha todos os campos!';
         msg.className = 'erro';
         return;

@@ -9,7 +9,8 @@
         body {
             background: #0a0a0a;
             min-height: 100vh;
-            display: flex: justify-content;
+            display: flex;
+            justify-content: center;
             align-items: flex-start;
             color: #e5e5e5;
             padding: 20px;
@@ -233,7 +234,6 @@
             </div>
         </div>
 
-        <!-- 📊 PLANILHA DE FARMERS -->
         <div id="pagina-planilha" class="escondido">
             <div class="secao">
                 <h2>📊 PLANILHA DE FARMERS</h2>
@@ -246,7 +246,7 @@
                 </div>
                 <p id="msg-planilha"></p>
 
-                <input type="text" id="pesquisa-planilha" class="pesquisa" placeholder="🔍 Pesquisar nome..." oninput="filtrarPlanilha()">
+                <input type="text" id="pesquisa-planilha" class="pesquisa" placeholder="🔍 Pesquisar nome..." oninput="carregarPlanilha()">
 
                 <div class="tabela-container">
                     <table id="tabela-planilha">
@@ -363,7 +363,6 @@ function abrirPagina(pagina) {
     if (pagina === 'inicio') atualizarCards();
 }
 
-// 📊 PLANILHA
 function adicionarPessoa() {
     const nome = document.getElementById('nome-pessoa').value.trim();
     const qtd = parseInt(document.getElementById('qtd-pessoa').value);
@@ -425,10 +424,6 @@ function carregarPlanilha() {
 
     const total = planilha.reduce((s, p) => s + p.quantidade, 0);
     document.getElementById('total-planilha').textContent = total;
-}
-
-function filtrarPlanilha() {
-    carregarPlanilha();
 }
 
 function editarPessoa(indice) {
@@ -495,11 +490,9 @@ function carregarListaFarm() {
         return;
     }
     lista.innerHTML = registros.map((r, i) => `
-        <div class="item-registro">
-            <div class="linha">
-                <span><strong>${formatarData(r.data)}</strong> — ${r.quantidade} unidades</span>
-                <button class="btn-excluir" onclick="apagarFarm(${i})">EXCLUIR</button>
-            </div>
+        <div style="padding:8px 0; border-bottom:1px solid #262626; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>${formatarData(r.data)}</strong> — ${r.quantidade} unidades</span>
+            <button class="btn-excluir" onclick="apagarFarm(${i})">EXCLUIR</button>
         </div>
     `).join('');
 }
@@ -576,19 +569,19 @@ function carregarListaCaixa() {
         lista.innerHTML = '<p style="color:#737373; font-size:14px;">Nenhuma movimentação</p>';
         return;
     }
-    lista.innerHTML = caixa.map((m, i) => `
-        <div class="item-registro">
-            <div class="linha">
-                <span>
-                    <strong style="color:${m.tipo === 'entrada' ? '#22c55e' : '#ef4444'}">
-                        ${m.tipo === 'entrada' ? 'ENTRADA' : 'SAÍDA'}
-                    </strong> — ${formatarDinheiro(m.valor)}<br>
-                    <small style="color:#737373">${m.descricao} • ${m.data}</small>
-                </span>
-                <button class="btn-excluir" onclick="apagarCaixa(${i})">EXCLUIR</button>
-            </div>
+    lista.innerHTML = caixa.map((m, i) => {
+        const cor = m.tipo === 'entrada' ? '#22c55e' : '#ef4444';
+        const tipo = m.tipo === 'entrada' ? 'ENTRADA' : 'SAÍDA';
+        return `
+        <div style="padding:8px 0; border-bottom:1px solid #262626; display:flex; justify-content:space-between; align-items:center;">
+            <span>
+                <strong style="color:${cor}">${tipo}</strong> — ${formatarDinheiro(m.valor)}<br>
+                <small style="color:#737373">${m.descricao} • ${m.data}</small>
+            </span>
+            <button class="btn-excluir" onclick="apagarCaixa(${i})">EXCLUIR</button>
         </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 function apagarCaixa(indice) {
@@ -662,7 +655,7 @@ function atualizarCards() {
         ultimos.innerHTML = '<p style="color:#737373; font-size:14px;">Nenhum registro ainda</p>';
     } else {
         ultimos.innerHTML = planilha.slice(0, 5).map((p, i) => 
-            `<div class="item-registro"><strong>${i}</strong> — ${p.nome}: ${p.quantidade} frags</div>`
+            `<div style="padding:4px 0;"><strong>${i}</strong> — ${p.nome}: ${p.quantidade} frags</div>`
         ).join('');
     }
 }

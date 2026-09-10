@@ -108,7 +108,6 @@
 </head>
 <body>
 
-    <!-- TELA DE LOGIN -->
     <div id="tela-login" class="caixa-login">
         <h1>🔥 LOJA CAOS 77</h1>
         <p>Controle de Farm & Caixa</p>
@@ -118,7 +117,6 @@
         <p id="erro-login"></p>
     </div>
 
-    <!-- TELA PRINCIPAL - PAINEL -->
     <div id="tela-painel" class="caixa-painel escondido">
         <h1>🔥 BEM-VINDO AO PAINEL</h1>
         <p>LOJA CAOS 77 — Controle de Farm & Caixa</p>
@@ -130,7 +128,6 @@
         </div>
     </div>
 
-    <!-- TELA - CONTROLE DE FARM -->
     <div id="tela-farm" class="caixa-pagina escondido">
         <div class="cabecalho">
             <h2>📋 CONTROLE DE FARM</h2>
@@ -146,7 +143,6 @@
         <button onclick="voltarPainel()" class="btn-secundario" style="margin-top:15px;">⬅️ VOLTAR</button>
     </div>
 
-    <!-- TELA - CAIXA -->
     <div id="tela-caixa" class="caixa-pagina escondido">
         <div class="cabecalho">
             <h2>💰 CAIXA DA EMPRESA</h2>
@@ -166,7 +162,6 @@
         <button onclick="voltarPainel()" class="btn-secundario" style="margin-top:15px;">⬅️ VOLTAR</button>
     </div>
 
-    <!-- TELA - RELATÓRIOS -->
     <div id="tela-relatorios" class="caixa-pagina escondido">
         <div class="cabecalho">
             <h2>📊 RELATÓRIOS</h2>
@@ -194,7 +189,6 @@
     </div>
 
     <script>
-        // === LOGIN ===
         function fazerLogin() {
             const usuario = document.getElementById('usuario').value;
             const senha = document.getElementById('senha').value;
@@ -215,7 +209,6 @@
             document.getElementById('erro-login').textContent = '';
         }
 
-        // === NAVEGAÇÃO ===
         function abrirPagina(pagina) {
             document.getElementById('tela-painel').classList.add('escondido');
             document.getElementById('tela-' + pagina).classList.remove('escondido');
@@ -236,7 +229,6 @@
             document.getElementById('data-farm').value = hoje;
         }
 
-        // === CONTROLE DE FARM ===
         function registrarFarm() {
             const data = document.getElementById('data-farm').value;
             const qtd = parseInt(document.getElementById('qtd-fragmentos').value);
@@ -249,8 +241,6 @@
             }
 
             let registros = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
-            
-            // Verificar se já existe essa data
             const indice = registros.findIndex(r => r.data === data);
             if (indice >= 0) {
                 registros[indice].quantidade = qtd;
@@ -297,7 +287,6 @@
             }
         }
 
-        // === CAIXA ===
         function registrarEntrada() {
             const valor = parseFloat(document.getElementById('valor-movimento').value);
             const desc = document.getElementById('descricao-movimento').value;
@@ -395,16 +384,13 @@
             }
         }
 
-        // === RELATÓRIOS ===
         function carregarRelatorios() {
             const farm = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
             const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
 
-            // Total fragmentos
             const totalFrags = farm.reduce((s, r) => s + r.quantidade, 0);
             document.getElementById('total-fragmentos').textContent = totalFrags;
 
-            // Total caixa
             let saldo = 0;
             caixa.forEach(m => {
                 if (m.tipo === 'entrada') saldo += m.valor;
@@ -412,10 +398,8 @@
             });
             document.getElementById('total-caixa').textContent = formatarDinheiro(saldo);
 
-            // Dias registrados
             document.getElementById('dias-registrados').textContent = farm.length;
 
-            // Histórico completo
             const historico = document.getElementById('historico-completo');
             let html = '';
 
@@ -441,7 +425,6 @@
             historico.innerHTML = html;
         }
 
-        // === UTILITÁRIOS ===
         function formatarData(dataStr) {
             const partes = dataStr.split('-');
             return `${partes[2]}/${partes[1]}/${partes[0]}`;
@@ -453,3 +436,4 @@
     </script>
 </body>
 </html>
+

@@ -536,3 +536,146 @@ function registrarEntrada() {
 
 function registrarSaida() {
     const valor = parseFloat(document.getElementById('valor-movimento').value);
+    const desc = document.getElementById('descricao-movimento').value;
+    const msg = document.getElementById('msg-caixa');
+    if (!valor || valor <= 0 || !desc) {
+        msg.textContent = 'Preencha todos os campos';
+        msg.className = 'erro';
+        return;
+    }
+    let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    caixa.unshift({ tipo: 'saida', valor: valor, descricao: desc, data: new Date().toLocaleString('pt-BR') });
+    localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
+    msg.textContent = 'Saída registrada';
+    msg.className = 'sucesso';
+    document.getElementById('valor-movimento').value = '';
+    document.getElementById('descricao-movimento').value = '';
+    atualizarSaldo();
+    carregarListaCaixa();
+    atualizarCards();
+}
+
+function calcularSaldo() {
+    const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    let saldo = 0;
+    caixa.forEach(m => {
+        if (m.tipo === 'entrada') saldo += m.valor;
+        else saldo -= m.valor;
+    });
+    return saldo;
+}
+
+function atualizarSaldo() {
+    document.getElementById('saldo-atual').textContent = formatarDinheiro(calcularSaldo());
+}
+
+function carregarListaCaixa() {
+    const lista = document.getElementById('lista-caixa');
+    const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    if (caixa.length === 0) {
+        lista.innerHTML = '<p style="color:#737373; font-size:14px;">Nenhuma movimentação</p>';
+        return;
+    }
+    lista.innerHTML = caixa.map((m, i) => `
+        <div class="item-registro">
+            <div class="linha">
+                <span>
+                    <strong style="color:${m.tipo === 'entrada' ? '#22c55e' : '#ef4444'}">
+                        ${m.tipo === 'entrada' ? 'ENTRADA' : 'SAÍDA'}
+                    </strong> — ${formatarDinheiro(m.valor)}<br>
+                    <small style="color:#737373">${m.descricao} • ${m.data}</small>
+                </span>
+                <button class="btn-excluir" onclick="apagarCaixa(${i})">EXCLUIR</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function apagarCaixa(indice) {
+    if (!confirm('Tem certeza?')) return;
+    let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    caixa.splice(indice, 1);
+    localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
+    atualizarSaldo();
+    carregarListaCaixa();
+    atualizarCards();
+}
+
+function carregarRelatorios() {
+    const farm = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
+    const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+
+    const totalFrags = farm.reduce((s, r) => s + r.quantidade, 0);
+    const totalPlanilha = planilha.reduce((s, p) => s + p.quantidade, 0);
+    
+    document.getElementById('r-frags').textContent = totalFrags + totalPlanilha;
+    document.getElementById('r-caixa').textContent = formatarDinheiro(calcularSaldo());
+    document.getElementById('r-pessoas').textContent = planilha.length;
+
+    const historico = document.getElementById('historico-completo');
+    let html = '';
+
+    if (farm.length === 0 && caixa.length === 0 && planilha.length === 0) {
+        historico.innerHTML = '<p style="color:#737373;">Nenhum registro</p>';
+        return;
+    }
+
+    html += '<h3 style="color:#facc15; margin:15px 0 8px 0; font-size:14px;">📊 PLANILHA DE FARMERS</h3>';
+    if (planilha.length === 0) html += '<p style="color:#737373; font-size:13px;">Sem registros</p>';
+    else planilha.forEach((p, i) => {
+        html += `<p style="font-size:13px; color:#d4d4d4; padding:4px 0;">${i}. ${p.nome} — ${p.quantidade} frags</p>`;
+    });
+
+    html += '<h3 style="color:#a3a3a3; margin:20px 0 8px 0; font-size:14px;">MATERIAL</h3>';
+    if (farm.length === 0) html += '<p style="color:#737373; font-size:13px;">Sem registros</p>';
+    else farm.forEach(r => {
+        html += `<p style="font-size:13px; color:#d4d4d4; padding:4px 0;">${formatarData(r.data)} — ${r.quantidade} unidades</p>`;
+    });
+
+    html += '<h3 style="color:#a3a3a3; margin:20px 0 8px 0; font-size:14px;">CAIXA</h3>';
+    if (caixa.length === 0) html += '<p style="color:#737373; font-size:13px;">Sem movimentações</p>';
+    else caixa.forEach(m => {
+        const cor = m.tipo === 'entrada' ? '#22c55e' : '#ef4444';
+        const tipo = m.tipo === 'entrada' ? 'ENTRADA' : 'SAÍDA';
+        html += `<p style="font-size:13px; color:#d4d4d4; padding:4px 0;"><span style="color:${cor}">${tipo}</span> — ${m.descricao}: ${formatarDinheiro(m.valor)}</p>`;
+    });
+
+    historico.innerHTML = html;
+}
+
+function atualizarCards() {
+    const farm = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
+    const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+
+    const totalFrags = farm.reduce((s, r) => s + r.quantidade, 0);
+    const totalPlanilha = planilha.reduce((s, p) => s + p.quantidade, 0);
+    
+    document.getElementById('total-frags').textContent = totalFrags + totalPlanilha;
+    document.getElementById('saldo-caixa').textContent = formatarDinheiro(calcularSaldo());
+    document.getElementById('total-pessoas').textContent = planilha.length;
+    document.getElementById('dias-farm').textContent = farm.length;
+
+    const ultimos = document.getElementById('ultimos-planilha');
+    if (planilha.length === 0) {
+        ultimos.innerHTML = '<p style="color:#737373; font-size:14px;">Nenhum registro ainda</p>';
+    } else {
+        ultimos.innerHTML = planilha.slice(0, 5).map((p, i) => 
+            `<div class="item-registro"><strong>${i}</strong> — ${p.nome}: ${p.quantidade} frags</div>`
+        ).join('');
+    }
+}
+
+function formatarData(dataStr) {
+    if (!dataStr) return '';
+    const partes = dataStr.split('-');
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+function formatarDinheiro(valor) {
+    return 'R$ ' + valor.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+</script>
+</body>
+</html>

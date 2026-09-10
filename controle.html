@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 LOJA CAOS 77</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            color: #e5e5e5;
+            padding: 20px;
+        }
+        .caixa-login {
+            background: #171717;
+            padding: 45px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin-top: 100px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .caixa-painel {
+            background: #0a0a0a;
+            width: 100%;
+            max-width: 1200px;
+            padding: 10px;
+        }
+        h1 { color: #fff; font-size: 26px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        h2 { font-size: 15px; color: #d4d4d4; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #333; text-transform: uppercase; }
+        .subtitulo { color: #888; font-size: 14px; margin-bottom: 25px; }
+        .aviso-permissao {
+            background: #292200;
+            border: 1px solid #854d0e;
+            color: #fcd34d;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+        input, select {
+            padding: 10px 12px;
+            margin: 4px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background: #111;
+            color: #fff;
+            font-size: 14px;
+        }
+        input:disabled, button:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: auto; }
+        input:focus { outline: none; border-color: #555; }
+        button {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 4px;
+            background: #252525;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover:not(:disabled) { background: #383838; }
+        .escondido { display: none !important; }
+        .erro { color: #ef4444; margin-top: 8px; font-size: 13px; }
+        .sucesso { color: #22c55e; margin-top: 8px; font-size: 13px; }
+
+        .cabecalho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        .btn-sair { padding: 8px 18px; background: #1f1f1f; }
+        .btn-sair:hover { background: #333; }
+        .menu {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .menu button {
+            padding: 10px 14px;
+            background: #171717;
+            border: 1px solid #2a2a2a;
+        }
+        .menu button.ativo { background: #252525; border-color: #444; }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .card {
+            background: #171717;
+            padding: 18px;
+            border-radius: 6px;
+            border: 1px solid #2a2a2a;
+            text-align: center;
+        }
+        .card .valor { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
+        .card .label { font-size: 12px; color: #888; text-transform: uppercase; }
+        .card.dourado .valor { color: #facc15; }
+        .card.verde .valor { color: #22c55e; }
+        .card.azul .valor { color: #60a5fa; }
+        .card.roxo .valor { color: #c084fc; }
+
+        .secao {
+            background: #171717;
+            padding: 18px;
+            border-radius: 6px;
+            border: 1px solid #2a2a2a;
+            margin-bottom: 18px;
+        }
+        .tabela-container { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+        th {
+            background: #111;
+            padding: 10px;
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #999;
+            border-bottom: 2px solid #333;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #252525;
+            font-size: 14px;
+        }
+        tr:hover { background: #111; }
+        .btn-excluir {
+            padding: 4px 10px;
+            font-size: 12px;
+            background: #450a0a;
+            color: #f87171;
+            border: none;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+        .btn-excluir:hover:not(:disabled) { background: #7f1d1d; }
+        .btn-editar {
+            padding: 4px 10px;
+            font-size: 12px;
+            background: #0c4a6e;
+            color: #7dd3fc;
+            border: none;
+            font-weight: bold;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .btn-editar:hover:not(:disabled) { background: #075985; }
+        .form-linha {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+            margin-top: 8px;
+        }
+        .form-linha input { flex: 1; min-width: 130px; margin: 0; }
+        .total-linha {
+            margin-top: 12px;
+            padding: 10px;
+            background: #111;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #facc15;
+        }
+        .pesquisa { max-width: 280px; margin-bottom: 8px; }
+        .top-farmer {
+            background: linear-gradient(90deg, #422006, #171717);
+            border: 1px solid #854d0e;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        .top-farmer h3 { color: #facc15; font-size: 14px; margin-bottom: 8px; }
+        .top-farmer .nome { font-size: 20px; font-weight: bold; color: #fff; }
+        .top-farmer .qtd { font-size: 14px; color: #fcd34d; margin-top: 4px; }
+        .coluna-acao { width: 90px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <!-- TELA DE LOGIN -->
+    <div id="tela-login" class="caixa-login">
+        <h1>🔥 LOJA CAOS 77</h1>
+        <p class="subtitulo">Controle Interno — Área Restrita</p>
+        <input type="text" id="usuario" placeholder="USUÁRIO">
+        <input type="password" id="senha" placeholder="SENHA">
+        <button onclick="fazerLogin()">ENTRAR</button>
+        <p id="erro-login" class="erro"></p>
+    </div>
+
+    <!-- TELA PRINCIPAL -->
+    <div id="tela-painel" class="caixa-painel escondido">
+        <div class="cabecalho">
+            <div>
+                <h1>🔥 LOJA CAOS 77 — CONTROLE</h1>
+                <span id="nome-usuario" style="color:#888; font-size:13px;"></span>
+            </div>
+            <button class="btn-sair" onclick="sair()">Sair</button>
+        </div>
+
+        <!-- AVISO DE MODO VISUALIZAÇÃO -->
+        <div id="aviso-visualizacao" class="aviso-permissao escondido">
+            👁️ MODO VISUALIZAÇÃO — Você só pode ver os dados. Não é possível adicionar nem alterar registros.
+        </div>
+
+        <!-- MENU -->
+        <div class="menu">
+            <button class="ativo" onclick="abrirPagina('inicio')">🏠 INÍCIO</button>
+            <button onclick="abrirPagina('planilha')">📊 FARMERS</button>
+            <button onclick="abrirPagina('estoque')">📦 ESTOQUE</button>
+            <button onclick="abrirPagina('caixa')">💰 CAIXA</button>
+            <button onclick="abrirPagina('saidas')">📋 SAÍDAS DO DIA</button>
+        </div>
+
+        <!-- ==================== PÁGINA INÍCIO ==================== -->
+        <div id="pagina-inicio">
+            <div class="top-farmer">
+                <h3>🏆 FARMER COM MAIS FRAGMENTOS</h3>
+                <div id="top-farmer-nome" class="nome">Nenhum registro ainda</div>
+                <div id="top-farmer-qtd" class="qtd"></div>
+            </div>
+
+            <div class="cards">
+                <div class="card dourado">
+                    <div class="valor" id="card-total-frags">0</div>
+                    <div class="label">Total Fragmentos</div>
+                </div>
+                <div class="card verde">
+                    <div class="valor" id="card-caixa">R$ 0,00</div>
+                    <div class="label">Caixa da Fac</div>
+                </div>
+                <div class="card azul">
+                    <div class="valor" id="card-estoque">0</div>
+                    <div class="label">Em Estoque</div>
+                </div>
+                <div class="card roxo">
+                    <div class="valor" id="card-saidas">0</div>
+                    <div class="label">Saídas do Dia</div>
+                </div>
+            </div>
+
+            <div class="secao">
+                <h2>📋 Últimos Farmers</h2>
+                <div id="ultimos-farmers"></div>
+            </div>
+        </div>
+
+        <!-- ==================== PLANILHA DE FARMERS ==================== -->
+        <div id="pagina-planilha" class="escondido">
+            <div class="secao">
+                <h2>📊 PLANILHA DE FARMERS</h2>
+                
+                <div class="form-linha" id="area-form-planilha">
+                    <input type="text" id="nome-pessoa" placeholder="Nome da pessoa">
+                    <input type="number" id="qtd-pessoa" placeholder="Quantidade" min="0">
+                    <button onclick="adicionarPessoa()">➕ ADICIONAR</button>
+                    <button id="btn-cancelar-edicao" class="escondido" onclick="cancelarEdicao()">✖ CANCELAR</button>
+                </div>
+                <p id="msg-planilha" class="sucesso erro"></p>
+
+                <input type="text" id="pesquisa-planilha" class="pesquisa" placeholder="🔍 Pesquisar nome..." oninput="carregarPlanilha()">
+
+                <div class="tabela-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nº</th>
+                                <th>Nome</th>
+                                <th>Quantidade</th>
+                                <th class="coluna-acao">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-planilha"></tbody>
+                    </table>
+                </div>
+
+                <div class="total-linha">💰 TOTAL GERAL: <span id="total-planilha">0</span> fragmentos</div>
+            </div>
+        </div>
+
+        <!-- ==================== ESTOQUE DE FRAGMENTOS ==================== -->
+        <div id="pagina-estoque" class="escondido">
+            <div class="secao">
+                <h2>📦 CONTROLE DE ESTOQUE</h2>
+                
+                <div class="cards" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card dourado">
+                        <div class="valor" id="estoque-atual">0</div>
+                        <div class="label">Fragmentos em Estoque</div>
+                    </div>
+                    <div class="card">
+                        <div class="valor" id="valor-unitario">R$ 0,00</div>
+                        <div class="label">Valor Unitário</div>
+                    </div>
+                </div>
+
+                <div class="form-linha" id="area-form-estoque">
+                    <input type="number" id="qtd-entrada" placeholder="Qtd. Entrada" min="0">
+                    <button onclick="adicionarEstoque()">📥 ENTRADA</button>
+                    <input type="number" id="qtd-saida" placeholder="Qtd. Saída" min="0">
+                    <button onclick="retirarEstoque()">📤 SAÍDA</button>
+                </div>
+                <div class="form-linha" id="area-form-valor" style="margin-top: 8px;">
+                    <input type="number" id="novo-valor" placeholder="Valor unitário R$" step="0.01">
+                    <button onclick="atualizarValor()">💲 ATUALIZAR VALOR</button>
+                </div>
+                <p id="msg-estoque" class="sucesso erro"></p>
+            </div>
+
+            <div class="secao">
+                <h2>📜 HISTÓRICO DE MOVIMENTAÇÕES</h2>
+                <div class="tabela-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Tipo</th>
+                                <th>Quantidade</th>
+                                <th>Saldo Após</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-estoque"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== CAIXA DA FACÇÃO ==================== -->
+        <div id="pagina-caixa" class="escondido">
+            <div class="secao">
+                <h2>💰 CAIXA DA FACÇÃO</h2>
+                <p style="font-size:28px; font-weight:bold; color:#22c55e; margin-bottom:15px;" id="saldo-atual">R$ 0,00</p>
+                
+                <div class="form-linha" id="area-form-caixa">
+                    <input type="number" id="valor-caixa" placeholder="Valor R$" min="0" step="0.01">
+                    <input type="text" id="descricao-caixa" placeholder="Descrição">
+                </div>
+                <div class="form-linha" id="area-form-botoes-caixa">
+                    <button onclick="registrarEntrada()">📥 ENTRADA</button>
+                    <button onclick="registrarSaida()" style="background:#3b0000; color:#ff4444;">📤 SAÍDA</button>
+                </div>
+                <p id="msg-caixa" class="sucesso erro"></p>
+            </div>
+
+            <div class="secao">
+                <h2>📜 MOVIMENTAÇÕES</h2>
+                <div class="tabela-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Tipo</th>
+                                <th>Descrição</th>
+                                <th>Valor</th>
+                                <th class="coluna-acao">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-caixa"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SAÍDAS DO DIA ==================== -->
+        <div id="pagina-saidas" class="escondido">
+            <div class="secao">
+                <h2>📋 SAÍDAS DO DIA — CONTROLE DE VALORES</h2>
+                
+                <div class="form-linha" id="area-form-saidas">
+                    <input type="number" id="saida-qtd" placeholder="Qtd. Fragmentos" min="0">
+                    <input type="text" id="saida-responsavel" placeholder="Responsável">
+                    <input type="date" id="saida-data">
+                    <button onclick="registrarSaidaDia()">➕ ADICIONAR</button>
+                </div>
+                <p id="msg-saidas" class="sucesso erro"></p>
+
+                <div class="tabela-container" style="margin-top: 15px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Qtd. Saída</th>
+                                <th>Valor Unit.</th>
+                                <th>Valor Total</th>
+                                <th>Responsável</th>
+                                <th class="coluna-acao">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-saidas"></tbody>
+                    </table>
+                </div>
+
+                <div class="total-linha" style="margin-top: 15px;">
+                    📅 TOTAL DO DIA: <span id="total-saidas-qtd">0</span> fragmentos | 
+                    💰 VALOR TOTAL: <span id="total-saidas-valor">R$ 0,00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+let indiceEdicao = -1;
+let usuarioLogado = null;
+let ehAdmin = false;
+
+// ======================================
+// 🔑 LISTA DE USUÁRIOS — EDITE AQUI!
+// ======================================
+const listaUsuarios = [
+    { usuario: 'ADMIN', senha: '123477', tipo: 'admin' },
+    { usuario: 'VISITANTE', senha: '1234', tipo: 'visitante' }
+];
+
+// ======================================
+// LOGIN
+// ======================================
+function fazerLogin() {
+    const usuario = document.getElementById('usuario').value.toUpperCase().trim();
+    const senha = document.getElementById('senha').value;
+    
+    const encontrado = listaUsuarios.find(u => u.usuario === usuario && u.senha === senha);
+    
+    if (encontrado) {
+        usuarioLogado = encontrado.usuario;
+        ehAdmin = encontrado.tipo === 'admin';
+        
+        document.getElementById('tela-login').classList.add('escondido');
+        document.getElementById('tela-painel').classList.remove('escondido');
+        document.getElementById('nome-usuario').textContent = ehAdmin 
+            ? `👑 ${usuarioLogado} — ADMINISTRADOR` 
+            : `👁️ ${usuarioLogado} — MODO VISUALIZAÇÃO`;
+        
+        inicializarDados();
+        aplicarPermissoes();
+        atualizarTudo();
+    } else {
+        document.getElementById('erro-login').textContent = '❌ Usuário ou senha inválidos';
+    }
+}
+
+function sair() {
+    usuarioLogado = null;
+    ehAdmin = false;
+    document.getElementById('tela-login').classList.remove('escondido');
+    document.getElementById('tela-painel').classList.add('escondido');
+    document.getElementById('usuario').value = '';
+    document.getElementById('senha').value = '';
+    document.getElementById('erro-login').textContent = '';
+}
+
+// ======================================
+// 🔒 APLICAR PERMISSÕES — BLOQUEIA TUDO PARA VISITANTE
+// ======================================
+function aplicarPermissoes() {
+    const aviso = document.getElementById('aviso-visualizacao');
+    
+    if (!ehAdmin) {
+        aviso.classList.remove('escondido');
+        
+        // Desabilita TODOS os formulários e botões de ação
+        desabilitarArea('area-form-planilha');
+        desabilitarArea('area-form-estoque');
+        desabilitarArea('area-form-valor');
+        desabilitarArea('area-form-caixa');
+        desabilitarArea('area-form-botoes-caixa');
+        desabilitarArea('area-form-saidas');
+    } else {
+        aviso.classList.add('escondido');
+    }
+}
+
+function desabilitarArea(idContainer) {
+    const container = document.getElementById(idContainer);
+    if (!container) return;
+    
+    const inputs = container.querySelectorAll('input, button');
+    inputs.forEach(el => el.disabled = true);
+}
+
+// ======================================
+// NAVEGAÇÃO
+// ======================================
+function abrirPagina(nome) {
+    // Esconde todas
+    document.querySelectorAll('[id^="pagina-"]').forEach(p => p.classList.add('escondido'));
+    // Mostra a selecionada
+    document.getElementById(`pagina-${nome}`).classList.remove('escondido');
+    // Ativa botão do menu
+    document.querySelectorAll('.menu button').forEach(btn => btn.classList.remove('ativo'));
+    event.target.classList.add('ativo');
+    
+    // Carrega dados da página
+    if (nome === 'planilha') carregarPlanilha();
+    if (nome === 'estoque') carregarEstoque();
+    if (nome === 'caixa') carregarCaixa();
+    if (nome === 'saidas') carregarSaidasDia();
+}
+
+function inicializarDados() {
+    if (!localStorage.getItem('estoqueAtual')) localStorage.setItem('estoqueAtual', '0');
+    if (!localStorage.getItem('valorUnitario')) localStorage.setItem('valorUnitario', '0');
+    if (!localStorage.getItem('historicoEstoque')) localStorage.setItem('historicoEstoque', '[]');
+    if (!localStorage.getItem('planilhaFarmers')) localStorage.setItem('planilhaFarmers', '[]');
+    if (!localStorage.getItem('registrosCaixa')) localStorage.setItem('registrosCaixa', '[]');
+    if (!localStorage.getItem('saidasDia')) localStorage.setItem('saidasDia', '[]');
+}
+
+// ======================================
+// PLANILHA DE FARMERS
+// ======================================
+function adicionarPessoa() {
+    if (!ehAdmin) return;
+    const nome = document.getElementById('nome-pessoa').value.trim();
+    const qtd = parseInt(document.getElementById('qtd-pessoa').value);
+    const msg = document.getElementById('msg-planilha');
+
+    if (!nome || isNaN(qtd)) {
+        msg.textContent = '❌ Preencha todos os campos!';
+        msg.className = 'erro';
+        return;
+    }
+
+    let planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+
+    if (indiceEdicao >= 0) {
+        planilha[indiceEdicao] = { nome, quantidade: qtd, data: new Date().toLocaleDateString('pt-BR') };
+        msg.textContent = '✅ Atualizado com sucesso!';
+        indiceEdicao = -1;
+        document.getElementById('btn-cancelar-edicao').classList.add('escondido');
+    } else {
+        planilha.unshift({ nome, quantidade: qtd, data: new Date().toLocaleDateString('pt-BR') });
+        msg.textContent = '✅ Adicionado com sucesso!';
+    }
+
+    msg.className = 'sucesso';
+    localStorage.setItem('planilhaFarmers', JSON.stringify(planilha));
+    document.getElementById('nome-pessoa').value = '';
+    document.getElementById('qtd-pessoa').value = '';
+    carregarPlanilha();
+    atualizarTudo();
+    
+    setTimeout(() => msg.textContent = '', 3000);
+}
+
+function carregarPlanilha() {
+    const corpo = document.getElementById('corpo-planilha');
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+    const pesquisa = document.getElementById('pesquisa-planilha').value.toLowerCase();
+
+    let filtrado = planilha.filter(p => (p.nome || '').toLowerCase().includes(pesquisa));
+
+    if (filtrado.length === 0) {
+        corpo.innerHTML = '<tr><td colspan="4" style="color:#737373; text-align:center;">Nenhum registro</td></tr>';
+        document.getElementById('total-planilha').textContent = '0';
+        return;
+    }
+
+    corpo.innerHTML = filtrado.map((p, i) => {
+        const indiceReal = planilha.indexOf(p);
+        return `
+        <tr>
+            <td><strong>${indiceReal + 1}</strong></td>
+            <td>${p.nome}</td>
+            <td style="color: #facc15; font-weight:bold;">${p.quantidade}</td>
+            <td class="coluna-acao">
+                <button class="btn-editar" onclick="editarPessoa(${indiceReal})" ${!ehAdmin ? 'disabled' : ''}>✏</button>
+                <button class="btn-excluir" onclick="apagarPessoa(${indiceReal})" ${!ehAdmin ? 'disabled' : ''}>🗑</button>
+            </td>
+        </tr>`;
+    }).join('');
+
+    const total = planilha.reduce((s, p) => s + p.quantidade, 0);
+    document.getElementById('total-planilha').textContent = total;
+}
+
+function editarPessoa(indice) {
+    if (!ehAdmin) return;
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+    const p = planilha[indice];
+    document.getElementById('nome-pessoa').value = p.nome;
+    document.getElementById('qtd-pessoa').value = p.quantidade;
+    indiceEdicao = indice;
+    document.getElementById('btn-cancelar-edicao').classList.remove('escondido');
+    document.getElementById('msg-planilha').textContent = '';
+}
+
+function cancelarEdicao() {
+    indiceEdicao = -1;
+    document.getElementById('nome-pessoa').value = '';
+    document.getElementById('qtd-pessoa').value = '';
+    document.getElementById('btn-cancelar-edicao').classList.add('escondido');
+    document.getElementById('msg-planilha').textContent = '';
+}
+
+function apagarPessoa(indice) {
+    if (!ehAdmin) return;
+    if (!confirm('❌ Tem certeza?')) return;
+    let planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+    planilha.splice(indice, 1);
+    localStorage.setItem('planilhaFarmers', JSON.stringify(planilha));
+    carregarPlanilha();
+    atualizarTudo();
+}
+
+// ======================================
+// ESTOQUE
+// ======================================
+function adicionarEstoque() {
+    if (!ehAdmin) return;
+    const qtd = parseInt(document.getElementById('qtd-entrada').value);
+    const msg = document.getElementById('msg-estoque');
+    if (isNaN(qtd)) { msg.textContent = '❌ Digite uma quantidade!'; msg.className = 'erro'; return; }
+    
+    let atual = parseInt(localStorage.getItem('estoqueAtual') || '0');
+    let historico = JSON.parse(localStorage.getItem('historicoEstoque') || '[]');
+    
+    atual += qtd;
+    historico.unshift({
+        data: new Date().toLocaleString('pt-BR'),
+        tipo: 'ENTRADA',
+        quantidade: qtd,
+        saldoApos: atual
+    });
+    
+    localStorage.setItem('estoqueAtual', atual.toString());
+    localStorage.setItem('historicoEstoque', JSON.stringify(historico));
+    msg.textContent = `✅ +${qtd} fragmentos adicionados!`;
+    msg.className = 'sucesso';
+    document.getElementById('qtd-entrada').value = '';
+    carregarEstoque();
+    atualizarTudo();
+    setTimeout(() => msg.textContent = '', 3000);
+}
+
+function retirarEstoque() {
+    if (!ehAdmin) return;
+    const qtd = parseInt(document.getElementById('qtd-saida').value);
+    const msg = document.getElementById('msg-estoque');
+    let atual = parseInt(localStorage.getItem('estoqueAtual') || '0');
+    
+    if (isNaN(qtd)) { msg.textContent = '❌ Digite uma quantidade!'; msg.className = 'erro'; return; }
+    if (qtd > atual) { msg.textContent = '❌ Estoque insuficiente!'; msg.className = 'erro'; return; }
+    
+    let historico = JSON.parse(localStorage.getItem('historicoEstoque') || '[]');
+    atual -= qtd;
+    historico.unshift({
+        data: new Date().toLocaleString('pt-BR'),
+        tipo: 'SAÍDA',
+        quantidade: qtd,
+        saldoApos: atual
+    });
+    
+    localStorage.setItem('estoqueAtual', atual.toString());
+    localStorage.setItem('historicoEstoque', JSON.stringify(historico));
+    msg.textContent = `✅ -${qtd} fragmentos retirados!`;
+    msg.className = 'sucesso';
+    document.getElementById('qtd-saida').value = '';
+    carregarEstoque();
+    atualizarTudo();
+    setTimeout(() => msg.textContent = '', 3000);
+}
+
+function atualizarValor() {
+    if (!ehAdmin) return;
+    const valor = parseFloat(document.getElementById('novo-valor').value);
+    const msg = document.getElementById('msg-estoque');
+    if (isNaN(valor) || valor <= 0) {
+        msg.textContent = '❌ Digite um valor válido!';
+        msg.className = 'erro';
+        return;
+    }
+    localStorage.setItem('valorUnitario', valor.toString());
+    msg.textContent = `✅ Valor atualizado: R$ ${valor.toFixed(2).replace('.', ',')}`;
+    msg.className = 'sucesso';
+    document.getElementById('novo-valor').value = '';
+    carregarEstoque();
+    atualizarTudo();
+    setTimeout(() => msg.textContent = '', 3000);
+}
+
+function carregarEstoque() {
+    const estoque = parseInt(localStorage.getItem('estoqueAtual') || '0');
+    const valor = parseFloat(localStorage.getItem('valorUnitario') || '0');
+    const historico = JSON.parse(localStorage.getItem('historicoEstoque') || '[]');
+    
+    document.getElementById('estoque-atual').textContent = estoque;
+    document.getElementById('valor-unitario').textContent = formatarDinheiro(valor);
+    
+    const corpo = document.getElementById('corpo-estoque');
+    if (historico.length === 0) {
+        corpo.innerHTML = '<tr><td colspan="4" style="color:#737373; text-align:center;">Nenhum movimento</td></tr>';
+        return;
+    }
+    corpo.innerHTML = historico.map(m => `
+        <tr>
+            <td>${m.data}</td>
+            <td style="color:${m.tipo === 'ENTRADA' ? '#22c55e' : '#ef4444'}; font-weight:bold;">${m.tipo}</td>
+            <td>${m.quantidade}</td>
+            <td>${m.saldoApos}</td>
+        </tr>
+    `).join('');
+}
+
+// ======================================
+// CAIXA
+// ======================================
+function registrarEntrada() {
+    if (!ehAdmin) return;
+    const valor = parseFloat(document.getElementById('valor-caixa').value);
+    const desc = document.getElementById('descricao-caixa').value.trim();
+    const msg = document.getElementById('msg-caixa');
+    if (isNaN(valor) || valor < 0 || !desc) {
+        msg.textContent = '❌ Preencha todos os campos!';
+        msg.className = 'erro';
+        return;
+    }
+    
+    let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    caixa.unshift({ tipo: 'ENTRADA', valor, descricao: desc, data: new Date().toLocaleString('pt-BR') });
+    localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
+    
+    msg.textContent = '✅ Entrada registrada!';
+    msg.className = 'sucesso';
+    document.getElementById('valor-caixa').value = '';
+    document.getElementById('descricao-caixa').value = '';
+    carregarCaixa();
+    atualizarTudo();
+    setTimeout(() => msg.textContent = '', 3000);
+}
+
+function registrarSaida() {
+    if (!ehAdmin) return;
+    const valor = parseFloat(document.getElementById('valor-caixa').value);
+    const desc = document.getElementById('descricao-caixa').value.trim();
+    const msg = document.getElementById('msg-caixa');
+    if (isNaN(valor) || valor < 0 || !desc) {
+        msg.textContent = '❌ Preencha todos os campos!';
+        msg.className = 'erro';
+        return;
+    }
+    
+    let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    caixa.unshift({ tipo: 'SAÍDA', valor, descricao: desc, data: new Date().toLocaleString('pt-BR') });
+    localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
+    
+    msg.textContent = '✅ Saída registrada!';
+    msg.className = 'sucesso';
+    document.getElementById('valor-caixa').value = '';
+    document.getElementById('descricao-caixa').value = '';
+    carregarCaixa();
+    atualizarTudo();
+    setTimeout(() => msg.textContent = '', 3000);
+}
+
+function calcularSaldoCaixa() {
+    const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    return caixa.reduce((s, m) => m.tipo === 'ENTRADA' ? s + m.valor : s - m.valor, 0);
+}
+
+function apagarMovimentoCaixa(indice) {
+    if (!ehAdmin) return;
+    if (!confirm('❌ Excluir este registro?')) return;
+    let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    caixa.splice(indice, 1);
+    localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
+    carregarCaixa();
+    atualizarTudo();
+}
+
+function carregarCaixa() {
+    const saldo = calcularSaldoCaixa();
+    document.getElementById('saldo-atual').textContent = formatarDinheiro(saldo);
+    
+    const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    const corpo = document.getElementById('corpo-caixa');
+    if (caixa.length === 0) {
+        corpo.innerHTML = '<tr><td colspan="5" style="color:#737373; text-align:center;">Nenhuma movimentação</td></tr>';
+        return;
+    }
+    corpo.innerHTML = caixa.map((m, i) => {
+        const cor = m.tipo === 'ENTRADA' ? '#22c55e' : '#ef4444';
+        return `
+        <tr>
+            <td>${m.data}</td>
+            <td style="color:${cor}; font-weight:bold;">${m.tipo}</td>
+            <td>${m.descricao}</td>
+            <td>${formatarDinheiro(m.valor)}</td>
+            <td class="coluna-acao">
+                <button class="btn-excluir" onclick="apagarMovimentoCaixa(${i})" ${!ehAdmin ? 'disabled' : ''}>🗑</button>
+            </td>
+        </tr>`;
+    }).join('');
+}
+
+// ======================================
+// SAÍDAS DO DIA
+// ======================================
+function registrarSaidaDia() {
+    if (!ehAdmin) return;
+    const qtd = parseInt(document.getElementById('saida-qtd').value);
+    const resp = document.getElementById('saida-responsavel').value.trim();
+    let data = document.getElementById('saida-data').value;
+    const msg = document.getElementById('msg-saidas');
+    const valorUnitario = parseFloat(localStorage.getItem('valorUnitario') || '0');
+    
+    if (isNaN(qtd) || !resp || !data) {
+        msg.textContent = '❌ Preencha todos os campos!';
+        msg.className = 'erro';
+        return;
+    }
+    
+    const partes = data.split('-');
+    data = `${partes[2]}/${partes[1]}/${partes[0]}`;
+    const valorTotal = qtd * valorUnitario;
+    
+    let saidas = JSON.parse(localStorage.getItem('saidasDia') || '[]');
+    saidas.unshift({ data, quantidade: qtd, valorUnitario, valorTotal, responsavel: resp });
+    localStorage.setItem('saidasDia', JSON.stringify(saidas));
+    
+    msg.textContent = `✅ Saída registrada! Valor: ${formatarDinheiro(valorTotal)}`;
+    msg.className = 'sucesso';
+    
+    document.getElementById('saida-qtd').value = '';
+    document.getElementById('saida-responsavel').value = '';
+    document.getElementById('saida-data').value = '';
+    
+    carregarSaidasDia();
+    atualizarTudo();
+    setTimeout(() => msg.textContent = '', 3000);
+}
+
+function apagarSaidaDia(indice) {
+    if (!ehAdmin) return;
+    if (!confirm('❌ Excluir este registro?')) return;
+    let saidas = JSON.parse(localStorage.getItem('saidasDia') || '[]');
+    saidas.splice(indice, 1);
+    localStorage.setItem('saidasDia', JSON.stringify(saidas));
+    carregarSaidasDia();
+    atualizarTudo();
+}
+
+function carregarSaidasDia() {
+    const saidas = JSON.parse(localStorage.getItem('saidasDia') || '[]');
+    const valorUnitario = parseFloat(localStorage.getItem('valorUnitario') || '0');
+    
+    const hoje = new Date().toISOString().split('T')[0];
+    document.getElementById('saida-data').value = hoje;
+    
+    const corpo = document.getElementById('corpo-saidas');
+    if (saidas.length === 0) {
+        corpo.innerHTML = '<tr><td colspan="6" style="color:#737373; text-align:center;">Nenhuma saída registrada</td></tr>';
+        document.getElementById('total-saidas-qtd').textContent = '0';
+        document.getElementById('total-saidas-valor').textContent = 'R$ 0,00';
+        return;
+    }
+    
+    corpo.innerHTML = saidas.map((s, i) => `
+        <tr>
+            <td>${s.data}</td>
+            <td style="color: #facc15; font-weight:bold;">${s.quantidade}</td>
+            <td>${formatarDinheiro(s.valorUnitario || valorUnitario)}</td>
+            <td style="color: #22c55e; font-weight:bold;">${formatarDinheiro(s.valorTotal || s.quantidade * (s.valorUnitario || valorUnitario))}</td>
+            <td>${s.responsavel}</td>
+            <td class="coluna-acao">
+                <button class="btn-excluir" onclick="apagarSaidaDia(${i})" ${!ehAdmin ? 'disabled' : ''}>🗑</button>
+            </td>
+        </tr>`
+    ).join('');
+    
+    const totalQtd = saidas.reduce((sum, item) => sum + item.quantidade, 0);
+    const totalValor = saidas.reduce((sum, item) => sum + (item.valorTotal || item.quantidade * (item.valorUnitario || valorUnitario)), 0);
+    document.getElementById('total-saidas-qtd').textContent = totalQtd;
+    document.getElementById('total-saidas-valor').textContent = formatarDinheiro(totalValor);
+}
+
+// ======================================
+// TOP FARMER
+// ======================================
+function calcularTopFarmer() {
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+    if (planilha.length === 0) {
+        document.getElementById('top-farmer-nome').textContent = 'Nenhum registro ainda';
+        document.getElementById('top-farmer-qtd').textContent = '';
+        return;
+    }
+    
+    const somaPorNome = {};
+    planilha.forEach(p => {
+        if (somaPorNome[p.nome]) {
+            somaPorNome[p.nome] += p.quantidade;
+        } else {
+            somaPorNome[p.nome] = p.quantidade;
+        }
+    });
+    
+    let topNome = '';
+    let topQtd = 0;
+    for (const nome in somaPorNome) {
+        if (somaPorNome[nome] > topQtd) {
+            topQtd = somaPorNome[nome];
+            topNome = nome;
+        }
+    }
+    
+    document.getElementById('top-farmer-nome').textContent = topNome;
+    document.getElementById('top-farmer-qtd').textContent = `${topQtd} fragmentos formados`;
+}
+
+// ======================================
+// ATUALIZAR TUDO
+// ======================================
+function atualizarTudo() {
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+    const estoque = parseInt(localStorage.getItem('estoqueAtual') || '0');
+    const saidas = JSON.parse(localStorage.getItem('saidasDia') || '[]');
+    
+    const totalFrags = planilha.reduce((s, p) => s + p.quantidade, 0);
+    const totalSaidas = saidas.reduce((s, item) => s + item.quantidade, 0);
+    const saldoCaixa = calcularSaldoCaixa();
+    
+    document.getElementById('card-total-frags').textContent = totalFrags;
+    document.getElementById('card-caixa').textContent = formatarDinheiro(saldoCaixa);
+    document.getElementById('card-estoque').textContent = estoque;
+    document.getElementById('card-saidas').textContent = totalSaidas;
+    
+    calcularTopFarmer();
+    carregarUltimosFarmers();
+}
+
+function carregarUltimosFarmers() {
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+    const div = document.getElementById('ultimos-farmers');
+    if (planilha.length === 0) {
+        div.innerHTML = '<p style="color:#737373; font-size:14px;">Nenhum registro ainda</p>';
+        return;
+    }
+    div.innerHTML = planilha.slice(0, 5).map((p, i) => 
+        `<div style="padding:6px 0; border-bottom:1px solid #252525;">
+            <strong>${i + 1}</strong> — ${p.nome}: <span style="color:#facc15">${p.quantidade} frags</span>
+        </div>`
+    ).join('');
+}
+
+function formatarDinheiro(valor) {
+    return 'R$ ' + valor.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+</script>
+</body>
+</html>

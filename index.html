@@ -3,173 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOJA CAOS 77</title>
+    <title>SISTEMA DE GESTÃO</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
         body {
-            background: linear-gradient(135deg, #1a1a1a, #333);
+            background: #0a0a0a;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: #e5e5e5;
             padding: 20px;
         }
-        .caixa-login, .caixa-painel, .caixa-pagina {
-            background: #222;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(255, 100, 0, 0.4);
-            text-align: center;
+        .caixa-login {
+            background: #171717;
+            padding: 45px;
+            border-radius: 6px;
+            border: 1px solid #262626;
             width: 100%;
-            max-width: 450px;
+            max-width: 400px;
+            text-align: center;
         }
-        h1 { color: #ff6a00; margin-bottom: 10px; font-size: 24px; }
-        h2 { color: #ff6a00; margin-bottom: 20px; font-size: 20px; }
-        p { color: #aaa; margin-bottom: 20px; }
+        .caixa-painel {
+            background: #0a0a0a;
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+        }
+        h1 { color: #ffffff; font-size: 28px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
+        .subtitulo { color: #737373; font-size: 14px; margin-bottom: 30px; }
         input {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             margin: 8px 0;
-            border: none;
-            border-radius: 6px;
-            background: #333;
-            color: white;
-            font-size: 16px;
+            border: 1px solid #333333;
+            border-radius: 4px;
+            background: #111111;
+            color: #ffffff;
+            font-size: 15px;
         }
+        input:focus { outline: none; border-color: #444444; }
         button {
             width: 100%;
             padding: 14px;
-            margin-top: 10px;
+            margin-top: 12px;
             border: none;
-            border-radius: 6px;
-            background: #ff6a00;
+            border-radius: 4px;
+            background: #262626;
             color: white;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        button:hover { background: #e05c00; }
-        .btn-secundario { background: #444; }
-        .btn-secundario:hover { background: #555; }
-        .botoes button { background: #444; margin: 8px 0; }
-        .botoes button:hover { background: #555; }
+        button:hover { background: #333333; }
         .escondido { display: none !important; }
+        .erro { color: #ef4444; margin-top: 12px; font-size: 14px; }
+
+        /* PAINEL */
+        .cabecalho-painel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #1f1f1f;
+        }
+        .cabecalho-painel h1 { font-size: 20px; letter-spacing: 1px; }
+        .btn-sair { width: auto; padding: 8px 20px; background: #1f1f1f; text-transform: none; letter-spacing: 0; }
+        .btn-sair:hover { background: #2f2f2f; }
+        .menu {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .menu button {
+            width: auto;
+            padding: 10px 16px;
+            background: #171717;
+            border: 1px solid #262626;
+            margin: 0;
+            font-size: 14px;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .menu button:hover { background: #222222; border-color: #333333; }
+        .menu button.ativo { background: #1f1f1f; border-color: #404040; }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
         .card {
-            background: #333;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            text-align: left;
+            background: #171717;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #262626;
+            text-align: center;
         }
-        .card strong { color: #ff6a00; }
-        .sucesso { color: #00ff88; margin-top: 10px; }
-        .erro { color: #ff4444; margin-top: 10px; }
-        .saldo-grande {
-            font-size: 32px;
-            font-weight: bold;
-            color: #00ff88;
-            margin: 15px 0;
+        .card .valor { font-size: 28px; font-weight: bold; color: #ffffff; margin-bottom: 5px; }
+        .card .label { font-size: 13px; color: #737373; text-transform: uppercase; }
+        .card.destaque .valor { color: #facc15; }
+        .card.verde .valor { color: #22c55e; }
+        .card.vermelho .valor { color: #ef4444; }
+        .secao {
+            background: #171717;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #262626;
+            margin-bottom: 20px;
         }
-        .lista-registros {
-            max-height: 250px;
-            overflow-y: auto;
-            margin-top: 15px;
+        .secao h2 {
+            font-size: 15px;
+            color: #d4d4d4;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #262626;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .item-registro {
-            background: #3a3a3a;
-            padding: 10px;
-            border-radius: 6px;
+            background: #111111;
+            padding: 12px;
+            border-radius: 4px;
             margin-bottom: 8px;
-            font-size: 14px;
+            border-left: 2px solid #333333;
         }
-        .apagar {
-            background: #ff4444;
-            padding: 6px 10px;
-            font-size: 12px;
+        .linha {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .sucesso { color: #22c55e; margin-top: 10px; font-size: 14px; }
+        .btn-excluir {
             width: auto;
-            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+            background: #262626;
+            color: #ef4444;
+            border: none;
+            margin: 0;
         }
-        .apagar:hover { background: #cc0000; }
+        .btn-excluir:hover { background: #333333; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media(max-width: 600px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- TELA DE LOGIN -->
     <div id="tela-login" class="caixa-login">
-        <h1>🔥 LOJA CAOS 77</h1>
-        <p>Controle de Farm & Caixa</p>
-        <input type="text" id="usuario" placeholder="Usuário">
-        <input type="password" id="senha" placeholder="Senha">
+        <h1>LOJA CAOS 77</h1>
+        <p class="subtitulo">Controle Interno — Área Restrita</p>
+        <input type="text" id="usuario" placeholder="USUÁRIO">
+        <input type="password" id="senha" placeholder="SENHA">
         <button onclick="fazerLogin()">ENTRAR</button>
-        <p id="erro-login"></p>
+        <p id="erro-login" class="erro"></p>
     </div>
 
+    <!-- PAINEL PRINCIPAL -->
     <div id="tela-painel" class="caixa-painel escondido">
-        <h1>🔥 BEM-VINDO AO PAINEL</h1>
-        <p>LOJA CAOS 77 — Controle de Farm & Caixa</p>
-        <div class="botoes">
-            <button onclick="abrirPagina('farm')">📋 CONTROLE DE FARM</button>
-            <button onclick="abrirPagina('caixa')">💰 REGISTRO DE CAIXA</button>
-            <button onclick="abrirPagina('relatorios')">📊 RELATÓRIOS</button>
-            <button onclick="sair()" class="btn-secundario">🚪 SAIR</button>
+        <div class="cabecalho-painel">
+            <h1>LOJA CAOS 77 — CONTROLE</h1>
+            <button class="btn-sair" onclick="sair()">Sair</button>
         </div>
-    </div>
 
-    <div id="tela-farm" class="caixa-pagina escondido">
-        <h2>📋 CONTROLE DE FARM</h2>
-        <input type="date" id="data-farm">
-        <input type="number" id="qtd-fragmentos" placeholder="Quantidade de fragmentos produzidos" min="0">
-        <button onclick="registrarFarm()">✅ REGISTRAR</button>
-        <p id="msg-farm"></p>
-        <h3 style="margin-top:20px; color:#aaa;">Últimos Registros</h3>
-        <div id="lista-farm" class="lista-registros"></div>
-        <button onclick="voltarPainel()" class="btn-secundario" style="margin-top:15px;">⬅️ VOLTAR</button>
-    </div>
+        <div class="menu">
+            <button class="ativo" onclick="abrirPagina('inicio')">Início</button>
+            <button onclick="abrirPagina('farm')">Material</button>
+            <button onclick="abrirPagina('caixa')">Caixa</button>
+            <button onclick="abrirPagina('relatorios')">Relatórios</button>
+        </div>
 
-    <div id="tela-caixa" class="caixa-pagina escondido">
-        <h2>💰 CAIXA DA EMPRESA</h2>
-        <p style="font-size:16px; color:#aaa;">Saldo Atual</p>
-        <div class="saldo-grande" id="saldo-atual">R$ 0,00</div>
-        <input type="number" id="valor-movimento" placeholder="Valor (R$)" min="0" step="0.01">
-        <input type="text" id="descricao-movimento" placeholder="Descrição">
-        <button onclick="registrarEntrada()">⬆️ ENTRADA</button>
-        <button onclick="registrarSaida()" class="btn-secundario">⬇️ SAÍDA</button>
-        <p id="msg-caixa"></p>
-        <h3 style="margin-top:20px; color:#aaa;">Movimentações</h3>
-        <div id="lista-caixa" class="lista-registros"></div>
-        <button onclick="voltarPainel()" class="btn-secundario" style="margin-top:15px;">⬅️ VOLTAR</button>
-    </div>
+        <!-- INÍCIO -->
+        <div id="pagina-inicio">
+            <div class="cards">
+                <div class="card destaque">
+                    <div class="valor" id="total-frags">0</div>
+                    <div class="label">Fragmentos</div>
+                </div>
+                <div class="card verde">
+                    <div class="valor" id="saldo-caixa">R$ 0,00</div>
+                    <div class="label">Caixa</div>
+                </div>
+                <div class="card">
+                    <div class="valor" id="dias-farm">0</div>
+                    <div class="label">Dias de Farm</div>
+                </div>
+                <div class="card">
+                    <div class="valor" id="mov-qtd">0</div>
+                    <div class="label">Movimentações</div>
+                </div>
+            </div>
 
-    <div id="tela-relatorios" class="caixa-pagina escondido">
-        <h2>📊 RELATÓRIOS</h2>
-        <div class="card">
-            <strong>📋 TOTAL DE FRAGMENTOS</strong><br>
-            <span id="total-fragmentos" style="font-size:22px;">0</span> unidades
+            <div class="secao">
+                <h2>Registros Recentes</h2>
+                <div id="ultimos-registros"></div>
+            </div>
         </div>
-        <div class="card">
-            <strong>💰 SALDO DO CAIXA</strong><br>
-            <span id="total-caixa" style="font-size:22px; color:#00ff88;">R$ 0,00</span>
+
+        <!-- FARM -->
+        <div id="pagina-farm" class="escondido">
+            <div class="secao">
+                <h2>Controle de Material</h2>
+                <input type="date" id="data-farm">
+                <input type="number" id="qtd-fragmentos" placeholder="Quantidade de fragmentos" min="0">
+                <button onclick="registrarFarm()">Registrar</button>
+                <p id="msg-farm"></p>
+            </div>
+            <div class="secao">
+                <h2>Histórico de Farm</h2>
+                <div id="lista-farm"></div>
+            </div>
         </div>
-        <div class="card">
-            <strong>📅 DIAS REGISTRADOS</strong><br>
-            <span id="dias-registrados">0</span> dias de farm
+
+        <!-- CAIXA -->
+        <div id="pagina-caixa" class="escondido">
+            <div class="secao">
+                <h2>Caixa</h2>
+                <p style="font-size:24px; font-weight:bold; color:#22c55e; margin-bottom:15px;" id="saldo-atual">R$ 0,00</p>
+                <input type="number" id="valor-movimento" placeholder="Valor" min="0" step="0.01">
+                <input type="text" id="descricao-movimento" placeholder="Descrição">
+                <div class="grid-2">
+                    <button onclick="registrarEntrada()">Entrada</button>
+                    <button onclick="registrarSaida()" style="background:#262626; border:1px solid #333;">Saída</button>
+                </div>
+                <p id="msg-caixa"></p>
+            </div>
+            <div class="secao">
+                <h2>Movimentações</h2>
+                <div id="lista-caixa"></div>
+            </div>
         </div>
-        <h3 style="margin-top:25px; color:#aaa;">📝 HISTÓRICO COMPLETO</h3>
-        <div id="historico-completo" style="margin-top:15px; text-align:left;"></div>
-        <button onclick="voltarPainel()" class="btn-secundario" style="margin-top:15px;">⬅️ VOLTAR</button>
+
+        <!-- RELATÓRIOS -->
+        <div id="pagina-relatorios" class="escondido">
+            <div class="cards">
+                <div class="card destaque">
+                    <div class="valor" id="r-frags">0</div>
+                    <div class="label">Total Fragmentos</div>
+                </div>
+                <div class="card verde">
+                    <div class="valor" id="r-caixa">R$ 0,00</div>
+                    <div class="label">Saldo</div>
+                </div>
+                <div class="card">
+                    <div class="valor" id="r-dias">0</div>
+                    <div class="label">Dias Registrados</div>
+                </div>
+            </div>
+            <div class="secao">
+                <h2>Histórico Completo</h2>
+                <div id="historico-completo"></div>
+            </div>
+        </div>
     </div>
 
 <script>
 function fazerLogin() {
     const usuario = document.getElementById('usuario').value;
     const senha = document.getElementById('senha').value;
-    if (usuario === 'LOJA-CAOS-77' && senha === '777777') {
+    if (usuario === 'LOJA CAOS 77' && senha === '123477') {
         document.getElementById('tela-login').classList.add('escondido');
         document.getElementById('tela-painel').classList.remove('escondido');
         carregarDataHoje();
+        atualizarCards();
     } else {
-        document.getElementById('erro-login').textContent = '❌ USUÁRIO OU SENHA INCORRETOS!';
+        document.getElementById('erro-login').textContent = 'Usuário ou senha inválidos';
     }
 }
 
@@ -182,21 +290,18 @@ function sair() {
 }
 
 function abrirPagina(pagina) {
-    document.getElementById('tela-painel').classList.add('escondido');
-    document.getElementById('tela-' + pagina).classList.remove('escondido');
+    document.querySelectorAll('#tela-painel > div').forEach(el => {
+        if (el.id.startsWith('pagina-')) el.classList.add('escondido');
+    });
+    document.getElementById('pagina-' + pagina).classList.remove('escondido');
+    
+    document.querySelectorAll('.menu button').forEach(btn => btn.classList.remove('ativo'));
+    event.target.classList.add('ativo');
+
     if (pagina === 'farm') carregarListaFarm();
     if (pagina === 'caixa') { atualizarSaldo(); carregarListaCaixa(); }
     if (pagina === 'relatorios') carregarRelatorios();
-}
-
-function voltarPainel() {
-    document.querySelectorAll('.caixa-pagina').forEach(el => el.classList.add('escondido'));
-    document.getElementById('tela-painel').classList.remove('escondido');
-    document.getElementById('qtd-fragmentos').value = '';
-    document.getElementById('valor-movimento').value = '';
-    document.getElementById('descricao-movimento').value = '';
-    document.getElementById('msg-farm').textContent = '';
-    document.getElementById('msg-caixa').textContent = '';
+    if (pagina === 'inicio') atualizarCards();
 }
 
 function carregarDataHoje() {
@@ -209,7 +314,7 @@ function registrarFarm() {
     const qtd = parseInt(document.getElementById('qtd-fragmentos').value);
     const msg = document.getElementById('msg-farm');
     if (!data || !qtd || qtd <= 0) {
-        msg.textContent = '❌ Preencha todos os campos!';
+        msg.textContent = 'Preencha todos os campos';
         msg.className = 'erro';
         return;
     }
@@ -217,38 +322,42 @@ function registrarFarm() {
     const indice = registros.findIndex(r => r.data === data);
     if (indice >= 0) {
         registros[indice].quantidade = qtd;
-        msg.textContent = '✅ Registro ATUALIZADO com sucesso!';
+        msg.textContent = 'Registro atualizado';
     } else {
         registros.unshift({ data: data, quantidade: qtd, criadoEm: new Date().toLocaleString('pt-BR') });
-        msg.textContent = '✅ Registrado com sucesso!';
+        msg.textContent = 'Registrado com sucesso';
     }
     msg.className = 'sucesso';
     localStorage.setItem('registrosFarm', JSON.stringify(registros));
     document.getElementById('qtd-fragmentos').value = '';
     carregarListaFarm();
+    atualizarCards();
 }
 
 function carregarListaFarm() {
     const lista = document.getElementById('lista-farm');
     const registros = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
     if (registros.length === 0) {
-        lista.innerHTML = '<p style="color:#777; font-size:14px;">Nenhum registro ainda.</p>';
+        lista.innerHTML = '<p style="color:#737373; font-size:14px;">Nenhum registro</p>';
         return;
     }
     lista.innerHTML = registros.map((r, i) => `
         <div class="item-registro">
-            <strong>${formatarData(r.data)}</strong> — ${r.quantidade} fragmentos
-            <button class="apagar" onclick="apagarFarm(${i})">🗑️</button>
+            <div class="linha">
+                <span><strong>${formatarData(r.data)}</strong> — ${r.quantidade} unidades</span>
+                <button class="btn-excluir" onclick="apagarFarm(${i})">Excluir</button>
+            </div>
         </div>
     `).join('');
 }
 
 function apagarFarm(indice) {
     let registros = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
-    if (confirm('Tem certeza que deseja apagar?')) {
+    if (confirm('Confirmar exclusão?')) {
         registros.splice(indice, 1);
         localStorage.setItem('registrosFarm', JSON.stringify(registros));
         carregarListaFarm();
+        atualizarCards();
     }
 }
 
@@ -257,19 +366,20 @@ function registrarEntrada() {
     const desc = document.getElementById('descricao-movimento').value;
     const msg = document.getElementById('msg-caixa');
     if (!valor || valor <= 0 || !desc) {
-        msg.textContent = '❌ Preencha todos os campos!';
+        msg.textContent = 'Preencha todos os campos';
         msg.className = 'erro';
         return;
     }
     let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
     caixa.unshift({ tipo: 'entrada', valor: valor, descricao: desc, data: new Date().toLocaleString('pt-BR') });
     localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
-    msg.textContent = '✅ Entrada registrada!';
+    msg.textContent = 'Entrada registrada';
     msg.className = 'sucesso';
     document.getElementById('valor-movimento').value = '';
     document.getElementById('descricao-movimento').value = '';
     atualizarSaldo();
     carregarListaCaixa();
+    atualizarCards();
 }
 
 function registrarSaida() {
@@ -277,57 +387,66 @@ function registrarSaida() {
     const desc = document.getElementById('descricao-movimento').value;
     const msg = document.getElementById('msg-caixa');
     if (!valor || valor <= 0 || !desc) {
-        msg.textContent = '❌ Preencha todos os campos!';
+        msg.textContent = 'Preencha todos os campos';
         msg.className = 'erro';
         return;
     }
     let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
     caixa.unshift({ tipo: 'saida', valor: valor, descricao: desc, data: new Date().toLocaleString('pt-BR') });
     localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
-    msg.textContent = '✅ Saída registrada!';
+    msg.textContent = 'Saída registrada';
     msg.className = 'sucesso';
     document.getElementById('valor-movimento').value = '';
     document.getElementById('descricao-movimento').value = '';
     atualizarSaldo();
     carregarListaCaixa();
+    atualizarCards();
 }
 
-function atualizarSaldo() {
+function calcularSaldo() {
     const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
     let saldo = 0;
     caixa.forEach(m => {
         if (m.tipo === 'entrada') saldo += m.valor;
         else saldo -= m.valor;
     });
-    document.getElementById('saldo-atual').textContent = formatarDinheiro(saldo);
+    return saldo;
+}
+
+function atualizarSaldo() {
+    document.getElementById('saldo-atual').textContent = formatarDinheiro(calcularSaldo());
 }
 
 function carregarListaCaixa() {
     const lista = document.getElementById('lista-caixa');
     const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
     if (caixa.length === 0) {
-        lista.innerHTML = '<p style="color:#777; font-size:14px;">Nenhuma movimentação ainda.</p>';
+        lista.innerHTML = '<p style="color:#737373; font-size:14px;">Nenhuma movimentação</p>';
         return;
     }
     lista.innerHTML = caixa.map((m, i) => `
         <div class="item-registro">
-            <strong style="color:${m.tipo === 'entrada' ? '#00ff88' : '#ff4444'}">
-                ${m.tipo === 'entrada' ? '⬆️ ENTRADA' : '⬇️ SAÍDA'}
-            </strong><br>
-            ${m.descricao}<br>
-            ${formatarDinheiro(m.valor)} — ${m.data}
-            <button class="apagar" onclick="apagarCaixa(${i})">🗑️</button>
+            <div class="linha">
+                <span>
+                    <strong style="color:${m.tipo === 'entrada' ? '#22c55e' : '#ef4444'}">
+                        ${m.tipo === 'entrada' ? 'ENTRADA' : 'SAÍDA'}
+                    </strong> — ${formatarDinheiro(m.valor)}<br>
+                    <small style="color:#737373">${m.descricao} • ${m.data}</small>
+                </span>
+                <button class="btn-excluir" onclick="apagarCaixa(${i})">Excluir</button>
+            </div>
         </div>
     `).join('');
 }
 
 function apagarCaixa(indice) {
     let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
-    if (confirm('Tem certeza que deseja apagar?')) {
+    if (confirm('Confirmar exclusão?')) {
         caixa.splice(indice, 1);
         localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
         atualizarSaldo();
         carregarListaCaixa();
+        atualizarCards();
     }
 }
 
@@ -336,40 +455,69 @@ function carregarRelatorios() {
     const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
 
     const totalFrags = farm.reduce((s, r) => s + r.quantidade, 0);
-    document.getElementById('total-fragmentos').textContent = totalFrags;
-
-    let saldo = 0;
-    caixa.forEach(m => {
-        if (m.tipo === 'entrada') saldo += m.valor;
-        else saldo -= m.valor;
-    });
-    document.getElementById('total-caixa').textContent = formatarDinheiro(saldo);
-
-    document.getElementById('dias-registrados').textContent = farm.length;
+    document.getElementById('r-frags').textContent = totalFrags;
+    document.getElementById('r-caixa').textContent = formatarDinheiro(calcularSaldo());
+    document.getElementById('r-dias').textContent = farm.length;
 
     const historico = document.getElementById('historico-completo');
     let html = '';
 
     if (farm.length === 0 && caixa.length === 0) {
-        historico.innerHTML = '<p style="color:#777;">Nenhum registro ainda.</p>';
+        historico.innerHTML = '<p style="color:#737373;">Nenhum registro</p>';
         return;
     }
 
-    html += '<h4 style="color:#ff6a00; margin:15px 0 5px 0;">📋 FARM DE FRAGMENTOS</h4>';
-    if (farm.length === 0) html += '<p style="color:#777; font-size:13px;">Sem registros</p>';
+    html += '<h3 style="color:#a3a3a3; margin:15px 0 8px 0; font-size:14px;">MATERIAL</h3>';
+    if (farm.length === 0) html += '<p style="color:#737373; font-size:13px;">Sem registros</p>';
     else farm.forEach(r => {
-        html += `<p style="font-size:13px; color:#ccc;">📅 ${formatarData(r.data)} — ${r.quantidade} fragmentos</p>`;
+        html += `<p style="font-size:13px; color:#d4d4d4; padding:4px 0;">${formatarData(r.data)} — ${r.quantidade} unidades</p>`;
     });
 
-    html += '<h4 style="color:#ff6a00; margin:20px 0 5px 0;">💰 MOVIMENTAÇÕES DE CAIXA</h4>';
-    if (caixa.length === 0) html += '<p style="color:#777; font-size:13px;">Sem movimentações</p>';
+    html += '<h3 style="color:#a3a3a3; margin:20px 0 8px 0; font-size:14px;">CAIXA</h3>';
+    if (caixa.length === 0) html += '<p style="color:#737373; font-size:13px;">Sem movimentações</p>';
     else caixa.forEach(m => {
-        const cor = m.tipo === 'entrada' ? '#00ff88' : '#ff4444';
+        const cor = m.tipo === 'entrada' ? '#22c55e' : '#ef4444';
         const tipo = m.tipo === 'entrada' ? 'ENTRADA' : 'SAÍDA';
-        html += `<p style="font-size:13px; color:#ccc;"><span style="color:${cor}">${tipo}</span>: ${m.descricao} — ${formatarDinheiro(m.valor)} (${m.data})</p>`;
+        html += `<p style="font-size:13px; color:#d4d4d4; padding:4px 0;"><span style="color:${cor}">${tipo}</span> — ${m.descricao}: ${formatarDinheiro(m.valor)}</p>`;
     });
 
     historico.innerHTML = html;
+}
+
+function atualizarCards() {
+    const farm = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
+    const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+
+    const totalFrags = farm.reduce((s, r) => s + r.quantidade, 0);
+    document.getElementById('total-frags').textContent = totalFrags;
+    document.getElementById('saldo-caixa').textContent = formatarDinheiro(calcularSaldo());
+    document.getElementById('dias-farm').textContent = farm.length;
+    document.getElementById('mov-qtd').textContent = caixa.length;
+
+    const ultimos = document.getElementById('ultimos-registros');
+    let html = '';
+    
+    const todos = [];
+    farm.forEach(r => todos.push({ tipo: 'farm', data: r.data, qtd: r.quantidade, dataObj: new Date(r.data) }));
+    caixa.forEach(m => todos.push({ tipo: 'caixa', ...m, dataObj: new Date(m.data.split('/').reverse().join('-').substr(0, 10)) }));
+    
+    todos.sort((a, b) => b.dataObj - a.dataObj);
+    const recentes = todos.slice(0, 5);
+
+    if (recentes.length === 0) {
+        ultimos.innerHTML = '<p style="color:#737373; font-size:14px;">Nenhum registro ainda</p>';
+        return;
+    }
+
+    recentes.forEach(r => {
+        if (r.tipo === 'farm') {
+            html += `<div class="item-registro"><strong>${formatarData(r.data)}</strong> — ${r.qtd} unidades</div>`;
+        } else {
+            const cor = r.tipo === 'entrada' ? '#22c55e' : '#ef4444';
+            html += `<div class="item-registro"><strong style="color:${cor}">${r.tipo === 'entrada' ? '+' : '-'}</strong> ${r.descricao} — ${formatarDinheiro(r.valor)}</div>`;
+        }
+    });
+    ultimos.innerHTML = html;
 }
 
 function formatarData(dataStr) {

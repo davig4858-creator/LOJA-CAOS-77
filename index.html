@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SISTEMA DE GESTÃO</title>
+    <title>LOJA CAOS 77</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
         body {
@@ -11,7 +11,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             color: #e5e5e5;
             padding: 20px;
         }
@@ -23,46 +23,42 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
+            margin-top: 100px;
         }
         .caixa-painel {
             background: #0a0a0a;
             width: 100%;
-            max-width: 900px;
+            max-width: 1100px;
             padding: 20px;
         }
         h1 { color: #ffffff; font-size: 28px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
         .subtitulo { color: #737373; font-size: 14px; margin-bottom: 30px; }
-        input {
-            width: 100%;
-            padding: 14px;
-            margin: 8px 0;
+        input, select {
+            padding: 12px;
+            margin: 6px 4px;
             border: 1px solid #333333;
             border-radius: 4px;
             background: #111111;
             color: #ffffff;
-            font-size: 15px;
+            font-size: 14px;
         }
-        input:focus { outline: none; border-color: #444444; }
+        input:focus, select:focus { outline: none; border-color: #444444; }
         button {
-            width: 100%;
-            padding: 14px;
-            margin-top: 12px;
+            padding: 12px 16px;
             border: none;
             border-radius: 4px;
             background: #262626;
             color: white;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
         button:hover { background: #333333; }
         .escondido { display: none !important; }
-        .erro { color: #ef4444; margin-top: 12px; font-size: 14px; }
+        .erro { color: #ef4444; margin-top: 10px; font-size: 14px; }
+        .sucesso { color: #22c55e; margin-top: 10px; font-size: 14px; }
 
-        /* PAINEL */
         .cabecalho-painel {
             display: flex;
             justify-content: space-between;
@@ -72,23 +68,18 @@
             border-bottom: 1px solid #1f1f1f;
         }
         .cabecalho-painel h1 { font-size: 20px; letter-spacing: 1px; }
-        .btn-sair { width: auto; padding: 8px 20px; background: #1f1f1f; text-transform: none; letter-spacing: 0; }
+        .btn-sair { padding: 8px 20px; background: #1f1f1f; }
         .btn-sair:hover { background: #2f2f2f; }
         .menu {
             display: flex;
             gap: 10px;
             margin-bottom: 25px;
-            flex-wrap: wrap;
+            flex-wrap: wrap;;
         }
         .menu button {
-            width: auto;
             padding: 10px 16px;
             background: #171717;
             border: 1px solid #262626;
-            margin: 0;
-            font-size: 14px;
-            text-transform: none;
-            letter-spacing: 0;
         }
         .menu button:hover { background: #222222; border-color: #333333; }
         .menu button.ativo { background: #1f1f1f; border-color: #404040; }
@@ -126,34 +117,71 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .item-registro {
+
+        /* 📊 PLANILHA */
+        .tabela-container { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th {
             background: #111111;
             padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 8px;
-            border-left: 2px solid #333333;
+            text-align: left;
+            font-size: 13px;
+            text-transform: uppercase;
+            color: #aaaaaa;
+            border-bottom: 2px solid #333;
         }
-        .linha {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #262626;
+            font-size: 14px;
         }
-        .sucesso { color: #22c55e; margin-top: 10px; font-size: 14px; }
+        tr:hover { background: #111111; }
         .btn-excluir {
-            width: auto;
-            padding: 5px 10px;
+            padding: 5px 12px;
             font-size: 12px;
-            background: #262626;
-            color: #ef4444;
+            background: #3b0000;
+            color: #ff4444;
             border: none;
-            margin: 0;
+            font-weight: bold;
+            border-radius: 3px;
         }
-        .btn-excluir:hover { background: #333333; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media(max-width: 600px) {
-            .grid-2 { grid-template-columns: 1fr; }
+        .btn-excluir:hover { background: #550000; }
+        .btn-editar {
+            padding: 5px 12px;
+            font-size: 12px;
+            background: #002b5c;
+            color: #74b9ff;
+            border: none;
+            font-weight: bold;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+        .btn-editar:hover { background: #004080; }
+        .form-linha {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .form-linha input { flex: 1; min-width: 140px; margin: 0; }
+        .form-linha button { white-space: nowrap; }
+        .total-linha {
+            margin-top: 15px;
+            padding: 12px;
+            background: #111111;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #facc15;
+        }
+        .pesquisa {
+            max-width: 300px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -178,6 +206,7 @@
 
         <div class="menu">
             <button class="ativo" onclick="abrirPagina('inicio')">Início</button>
+            <button onclick="abrirPagina('planilha')">📊 PLANILHA</button>
             <button onclick="abrirPagina('farm')">Material</button>
             <button onclick="abrirPagina('caixa')">Caixa</button>
             <button onclick="abrirPagina('relatorios')">Relatórios</button>
@@ -195,18 +224,60 @@
                     <div class="label">Caixa</div>
                 </div>
                 <div class="card">
+                    <div class="valor" id="total-pessoas">0</div>
+                    <div class="label">Pessoas na Planilha</div>
+                </div>
+                <div class="card">
                     <div class="valor" id="dias-farm">0</div>
                     <div class="label">Dias de Farm</div>
                 </div>
-                <div class="card">
-                    <div class="valor" id="mov-qtd">0</div>
-                    <div class="label">Movimentações</div>
-                </div>
             </div>
-
             <div class="secao">
-                <h2>Registros Recentes</h2>
-                <div id="ultimos-registros"></div>
+                <h2>📋 Últimos da Planilha</h2>
+                <div id="ultimos-planilha"></div>
+            </div>
+        </div>
+
+        <!-- 📊 PLANILHA DE FARMERS -->
+        <div id="pagina-planilha" class="escondido">
+            <div class="secao">
+                <h2>📊 PLANILHA DE FARMERS</h2>
+                
+                <!-- FORMULÁRIO DE ADIÇÃO/EDIÇÃO -->
+                <div class="form-linha">
+                    <input type="text" id="nome-pessoa" placeholder="Nome da pessoa">
+                    <input type="number" id="qtd-pessoa" placeholder="Quantidade de fragmentos" min="0">
+                    <input type="date" id="data-pessoa">
+                    <button onclick="adicionarPessoa()">➕ ADICIONAR</button>
+                    <button id="btn-cancelar-edicao" class="escondido" onclick="cancelarEdicao()">✖ CANCELAR</button>
+                </div>
+                <p id="msg-planilha"></p>
+
+                <!-- PESQUISA -->
+                <input type="text" id="pesquisa-planilha" class="pesquisa" placeholder="🔍 Pesquisar nome..." oninput="filtrarPlanilha()">
+
+                <!-- TABELA -->
+                <div class="tabela-container">
+                    <table id="tabela-planilha">
+                        <thead>
+                            <tr>
+                                <th>Nº</th>
+                                <th>Nome</th>
+                                <th>Quantidade</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-planilha">
+                            <!-- DADOS CARREGADOS AQUI -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- TOTAL GERAL -->
+                <div class="total-linha">
+                    💰 TOTAL GERAL: <span id="total-planilha">0</span> fragmentos
+                </div>
             </div>
         </div>
 
@@ -232,7 +303,7 @@
                 <p style="font-size:24px; font-weight:bold; color:#22c55e; margin-bottom:15px;" id="saldo-atual">R$ 0,00</p>
                 <input type="number" id="valor-movimento" placeholder="Valor" min="0" step="0.01">
                 <input type="text" id="descricao-movimento" placeholder="Descrição">
-                <div class="grid-2">
+                <div class="form-linha">
                     <button onclick="registrarEntrada()">Entrada</button>
                     <button onclick="registrarSaida()" style="background:#262626; border:1px solid #333;">Saída</button>
                 </div>
@@ -256,8 +327,8 @@
                     <div class="label">Saldo</div>
                 </div>
                 <div class="card">
-                    <div class="valor" id="r-dias">0</div>
-                    <div class="label">Dias Registrados</div>
+                    <div class="valor" id="r-pessoas">0</div>
+                    <div class="label">Pessoas</div>
                 </div>
             </div>
             <div class="secao">
@@ -268,6 +339,9 @@
     </div>
 
 <script>
+let indiceEdicao = -1;
+
+// LOGIN
 function fazerLogin() {
     const usuario = document.getElementById('usuario').value;
     const senha = document.getElementById('senha').value;
@@ -275,6 +349,7 @@ function fazerLogin() {
         document.getElementById('tela-login').classList.add('escondido');
         document.getElementById('tela-painel').classList.remove('escondido');
         carregarDataHoje();
+        carregarPlanilha();
         atualizarCards();
     } else {
         document.getElementById('erro-login').textContent = 'Usuário ou senha inválidos';
@@ -298,6 +373,7 @@ function abrirPagina(pagina) {
     document.querySelectorAll('.menu button').forEach(btn => btn.classList.remove('ativo'));
     event.target.classList.add('ativo');
 
+    if (pagina === 'planilha') carregarPlanilha();
     if (pagina === 'farm') carregarListaFarm();
     if (pagina === 'caixa') { atualizarSaldo(); carregarListaCaixa(); }
     if (pagina === 'relatorios') carregarRelatorios();
@@ -306,9 +382,116 @@ function abrirPagina(pagina) {
 
 function carregarDataHoje() {
     const hoje = new Date().toISOString().split('T')[0];
+    document.getElementById('data-pessoa').value = hoje;
     document.getElementById('data-farm').value = hoje;
 }
 
+// 📊 PLANILHA
+function adicionarPessoa() {
+    const nome = document.getElementById('nome-pessoa').value.trim();
+    const qtd = parseInt(document.getElementById('qtd-pessoa').value);
+    const data = document.getElementById('data-pessoa').value;
+    const msg = document.getElementById('msg-planilha');
+
+    if (!nome || !qtd || qtd <= 0 || !data) {
+        msg.textContent = 'Preencha todos os campos!';
+        msg.className = 'erro';
+        return;
+    }
+
+    let planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+
+    if (indiceEdicao >= 0) {
+        // MODO EDIÇÃO
+        planilha[indiceEdicao] = { nome, quantidade: qtd, data };
+        msg.textContent = '✅ Atualizado com sucesso!';
+        indiceEdicao = -1;
+        document.getElementById('btn-cancelar-edicao').classList.add('escondido');
+    } else {
+        // MODO ADIÇÃO
+        planilha.unshift({ nome, quantidade: qtd, data });
+        msg.textContent = '✅ Adicionado com sucesso!';
+    }
+
+    msg.className = 'sucesso';
+    localStorage.setItem('planilhaFarmers', JSON.stringify(planilha));
+    
+    document.getElementById('nome-pessoa').value = '';
+    document.getElementById('qtd-pessoa').value = '';
+    carregarPlanilha();
+    atualizarCards();
+}
+
+function carregarPlanilha() {
+    const corpo = document.getElementById('corpo-planilha');
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+    const pesquisa = document.getElementById('pesquisa-planilha').value.toLowerCase();
+    
+    let filtrado = planilha.filter(p => p.nome.toLowerCase().includes(pesquisa));
+
+    if (filtrado.length === 0) {
+        corpo.innerHTML = '<tr><td colspan="5" style="color:#737373; text-align:center;">Nenhum registro</td></tr>';
+        document.getElementById('total-planilha').textContent = '0';
+        return;
+    }
+
+    corpo.innerHTML = filtrado.map((p, i) => {
+        const indiceReal = planilha.indexOf(p);
+        return `
+        <tr>
+            <td><strong>${indiceReal + 1}</strong></td>
+            <td>${p.nome}</td>
+            <td style="color: #facc15; font-weight:bold;">${p.quantidade}</td>
+            <td>${formatarData(p.data)}</td>
+            <td>
+                <button class="btn-editar" onclick="editarPessoa(${indiceReal})">✏ EDITAR</button>
+                <button class="btn-excluir" onclick="apagarPessoa(${indiceReal})">🗑 EXCLUIR</button>
+            </td>
+        </tr>
+    `}).join('');
+
+    const total = planilha.reduce((s, p) => s + p.quantidade, 0);
+    document.getElementById('total-planilha').textContent = total;
+}
+
+function filtrarPlanilha() {
+    carregarPlanilha();
+}
+
+function editarPessoa(indice) {
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+    const p = planilha[indice];
+    
+    document.getElementById('nome-pessoa').value = p.nome;
+    document.getElementById('qtd-pessoa').value = p.quantidade;
+    document.getElementById('data-pessoa').value = p.data;
+    
+    indiceEdicao = indice;
+    document.getElementById('btn-cancelar-edicao').classList.remove('escondido');
+    document.getElementById('msg-planilha').textContent = '✏ Editando: ' + p.nome;
+    document.getElementById('msg-planilha').className = 'sucesso';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function cancelarEdicao() {
+    indiceEdicao = -1;
+    document.getElementById('nome-pessoa').value = '';
+    document.getElementById('qtd-pessoa').value = '';
+    carregarDataHoje();
+    document.getElementById('btn-cancelar-edicao').classList.add('escondido');
+    document.getElementById('msg-planilha').textContent = '';
+}
+
+function apagarPessoa(indice) {
+    if (!confirm('❌ Tem certeza que deseja EXCLUIR este registro?')) return;
+    let planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
+    planilha.splice(indice, 1);
+    localStorage.setItem('planilhaFarmers', JSON.stringify(planilha));
+    carregarPlanilha();
+    atualizarCards();
+}
+
+// FARM
 function registrarFarm() {
     const data = document.getElementById('data-farm').value;
     const qtd = parseInt(document.getElementById('qtd-fragmentos').value);
@@ -345,22 +528,22 @@ function carregarListaFarm() {
         <div class="item-registro">
             <div class="linha">
                 <span><strong>${formatarData(r.data)}</strong> — ${r.quantidade} unidades</span>
-                <button class="btn-excluir" onclick="apagarFarm(${i})">Excluir</button>
+                <button class="btn-excluir" onclick="apagarFarm(${i})">EXCLUIR</button>
             </div>
         </div>
     `).join('');
 }
 
 function apagarFarm(indice) {
+    if (!confirm('Tem certeza que deseja excluir?')) return;
     let registros = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
-    if (confirm('Confirmar exclusão?')) {
-        registros.splice(indice, 1);
-        localStorage.setItem('registrosFarm', JSON.stringify(registros));
-        carregarListaFarm();
-        atualizarCards();
-    }
+    registros.splice(indice, 1);
+    localStorage.setItem('registrosFarm', JSON.stringify(registros));
+    carregarListaFarm();
+    atualizarCards();
 }
 
+// CAIXA
 function registrarEntrada() {
     const valor = parseFloat(document.getElementById('valor-movimento').value);
     const desc = document.getElementById('descricao-movimento').value;
@@ -433,41 +616,50 @@ function carregarListaCaixa() {
                     </strong> — ${formatarDinheiro(m.valor)}<br>
                     <small style="color:#737373">${m.descricao} • ${m.data}</small>
                 </span>
-                <button class="btn-excluir" onclick="apagarCaixa(${i})">Excluir</button>
+                <button class="btn-excluir" onclick="apagarCaixa(${i})">EXCLUIR</button>
             </div>
         </div>
     `).join('');
 }
 
 function apagarCaixa(indice) {
+    if (!confirm('Tem certeza?')) return;
     let caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
-    if (confirm('Confirmar exclusão?')) {
-        caixa.splice(indice, 1);
-        localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
-        atualizarSaldo();
-        carregarListaCaixa();
-        atualizarCards();
-    }
+    caixa.splice(indice, 1);
+    localStorage.setItem('registrosCaixa', JSON.stringify(caixa));
+    atualizarSaldo();
+    carregarListaCaixa();
+    atualizarCards();
 }
 
+// RELATÓRIOS
 function carregarRelatorios() {
     const farm = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
     const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
 
     const totalFrags = farm.reduce((s, r) => s + r.quantidade, 0);
-    document.getElementById('r-frags').textContent = totalFrags;
+    const totalPlanilha = planilha.reduce((s, p) => s + p.quantidade, 0);
+    
+    document.getElementById('r-frags').textContent = totalFrags + totalPlanilha;
     document.getElementById('r-caixa').textContent = formatarDinheiro(calcularSaldo());
-    document.getElementById('r-dias').textContent = farm.length;
+    document.getElementById('r-pessoas').textContent = planilha.length;
 
     const historico = document.getElementById('historico-completo');
     let html = '';
 
-    if (farm.length === 0 && caixa.length === 0) {
+    if (farm.length === 0 && caixa.length === 0 && planilha.length === 0) {
         historico.innerHTML = '<p style="color:#737373;">Nenhum registro</p>';
         return;
     }
 
-    html += '<h3 style="color:#a3a3a3; margin:15px 0 8px 0; font-size:14px;">MATERIAL</h3>';
+    html += '<h3 style="color:#facc15; margin:15px 0 8px 0; font-size:14px;">📊 PLANILHA DE FARMERS</h3>';
+    if (planilha.length === 0) html += '<p style="color:#737373; font-size:13px;">Sem registros</p>';
+    else planilha.forEach((p, i) => {
+        html += `<p style="font-size:13px; color:#d4d4d4; padding:4px 0;">${i+1}. ${p.nome} — ${p.quantidade} frags (${formatarData(p.data)})</p>`;
+    });
+
+    html += '<h3 style="color:#a3a3a3; margin:20px 0 8px 0; font-size:14px;">MATERIAL</h3>';
     if (farm.length === 0) html += '<p style="color:#737373; font-size:13px;">Sem registros</p>';
     else farm.forEach(r => {
         html += `<p style="font-size:13px; color:#d4d4d4; padding:4px 0;">${formatarData(r.data)} — ${r.quantidade} unidades</p>`;
@@ -487,40 +679,29 @@ function carregarRelatorios() {
 function atualizarCards() {
     const farm = JSON.parse(localStorage.getItem('registrosFarm') || '[]');
     const caixa = JSON.parse(localStorage.getItem('registrosCaixa') || '[]');
+    const planilha = JSON.parse(localStorage.getItem('planilhaFarmers') || '[]');
 
     const totalFrags = farm.reduce((s, r) => s + r.quantidade, 0);
-    document.getElementById('total-frags').textContent = totalFrags;
+    const totalPlanilha = planilha.reduce((s, p) => s + p.quantidade, 0);
+    
+    document.getElementById('total-frags').textContent = totalFrags + totalPlanilha;
     document.getElementById('saldo-caixa').textContent = formatarDinheiro(calcularSaldo());
+    document.getElementById('total-pessoas').textContent = planilha.length;
     document.getElementById('dias-farm').textContent = farm.length;
-    document.getElementById('mov-qtd').textContent = caixa.length;
 
-    const ultimos = document.getElementById('ultimos-registros');
-    let html = '';
-    
-    const todos = [];
-    farm.forEach(r => todos.push({ tipo: 'farm', data: r.data, qtd: r.quantidade, dataObj: new Date(r.data) }));
-    caixa.forEach(m => todos.push({ tipo: 'caixa', ...m, dataObj: new Date(m.data.split('/').reverse().join('-').substr(0, 10)) }));
-    
-    todos.sort((a, b) => b.dataObj - a.dataObj);
-    const recentes = todos.slice(0, 5);
-
-    if (recentes.length === 0) {
+    // Últimos na planilha
+    const ultimos = document.getElementById('ultimos-planilha');
+    if (planilha.length === 0) {
         ultimos.innerHTML = '<p style="color:#737373; font-size:14px;">Nenhum registro ainda</p>';
-        return;
+    } else {
+        ultimos.innerHTML = planilha.slice(0, 5).map(p => 
+            `<div class="item-registro"><strong>${p.nome}</strong> — ${p.quantidade} frags • ${formatarData(p.data)}</div>`
+        ).join('');
     }
-
-    recentes.forEach(r => {
-        if (r.tipo === 'farm') {
-            html += `<div class="item-registro"><strong>${formatarData(r.data)}</strong> — ${r.qtd} unidades</div>`;
-        } else {
-            const cor = r.tipo === 'entrada' ? '#22c55e' : '#ef4444';
-            html += `<div class="item-registro"><strong style="color:${cor}">${r.tipo === 'entrada' ? '+' : '-'}</strong> ${r.descricao} — ${formatarDinheiro(r.valor)}</div>`;
-        }
-    });
-    ultimos.innerHTML = html;
 }
 
 function formatarData(dataStr) {
+    if (!dataStr) return '';
     const partes = dataStr.split('-');
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }

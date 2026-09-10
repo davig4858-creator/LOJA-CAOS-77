@@ -3,57 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOJA CAOS 77 — Controle de Farm</title>
-    <link rel="stylesheet" href="style.css">
+    <title>LOJA CAOS 77</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #333);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .caixa-login, .caixa-painel {
+            background: #222;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 100, 0, 0.4);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        .caixa-login h1, .caixa-painel h1 {
+            color: #ff6a00;
+            margin-bottom: 10px;
+        }
+        .caixa-login p, .caixa-painel h3 {
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 6px;
+            background: #333;
+            color: white;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #ff6a00;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #e05c00;
+        }
+        .botoes button {
+            background: #444;
+            margin: 8px 0;
+        }
+        .botoes button:hover {
+            background: #555;
+        }
+        #erro-login {
+            margin-top: 12px;
+            color: #ff4444;
+            font-size: 14px;
+        }
+        .escondido {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
 
-<div id="tela-login" class="tela-login">
-    <div class="caixa-login">
-        <h2>🔥 LOJA CAOS 77</h2>
-        <p class="subtitulo">Controle de Farm & Caixa</p>
+    <!-- TELA DE LOGIN -->
+    <div id="tela-login" class="caixa-login">
+        <h1>🔥 LOJA CAOS 77</h1>
+        <p>Controle de Farm & Caixa</p>
+        
         <input type="text" id="usuario" placeholder="Usuário">
         <input type="password" id="senha" placeholder="Senha">
         <button onclick="fazerLogin()">ENTRAR</button>
         <p id="erro-login"></p>
     </div>
-</div>
 
-<div id="conteudo" class="conteudo" style="display: none;">
-    <header>
-        <h1>🔥 LOJA CAOS 77 — CONTROLE</h1>
-        <button class="btn-sair" onclick="sair()">Sair</button>
-    </header>
-
-    <div class="painel-valores">
-        <div class="card caixa">
-            <h3>💰 CAIXA DA FACÇÃO</h3>
-            <p class="valor-grande" id="valor-caixa">R$ 0,00</p>
-            <button onclick="alterarCaixa()">Editar Caixa</button>
-        </div>
-        <div class="card fragmentos">
-            <h3>💎 VALOR DO FRAGMENTO</h3>
-            <p class="valor-grande" id="valor-fragmento">R$ 0,00</p>
-            <button onclick="alterarFragmento()">Editar Valor</button>
-        </div>
-        <div class="card total-farms">
-            <h3>👥 FARMADORES ATIVOS</h3>
-            <p class="valor-grande" id="total-farmadores">0</p>
+    <!-- TELA DO PAINEL -->
+    <div id="tela-painel" class="caixa-painel escondido">
+        <h1>🔥 BEM-VINDO AO PAINEL</h1>
+        <h3>LOJA CAOS 77 — Controle de Farm & Caixa</h3>
+        
+        <div class="botoes">
+            <button>📋 CONTROLE DE FARM</button>
+            <button>💰 REGISTRO DE CAIXA</button>
+            <button>📊 RELATÓRIOS</button>
+            <button onclick="sair()">🚪 SAIR</button>
         </div>
     </div>
 
-    <div class="acoes">
-        <button class="btn-add" onclick="adicionarFarmador()">➕ Adicionar Farmador</button>
-        <button class="btn-relatorio" onclick="gerarRelatorio()">📄 Gerar Relatório</button>
-    </div>
-
-    <h2>📋 Lista de Farmadores</h2>
-    <div id="lista-farmadores" class="lista-farmadores"></div>
-
-    <h2 style="margin-top: 3rem;">📄 Relatórios</h2>
-    <div id="lista-relatorios"></div>
-</div>
-
-<script src="script.js"></script>
+    <script>
+        function fazerLogin() {
+            const usuario = document.getElementById('usuario').value;
+            const senha = document.getElementById('senha').value;
+            
+            if (usuario === 'LOJA-CAOS-77' && senha === '777777') {
+                document.getElementById('tela-login').classList.add('escondido');
+                document.getElementById('tela-painel').classList.remove('escondido');
+            } else {
+                document.getElementById('erro-login').textContent = '❌ USUÁRIO OU SENHA INCORRETOS!';
+            }
+        }
+        function sair() {
+            document.getElementById('tela-painel').classList.add('escondido');
+            document.getElementById('tela-login').classList.remove('escondido');
+            document.getElementById('usuario').value = '';
+            document.getElementById('senha').value = '';
+            document.getElementById('erro-login').textContent = '';
+        }
+    </script>
+    
 </body>
 </html>

@@ -38,7 +38,35 @@ body{
   border:1px solid rgba(0,255,136,0.2);margin:15px 0;
 }
 
+.link-box{
+  background:var(--bg-card);border:1px solid var(--azul);border-radius:10px;padding:15px;
+  margin:20px;text-align:center;
+}
+.link-box p{font-size:13px;color:#8A9AB8;margin-bottom:8px;}
+.link-box a{color:var(--azul);font-weight:700;text-decoration:none;word-break:break-all;}
+.link-box a:hover{text-decoration:underline;}
+
 .container{max-width:800px;margin:0 auto;padding:0 20px 40px;}
+
+/* TABELA DE VENDAS */
+.sales-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
+}
+.sales-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
+.sales-table{width:100%;border-collapse:collapse;}
+.sales-table th{
+  background:rgba(0,212,255,0.1);padding:12px 8px;text-align:left;color:var(--azul);
+  font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+}
+.sales-table th:last-child{text-align:right;}
+.sales-table td{padding:10px 8px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:15px;}
+.sales-table tr:last-child td{border-bottom:none;}
+.sales-table .dia{font-weight:600;}
+.sales-table .frag{color:#8A9AB8;text-align:center;}
+.sales-table .val{color:var(--verde);text-align:right;font-weight:600;}
+.sales-table .total-row{background:rgba(0,255,136,0.05);font-weight:700;}
+.sales-table .total-row td{font-size:17px;color:var(--verde);padding-top:14px;}
+.sales-table .total-row .val{font-size:20px;}
 
 .stats-card{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
@@ -83,21 +111,44 @@ body{
 <div class="header-top">
   <div class="title">🔥 LOJA CAOS 77</div>
 </div>
+
+<div class="link-box">
+  <p>🔗 Link para compartilhar</p>
+  <a href="#" id="linkCompleto" target="_blank">Aguardando...</a>
+</div>
+
 <div style="text-align:center;">
-  <p class="atualizado" id="ultimaAtualizacao">✅ Última atualização: hoje</p>
+  <p class="atualizado" id="ultimaAtualizacao">✅ Última atualização: carregando...</p>
 </div>
 
 <div class="container">
+
+<!-- 💰 TABELA DE VENDAS -->
+<div class="sales-card">
+  <h2>💰 VENDAS DE FRAGMENTOS — SEMANA</h2>
+  <table class="sales-table">
+    <thead>
+      <tr>
+        <th>DIA</th>
+        <th class="frag">FRAGMENTOS</th>
+        <th class="val">VALOR</th>
+      </tr>
+    </thead>
+    <tbody id="tabelaVendas">
+      <tr><td colspan="3" style="text-align:center;color:#8A9AB8;">Carregando vendas...</td></tr>
+    </tbody>
+  </table>
+</div>
 
 <div class="stats-card">
   <h2>📊 DADOS GERAIS</h2>
   <div class="stats-grid">
     <div class="stat-item">
-      <div class="stat-label">MAIS FARTOU</div>
+      <div class="stat-label">MAIS FARMOU</div>
       <div class="stat-value" id="maisFarmou">—</div>
     </div>
     <div class="stat-item">
-      <div class="stat-label">CAIXA DA FACÇÃO</div>
+      <div class="stat-label">CAIXA TOTAL</div>
       <div class="stat-value green" id="caixa">R$ 0,00</div>
     </div>
     <div class="stat-item">
@@ -119,6 +170,16 @@ body{
 </div>
 
 <script>
+const DATABASE_URL = 'https://loja-caos-77-default-rtdb.firebaseio.com/.json';
+const dias = [
+  {id:'seg',nome:'Segunda'},
+  {id:'ter',nome:'Terça'},
+  {id:'qua',nome:'Quarta'},
+  {id:'qui',nome:'Quinta'},
+  {id:'sex',nome:'Sexta'},
+  {id:'sab',nome:'Sábado'}
+];
+
 function calcularTotais(integrantes){
   let totalFarm = 0;
   integrantes.forEach(i=>{
@@ -137,36 +198,69 @@ function calcularTotais(integrantes){
   return {totalFarm, topNome, topValor};
 }
 
-function carregarDados(){
-  const integrantes = JSON.parse(localStorage.getItem('integrantes')) || [
-    {nome:'Sr Bristow',farm:'200',coroa:true},
-    {nome:'Katy Bristow',farm:'0',coroa:true},
-    {nome:'Andres Bristow',farm:'100',coroa:true},
-  ];
-  
-  const {totalFarm, topNome, topValor} = calcularTotais(integrantes);
-  
-  document.getElementById('estoque').textContent = totalFarm;
-  document.getElementById('maisFarmou').textContent = topNome + ' — ' + topValor;
-  document.getElementById('caixa').textContent = localStorage.getItem('caixa') || 'R$ 0,00';
-  
-  const container = document.getElementById('listaIntegrantes');
-  container.innerHTML = '';
-  integrantes.forEach(i=>{
-    container.innerHTML += `
-      <div class="row">
-        <div class="name">${i.nome}</div>
-        <div class="farm-val">${i.farm || '0'}</div>
-        <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
-      </div>
-    `;
-  });
-  
-  const agora = new Date();
-  document.getElementById('ultimaAtualizacao').textContent = '✅ Última atualização: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+async function carregarDados(){
+  try{
+    const res = await fetch(DATABASE_URL);
+    const data = await res.json();
+    const integrantes = data && data.integrantes ? data.integrantes : [];
+    const vendas = data && data.vendas ? data.vendas : null;
+    
+    // Atualizar tabela de vendas
+    const tabelaVendas = document.getElementById('tabelaVendas');
+    if(vendas){
+      tabelaVendas.innerHTML = '';
+      dias.forEach(d=>{
+        const frag = vendas[`frag_${d.id}`] || 0;
+        const val = vendas[`val_${d.id}`] || 0;
+        tabelaVendas.innerHTML += `
+          <tr>
+            <td class="dia">${d.nome}</td>
+            <td class="frag">${frag}</td>
+            <td class="val">R$ ${parseFloat(val).toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
+          </tr>
+        `;
+      });
+      tabelaVendas.innerHTML += `
+        <tr class="total-row">
+          <td colspan="2">TOTAL DA SEMANA 💰</td>
+          <td class="val">R$ ${parseFloat(vendas.total||0).toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
+        </tr>
+      `;
+    }else{
+      tabelaVendas.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#8A9AB8;">Sem vendas registradas</td></tr>';
+    }
+    
+    const {totalFarm, topNome, topValor} = calcularTotais(integrantes);
+    
+    document.getElementById('estoque').textContent = totalFarm;
+    document.getElementById('maisFarmou').textContent = topNome + ' — ' + topValor;
+    document.getElementById('caixa').textContent = vendas ? `R$ ${parseFloat(vendas.total||0).toLocaleString('pt-BR',{minimumFractionDigits:2})}` : 'R$ 0,00';
+    
+    const container = document.getElementById('listaIntegrantes');
+    container.innerHTML = '';
+    integrantes.forEach(i=>{
+      container.innerHTML += `
+        <div class="row">
+          <div class="name">${i.nome}</div>
+          <div class="farm-val">${i.farm || '0'}</div>
+          <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
+        </div>
+      `;
+    });
+    
+    const agora = new Date();
+    document.getElementById('ultimaAtualizacao').textContent = '✅ Última atualização: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    
+    document.getElementById('linkCompleto').href = window.location.href;
+    document.getElementById('linkCompleto').textContent = window.location.href;
+    
+  }catch(e){
+    console.error('Erro ao carregar:', e);
+  }
 }
 
-window.onload = carregarDados;
+carregarDados();
+setInterval(carregarDados, 3000);
 </script>
 </body>
 </html>

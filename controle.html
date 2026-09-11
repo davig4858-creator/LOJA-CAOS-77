@@ -95,6 +95,12 @@ body{
   font-size:12px;font-weight:700;color:var(--texto);text-align:center;
   border:1px solid rgba(255,255,255,0.05);
 }
+.rank.lider{
+  background:linear-gradient(135deg,#8B6914,#B8860B);border:1px solid rgba(255,215,0,0.3);
+}
+.rank.colaborador{
+  background:linear-gradient(135deg,#1A3A5C,#244B7A);border:1px solid rgba(0,212,255,0.2);
+}
 .tag{font-size:18px;text-align:center;}
 .tag .crown{filter:drop-shadow(0 0 4px gold);}
 
@@ -111,7 +117,6 @@ body{
 }
 .btn-del:hover{background:linear-gradient(135deg,#7A2424,#942C2C);}
 
-/* MODAL */
 .modal-overlay{
   position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);
   display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);
@@ -130,7 +135,6 @@ body{
 .modal-btn-cancel{flex:1;padding:12px;background:#2A3A58;border:none;border-radius:8px;color:var(--texto);font-weight:700;cursor:pointer;}
 .modal-btn-save{flex:1;padding:12px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;}
 
-/* DADOS GERAIS */
 .stats-card{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
 }
@@ -153,7 +157,6 @@ body{
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header-top">
   <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
   <div class="status-badge">Sincronizado</div>
@@ -161,7 +164,6 @@ body{
 
 <div class="container">
 
-<!-- DADOS GERAIS -->
 <div class="stats-card">
   <h2>📊 DADOS GERAIS</h2>
   <div class="stats-grid">
@@ -182,64 +184,45 @@ body{
       <div class="stat-value" style="color:#00B8FF;"><input type="text" id="estoque" placeholder="0"></div>
     </div>
   </div>
-  <button class="btn-add" style="margin-top:16px;padding:12px;font-size:14px;width:auto;">💾 SALVAR DADOS</button>
+  <button class="btn-add" style="margin-top:16px;padding:12px;font-size:14px;width:auto;" onclick="salvarDadosGerais()">💾 SALVAR DADOS</button>
 </div>
 
-<!-- BUSCA E FILTRO -->
 <input type="text" class="search-bar" placeholder="🔍 Buscar por nome...">
 <div class="filter-row">
-  <select class="filter-select" id="filtroPatente">
-    <option value="todas">Todas as patentes</option>
-    <option value="Major General">Major General</option>
-    <option value="Coronel">Coronel</option>
-    <option value="Major">Major</option>
-    <option value="Capitão">Capitão</option>
-    <option value="Tenente">Tenente</option>
-    <option value="Soldado">Soldado</option>
+  <select class="filter-select" id="filtroPatente" onchange="renderLista()">
+    <option value="todas">Todas as funções</option>
+    <option value="Líder">Líder</option>
+    <option value="Colaborador">Colaborador</option>
   </select>
 </div>
 
-<!-- BOTÃO ADICIONAR -->
 <button class="btn-add" onclick="abrirModal()">+ ADICIONAR INTEGRANTE</button>
 
-<!-- CABEÇALHO TABELA -->
 <div class="table-header">
   <div>STATUS</div>
   <div>NOME</div>
-  <div>PATENTE</div>
+  <div>FUNÇÃO</div>
   <div>TAGS</div>
   <div>AÇÕES</div>
 </div>
 
-<!-- LISTA INTEGRANTES -->
-<div id="listaIntegrantes">
-  <!-- Os itens serão inseridos aqui -->
-</div>
+<div id="listaIntegrantes"></div>
 
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <h3 id="modalTitulo">➕ Adicionar Integrante</h3>
     <input type="text" id="inputNome" placeholder="Nome do integrante">
     <select id="inputPatente">
-      <option value="Major General">Major General</option>
-      <option value="Coronel">Coronel</option>
-      <option value="Major">Major</option>
-      <option value="Capitão">Capitão</option>
-      <option value="Tenente">Tenente</option>
-      <option value="Soldado">Soldado</option>
+      <option value="Líder">👑 Líder</option>
+      <option value="Colaborador">🤝 Colaborador</option>
     </select>
     <select id="inputStatus">
       <option value="online">🟢 Online</option>
       <option value="ausente">🟡 Ausente</option>
       <option value="offline">🔴 Offline</option>
     </select>
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-      <input type="checkbox" id="inputCoroa" style="width:auto;margin:0;">
-      <label for="inputCoroa" style="color:var(--texto);font-size:14px;">👑 Líder / Comando</label>
-    </div>
     <div class="modal-buttons">
       <button class="modal-btn-cancel" onclick="fecharModal()">Cancelar</button>
       <button class="modal-btn-save" onclick="salvarIntegrante()">Salvar</button>
@@ -249,11 +232,11 @@ body{
 
 <script>
 let integrantes = JSON.parse(localStorage.getItem('integrantes')) || [
-  {id:Date.now(),nome:'SRR MESQUITA',patente:'Major General',status:'online',coroa:true},
-  {id:Date.now()+1,nome:'DOMM ED',patente:'Major General',status:'online',coroa:false},
-  {id:Date.now()+2,nome:'ALOK MESQUITA',patente:'Coronel',status:'online',coroa:false},
-  {id:Date.now()+3,nome:'JAMES MECFERSON',patente:'Coronel',status:'offline',coroa:true},
-  {id:Date.now()+4,nome:'SR BIGODEK',patente:'Major',status:'ausente',coroa:false},
+  {id:Date.now(),nome:'SRR MESQUITA',patente:'Líder',status:'online',coroa:true},
+  {id:Date.now()+1,nome:'DOMM ED',patente:'Líder',status:'online',coroa:true},
+  {id:Date.now()+2,nome:'ALOK MESQUITA',patente:'Colaborador',status:'online',coroa:false},
+  {id:Date.now()+3,nome:'JAMES MECFERSON',patente:'Colaborador',status:'offline',coroa:false},
+  {id:Date.now()+4,nome:'SR BIGODEK',patente:'Colaborador',status:'ausente',coroa:false},
 ];
 let editId = null;
 
@@ -278,16 +261,24 @@ function salvarDadosGerais(){
 }
 
 function renderLista(){
+  const filtro = document.getElementById('filtroPatente').value;
   const container = document.getElementById('listaIntegrantes');
   container.innerHTML = '';
-  integrantes.forEach(i=>{
+  
+  let listaFiltrada = integrantes;
+  if(filtro !== 'todas'){
+    listaFiltrada = integrantes.filter(i => i.patente === filtro);
+  }
+  
+  listaFiltrada.forEach(i=>{
     const statusClass = i.status === 'online' ? 'green' : i.status === 'ausente' ? 'yellow' : 'red';
+    const classeRank = i.patente === 'Líder' ? 'lider' : 'colaborador';
     container.innerHTML += `
       <div class="row">
         <div class="status-dots"><div class="dot ${statusClass}"></div><div class="dot green"></div></div>
         <div class="name">${i.nome}</div>
-        <div class="rank">${i.patente}</div>
-        <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
+        <div class="rank ${classeRank}">${i.patente}</div>
+        <div class="tag">${i.patente === 'Líder' ? '<span class="crown">👑</span>' : ''}</div>
         <div style="display:flex;gap:4px;">
           <button class="btn-edit" onclick="editar(${i.id})">EDITAR</button>
           <button class="btn-del" onclick="excluir(${i.id})">EXONERAR</button>
@@ -302,9 +293,8 @@ function abrirModal(){
   editId = null;
   document.getElementById('modalTitulo').textContent = '➕ Adicionar Integrante';
   document.getElementById('inputNome').value = '';
-  document.getElementById('inputPatente').value = 'Major General';
+  document.getElementById('inputPatente').value = 'Colaborador';
   document.getElementById('inputStatus').value = 'online';
-  document.getElementById('inputCoroa').checked = false;
   document.getElementById('modal').style.display = 'flex';
 }
 
@@ -320,7 +310,6 @@ function editar(id){
   document.getElementById('inputNome').value = i.nome;
   document.getElementById('inputPatente').value = i.patente;
   document.getElementById('inputStatus').value = i.status;
-  document.getElementById('inputCoroa').checked = i.coroa;
   document.getElementById('modal').style.display = 'flex';
 }
 
@@ -328,14 +317,13 @@ function salvarIntegrante(){
   const nome = document.getElementById('inputNome').value.trim();
   const patente = document.getElementById('inputPatente').value;
   const status = document.getElementById('inputStatus').value;
-  const coroa = document.getElementById('inputCoroa').checked;
   if(!nome){alert('Digite o nome!');return;}
   
   if(editId){
     const idx = integrantes.findIndex(x=>x.id===editId);
-    integrantes[idx] = {id:editId,nome,patente,status,coroa};
+    integrantes[idx] = {id:editId,nome,patente,status,coroa:patente==='Líder'};
   }else{
-    integrantes.push({id:Date.now(),nome,patente,status,coroa});
+    integrantes.push({id:Date.now(),nome,patente,status,coroa:patente==='Líder'});
   }
   fecharModal();
   renderLista();
@@ -347,10 +335,6 @@ function excluir(id){
     renderLista();
   }
 }
-
-document.querySelector('.btn-add').addEventListener('click',function(){
-  if(this.textContent.includes('SALVAR')) salvarDadosGerais();
-});
 </script>
 </body>
 </html>

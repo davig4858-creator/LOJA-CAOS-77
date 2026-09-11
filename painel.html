@@ -16,7 +16,6 @@
   --vermelho: #FF3B3B;
   --amarelo: #FFC107;
   --texto: #E0E6ED;
-  --texto-sec: #8A9AB8;
 }
 
 body{
@@ -30,7 +29,6 @@ body{
 .header-top{
   background:linear-gradient(180deg, rgba(15,23,38,0.95), rgba(10,15,26,0.9));
   padding:18px 20px;text-align:center;border-bottom:1px solid rgba(0,212,255,0.1);
-  backdrop-filter:blur(10px);
 }
 .header-top .title{
   font-size:24px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
@@ -49,21 +47,21 @@ body{
 }
 .stats-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
 .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
-.stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);text-align:center;}
-.stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;text-align:center;}
+.stat-label{font-size:12px;color:#8A9AB8;margin-bottom:6px;text-transform:uppercase;}
 .stat-value{font-size:22px;font-weight:800;}
 .stat-value.green{color:var(--verde);}
 .stat-value.blue{color:var(--azul);}
 
 .table-header{
-  display:grid;grid-template-columns:60px 1fr 140px 100px;gap:10px;
+  display:grid;grid-template-columns:60px 1fr 100px;gap:10px;
   padding:14px 16px;color:var(--azul);font-size:13px;font-weight:700;text-transform:uppercase;
   letter-spacing:1px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
 }
 .row{
-  display:grid;grid-template-columns:60px 1fr 140px 100px;gap:10px;
+  display:grid;grid-template-columns:60px 1fr 100px;gap:10px;
   padding:16px;border-radius:10px;background:var(--bg-card);margin-bottom:10px;
-  align-items:center;border:1px solid transparent;
+  align-items:center;
 }
 .status-dots{display:flex;gap:4px;}
 .dot{width:14px;height:14px;border-radius:50%;}
@@ -71,27 +69,17 @@ body{
 .dot.red{background:var(--vermelho);box-shadow:0 0 6px var(--vermelho);}
 .dot.yellow{background:var(--amarelo);box-shadow:0 0 6px var(--amarelo);}
 .name{font-size:16px;font-weight:700;color:var(--texto);}
-.rank{
-  padding:6px 12px;border-radius:6px;font-size:12px;font-weight:700;color:var(--texto);text-align:center;
-  border:1px solid rgba(255,255,255,0.05);
-}
-.rank.lider{
-  background:linear-gradient(135deg,#8B6914,#B8860B);border:1px solid rgba(255,215,0,0.3);
-}
-.rank.colaborador{
-  background:linear-gradient(135deg,#1A3A5C,#244B7A);border:1px solid rgba(0,212,255,0.2);
-}
 .tag{font-size:18px;text-align:center;}
 .tag .crown{filter:drop-shadow(0 0 4px gold);}
 
 .rodape{
   text-align:center;margin-top:50px;padding-top:30px;
   font-size:28px;font-weight:900;letter-spacing:3px;text-transform:uppercase;
-  color:var(--azul);text-shadow:0 0 10px var(--azul),0 0 20px rgba(0,212,255,0.3);
+  color:var(--azul);text-shadow:0 0 10px var(--azul);
 }
 
 @media(max-width:600px){
-  .table-header,.row{grid-template-columns:50px 1fr 100px 60px;gap:6px;}
+  .table-header,.row{grid-template-columns:50px 1fr 70px;gap:6px;}
 }
 </style>
 </head>
@@ -130,8 +118,7 @@ body{
 
 <div class="table-header">
   <div>STATUS</div>
-  <div>QRA / NOME</div>
-  <div>FUNÇÃO</div>
+  <div>NOME</div>
   <div>TAGS</div>
 </div>
 
@@ -148,23 +135,21 @@ function carregarDados(){
   document.getElementById('estoque').textContent = localStorage.getItem('estoque') || '0';
   
   const integrantes = JSON.parse(localStorage.getItem('integrantes')) || [
-    {nome:'SRR MESQUITA',patente:'Líder',status:'online',coroa:true},
-    {nome:'DOMM ED',patente:'Líder',status:'online',coroa:true},
-    {nome:'ALOK MESQUITA',patente:'Colaborador',status:'online',coroa:false},
-    {nome:'JAMES MECFERSON',patente:'Colaborador',status:'offline',coroa:false},
-    {nome:'SR BIGODEK',patente:'Colaborador',status:'ausente',coroa:false},
+    {nome:'SRR MESQUITA',status:'online',coroa:true},
+    {nome:'DOMM ED',status:'online',coroa:true},
+    {nome:'ALOK MESQUITA',status:'online',coroa:false},
+    {nome:'JAMES MECFERSON',status:'offline',coroa:false},
+    {nome:'SR BIGODEK',status:'ausente',coroa:false},
   ];
   
   const container = document.getElementById('listaIntegrantes');
   container.innerHTML = '';
   integrantes.forEach(i=>{
     const statusClass = i.status === 'online' ? 'green' : i.status === 'ausente' ? 'yellow' : 'red';
-    const classeRank = i.patente === 'Líder' ? 'lider' : 'colaborador';
     container.innerHTML += `
       <div class="row">
         <div class="status-dots"><div class="dot ${statusClass}"></div><div class="dot green"></div></div>
         <div class="name">${i.nome}</div>
-        <div class="rank ${classeRank}">${i.patente}</div>
         <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
       </div>
     `;

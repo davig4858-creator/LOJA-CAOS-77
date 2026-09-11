@@ -15,7 +15,6 @@
   --azul: #00D4FF;
   --verde: #00FF88;
   --vermelho: #FF3B3B;
-  --amarelo: #FFC107;
   --texto: #E0E6ED;
   --texto-sec: #8A9AB8;
 }
@@ -62,25 +61,24 @@ body{
 .btn-add:hover{transform:translateY(-2px);}
 
 .table-header{
-  display:grid;grid-template-columns:60px 1fr 100px 160px;gap:10px;
+  display:grid;grid-template-columns:1fr 120px 100px 160px;gap:10px;
   padding:14px 16px;color:var(--azul);font-size:13px;font-weight:700;text-transform:uppercase;
   letter-spacing:1px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
 }
 
 .row{
-  display:grid;grid-template-columns:60px 1fr 100px 160px;gap:10px;
+  display:grid;grid-template-columns:1fr 120px 100px 160px;gap:10px;
   padding:16px;border-radius:10px;background:var(--bg-card);margin-bottom:10px;
   align-items:center;border:1px solid transparent;transition:all 0.2s ease;
 }
 .row:hover{background:var(--bg-card-hover);border-color:rgba(0,212,255,0.15);}
 
-.status-dots{display:flex;gap:4px;}
-.dot{width:14px;height:14px;border-radius:50%;}
-.dot.green{background:var(--verde);box-shadow:0 0 6px var(--verde);}
-.dot.red{background:var(--vermelho);box-shadow:0 0 6px var(--vermelho);}
-.dot.yellow{background:var(--amarelo);box-shadow:0 0 6px var(--amarelo);}
-
 .name{font-size:16px;font-weight:700;color:var(--texto);}
+.farm-input{
+  background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);border-radius:6px;
+  color:var(--verde);font-size:16px;font-weight:700;text-align:center;padding:6px 8px;
+  width:100%;outline:none;
+}
 .tag{font-size:18px;text-align:center;}
 .tag .crown{filter:drop-shadow(0 0 4px gold);}
 
@@ -104,11 +102,11 @@ body{
   width:90%;max-width:450px;
 }
 .modal h3{color:var(--azul);font-size:18px;margin-bottom:20px;}
-.modal input, .modal select{
+.modal input{
   width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);
   border-radius:8px;color:var(--texto);font-size:15px;margin-bottom:12px;outline:none;
 }
-.modal input:focus, .modal select:focus{border-color:var(--azul);}
+.modal input:focus{border-color:var(--azul);}
 .modal-buttons{display:flex;gap:10px;margin-top:10px;}
 .modal-btn-cancel{flex:1;padding:12px;background:#2A3A58;border:none;border-radius:8px;color:var(--texto);font-weight:700;cursor:pointer;}
 .modal-btn-save{flex:1;padding:12px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;}
@@ -124,7 +122,8 @@ body{
 .stat-value input{background:transparent;border:none;color:inherit;font-size:inherit;width:100%;outline:none;}
 
 @media(max-width:600px){
-  .table-header,.row{grid-template-columns:50px 1fr 70px 120px;gap:6px;}
+  .table-header,.row{grid-template-columns:1fr 90px 80px 140px;gap:6px;}
+  .farm-input{font-size:14px;}
 }
 </style>
 </head>
@@ -165,8 +164,8 @@ body{
 <button class="btn-add" onclick="abrirModal()">+ ADICIONAR INTEGRANTE</button>
 
 <div class="table-header">
-  <div>STATUS</div>
   <div>NOME</div>
+  <div>FARM</div>
   <div>TAGS</div>
   <div>AÇÕES</div>
 </div>
@@ -179,11 +178,7 @@ body{
   <div class="modal">
     <h3 id="modalTitulo">➕ Adicionar Integrante</h3>
     <input type="text" id="inputNome" placeholder="Nome do integrante">
-    <select id="inputStatus">
-      <option value="online">🟢 Online</option>
-      <option value="ausente">🟡 Ausente</option>
-      <option value="offline">🔴 Offline</option>
-    </select>
+    <input type="text" id="inputFarm" placeholder="Quantidade de farm (ex: 100)">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
       <input type="checkbox" id="inputCoroa" style="width:auto;margin:0;">
       <label for="inputCoroa" style="color:var(--texto);font-size:14px;">👑 Líder</label>
@@ -197,11 +192,11 @@ body{
 
 <script>
 let integrantes = JSON.parse(localStorage.getItem('integrantes')) || [
-  {id:Date.now(),nome:'SRR MESQUITA',status:'online',coroa:true},
-  {id:Date.now()+1,nome:'DOMM ED',status:'online',coroa:true},
-  {id:Date.now()+2,nome:'ALOK MESQUITA',status:'online',coroa:false},
-  {id:Date.now()+3,nome:'JAMES MECFERSON',status:'offline',coroa:false},
-  {id:Date.now()+4,nome:'SR BIGODEK',status:'ausente',coroa:false},
+  {id:Date.now(),nome:'SRR MESQUITA',farm:'100',coroa:true},
+  {id:Date.now()+1,nome:'DOMM ED',farm:'85',coroa:true},
+  {id:Date.now()+2,nome:'ALOK MESQUITA',farm:'60',coroa:false},
+  {id:Date.now()+3,nome:'JAMES MECFERSON',farm:'45',coroa:false},
+  {id:Date.now()+4,nome:'SR BIGODEK',farm:'30',coroa:false},
 ];
 let editId = null;
 
@@ -230,15 +225,15 @@ function renderLista(){
   container.innerHTML = '';
   
   integrantes.forEach(i=>{
-    const statusClass = i.status === 'online' ? 'green' : i.status === 'ausente' ? 'yellow' : 'red';
     container.innerHTML += `
       <div class="row">
-        <div class="status-dots"><div class="dot ${statusClass}"></div><div class="dot green"></div></div>
         <div class="name">${i.nome}</div>
+        <input type="text" class="farm-input" value="${i.farm || ''}" 
+               onblur="atualizarFarm(${i.id}, this.value)">
         <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
         <div style="display:flex;gap:4px;">
           <button class="btn-edit" onclick="editar(${i.id})">EDITAR</button>
-          <button class="btn-del" onclick="excluir(${i.id})">EXONERAR</button>
+          <button class="btn-del" onclick="excluir(${i.id})">EXPULSO</button>
         </div>
       </div>
     `;
@@ -246,11 +241,19 @@ function renderLista(){
   localStorage.setItem('integrantes', JSON.stringify(integrantes));
 }
 
+function atualizarFarm(id, valor){
+  const idx = integrantes.findIndex(x=>x.id===id);
+  if(idx !== -1){
+    integrantes[idx].farm = valor;
+    localStorage.setItem('integrantes', JSON.stringify(integrantes));
+  }
+}
+
 function abrirModal(){
   editId = null;
   document.getElementById('modalTitulo').textContent = '➕ Adicionar Integrante';
   document.getElementById('inputNome').value = '';
-  document.getElementById('inputStatus').value = 'online';
+  document.getElementById('inputFarm').value = '';
   document.getElementById('inputCoroa').checked = false;
   document.getElementById('modal').style.display = 'flex';
 }
@@ -265,22 +268,22 @@ function editar(id){
   editId = id;
   document.getElementById('modalTitulo').textContent = '✏️ Editar Integrante';
   document.getElementById('inputNome').value = i.nome;
-  document.getElementById('inputStatus').value = i.status;
+  document.getElementById('inputFarm').value = i.farm || '';
   document.getElementById('inputCoroa').checked = i.coroa;
   document.getElementById('modal').style.display = 'flex';
 }
 
 function salvarIntegrante(){
   const nome = document.getElementById('inputNome').value.trim();
-  const status = document.getElementById('inputStatus').value;
+  const farm = document.getElementById('inputFarm').value.trim();
   const coroa = document.getElementById('inputCoroa').checked;
   if(!nome){alert('Digite o nome!');return;}
   
   if(editId){
     const idx = integrantes.findIndex(x=>x.id===editId);
-    integrantes[idx] = {id:editId,nome,status,coroa};
+    integrantes[idx] = {id:editId,nome,farm,coroa};
   }else{
-    integrantes.push({id:Date.now(),nome,status,coroa});
+    integrantes.push({id:Date.now(),nome,farm,coroa});
   }
   fecharModal();
   renderLista();

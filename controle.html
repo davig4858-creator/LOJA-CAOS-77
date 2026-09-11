@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 CONTROLE — LOJA CAOS 77</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
+body{background:#0a0a0a;min-height:100vh;color:#e5e5e5;padding:20px;}
+.container{max-width:600px;margin:0 auto;}
+h1{color:#ff6b00;text-align:center;margin-bottom:25px;}
+.card{background:#171717;padding:20px;border-radius:6px;border:1px solid #333;margin-bottom:15px;}
+h2{color:#ff6b00;font-size:16px;margin-bottom:12px;}
+input,button{width:100%;padding:10px;margin:5px 0;border:1px solid #333;border-radius:4px;background:#222;color:#fff;font-size:14px;}
+button{background:#ff6b00;color:#000;font-weight:bold;cursor-pointer;border:none;}
+button:hover{background:#ff8800;}
+button.sair{background:#333;color:#fff;}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:15px 0;}
+.box{background:#222;padding:15px;text-align:center;border-radius:4px;}
+.box .num{font-size:22px;font-weight:bold;color:#ff6b00;}
+.box .label{font-size:11px;color:#999;}
+ul{list-style:none;margin-top:10px;}
+li{padding:8px 0;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;}
+li button{width:auto;padding:4px 8px;font-size:12px;background:#ff4444;}
+.sucesso{background:#00aa4420;color:#00ff66;padding:10px;border-radius:4px;margin-top:10px;display:none;text-align:center;}
+.nav{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.nav a{padding:8px 12px;background:#222;color:#fff;text-decoration:none;border-radius:4px;font-size:13px;}
+.nav a.ativo{background:#ff6b00;color:#000;}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🔥 LOJA CAOS 77 — CONTROLE</h1>
+
+<div class="nav">
+<a href="controle.html" class="ativo">Painel</a>
+<a href="painel.html" target="_blank">👁️ Ver como Visitante vê</a>
+<button class="sair" style="width:auto;margin-left:auto;" onclick="sair()">Sair</button>
+</div>
+
+<!-- DADOS GERAIS -->
+<div class="card">
+<h2>📊 DADOS GERAIS</h2>
+<div class="grid">
+<div class="box"><div class="num"><input type="text" id="totalFrag" placeholder="0" style="width:80%;padding:4px;"></div><div class="label">TOTAL FRAGMENTOS</div></div>
+<div class="box"><div class="num" style="color:#00ff88;"><input type="text" id="caixa" placeholder="R$ 0,00" style="width:80%;padding:4px;"></div><div class="label">CAIXA DA FAC</div></div>
+<div class="box"><div class="num" style="color:#00aaff;"><input type="text" id="estoque" placeholder="0" style="width:80%;padding:4px;"></div><div class="label">EM ESTOQUE</div></div>
+</div>
+<button onclick="salvarGerais()">💾 Salvar Dados Gerais</button>
+<div class="sucesso" id="msg1">✅ Salvo com sucesso!</div>
+</div>
+
+<!-- MELHOR FARMER -->
+<div class="card">
+<h2>👑 DESTAQUE DO DIA</h2>
+<input type="text" id="melhorNome" placeholder="Nome do Farmer">
+<input type="text" id="melhorFrag" placeholder="0 fragmentos">
+<button onclick="salvarMelhor()">💾 Salvar Destaque</button>
+<div class="sucesso" id="msg2">✅ Salvo com sucesso!</div>
+</div>
+
+<!-- ADICIONAR FARMER -->
+<div class="card">
+<h2>➕ ADICIONAR FARMER</h2>
+<input type="text" id="nomeFarmer" placeholder="Nome">
+<input type="text" id="qtdFrag" placeholder="Fragmentos" style="margin-bottom:8px;">
+<button onclick="adicionarFarmer()">Adicionar à Lista</button>
+</div>
+
+<!-- LISTA FARMERS -->
+<div class="card">
+<h2>📋 ÚLTIMOS FARMERS</h2>
+<ul id="listaFarmers"></ul>
+<button onclick="limparLista()" style="background:#444;margin-top:10px;">🗑️ Limpar Lista</button>
+</div>
+
+<div class="card" style="background:#0f2b18;border-color:#00ff6640;">
+<h2 style="color:#00ff66;">🔗 LINK PARA COMPARTILHAR</h2>
+<p style="font-size:13px;color:#ccc;margin-bottom:8px;">Mande esse link para seus amigos:</p>
+<input type="text" id="linkVisitante" value="" readonly style="background:#111;border-color:#00ff66;">
+<button onclick="copiarLink()" style="background:#00ff66;color:#000;">📋 Copiar Link</button>
+<div class="sucesso" id="msgLink" style="background:#00ff6620;color:#00ff66;">Link copiado!</div>
+</div>
+
+</div>
+
+<script>
+// DADOS PADRÃO
+let farmers = JSON.parse(localStorage.getItem('farmers')) || [];
+
+// CARREGAR DADOS AO ABRIR
+window.onload = function() {
+  verificarAcesso();
+  carregarDados();
+  atualizarLista();
+  document.getElementById('linkVisitante').value = window.location.origin + window.location.pathname.replace('controle.html','painel.html');
+};
+
+function verificarAcesso() {
+  if (localStorage.getItem('nivel') !== 'admin') {
+    window.location.href = 'index.html';
+  }
+}
+
+function carregarDados() {
+  document.getElementById('totalFrag').value = localStorage.getItem('totalFrag') || '990';
+  document.getElementById('caixa').value = localStorage.getItem('caixa') || 'R$ 0,00';
+  document.getElementById('estoque').value = localStorage.getItem('estoque') || '2500';
+  document.getElementById('melhorNome').value = localStorage.getItem('melhorNome') || 'Sr Bristow';
+  document.getElementById('melhorFrag').value = localStorage.getItem('melhorFrag') || '200 fragmentos formados';
+}
+
+function salvarGerais() {
+  localStorage.setItem('totalFrag', document.getElementById('totalFrag').value);
+  localStorage.setItem('caixa', document.getElementById('caixa').value);
+  localStorage.setItem('estoque', document.getElementById('estoque').value);
+  mostrarMsg('msg1');
+}
+
+function salvarMelhor() {
+  localStorage.setItem('melhorNome', document.getElementById('melhorNome').value);
+  localStorage.setItem('melhorFrag', document.getElementById('melhorFrag').value);
+  mostrarMsg('msg2');
+}
+
+function adicionarFarmer() {
+  const nome = document.getElementById('nomeFarmer').value.trim();
+  const frag = document.getElementById('qtdFrag').value;
+  if(nome) {
+    farmers.unshift({nome, frag});
+    localStorage.setItem('farmers', JSON.stringify(farmers));
+    atualizarLista();
+    document.getElementById('nomeFarmer').value = '';
+    document.getElementById('qtdFrag').value = '';
+  }
+}
+
+function atualizarLista() {
+  const ul = document.getElementById('listaFarmers');
+  ul.innerHTML = '';
+  farmers.forEach((f,i) => {
+    ul.innerHTML += `<li><span>${i} — ${f.nome}: ${f.frag} frags</span><button onclick="removerFarmer(${i})">✕</button></li>`;
+  });
+}
+
+function removerFarmer(i) {
+  farmers.splice(i,1);
+  localStorage.setItem('farmers', JSON.stringify(farmers));
+  atualizarLista();
+}
+
+function limparLista() {
+  if(confirm('Tem certeza?')) {
+    farmers = [];
+    localStorage.setItem('farmers', JSON.stringify(farmers));
+    atualizarLista();
+  }
+}
+
+function copiarLink() {
+  document.getElementById('linkVisitante').select();
+  document.execCommand('copy');
+  mostrarMsg('msgLink');
+}
+
+function mostrarMsg(id) {
+  const el = document.getElementById(id);
+  el.style.display = 'block';
+  setTimeout(()=>el.style.display='none',2500);
+}
+
+function sair() {
+  localStorage.removeItem('usuario');
+  localStorage.removeItem('nivel');
+  window.location.href = 'index.html';
+}
+</script>
+</body>
+</html>

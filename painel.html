@@ -15,7 +15,6 @@
   --verde: #00FF88;
   --vermelho: #FF3B3B;
   --amarelo: #FFC107;
-  --cinza: #2A3A58;
   --texto: #E0E6ED;
   --texto-sec: #8A9AB8;
 }
@@ -73,9 +72,14 @@ body{
 .dot.yellow{background:var(--amarelo);box-shadow:0 0 6px var(--amarelo);}
 .name{font-size:16px;font-weight:700;color:var(--texto);}
 .rank{
-  background:linear-gradient(135deg,var(--cinza),#1F2C44);padding:6px 12px;border-radius:6px;
-  font-size:12px;font-weight:700;color:var(--texto);text-align:center;
+  padding:6px 12px;border-radius:6px;font-size:12px;font-weight:700;color:var(--texto);text-align:center;
   border:1px solid rgba(255,255,255,0.05);
+}
+.rank.lider{
+  background:linear-gradient(135deg,#8B6914,#B8860B);border:1px solid rgba(255,215,0,0.3);
+}
+.rank.colaborador{
+  background:linear-gradient(135deg,#1A3A5C,#244B7A);border:1px solid rgba(0,212,255,0.2);
 }
 .tag{font-size:18px;text-align:center;}
 .tag .crown{filter:drop-shadow(0 0 4px gold);}
@@ -102,7 +106,6 @@ body{
 
 <div class="container">
 
-<!-- DADOS GERAIS -->
 <div class="stats-card">
   <h2>📊 DADOS GERAIS</h2>
   <div class="stats-grid">
@@ -125,15 +128,13 @@ body{
   </div>
 </div>
 
-<!-- CABEÇALHO -->
 <div class="table-header">
   <div>STATUS</div>
   <div>QRA / NOME</div>
-  <div>PATENTE</div>
+  <div>FUNÇÃO</div>
   <div>TAGS</div>
 </div>
 
-<!-- LISTA -->
 <div id="listaIntegrantes"></div>
 
 <div class="rodape">🔥 LOJA CAOS 77 🔥</div>
@@ -147,22 +148,23 @@ function carregarDados(){
   document.getElementById('estoque').textContent = localStorage.getItem('estoque') || '0';
   
   const integrantes = JSON.parse(localStorage.getItem('integrantes')) || [
-    {nome:'SRR MESQUITA',patente:'Major General',status:'online',coroa:true},
-    {nome:'DOMM ED',patente:'Major General',status:'online',coroa:false},
-    {nome:'ALOK MESQUITA',patente:'Coronel',status:'online',coroa:false},
-    {nome:'JAMES MECFERSON',patente:'Coronel',status:'offline',coroa:true},
-    {nome:'SR BIGODEK',patente:'Major',status:'ausente',coroa:false},
+    {nome:'SRR MESQUITA',patente:'Líder',status:'online',coroa:true},
+    {nome:'DOMM ED',patente:'Líder',status:'online',coroa:true},
+    {nome:'ALOK MESQUITA',patente:'Colaborador',status:'online',coroa:false},
+    {nome:'JAMES MECFERSON',patente:'Colaborador',status:'offline',coroa:false},
+    {nome:'SR BIGODEK',patente:'Colaborador',status:'ausente',coroa:false},
   ];
   
   const container = document.getElementById('listaIntegrantes');
   container.innerHTML = '';
   integrantes.forEach(i=>{
     const statusClass = i.status === 'online' ? 'green' : i.status === 'ausente' ? 'yellow' : 'red';
+    const classeRank = i.patente === 'Líder' ? 'lider' : 'colaborador';
     container.innerHTML += `
       <div class="row">
         <div class="status-dots"><div class="dot ${statusClass}"></div><div class="dot green"></div></div>
         <div class="name">${i.nome}</div>
-        <div class="rank">${i.patente}</div>
+        <div class="rank ${classeRank}">${i.patente}</div>
         <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
       </div>
     `;

@@ -13,8 +13,6 @@
   --bg-card: #0F1726;
   --azul: #00D4FF;
   --verde: #00FF88;
-  --vermelho: #FF3B3B;
-  --amarelo: #FFC107;
   --texto: #E0E6ED;
 }
 
@@ -36,8 +34,8 @@ body{
 }
 .atualizado{
   text-align:center;color:var(--verde);font-size:12px;padding:8px 14px;
-  background:rgba(0,255,136,0.05);border-radius:20px;display:inline-block;
-  border:1px solid rgba(0,255,136,0.15);margin:15px 0;
+  background:rgba(0,255,136,0.1);border-radius:20px;display:inline-block;
+  border:1px solid rgba(0,255,136,0.2);margin:15px 0;
 }
 
 .container{max-width:800px;margin:0 auto;padding:0 20px 40px;}
@@ -54,21 +52,17 @@ body{
 .stat-value.blue{color:var(--azul);}
 
 .table-header{
-  display:grid;grid-template-columns:60px 1fr 100px;gap:10px;
+  display:grid;grid-template-columns:1fr 120px 100px;gap:10px;
   padding:14px 16px;color:var(--azul);font-size:13px;font-weight:700;text-transform:uppercase;
   letter-spacing:1px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
 }
 .row{
-  display:grid;grid-template-columns:60px 1fr 100px;gap:10px;
+  display:grid;grid-template-columns:1fr 120px 100px;gap:10px;
   padding:16px;border-radius:10px;background:var(--bg-card);margin-bottom:10px;
   align-items:center;
 }
-.status-dots{display:flex;gap:4px;}
-.dot{width:14px;height:14px;border-radius:50%;}
-.dot.green{background:var(--verde);box-shadow:0 0 6px var(--verde);}
-.dot.red{background:var(--vermelho);box-shadow:0 0 6px var(--vermelho);}
-.dot.yellow{background:var(--amarelo);box-shadow:0 0 6px var(--amarelo);}
 .name{font-size:16px;font-weight:700;color:var(--texto);}
+.farm-val{font-size:18px;font-weight:700;color:var(--verde);text-align:center;}
 .tag{font-size:18px;text-align:center;}
 .tag .crown{filter:drop-shadow(0 0 4px gold);}
 
@@ -79,7 +73,7 @@ body{
 }
 
 @media(max-width:600px){
-  .table-header,.row{grid-template-columns:50px 1fr 70px;gap:6px;}
+  .table-header,.row{grid-template-columns:1fr 90px 80px;gap:6px;}
 }
 </style>
 </head>
@@ -117,8 +111,8 @@ body{
 </div>
 
 <div class="table-header">
-  <div>STATUS</div>
   <div>NOME</div>
+  <div>FARM</div>
   <div>TAGS</div>
 </div>
 
@@ -135,21 +129,20 @@ function carregarDados(){
   document.getElementById('estoque').textContent = localStorage.getItem('estoque') || '0';
   
   const integrantes = JSON.parse(localStorage.getItem('integrantes')) || [
-    {nome:'SRR MESQUITA',status:'online',coroa:true},
-    {nome:'DOMM ED',status:'online',coroa:true},
-    {nome:'ALOK MESQUITA',status:'online',coroa:false},
-    {nome:'JAMES MECFERSON',status:'offline',coroa:false},
-    {nome:'SR BIGODEK',status:'ausente',coroa:false},
+    {nome:'SRR MESQUITA',farm:'100',coroa:true},
+    {nome:'DOMM ED',farm:'85',coroa:true},
+    {nome:'ALOK MESQUITA',farm:'60',coroa:false},
+    {nome:'JAMES MECFERson',farm:'45',coroa:false},
+    {nome:'SR BIGODEK',farm:'30',coroa:false},
   ];
   
   const container = document.getElementById('listaIntegrantes');
   container.innerHTML = '';
   integrantes.forEach(i=>{
-    const statusClass = i.status === 'online' ? 'green' : i.status === 'ausente' ? 'yellow' : 'red';
     container.innerHTML += `
       <div class="row">
-        <div class="status-dots"><div class="dot ${statusClass}"></div><div class="dot green"></div></div>
         <div class="name">${i.nome}</div>
+        <div class="farm-val">${i.farm || '0'}</div>
         <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
       </div>
     `;

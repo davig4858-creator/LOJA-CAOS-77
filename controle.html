@@ -143,7 +143,7 @@ body{
   <h2>📊 DADOS GERAIS</h2>
   <div class="stats-grid">
     <div class="stat-item">
-      <div class="stat-label">MAIS FARTOU</div>
+      <div class="stat-label">MAIS FARMOU</div>
       <div class="stat-value" id="maisFarmou">—</div>
     </div>
     <div class="stat-item">
@@ -209,14 +209,12 @@ function salvarCaixa(){
 }
 
 function atualizarTotais(){
-  // Soma todo o farm
   let totalFarm = 0;
   integrantes.forEach(i=>{
     totalFarm += parseInt(i.farm) || 0;
   });
   document.getElementById('estoque').textContent = totalFarm;
   
-  // Encontra quem mais farmou
   if(integrantes.length > 0){
     let topIntegrante = integrantes.reduce((max, i) => {
       return (parseInt(i.farm) || 0) > (parseInt(max.farm) || 0) ? i : max;

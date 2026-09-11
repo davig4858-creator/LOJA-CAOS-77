@@ -1,4 +1,184 @@
-<!-- 📊 TABELA DE VENDAS DE FRAGMENTOS -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAINEL DE CONTROLE — LOJA CAOS 77</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+:root{
+  --bg-dark: #0A0F1A;
+  --bg-card: #0F1726;
+  --bg-card-hover: #172338;
+  --azul: #00D4FF;
+  --verde: #00FF88;
+  --vermelho: #FF3B3B;
+  --texto: #E0E6ED;
+  --texto-sec: #8A9AB8;
+}
+
+body{
+  background:var(--bg-dark);
+  min-height:100vh;color:var(--texto);padding:0;margin:0;
+  background-image: 
+    linear-gradient(rgba(0,212,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.02) 1px, transparent 1px);
+  background-size:25px 25px;
+}
+
+.header-top{
+  background:linear-gradient(180deg, rgba(15,23,38,0.95), rgba(10,15,26,0.9));
+  padding:18px 20px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(0,212,255,0.1);position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(10px);
+}
+
+.header-top .title{font-size:20px;font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:10px;}
+.header-top .title span{color:var(--azul);}
+.status-badge{
+  background:rgba(0,255,136,0.1);color:var(--verde);padding:6px 14px;border-radius:20px;
+  font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;border:1px solid rgba(0,255,136,0.2);
+}
+.status-badge::before{content:'';width:8px;height:8px;background:var(--verde);border-radius:50%;animation:pulse-green 2s infinite;}
+@keyframes pulse-green{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+.container{max-width:800px;margin:0 auto;padding:25px 20px;}
+
+.search-bar{
+  width:100%;padding:14px 18px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
+  border-radius:10px;color:var(--texto);font-size:15px;margin-bottom:20px;outline:none;
+}
+.search-bar:focus{border-color:var(--azul);}
+.search-bar::placeholder{color:var(--texto-sec);}
+
+.btn-add{
+  width:100%;padding:16px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;
+  border-radius:10px;color:#000;font-size:16px;font-weight:800;cursor:pointer;
+  margin-bottom:25px;transition:all 0.2s ease;box-shadow:0 0 20px rgba(0,212,255,0.25);
+}
+.btn-add:hover{transform:translateY(-2px);}
+
+.sales-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
+}
+.sales-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
+.sales-table{width:100%;border-collapse:collapse;}
+.sales-table th{
+  background:rgba(0,212,255,0.1);padding:12px 8px;text-align:left;color:var(--azul);
+  font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+}
+.sales-table th:last-child{text-align:right;}
+.sales-table td{padding:8px 4px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.sales-table tr:last-child td{border-bottom:none;}
+
+.sales-table input{
+  width: 100%;
+  padding: 12px 10px;
+  background: #050a12;
+  border: 2px solid #1a2c47;
+  border-radius: 6px;
+  color: var(--verde);
+  font-size: 15px;
+  font-weight: 600;
+  outline: none;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.sales-table input::placeholder{
+  color: #2a456b;
+}
+.sales-table input:focus{
+  border-color: var(--azul);
+  background: #0a1525;
+  box-shadow: 0 0 0 2px rgba(0,212,255,0.2);
+}
+
+.sales-table .dia{font-size:14px;font-weight:600;color:var(--texto);width:110px;}
+.sales-table .total-row{background:rgba(0,255,136,0.05);}
+.sales-table .total-row td{font-weight:700;font-size:15px;color:var(--verde);padding-top:12px;}
+.sales-table .total-row td:last-child{text-align:right;font-size:18px;}
+
+.stats-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
+}
+.stats-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;}
+.stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:6px;text-transform:uppercase;}
+.stat-value{font-size:20px;font-weight:800;color:var(--texto);}
+.stat-value.green{color:var(--verde);}
+.stat-value.blue{color:var(--azul);}
+.stat-value input{background:transparent;border:none;color:inherit;font-size:inherit;width:100%;outline:none;}
+
+.table-header{
+  display:grid;grid-template-columns:1fr 120px 100px 160px;gap:10px;
+  padding:14px 16px;color:var(--azul);font-size:13px;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
+}
+
+.row{
+  display:grid;grid-template-columns:1fr 120px 100px 160px;gap:10px;
+  padding:16px;border-radius:10px;background:var(--bg-card);margin-bottom:10px;
+  align-items:center;border:1px solid transparent;transition:all 0.2s ease;
+}
+.row:hover{background:var(--bg-card-hover);border-color:rgba(0,212,255,0.15);}
+
+.name{font-size:16px;font-weight:700;color:var(--texto);}
+.farm-input{
+  background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);border-radius:6px;
+  color:var(--verde);font-size:16px;font-weight:700;text-align:center;padding:6px 8px;
+  width:100%;outline:none;
+}
+.tag{font-size:18px;text-align:center;}
+.tag .crown{filter:drop-shadow(0 0 4px gold);}
+
+.btn-edit{
+  padding:8px 14px;background:linear-gradient(135deg,#1A3A5C,#244B7A);border:none;
+  border-radius:6px;color:var(--azul);font-size:13px;font-weight:700;cursor:pointer;
+  transition:all 0.2s ease;margin-right:6px;
+}
+.btn-del{
+  padding:8px 14px;background:linear-gradient(135deg,#5C1A1A,#7A2424);border:none;
+  border-radius:6px;color:#FF6B6B;font-size:13px;font-weight:700;cursor:pointer;
+  transition:all 0.2s ease;
+}
+
+.modal-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);
+  display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);
+}
+.modal{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.2);border-radius:14px;padding:25px;
+  width:90%;max-width:450px;
+}
+.modal h3{color:var(--azul);font-size:18px;margin-bottom:20px;}
+.modal input{
+  width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);
+  border-radius:8px;color:var(--texto);font-size:15px;margin-bottom:12px;outline:none;
+}
+.modal input:focus{border-color:var(--azul);}
+.modal-buttons{display:flex;gap:10px;margin-top:10px;}
+.modal-btn-cancel{flex:1;padding:12px;background:#2A3A58;border:none;border-radius:8px;color:var(--texto);font-weight:700;cursor:pointer;}
+.modal-btn-save{flex:1;padding:12px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;}
+
+@media(max-width:600px){
+  .table-header,.row{grid-template-columns:1fr 90px 80px 140px;gap:6px;}
+  .farm-input{font-size:14px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="header-top">
+  <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
+  <div class="status-badge" id="statusBadge">Conectando...</div>
+</div>
+
+<div class="container">
+
 <div class="sales-card">
   <h2>💰 VENDAS DE FRAGMENTOS — SEMANA</h2>
   <table class="sales-table">
@@ -48,3 +228,218 @@
   </table>
   <button class="btn-add" style="margin-top:16px;padding:12px;font-size:14px;width:auto;" onclick="salvarVendas()">💾 SALVAR VENDAS</button>
 </div>
+
+<div class="stats-card">
+  <h2>📊 DADOS GERAIS</h2>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-label">MAIS FARMOU</div>
+      <div class="stat-value" id="maisFarmou">—</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">CAIXA TOTAL</div>
+      <div class="stat-value green" id="caixa">R$ 0,00</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">ESTOQUE</div>
+      <div class="stat-value blue" id="estoque">0</div>
+    </div>
+  </div>
+</div>
+
+<input type="text" class="search-bar" placeholder="🔍 Buscar por nome...">
+
+<button class="btn-add" onclick="abrirModal()">+ ADICIONAR INTEGRANTE</button>
+
+<div class="table-header">
+  <div>NOME</div>
+  <div>FARM</div>
+  <div>TAGS</div>
+  <div>AÇÕES</div>
+</div>
+
+<div id="listaIntegrantes"></div>
+
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 id="modalTitulo">➕ Adicionar Integrante</h3>
+    <input type="text" id="inputNome" placeholder="Nome do integrante">
+    <input type="text" id="inputFarm" placeholder="Quantidade de farm">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+      <input type="checkbox" id="inputCoroa" style="width:auto;margin:0;">
+      <label for="inputCoroa" style="color:var(--texto);font-size:14px;">👑 Líder</label>
+    </div>
+    <div class="modal-buttons">
+      <button class="modal-btn-cancel" onclick="fecharModal()">Cancelar</button>
+      <button class="modal-btn-save" onclick="salvarIntegrante()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATABASE_URL = 'https://loja-caos-77-default-rtdb.firebaseio.com/.json';
+
+let integrantes = [];
+let editId = null;
+const dias = ['seg','ter','qua','qui','sex','sab'];
+
+function atualizarVendas(){
+  let total = 0;
+  dias.forEach(dia=>{
+    const val = parseFloat(document.getElementById(`val_${dia}`).value) || 0;
+    total += val;
+  });
+  document.getElementById('totalVendas').innerText = `R$ ${total.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
+  document.getElementById('caixa').innerText = `R$ ${total.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
+}
+
+async function salvarVendas(){
+  const vendas = {};
+  dias.forEach(dia=>{
+    vendas[`frag_${dia}`] = document.getElementById(`frag_${dia}`).value || 0;
+    vendas[`val_${dia}`] = parseFloat(document.getElementById(`val_${dia}`).value) || 0;
+  });
+  vendas.total = dias.reduce((sum,d)=>sum+(parseFloat(document.getElementById(`val_${d}`).value)||0),0);
+  
+  await fetch(DATABASE_URL, {
+    method: 'PATCH',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({vendas})
+  });
+  
+  document.getElementById('caixa').innerText = `R$ ${vendas.total.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
+  alert('✅ Vendas salvas!');
+}
+
+async function carregarDados(){
+  try{
+    const res = await fetch(DATABASE_URL);
+    const data = await res.json();
+    
+    if(data && data.integrantes) integrantes = data.integrantes;
+    if(data && data.vendas){
+      dias.forEach(dia=>{
+        document.getElementById(`frag_${dia}`).value = data.vendas[`frag_${dia}`] || '';
+        document.getElementById(`val_${dia}`).value = data.vendas[`val_${dia}`] || '';
+      });
+      atualizarVendas();
+    }
+    
+    document.getElementById('statusBadge').innerHTML = '✅ Sincronizado';
+    atualizarTotais();
+    renderLista();
+  }catch(e){
+    document.getElementById('statusBadge').innerHTML = '❌ Erro';
+  }
+}
+
+async function salvarDados(){
+  await fetch(DATABASE_URL, {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({integrantes})
+  });
+}
+
+window.onload = carregarDados;
+
+function atualizarTotais(){
+  let totalFarm = 0;
+  integrantes.forEach(i=>{
+    totalFarm += parseInt(i.farm) || 0;
+  });
+  document.getElementById('estoque').textContent = totalFarm;
+  
+  if(integrantes.length > 0){
+    let topIntegrante = integrantes.reduce((max, i) => {
+      return (parseInt(i.farm) || 0) > (parseInt(max.farm) || 0) ? i : max;
+    }, integrantes[0]);
+    document.getElementById('maisFarmou').textContent = topIntegrante.nome + ' — ' + (parseInt(topIntegrante.farm) || 0);
+  }else{
+    document.getElementById('maisFarmou').textContent = '—';
+  }
+}
+
+function renderLista(){
+  const container = document.getElementById('listaIntegrantes');
+  container.innerHTML = '';
+  
+  integrantes.forEach(i=>{
+    container.innerHTML += `
+      <div class="row">
+        <div class="name">${i.nome}</div>
+        <input type="text" class="farm-input" value="${i.farm || ''}" 
+               onblur="atualizarFarm(${i.id}, this.value)">
+        <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
+        <div style="display:flex;gap:4px;">
+          <button class="btn-edit" onclick="editar(${i.id})">EDITAR</button>
+          <button class="btn-del" onclick="excluir(${i.id})">EXPULSO</button>
+        </div>
+      </div>
+    `;
+  });
+  atualizarTotais();
+}
+
+function atualizarFarm(id, valor){
+  const idx = integrantes.findIndex(x=>x.id===id);
+  if(idx !== -1){
+    integrantes[idx].farm = valor;
+    salvarDados();
+    atualizarTotais();
+  }
+}
+
+function abrirModal(){
+  editId = null;
+  document.getElementById('modalTitulo').textContent = '➕ Adicionar Integrante';
+  document.getElementById('inputNome').value = '';
+  document.getElementById('inputFarm').value = '';
+  document.getElementById('inputCoroa').checked = false;
+  document.getElementById('modal').style.display = 'flex';
+}
+
+function fecharModal(){
+  document.getElementById('modal').style.display = 'none';
+}
+
+function editar(id){
+  const i = integrantes.find(x=>x.id===id);
+  if(!i)return;
+  editId = id;
+  document.getElementById('modalTitulo').textContent = '✏️ Editar Integrante';
+  document.getElementById('inputNome').value = i.nome;
+  document.getElementById('inputFarm').value = i.farm || '';
+  document.getElementById('inputCoroa').checked = i.coroa;
+  document.getElementById('modal').style.display = 'flex';
+}
+
+function salvarIntegrante(){
+  const nome = document.getElementById('inputNome').value.trim();
+  const farm = document.getElementById('inputFarm').value.trim();
+  const coroa = document.getElementById('inputCoroa').checked;
+  if(!nome){alert('Digite o nome!');return;}
+  
+  if(editId){
+    const idx = integrantes.findIndex(x=>x.id===editId);
+    integrantes[idx] = {id:editId,nome,farm,coroa};
+  }else{
+    integrantes.push({id:Date.now(),nome,farm,coroa});
+  }
+  fecharModal();
+  salvarDados();
+  renderLista();
+}
+
+function excluir(id){
+  if(confirm('Tem certeza?')){
+    integrantes = integrantes.filter(x=>x.id!==id);
+    salvarDados();
+    renderLista();
+  }
+}
+</script>
+</body>
+</html>

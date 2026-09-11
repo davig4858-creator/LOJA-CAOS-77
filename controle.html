@@ -13,11 +13,9 @@
   --bg-card: #0F1726;
   --bg-card-hover: #172338;
   --azul: #00D4FF;
-  --azul-claro: #3DE2FF;
   --verde: #00FF88;
   --vermelho: #FF3B3B;
   --amarelo: #FFC107;
-  --cinza: #2A3A58;
   --texto: #E0E6ED;
   --texto-sec: #8A9AB8;
 }
@@ -52,32 +50,25 @@ body{
 .search-bar{
   width:100%;padding:14px 18px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
   border-radius:10px;color:var(--texto);font-size:15px;margin-bottom:20px;outline:none;
-  transition:border 0.2s;
 }
-.search-bar:focus{border-color:var(--azul);box-shadow:0 0 0 3px rgba(0,212,255,0.08);}
+.search-bar:focus{border-color:var(--azul);}
 .search-bar::placeholder{color:var(--texto-sec);}
-
-.filter-row{display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap;}
-.filter-select{
-  padding:10px 14px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
-  border-radius:8px;color:var(--texto);font-size:14px;outline:none;cursor:pointer;
-}
 
 .btn-add{
   width:100%;padding:16px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;
   border-radius:10px;color:#000;font-size:16px;font-weight:800;cursor:pointer;
   margin-bottom:25px;transition:all 0.2s ease;box-shadow:0 0 20px rgba(0,212,255,0.25);
 }
-.btn-add:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(0,212,255,0.4);}
+.btn-add:hover{transform:translateY(-2px);}
 
 .table-header{
-  display:grid;grid-template-columns:60px 1fr 140px 100px 160px;gap:10px;
+  display:grid;grid-template-columns:60px 1fr 100px 160px;gap:10px;
   padding:14px 16px;color:var(--azul);font-size:13px;font-weight:700;text-transform:uppercase;
   letter-spacing:1px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
 }
 
 .row{
-  display:grid;grid-template-columns:60px 1fr 140px 100px 160px;gap:10px;
+  display:grid;grid-template-columns:60px 1fr 100px 160px;gap:10px;
   padding:16px;border-radius:10px;background:var(--bg-card);margin-bottom:10px;
   align-items:center;border:1px solid transparent;transition:all 0.2s ease;
 }
@@ -90,17 +81,6 @@ body{
 .dot.yellow{background:var(--amarelo);box-shadow:0 0 6px var(--amarelo);}
 
 .name{font-size:16px;font-weight:700;color:var(--texto);}
-.rank{
-  background:linear-gradient(135deg,var(--cinza),#1F2C44);padding:6px 12px;border-radius:6px;
-  font-size:12px;font-weight:700;color:var(--texto);text-align:center;
-  border:1px solid rgba(255,255,255,0.05);
-}
-.rank.lider{
-  background:linear-gradient(135deg,#8B6914,#B8860B);border:1px solid rgba(255,215,0,0.3);
-}
-.rank.colaborador{
-  background:linear-gradient(135deg,#1A3A5C,#244B7A);border:1px solid rgba(0,212,255,0.2);
-}
 .tag{font-size:18px;text-align:center;}
 .tag .crown{filter:drop-shadow(0 0 4px gold);}
 
@@ -109,13 +89,11 @@ body{
   border-radius:6px;color:var(--azul);font-size:13px;font-weight:700;cursor:pointer;
   transition:all 0.2s ease;margin-right:6px;
 }
-.btn-edit:hover{background:linear-gradient(135deg,#244B7A,#2C5C94);}
 .btn-del{
   padding:8px 14px;background:linear-gradient(135deg,#5C1A1A,#7A2424);border:none;
   border-radius:6px;color:#FF6B6B;font-size:13px;font-weight:700;cursor:pointer;
   transition:all 0.2s ease;
 }
-.btn-del:hover{background:linear-gradient(135deg,#7A2424,#942C2C);}
 
 .modal-overlay{
   position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);
@@ -123,7 +101,7 @@ body{
 }
 .modal{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.2);border-radius:14px;padding:25px;
-  width:90%;max-width:450px;box-shadow:0 0 40px rgba(0,212,255,0.1);
+  width:90%;max-width:450px;
 }
 .modal h3{color:var(--azul);font-size:18px;margin-bottom:20px;}
 .modal input, .modal select{
@@ -140,18 +118,13 @@ body{
 }
 .stats-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
-.stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);}
-.stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;}
+.stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:6px;text-transform:uppercase;}
 .stat-value{font-size:20px;font-weight:800;color:var(--texto);}
-.stat-value input{
-  background:transparent;border:none;color:inherit;font-size:inherit;font-weight:inherit;
-  width:100%;outline:none;
-}
+.stat-value input{background:transparent;border:none;color:inherit;font-size:inherit;width:100%;outline:none;}
 
 @media(max-width:600px){
-  .table-header, .row{grid-template-columns:50px 1fr 100px 70px 120px;font-size:13px;gap:6px;}
-  .rank{padding:4px 8px;font-size:11px;}
-  .btn-edit,.btn-del{padding:6px 10px;font-size:11px;}
+  .table-header,.row{grid-template-columns:50px 1fr 70px 120px;gap:6px;}
 }
 </style>
 </head>
@@ -188,20 +161,12 @@ body{
 </div>
 
 <input type="text" class="search-bar" placeholder="🔍 Buscar por nome...">
-<div class="filter-row">
-  <select class="filter-select" id="filtroPatente" onchange="renderLista()">
-    <option value="todas">Todas as funções</option>
-    <option value="Líder">Líder</option>
-    <option value="Colaborador">Colaborador</option>
-  </select>
-</div>
 
 <button class="btn-add" onclick="abrirModal()">+ ADICIONAR INTEGRANTE</button>
 
 <div class="table-header">
   <div>STATUS</div>
   <div>NOME</div>
-  <div>FUNÇÃO</div>
   <div>TAGS</div>
   <div>AÇÕES</div>
 </div>
@@ -214,15 +179,15 @@ body{
   <div class="modal">
     <h3 id="modalTitulo">➕ Adicionar Integrante</h3>
     <input type="text" id="inputNome" placeholder="Nome do integrante">
-    <select id="inputPatente">
-      <option value="Líder">👑 Líder</option>
-      <option value="Colaborador">🤝 Colaborador</option>
-    </select>
     <select id="inputStatus">
       <option value="online">🟢 Online</option>
       <option value="ausente">🟡 Ausente</option>
       <option value="offline">🔴 Offline</option>
     </select>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+      <input type="checkbox" id="inputCoroa" style="width:auto;margin:0;">
+      <label for="inputCoroa" style="color:var(--texto);font-size:14px;">👑 Líder</label>
+    </div>
     <div class="modal-buttons">
       <button class="modal-btn-cancel" onclick="fecharModal()">Cancelar</button>
       <button class="modal-btn-save" onclick="salvarIntegrante()">Salvar</button>
@@ -232,11 +197,11 @@ body{
 
 <script>
 let integrantes = JSON.parse(localStorage.getItem('integrantes')) || [
-  {id:Date.now(),nome:'SRR MESQUITA',patente:'Líder',status:'online',coroa:true},
-  {id:Date.now()+1,nome:'DOMM ED',patente:'Líder',status:'online',coroa:true},
-  {id:Date.now()+2,nome:'ALOK MESQUITA',patente:'Colaborador',status:'online',coroa:false},
-  {id:Date.now()+3,nome:'JAMES MECFERSON',patente:'Colaborador',status:'offline',coroa:false},
-  {id:Date.now()+4,nome:'SR BIGODEK',patente:'Colaborador',status:'ausente',coroa:false},
+  {id:Date.now(),nome:'SRR MESQUITA',status:'online',coroa:true},
+  {id:Date.now()+1,nome:'DOMM ED',status:'online',coroa:true},
+  {id:Date.now()+2,nome:'ALOK MESQUITA',status:'online',coroa:false},
+  {id:Date.now()+3,nome:'JAMES MECFERSON',status:'offline',coroa:false},
+  {id:Date.now()+4,nome:'SR BIGODEK',status:'ausente',coroa:false},
 ];
 let editId = null;
 
@@ -261,24 +226,16 @@ function salvarDadosGerais(){
 }
 
 function renderLista(){
-  const filtro = document.getElementById('filtroPatente').value;
   const container = document.getElementById('listaIntegrantes');
   container.innerHTML = '';
   
-  let listaFiltrada = integrantes;
-  if(filtro !== 'todas'){
-    listaFiltrada = integrantes.filter(i => i.patente === filtro);
-  }
-  
-  listaFiltrada.forEach(i=>{
+  integrantes.forEach(i=>{
     const statusClass = i.status === 'online' ? 'green' : i.status === 'ausente' ? 'yellow' : 'red';
-    const classeRank = i.patente === 'Líder' ? 'lider' : 'colaborador';
     container.innerHTML += `
       <div class="row">
         <div class="status-dots"><div class="dot ${statusClass}"></div><div class="dot green"></div></div>
         <div class="name">${i.nome}</div>
-        <div class="rank ${classeRank}">${i.patente}</div>
-        <div class="tag">${i.patente === 'Líder' ? '<span class="crown">👑</span>' : ''}</div>
+        <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
         <div style="display:flex;gap:4px;">
           <button class="btn-edit" onclick="editar(${i.id})">EDITAR</button>
           <button class="btn-del" onclick="excluir(${i.id})">EXONERAR</button>
@@ -293,8 +250,8 @@ function abrirModal(){
   editId = null;
   document.getElementById('modalTitulo').textContent = '➕ Adicionar Integrante';
   document.getElementById('inputNome').value = '';
-  document.getElementById('inputPatente').value = 'Colaborador';
   document.getElementById('inputStatus').value = 'online';
+  document.getElementById('inputCoroa').checked = false;
   document.getElementById('modal').style.display = 'flex';
 }
 
@@ -308,22 +265,22 @@ function editar(id){
   editId = id;
   document.getElementById('modalTitulo').textContent = '✏️ Editar Integrante';
   document.getElementById('inputNome').value = i.nome;
-  document.getElementById('inputPatente').value = i.patente;
   document.getElementById('inputStatus').value = i.status;
+  document.getElementById('inputCoroa').checked = i.coroa;
   document.getElementById('modal').style.display = 'flex';
 }
 
 function salvarIntegrante(){
   const nome = document.getElementById('inputNome').value.trim();
-  const patente = document.getElementById('inputPatente').value;
   const status = document.getElementById('inputStatus').value;
+  const coroa = document.getElementById('inputCoroa').checked;
   if(!nome){alert('Digite o nome!');return;}
   
   if(editId){
     const idx = integrantes.findIndex(x=>x.id===editId);
-    integrantes[idx] = {id:editId,nome,patente,status,coroa:patente==='Líder'};
+    integrantes[idx] = {id:editId,nome,status,coroa};
   }else{
-    integrantes.push({id:Date.now(),nome,patente,status,coroa:patente==='Líder'});
+    integrantes.push({id:Date.now(),nome,status,coroa});
   }
   fecharModal();
   renderLista();

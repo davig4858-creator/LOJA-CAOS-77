@@ -5,51 +5,87 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🔥 LOJA CAOS 77 — VISITANTE</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
-body{background:#0a0a0a;min-height:100vh;color:#e5e5e5;padding:20px;}
-.container{max-width:500px;margin:0 auto;}
-h1{color:#ff6b00;text-align:center;margin-bottom:25px;}
-.destaque{background:#2b1d00;border:1px solid #ff6b00;padding:20px;border-radius:6px;margin-bottom:20px;}
-.destaque h3{color:#ff6b00;margin-bottom:5px;}
-.destaque p{font-size:20px;font-weight:bold;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0;}
-.box{background:#171717;padding:15px;text-align:center;border-radius:6px;border:1px solid #333;}
-.box .num{font-size:22px;font-weight:bold;}
-.box .label{font-size:12px;color:#999;margin-top:5px;}
-h2{color:#ff6b00;font-size:16px;margin:25px 0 10px;}
-ul{list-style:none;}
-li{padding:10px 0;border-bottom:1px solid #333;}
-.rodape{text-align:center;margin-top:40px;color:#666;font-size:12px;}
-.atualizado{text-align:center;color:#00ff88;font-size:12px;margin-bottom:20px;}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{
+  background:linear-gradient(135deg,#0f0f0f 0%,#1a1a1a 50%,#0f0f0f 100%);
+  min-height:100vh;color:#fff;padding:20px;
+}
+.container{max-width:550px;margin:0 auto;}
+.atualizado{
+  text-align:center;color:#00ff88;font-size:12px;margin-bottom:25px;
+  background:rgba(0,255,102,0.05);padding:8px 12px;border-radius:20px;display:inline-block;
+  border:1px solid rgba(0,255,102,0.1);
+}
+.destaque{
+  background:linear-gradient(135deg,rgba(45,30,0,0.9),rgba(30,20,0,0.9));
+  border:1px solid rgba(255,107,0,0.25);padding:25px;border-radius:16px;margin-bottom:25px;
+  text-align:center;box-shadow:0 0 30px rgba(255,107,0,0.08);
+}
+.destaque .icon{font-size:32px;margin-bottom:8px;}
+.destaque h3{color:#ff6b00;font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;opacity:0.8;}
+.destaque .nome{font-size:22px;font-weight:900;margin-bottom:5px;}
+.destaque .valor{font-size:15px;color:#ffcc00;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:40px;}
+.stat-box{
+  background:linear-gradient(145deg,rgba(35,35,35,0.9),rgba(25,25,25,0.9));
+  padding:20px 12px;text-align:center;border-radius:14px;border:1px solid #333;
+}
+.stat-box .num{font-size:24px;font-weight:900;}
+.stat-box .label{font-size:11px;color:#888;margin-top:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.rodape-completo{
+  margin-top:50px;padding:40px 20px;text-align:center;
+  border-top:2px solid rgba(255,107,0,0.3);
+  background:linear-gradient(to bottom,transparent,rgba(255,107,0,0.05));
+  border-radius:16px;
+}
+.nome-faccao{
+  font-size:42px;font-weight:900;letter-spacing:5px;text-transform:uppercase;
+  color:#ff6b00;
+  text-shadow:0 0 15px #ff6b00,
+               0 0 30px #ff4400,
+               0 0 50px #ff4400,
+               0 0 70px #ff2200;
+  animation:pulse 2s ease-in-out infinite;
+  line-height:1.2;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+}
+.slogan{
+  margin-top:15px;font-size:14px;letter-spacing:3px;color:#888;text-transform:uppercase;
+}
+.divisor{
+  width:100px;height:3px;background:linear-gradient(90deg,transparent,#ff6b00,transparent);
+  margin:20px auto;border-radius:2px;
+}
 </style>
 </head>
 <body>
 <div class="container">
-<h1>🔥 LOJA CAOS 77</h1>
-<p class="atualizado" id="ultimaAtualizacao">Última atualização: hoje</p>
+<div style="text-align:center;margin-bottom:20px;">
+<p class="atualizado" id="ultimaAtualizacao">✅ Última atualização: hoje</p>
+</div>
 
 <div class="destaque">
-<h3>👑 FARMER COM MAIS FRAGMENTOS</h3>
-<p id="melhorNome">Sr Bristow</p>
-<span id="melhorFrag">200 fragmentos formados</span>
+<div class="icon">👑</div>
+<h3>Melhor Farmer do Dia</h3>
+<div class="nome" id="melhorNome">Sr Bristow</div>
+<div class="valor" id="melhorFrag">200 fragmentos formados</div>
 </div>
 
 <div class="grid">
-<div class="box"><div class="num" style="color:#ff6b00;" id="totalFrag">990</div><div class="label">TOTAL FRAGMENTOS</div></div>
-<div class="box"><div class="num" style="color:#00ff88;" id="caixa">R$ 0,00</div><div class="label">CAIXA DA FAC</div></div>
-<div class="box"><div class="num" style="color:#00aaff;" id="estoque">2500</div><div class="label">EM ESTOQUE</div></div>
+<div class="stat-box"><div class="num" style="color:#ff6b00;" id="totalFrag">990</div><div class="label">Total Frags</div></div>
+<div class="stat-box"><div class="num" style="color:#00ff88;" id="caixa">R$ 0,00</div><div class="label">Caixa Facção</div></div>
+<div class="stat-box"><div class="num" style="color:#00aaff;" id="estoque">2500</div><div class="label">Em Estoque</div></div>
 </div>
 
-<h2>📋 ÚLTIMOS FARMERS</h2>
-<ul id="listaFarmers">
-<li>0 — Sr Bristow: 200 frags</li>
-<li>1 — Katy Bristow: 0 frags</li>
-<li>2 — Andres Bristow: 100 frags</li>
-<li>3 — Vn Bristow: 100 frags</li>
-<li>4 — Ferrari Bristow: 11 frags</li>
-</ul>
-
-<p class="rodape">🔥 CAOS 77 — Acesso Visitante • Atualizado em tempo real</p>
+<div class="rodape-completo">
+  <div class="nome-faccao">🔥<br>LOJA<br>CAOS 77<br>🔥</div>
+  <div class="divisor"></div>
+  <div class="slogan">O PODER ESTÁ NAS MÃOS DE QUEM LUTA</div>
+</div>
 </div>
 
 <script>
@@ -60,22 +96,8 @@ function carregarDados() {
   document.getElementById('melhorNome').textContent = localStorage.getItem('melhorNome') || 'Sr Bristow';
   document.getElementById('melhorFrag').textContent = localStorage.getItem('melhorFrag') || '200 fragmentos formados';
   
-  const farmers = JSON.parse(localStorage.getItem('farmers')) || [
-    {nome:'Sr Bristow',frag:'200'},
-    {nome:'Katy Bristow',frag:'0'},
-    {nome:'Andres Bristow',frag:'100'},
-    {nome:'Vn Bristow',frag:'100'},
-    {nome:'Ferrari Bristow',frag:'11'}
-  ];
-  
-  const ul = document.getElementById('listaFarmers');
-  ul.innerHTML = '';
-  farmers.forEach((f,i) => {
-    ul.innerHTML += `<li>${i} — ${f.nome}: ${f.frag} frags</li>`;
-  });
-  
   const agora = new Date();
-  document.getElementById('ultimaAtualizacao').textContent = 'Última atualização: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('ultimaAtualizacao').textContent = '✅ Última atualização: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
 }
 
 window.onload = carregarDados;

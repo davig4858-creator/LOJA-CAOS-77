@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOJA CAOS 77 — VISITANTE</title>
+<title>PAINEL — LOJA CAOS 77</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
@@ -14,10 +14,12 @@
   --azul: #00D4FF;
   --verde: #00FF88;
   --texto: #E0E6ED;
+  --texto-sec: #8A9AB8;
 }
 
 body{
-  background:var(--bg-dark);min-height:100vh;color:var(--texto);padding:0;margin:0;
+  background:var(--bg-dark);
+  min-height:100vh;color:var(--texto);padding:0;margin:0;
   background-image: 
     linear-gradient(rgba(0,212,255,0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0,212,255,0.02) 1px, transparent 1px);
@@ -26,29 +28,19 @@ body{
 
 .header-top{
   background:linear-gradient(180deg, rgba(15,23,38,0.95), rgba(10,15,26,0.9));
-  padding:18px 20px;text-align:center;border-bottom:1px solid rgba(0,212,255,0.1);
-}
-.header-top .title{
-  font-size:24px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
-  color:var(--azul);text-shadow:0 0 15px rgba(0,212,255,0.3);
-}
-.atualizado{
-  text-align:center;color:var(--verde);font-size:12px;padding:8px 14px;
-  background:rgba(0,255,136,0.1);border-radius:20px;display:inline-block;
-  border:1px solid rgba(0,255,136,0.2);margin:15px 0;
+  padding:18px 20px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(0,212,255,0.1);position:sticky;top:0;z-index:100;
 }
 
-.link-box{
-  background:var(--bg-card);border:1px solid var(--azul);border-radius:10px;padding:15px;
-  margin:20px;text-align:center;
+.header-top .title{font-size:20px;font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:10px;}
+.header-top .title span{color:var(--azul);}
+.aviso-badge{
+  background:rgba(0,255,136,0.1);color:var(--verde);padding:6px 14px;border-radius:20px;
+  font-size:13px;font-weight:600;
 }
-.link-box p{font-size:13px;color:#8A9AB8;margin-bottom:8px;}
-.link-box a{color:var(--azul);font-weight:700;text-decoration:none;word-break:break-all;}
-.link-box a:hover{text-decoration:underline;}
 
-.container{max-width:800px;margin:0 auto;padding:0 20px 40px;}
+.container{max-width:800px;margin:0 auto;padding:25px 20px;}
 
-/* TABELA DE VENDAS */
 .sales-card{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
 }
@@ -59,14 +51,23 @@ body{
   font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
 }
 .sales-table th:last-child{text-align:right;}
-.sales-table td{padding:10px 8px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:15px;}
+.sales-table td{padding:14px 8px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:15px;}
 .sales-table tr:last-child td{border-bottom:none;}
-.sales-table .dia{font-weight:600;}
-.sales-table .frag{color:#8A9AB8;text-align:center;}
-.sales-table .val{color:var(--verde);text-align:right;font-weight:600;}
-.sales-table .total-row{background:rgba(0,255,136,0.05);font-weight:700;}
-.sales-table .total-row td{font-size:17px;color:var(--verde);padding-top:14px;}
-.sales-table .total-row .val{font-size:20px;}
+.sales-table .dia{font-weight:600;color:var(--texto);width:110px;}
+.sales-table .valor-cell{text-align:right;color:var(--texto);}
+
+.total-auto-row{
+  background:rgba(0,212,255,0.05);
+}
+.total-auto-row td{padding:16px 8px !important;}
+.total-auto-label{font-size:15px;font-weight:600;color:var(--azul);}
+.total-auto-value{font-size:20px;font-weight:800;color:var(--azul);text-align:right;}
+
+.total-card{
+  background:rgba(0,255,136,0.05);border:2px solid var(--verde);border-radius:10px;padding:20px;margin-top:20px;text-align:center;
+}
+.total-card h3{color:var(--verde);font-size:14px;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+.total-card .valor-final{font-size:28px;font-weight:800;color:var(--verde);}
 
 .stats-card{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
@@ -74,70 +75,64 @@ body{
 .stats-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;text-align:center;}
-.stat-label{font-size:12px;color:#8A9AB8;margin-bottom:6px;text-transform:uppercase;}
-.stat-value{font-size:22px;font-weight:800;}
-.stat-value.green{color:var(--verde);}
+.stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:8px;text-transform:uppercase;}
+.stat-value{font-size:20px;font-weight:800;color:var(--texto);}
+.stat-value.green{color:var(--verde);font-size:24px;}
 .stat-value.blue{color:var(--azul);}
 
-.table-header{
-  display:grid;grid-template-columns:1fr 120px 100px;gap:10px;
-  padding:14px 16px;color:var(--azul);font-size:13px;font-weight:700;text-transform:uppercase;
-  letter-spacing:1px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
-}
-.row{
-  display:grid;grid-template-columns:1fr 120px 100px;gap:10px;
-  padding:16px;border-radius:10px;background:var(--bg-card);margin-bottom:10px;
-  align-items:center;
-}
-.name{font-size:16px;font-weight:700;color:var(--texto);}
-.farm-val{font-size:18px;font-weight:700;color:var(--verde);text-align:center;}
-.tag{font-size:18px;text-align:center;}
-.tag .crown{filter:drop-shadow(0 0 4px gold);}
+.section-title{color:var(--azul);font-size:15px;margin:30px 0 12px;text-transform:uppercase;letter-spacing:1px;}
+.membros-list{background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;}
+.membro-item{padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;}
+.membro-item:last-child{border-bottom:none;}
+.membro-nome{font-weight:600;}
+.membro-farm{color:var(--verde);font-weight:600;}
+.nenhum-dado{text-align:center;padding:30px;color:var(--texto-sec);font-style:italic;}
 
-.rodape{
-  text-align:center;margin-top:50px;padding-top:30px;
-  font-size:28px;font-weight:900;letter-spacing:3px;text-transform:uppercase;
-  color:var(--azul);text-shadow:0 0 10px var(--azul);
-}
+.atualizacao-info{text-align:center;margin-top:20px;font-size:12px;color:var(--texto-sec);}
 
 @media(max-width:600px){
-  .table-header,.row{grid-template-columns:1fr 90px 80px;gap:6px;}
-  .stats-grid{grid-template-columns:1fr 1fr;}
+  .stats-grid{grid-template-columns:1fr;}
+  .sales-table td{font-size:14px;padding:12px 6px;}
 }
 </style>
 </head>
 <body>
 
 <div class="header-top">
-  <div class="title">🔥 LOJA CAOS 77</div>
-</div>
-
-<div class="link-box">
-  <p>🔗 Link para compartilhar</p>
-  <a href="#" id="linkCompleto" target="_blank">Aguardando...</a>
-</div>
-
-<div style="text-align:center;">
-  <p class="atualizado" id="ultimaAtualizacao">✅ Última atualização: carregando...</p>
+  <div class="title">🔥 PAINEL <span>LOJA CAOS 77</span></div>
+  <div class="aviso-badge">🔒 SOMENTE LEITURA</div>
 </div>
 
 <div class="container">
 
-<!-- 💰 TABELA DE VENDAS -->
 <div class="sales-card">
   <h2>💰 VENDAS DE FRAGMENTOS — SEMANA</h2>
   <table class="sales-table">
     <thead>
       <tr>
         <th>DIA</th>
-        <th class="frag">FRAGMENTOS</th>
-        <th class="val">VALOR</th>
+        <th style="text-align:center">FRAGMENTOS</th>
+        <th style="text-align:right">VALOR (R$)</th>
       </tr>
     </thead>
-    <tbody id="tabelaVendas">
-      <tr><td colspan="3" style="text-align:center;color:#8A9AB8;">Carregando vendas...</td></tr>
+    <tbody id="tabela-corpo">
+      <tr><td class="dia">Segunda</td><td style="text-align:center" id="frag-seg">-</td><td class="valor-cell" id="val-seg">-</td></tr>
+      <tr><td class="dia">Terça</td><td style="text-align:center" id="frag-ter">-</td><td class="valor-cell" id="val-ter">-</td></tr>
+      <tr><td class="dia">Quarta</td><td style="text-align:center" id="frag-qua">-</td><td class="valor-cell" id="val-qua">-</td></tr>
+      <tr><td class="dia">Quinta</td><td style="text-align:center" id="frag-qui">-</td><td class="valor-cell" id="val-qui">-</td></tr>
+      <tr><td class="dia">Sexta</td><td style="text-align:center" id="frag-sex">-</td><td class="valor-cell" id="val-sex">-</td></tr>
+      <tr><td class="dia">Sábado</td><td style="text-align:center" id="frag-sab">-</td><td class="valor-cell" id="val-sab">-</td></tr>
+      <tr class="total-auto-row">
+        <td colspan="2" class="total-auto-label">🔢 TOTAL AUTOMÁTICO</td>
+        <td class="total-auto-value" id="total-auto">R$ 0,00</td>
+      </tr>
     </tbody>
   </table>
+  
+  <div class="total-card">
+    <h3>💵 VALOR TOTAL FINAL</h3>
+    <div class="valor-final" id="valor-final">R$ 0,00</div>
+  </div>
 </div>
 
 <div class="stats-card">
@@ -145,122 +140,95 @@ body{
   <div class="stats-grid">
     <div class="stat-item">
       <div class="stat-label">MAIS FARMOU</div>
-      <div class="stat-value" id="maisFarmou">—</div>
+      <div class="stat-value" id="mais-farmou">-</div>
     </div>
     <div class="stat-item">
       <div class="stat-label">CAIXA TOTAL</div>
-      <div class="stat-value green" id="caixa">R$ 0,00</div>
+      <div class="stat-value green" id="caixa-total">R$ 0,00</div>
     </div>
     <div class="stat-item">
-      <div class="stat-label">EM ESTOQUE</div>
-      <div class="stat-value blue" id="estoque">0</div>
+      <div class="stat-label">ESTOQUE</div>
+      <div class="stat-value blue" id="estoque-total">0</div>
     </div>
   </div>
 </div>
 
-<div class="table-header">
-  <div>NOME</div>
-  <div>FARM</div>
-  <div>TAGS</div>
+<h3 class="section-title">👥 PARTICIPANTES</h3>
+<div class="membros-list" id="lista-membros">
+  <div class="nenhum-dado">Carregando...</div>
 </div>
 
-<div id="listaIntegrantes"></div>
+<div class="atualizacao-info">
+  ⟳ Atualiza automaticamente a cada 3 segundos
+</div>
 
-<div class="rodape">🔥 LOJA CAOS 77 🔥</div>
 </div>
 
 <script>
 const DATABASE_URL = 'https://loja-caos-77-default-rtdb.firebaseio.com/.json';
-const dias = [
-  {id:'seg',nome:'Segunda'},
-  {id:'ter',nome:'Terça'},
-  {id:'qua',nome:'Quarta'},
-  {id:'qui',nome:'Quinta'},
-  {id:'sex',nome:'Sexta'},
-  {id:'sab',nome:'Sábado'}
-];
+const dias = ['seg','ter','qua','qui','sex','sab'];
 
-function calcularTotais(integrantes){
-  let totalFarm = 0;
-  integrantes.forEach(i=>{
-    totalFarm += parseInt(i.farm) || 0;
-  });
-  
-  let topNome = '—', topValor = 0;
-  integrantes.forEach(i=>{
-    const val = parseInt(i.farm) || 0;
-    if(val > topValor){
-      topValor = val;
-      topNome = i.nome;
-    }
-  });
-  
-  return {totalFarm, topNome, topValor};
+function formatarMoeda(valor){
+  if(!valor || valor === 0) return 'R$ 0,00';
+  return `R$ ${Number(valor).toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
 }
 
 async function carregarDados(){
   try{
     const res = await fetch(DATABASE_URL);
     const data = await res.json();
-    const integrantes = data && data.integrantes ? data.integrantes : [];
-    const vendas = data && data.vendas ? data.vendas : null;
     
-    // Atualizar tabela de vendas
-    const tabelaVendas = document.getElementById('tabelaVendas');
-    if(vendas){
-      tabelaVendas.innerHTML = '';
-      dias.forEach(d=>{
-        const frag = vendas[`frag_${d.id}`] || 0;
-        const val = vendas[`val_${d.id}`] || 0;
-        tabelaVendas.innerHTML += `
-          <tr>
-            <td class="dia">${d.nome}</td>
-            <td class="frag">${frag}</td>
-            <td class="val">R$ ${parseFloat(val).toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
-          </tr>
-        `;
+    if(data && data.vendas){
+      dias.forEach(dia=>{
+        const frag = data.vendas[`frag_${dia}`] || '-';
+        const val = data.vendas[`val_${dia}`] || 0;
+        document.getElementById(`frag-${dia}`).textContent = frag;
+        document.getElementById(`val-${dia}`).textContent = val > 0 ? formatarMoeda(val) : '-';
       });
-      tabelaVendas.innerHTML += `
-        <tr class="total-row">
-          <td colspan="2">TOTAL DA SEMANA 💰</td>
-          <td class="val">R$ ${parseFloat(vendas.total||0).toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
-        </tr>
-      `;
-    }else{
-      tabelaVendas.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#8A9AB8;">Sem vendas registradas</td></tr>';
+      
+      const totalAuto = data.vendas.totalAutomatico || 0;
+      document.getElementById('total-auto').textContent = formatarMoeda(totalAuto);
+      
+      const valorFinal = data.vendas.totalFinal || 'R$ 0,00';
+      document.getElementById('valor-final').textContent = valorFinal;
+      document.getElementById('caixa-total').textContent = valorFinal;
     }
     
-    const {totalFarm, topNome, topValor} = calcularTotais(integrantes);
-    
-    document.getElementById('estoque').textContent = totalFarm;
-    document.getElementById('maisFarmou').textContent = topNome + ' — ' + topValor;
-    document.getElementById('caixa').textContent = vendas ? `R$ ${parseFloat(vendas.total||0).toLocaleString('pt-BR',{minimumFractionDigits:2})}` : 'R$ 0,00';
-    
-    const container = document.getElementById('listaIntegrantes');
-    container.innerHTML = '';
-    integrantes.forEach(i=>{
-      container.innerHTML += `
-        <div class="row">
-          <div class="name">${i.nome}</div>
-          <div class="farm-val">${i.farm || '0'}</div>
-          <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
-        </div>
-      `;
-    });
-    
-    const agora = new Date();
-    document.getElementById('ultimaAtualizacao').textContent = '✅ Última atualização: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-    
-    document.getElementById('linkCompleto').href = window.location.href;
-    document.getElementById('linkCompleto').textContent = window.location.href;
-    
+    if(data && data.integrantes && Array.isArray(data.integrantes)){
+      const lista = document.getElementById('lista-membros');
+      lista.innerHTML = '';
+      
+      if(data.integrantes.length === 0){
+        lista.innerHTML = '<div class="nenhum-dado">Nenhum participante cadastrado</div>';
+      }else{
+        data.integrantes.forEach(membro=>{
+          const item = document.createElement('div');
+          item.className = 'membro-item';
+          item.innerHTML = `
+            <span class="membro-nome">${membro.nome} ${membro.coroa ? '👑' : ''}</span>
+            <span class="membro-farm">${membro.farm || 0}</span>
+          `;
+          lista.appendChild(item);
+        });
+        
+        let topMembro = data.integrantes.reduce((max,m)=>{
+          const farm = parseInt(m.farm) || 0;
+          return farm > (parseInt(max.farm) || 0) ? m : max;
+        },{nome: '-', farm: 0});
+        document.getElementById('mais-farmou').textContent = topMembro.nome || '-';
+        
+        const totalFarm = data.integrantes.reduce((sum,m)=>sum + (parseInt(m.farm) || 0),0);
+        document.getElementById('estoque-total').textContent = totalFarm;
+      }
+    }
   }catch(e){
-    console.error('Erro ao carregar:', e);
+    console.log('Erro ao carregar:',e);
   }
 }
 
 carregarDados();
 setInterval(carregarDados, 3000);
 </script>
+
 </body>
 </html>

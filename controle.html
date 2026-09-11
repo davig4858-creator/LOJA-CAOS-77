@@ -14,6 +14,7 @@
   --bg-card-hover: #172338;
   --azul: #00D4FF;
   --verde: #00FF88;
+  --verde-claro: #88FFBB;
   --vermelho: #FF3B3B;
   --texto: #E0E6ED;
   --texto-sec: #8A9AB8;
@@ -96,9 +97,33 @@ body{
 }
 
 .sales-table .dia{font-size:14px;font-weight:600;color:var(--texto);width:110px;}
-.sales-table .total-row{background:rgba(0,255,136,0.05);}
-.sales-table .total-row td{font-weight:700;font-size:15px;color:var(--verde);padding-top:12px;}
-.sales-table .total-row td:last-child{text-align:right;font-size:18px;}
+
+/* TOTAL AUTOMÁTICO */
+.total-auto-row{
+  background:rgba(0,212,255,0.05);
+}
+.total-auto-row td{
+  padding:14px 8px !important;
+}
+.total-auto-label{
+  font-size:14px;font-weight:600;color:var(--azul);
+}
+.total-auto-value{
+  font-size:18px;font-weight:800;color:var(--azul);text-align:right;
+}
+
+/* CAMPO DE VALOR TOTAL DIGITÁVEL — SEPARADO */
+.total-card{
+  background:rgba(0,255,136,0.05);border:2px solid var(--verde);border-radius:10px;padding:20px;margin-top:20px;
+}
+.total-card h3{color:var(--verde);font-size:14px;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
+.total-card h3 span{font-size:11px;color:var(--verde-claro);font-weight:500;}
+.total-input{
+  width:100%;padding:14px;background:#050a12;border:2px solid var(--verde);
+  border-radius:8px;color:var(--verde);font-size:20px;font-weight:800;text-align:center;
+  outline:none;
+}
+.total-input:focus{border-color:var(--azul);box-shadow:0 0 0 2px rgba(0,255,136,0.2);}
 
 .stats-card{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
@@ -110,7 +135,6 @@ body{
 .stat-value{font-size:20px;font-weight:800;color:var(--texto);}
 .stat-value.green{color:var(--verde);}
 .stat-value.blue{color:var(--azul);}
-.stat-value input{background:transparent;border:none;color:inherit;font-size:inherit;width:100%;outline:none;}
 
 .table-header{
   display:grid;grid-template-columns:1fr 120px 100px 160px;gap:10px;
@@ -192,41 +216,49 @@ body{
     <tbody>
       <tr>
         <td class="dia">Segunda</td>
-        <td><input type="number" id="frag_seg" placeholder="0" oninput="atualizarVendas()"></td>
-        <td><input type="number" id="val_seg" placeholder="0,00" oninput="atualizarVendas()"></td>
+        <td><input type="number" id="frag_seg" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
+        <td><input type="number" id="val_seg" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
       </tr>
       <tr>
         <td class="dia">Terça</td>
-        <td><input type="number" id="frag_ter" placeholder="0" oninput="atualizarVendas()"></td>
-        <td><input type="number" id="val_ter" placeholder="0,00" oninput="atualizarVendas()"></td>
+        <td><input type="number" id="frag_ter" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
+        <td><input type="number" id="val_ter" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
       </tr>
       <tr>
         <td class="dia">Quarta</td>
-        <td><input type="number" id="frag_qua" placeholder="0" oninput="atualizarVendas()"></td>
-        <td><input type="number" id="val_qua" placeholder="0,00" oninput="atualizarVendas()"></td>
+        <td><input type="number" id="frag_qua" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
+        <td><input type="number" id="val_qua" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
       </tr>
       <tr>
         <td class="dia">Quinta</td>
-        <td><input type="number" id="frag_qui" placeholder="0" oninput="atualizarVendas()"></td>
-        <td><input type="number" id="val_qui" placeholder="0,00" oninput="atualizarVendas()"></td>
+        <td><input type="number" id="frag_qui" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
+        <td><input type="number" id="val_qui" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
       </tr>
       <tr>
         <td class="dia">Sexta</td>
-        <td><input type="number" id="frag_sex" placeholder="0" oninput="atualizarVendas()"></td>
-        <td><input type="number" id="val_sex" placeholder="0,00" oninput="atualizarVendas()"></td>
+        <td><input type="number" id="frag_sex" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
+        <td><input type="number" id="val_sex" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
       </tr>
       <tr>
         <td class="dia">Sábado</td>
-        <td><input type="number" id="frag_sab" placeholder="0" oninput="atualizarVendas()"></td>
-        <td><input type="number" id="val_sab" placeholder="0,00" oninput="atualizarVendas()"></td>
+        <td><input type="number" id="frag_sab" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
+        <td><input type="number" id="val_sab" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
       </tr>
-      <tr class="total-row">
-        <td colspan="2">TOTAL DA SEMANA 💰</td>
-        <td id="totalVendas">R$ 0,00</td>
+      <!-- ✅ TOTAL AUTOMÁTICO — CALCULA SOZINHO -->
+      <tr class="total-auto-row">
+        <td colspan="2" class="total-auto-label">🔢 TOTAL AUTOMÁTICO (soma os valores)</td>
+        <td class="total-auto-value" id="totalAutomatico">R$ 0,00</td>
       </tr>
     </tbody>
   </table>
-  <button class="btn-add" style="margin-top:16px;padding:12px;font-size:14px;width:auto;" onclick="salvarVendas()">💾 SALVAR VENDAS</button>
+  
+  <!-- ✅ CAMPO DE VALOR TOTAL — VOCÊ DIGITA -->
+  <div class="total-card">
+    <h3>✍️ VALOR TOTAL FINAL <span>(digite o valor que vai para o caixa)</span></h3>
+    <input type="text" class="total-input" id="totalDigitavel" placeholder="Digite o valor aqui..." oninput="atualizarCaixa()">
+  </div>
+  
+  <button class="btn-add" style="margin-top:20px;padding:14px;font-size:15px;width:auto;" onclick="salvarTudo()">💾 SALVAR TUDO</button>
 </div>
 
 <div class="stats-card">
@@ -285,23 +317,31 @@ let integrantes = [];
 let editId = null;
 const dias = ['seg','ter','qua','qui','sex','sab'];
 
-function atualizarVendas(){
+// ✅ Calcula automaticamente enquanto digita
+function atualizarTotalAutomatico(){
   let total = 0;
   dias.forEach(dia=>{
     const val = parseFloat(document.getElementById(`val_${dia}`).value) || 0;
     total += val;
   });
-  document.getElementById('totalVendas').innerText = `R$ ${total.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
-  document.getElementById('caixa').innerText = `R$ ${total.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
+  document.getElementById('totalAutomatico').innerText = `R$ ${total.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
 }
 
-async function salvarVendas(){
+// ✅ Atualiza o caixa com o valor que VOCÊ digita
+function atualizarCaixa(){
+  const valorDigitado = document.getElementById('totalDigitavel').value;
+  document.getElementById('caixa').innerText = valorDigitado ? valorDigitado : 'R$ 0,00';
+}
+
+// ✅ Salva tudo no banco
+async function salvarTudo(){
   const vendas = {};
   dias.forEach(dia=>{
     vendas[`frag_${dia}`] = document.getElementById(`frag_${dia}`).value || 0;
     vendas[`val_${dia}`] = parseFloat(document.getElementById(`val_${dia}`).value) || 0;
   });
-  vendas.total = dias.reduce((sum,d)=>sum+(parseFloat(document.getElementById(`val_${d}`).value)||0),0);
+  vendas.totalAutomatico = dias.reduce((sum,d)=>sum+(parseFloat(document.getElementById(`val_${d}`).value)||0),0);
+  vendas.totalFinal = document.getElementById('totalDigitavel').value || 'R$ 0,00';
   
   await fetch(DATABASE_URL, {
     method: 'PATCH',
@@ -309,8 +349,8 @@ async function salvarVendas(){
     body: JSON.stringify({vendas})
   });
   
-  document.getElementById('caixa').innerText = `R$ ${vendas.total.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
-  alert('✅ Vendas salvas!');
+  document.getElementById('caixa').innerText = vendas.totalFinal;
+  alert('✅ TUDO SALVO! — Total automático e Valor final salvos!');
 }
 
 async function carregarDados(){
@@ -324,7 +364,9 @@ async function carregarDados(){
         document.getElementById(`frag_${dia}`).value = data.vendas[`frag_${dia}`] || '';
         document.getElementById(`val_${dia}`).value = data.vendas[`val_${dia}`] || '';
       });
-      atualizarVendas();
+      document.getElementById('totalDigitavel').value = data.vendas.totalFinal || '';
+      atualizarTotalAutomatico();
+      atualizarCaixa();
     }
     
     document.getElementById('statusBadge').innerHTML = '✅ Sincronizado';

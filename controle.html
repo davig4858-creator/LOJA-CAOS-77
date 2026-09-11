@@ -3,212 +3,354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 CONTROLE — LOJA CAOS 77</title>
+<title>PAINEL DE CONTROLE — LOJA CAOS 77</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+:root{
+  --bg-dark: #0A0F1A;
+  --bg-card: #0F1726;
+  --bg-card-hover: #172338;
+  --azul: #00D4FF;
+  --azul-claro: #3DE2FF;
+  --verde: #00FF88;
+  --vermelho: #FF3B3B;
+  --amarelo: #FFC107;
+  --cinza: #2A3A58;
+  --texto: #E0E6ED;
+  --texto-sec: #8A9AB8;
+}
+
 body{
-  background:linear-gradient(135deg,#0f0f0f 0%,#1a1a1a 50%,#0f0f0f 100%);
-  min-height:100vh;color:#fff;padding:20px;
+  background:var(--bg-dark);
+  min-height:100vh;color:var(--texto);padding:0;margin:0;
+  background-image: 
+    linear-gradient(rgba(0,212,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.02) 1px, transparent 1px);
+  background-size:25px 25px;
 }
-.container{max-width:700px;margin:0 auto;}
-.header{text-align:center;margin-bottom:30px;}
-.header h1{color:#ff6b00;font-size:28px;font-weight:900;letter-spacing:1px;}
-.header p{color:#777;font-size:13px;margin-top:5px;}
-.nav{display:flex;gap:10px;margin-bottom:25px;flex-wrap:wrap;}
-.nav a,.nav button{
-  padding:10px 16px;background:rgba(40,40,40,0.8);color:#fff;text-decoration:none;
-  border-radius:10px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s ease;
+
+.header-top{
+  background:linear-gradient(180deg, rgba(15,23,38,0.95), rgba(10,15,26,0.9));
+  padding:18px 20px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(0,212,255,0.1);position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(10px);
 }
-.nav a.ativo,.nav button:hover{background:#ff6b00;color:#000;}
-.card{
-  background:rgba(25,25,25,0.85);backdrop-filter:blur(10px);padding:25px;border-radius:16px;
-  border:1px solid rgba(255,107,0,0.1);margin-bottom:20px;
-  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+
+.header-top .title{font-size:20px;font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:10px;}
+.header-top .title span{color:var(--azul);}
+.status-badge{
+  background:rgba(0,255,136,0.1);color:var(--verde);padding:6px 14px;border-radius:20px;
+  font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;border:1px solid rgba(0,255,136,0.2);
 }
-.card h2{color:#ff6b00;font-size:15px;margin-bottom:18px;font-weight:700;display:flex;align-items:center;gap:8px;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:15px;}
-.stat-box{
-  background:linear-gradient(145deg,rgba(40,40,40,0.9),rgba(30,30,30,0.9));
-  padding:18px 12px;text-align:center;border-radius:12px;border:1px solid #333;
+.status-badge::before{content:'';width:8px;height:8px;background:var(--verde);border-radius:50%;animation:pulse-green 2s infinite;}
+@keyframes pulse-green{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+.container{max-width:800px;margin:0 auto;padding:25px 20px;}
+
+.search-bar{
+  width:100%;padding:14px 18px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
+  border-radius:10px;color:var(--texto);font-size:15px;margin-bottom:20px;outline:none;
+  transition:border 0.2s;
 }
-.stat-box .num{font-size:24px;font-weight:900;}
-.stat-box .label{font-size:11px;color:#888;margin-top:4px;}
-input{
-  width:100%;padding:12px 14px;margin:6px 0;border:1px solid #333;border-radius:10px;
-  background:rgba(35,35,35,0.9);color:#fff;font-size:14px;outline:none;transition:border 0.2s;
+.search-bar:focus{border-color:var(--azul);box-shadow:0 0 0 3px rgba(0,212,255,0.08);}
+.search-bar::placeholder{color:var(--texto-sec);}
+
+.filter-row{display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap;}
+.filter-select{
+  padding:10px 14px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
+  border-radius:8px;color:var(--texto);font-size:14px;outline:none;cursor:pointer;
 }
-input:focus{border-color:#ff6b00;}
-button{
-  width:100%;padding:12px;background:linear-gradient(135deg,#ff6b00,#ff4400);
-  color:#000;border:none;border-radius:10px;font-weight:700;font-size:14px;
-  cursor:pointer;transition:transform 0.2s ease;margin-top:8px;
+
+.btn-add{
+  width:100%;padding:16px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;
+  border-radius:10px;color:#000;font-size:16px;font-weight:800;cursor:pointer;
+  margin-bottom:25px;transition:all 0.2s ease;box-shadow:0 0 20px rgba(0,212,255,0.25);
 }
-button:hover{transform:scale(1.01);}
-button.secundario{background:#333;color:#fff;}
-button.secundario:hover{background:#444;transform:none;}
-ul{list-style:none;margin-top:12px;}
-li{
-  padding:12px 0;border-bottom:1px solid #2a2a2a;display:flex;justify-content:space-between;
-  align-items:center;font-size:14px;
+.btn-add:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(0,212,255,0.4);}
+
+.table-header{
+  display:grid;grid-template-columns:60px 1fr 140px 100px 160px;gap:10px;
+  padding:14px 16px;color:var(--azul);font-size:13px;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
 }
-li button{width:auto;padding:6px 10px;font-size:12px;background:#ff3333;margin:0;border-radius:6px;}
-.sucesso{
-  background:rgba(0,200,80,0.1);color:#00ff66;padding:12px;border-radius:10px;margin-top:12px;
-  display:none;text-align:center;font-size:13px;border:1px solid rgba(0,255,102,0.2);
+
+.row{
+  display:grid;grid-template-columns:60px 1fr 140px 100px 160px;gap:10px;
+  padding:16px;border-radius:10px;background:var(--bg-card);margin-bottom:10px;
+  align-items:center;border:1px solid transparent;transition:all 0.2s ease;
 }
-.link-box{background:rgba(0,180,80,0.05);border-color:rgba(0,255,102,0.2);}
-.link-box h2{color:#00ff66;}
+.row:hover{background:var(--bg-card-hover);border-color:rgba(0,212,255,0.15);}
+
+.status-dots{display:flex;gap:4px;}
+.dot{width:14px;height:14px;border-radius:50%;}
+.dot.green{background:var(--verde);box-shadow:0 0 6px var(--verde);}
+.dot.red{background:var(--vermelho);box-shadow:0 0 6px var(--vermelho);}
+.dot.yellow{background:var(--amarelo);box-shadow:0 0 6px var(--amarelo);}
+
+.name{font-size:16px;font-weight:700;color:var(--texto);}
+.rank{
+  background:linear-gradient(135deg,var(--cinza),#1F2C44);padding:6px 12px;border-radius:6px;
+  font-size:12px;font-weight:700;color:var(--texto);text-align:center;
+  border:1px solid rgba(255,255,255,0.05);
+}
+.tag{font-size:18px;text-align:center;}
+.tag .crown{filter:drop-shadow(0 0 4px gold);}
+
+.btn-edit{
+  padding:8px 14px;background:linear-gradient(135deg,#1A3A5C,#244B7A);border:none;
+  border-radius:6px;color:var(--azul);font-size:13px;font-weight:700;cursor:pointer;
+  transition:all 0.2s ease;margin-right:6px;
+}
+.btn-edit:hover{background:linear-gradient(135deg,#244B7A,#2C5C94);}
+.btn-del{
+  padding:8px 14px;background:linear-gradient(135deg,#5C1A1A,#7A2424);border:none;
+  border-radius:6px;color:#FF6B6B;font-size:13px;font-weight:700;cursor:pointer;
+  transition:all 0.2s ease;
+}
+.btn-del:hover{background:linear-gradient(135deg,#7A2424,#942C2C);}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);
+  display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);
+}
+.modal{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.2);border-radius:14px;padding:25px;
+  width:90%;max-width:450px;box-shadow:0 0 40px rgba(0,212,255,0.1);
+}
+.modal h3{color:var(--azul);font-size:18px;margin-bottom:20px;}
+.modal input, .modal select{
+  width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);
+  border-radius:8px;color:var(--texto);font-size:15px;margin-bottom:12px;outline:none;
+}
+.modal input:focus, .modal select:focus{border-color:var(--azul);}
+.modal-buttons{display:flex;gap:10px;margin-top:10px;}
+.modal-btn-cancel{flex:1;padding:12px;background:#2A3A58;border:none;border-radius:8px;color:var(--texto);font-weight:700;cursor:pointer;}
+.modal-btn-save{flex:1;padding:12px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;}
+
+/* DADOS GERAIS */
+.stats-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
+}
+.stats-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
+.stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);}
+.stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.stat-value{font-size:20px;font-weight:800;color:var(--texto);}
+.stat-value input{
+  background:transparent;border:none;color:inherit;font-size:inherit;font-weight:inherit;
+  width:100%;outline:none;
+}
+
+@media(max-width:600px){
+  .table-header, .row{grid-template-columns:50px 1fr 100px 70px 120px;font-size:13px;gap:6px;}
+  .rank{padding:4px 8px;font-size:11px;}
+  .btn-edit,.btn-del{padding:6px 10px;font-size:11px;}
+}
 </style>
 </head>
 <body>
-<div class="container">
-<div class="header">
-<h1>🔥 LOJA CAOS 77 • PAINEL DE CONTROLE</h1>
-<p>Gerencie os dados da sua facção em tempo real</p>
+
+<!-- HEADER -->
+<div class="header-top">
+  <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
+  <div class="status-badge">Sincronizado</div>
 </div>
 
-<div class="nav">
-<a href="controle.html" class="ativo">📊 Painel</a>
-<a href="painel.html" target="_blank">👁️ Ver como Visitante</a>
-<button class="secundario" style="width:auto;margin-left:auto;" onclick="sair()">🚪 Sair</button>
-</div>
+<div class="container">
 
 <!-- DADOS GERAIS -->
-<div class="card">
-<h2>📊 DADOS GERAIS</h2>
-<div class="grid">
-<div class="stat-box"><div class="num" style="color:#ff6b00;"><input type="text" id="totalFrag" placeholder="0" style="width:70%;text-align:center;background:transparent;border:none;padding:0;color:inherit;"></div><div class="label">TOTAL DE FRAGMENTOS</div></div>
-<div class="stat-box"><div class="num" style="color:#00ff88;"><input type="text" id="caixa" placeholder="R$ 0,00" style="width:70%;text-align:center;background:transparent;border:none;padding:0;color:inherit;"></div><div class="label">CAIXA DA FACÇÃO</div></div>
-<div class="stat-box"><div class="num" style="color:#00aaff;"><input type="text" id="estoque" placeholder="0" style="width:70%;text-align:center;background:transparent;border:none;padding:0;color:inherit;"></div><div class="label">EM ESTOQUE</div></div>
-</div>
-<button onclick="salvarGerais()">💾 Salvar Dados Gerais</button>
-<div class="sucesso" id="msg1">✅ Dados salvos com sucesso!</div>
-</div>
-
-<!-- DESTAQUE DO DIA -->
-<div class="card">
-<h2>👑 DESTAQUE DO DIA</h2>
-<input type="text" id="melhorNome" placeholder="Nome do Farmer">
-<input type="text" id="melhorFrag" placeholder="Quantidade de fragmentos">
-<button onclick="salvarMelhor()">💾 Salvar Destaque</button>
-<div class="sucesso" id="msg2">✅ Destaque salvo com sucesso!</div>
-</div>
-
-<!-- ADICIONAR FARMER -->
-<div class="card">
-<h2>➕ ADICIONAR FARMER</h2>
-<input type="text" id="nomeFarmer" placeholder="Nome do integrante">
-<input type="text" id="qtdFrag" placeholder="Fragmentos coletados">
-<button onclick="adicionarFarmer()">➕ Adicionar à Lista</button>
+<div class="stats-card">
+  <h2>📊 DADOS GERAIS</h2>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-label">Farm do Dia</div>
+      <div class="stat-value"><input type="text" id="farmDia" placeholder="0"></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Mais Formou</div>
+      <div class="stat-value"><input type="text" id="maisFormou" placeholder="—"></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Caixa</div>
+      <div class="stat-value" style="color:#00FF88;"><input type="text" id="caixa" placeholder="R$ 0,00"></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Estoque</div>
+      <div class="stat-value" style="color:#00B8FF;"><input type="text" id="estoque" placeholder="0"></div>
+    </div>
+  </div>
+  <button class="btn-add" style="margin-top:16px;padding:12px;font-size:14px;width:auto;">💾 SALVAR DADOS</button>
 </div>
 
-<!-- LISTA FARMERS -->
-<div class="card">
-<h2>📋 REGISTRO DE FARMERS</h2>
-<ul id="listaFarmers"></ul>
-<button class="secundario" onclick="limparLista()">🗑️ Limpar Lista</button>
+<!-- BUSCA E FILTRO -->
+<input type="text" class="search-bar" placeholder="🔍 Buscar por nome...">
+<div class="filter-row">
+  <select class="filter-select" id="filtroPatente">
+    <option value="todas">Todas as patentes</option>
+    <option value="Major General">Major General</option>
+    <option value="Coronel">Coronel</option>
+    <option value="Major">Major</option>
+    <option value="Capitão">Capitão</option>
+    <option value="Tenente">Tenente</option>
+    <option value="Soldado">Soldado</option>
+  </select>
 </div>
 
-<!-- LINK COMPARTILHAR -->
-<div class="card link-box">
-<h2>🔗 LINK PARA COMPARTILHAR</h2>
-<p style="font-size:13px;color:#aaa;margin-bottom:10px;">Mande esse link para seus amigos — não precisa de login!</p>
-<input type="text" id="linkVisitante" value="" readonly style="background:rgba(0,0,0,0.3);border-color:rgba(0,255,102,0.3);">
-<button style="background:linear-gradient(135deg,#00cc55,#00aa44);" onclick="copiarLink()">📋 Copiar Link</button>
-<div class="sucesso" id="msgLink" style="background:rgba(0,255,102,0.1);color:#00ff66;border-color:rgba(0,255,102,0.2);">✅ Link copiado para a área de transferência!</div>
+<!-- BOTÃO ADICIONAR -->
+<button class="btn-add" onclick="abrirModal()">+ ADICIONAR INTEGRANTE</button>
+
+<!-- CABEÇALHO TABELA -->
+<div class="table-header">
+  <div>STATUS</div>
+  <div>NOME</div>
+  <div>PATENTE</div>
+  <div>TAGS</div>
+  <div>AÇÕES</div>
 </div>
 
+<!-- LISTA INTEGRANTES -->
+<div id="listaIntegrantes">
+  <!-- Os itens serão inseridos aqui -->
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 id="modalTitulo">➕ Adicionar Integrante</h3>
+    <input type="text" id="inputNome" placeholder="Nome do integrante">
+    <select id="inputPatente">
+      <option value="Major General">Major General</option>
+      <option value="Coronel">Coronel</option>
+      <option value="Major">Major</option>
+      <option value="Capitão">Capitão</option>
+      <option value="Tenente">Tenente</option>
+      <option value="Soldado">Soldado</option>
+    </select>
+    <select id="inputStatus">
+      <option value="online">🟢 Online</option>
+      <option value="ausente">🟡 Ausente</option>
+      <option value="offline">🔴 Offline</option>
+    </select>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+      <input type="checkbox" id="inputCoroa" style="width:auto;margin:0;">
+      <label for="inputCoroa" style="color:var(--texto);font-size:14px;">👑 Líder / Comando</label>
+    </div>
+    <div class="modal-buttons">
+      <button class="modal-btn-cancel" onclick="fecharModal()">Cancelar</button>
+      <button class="modal-btn-save" onclick="salvarIntegrante()">Salvar</button>
+    </div>
+  </div>
 </div>
 
 <script>
-let farmers = JSON.parse(localStorage.getItem('farmers')) || [];
+let integrantes = JSON.parse(localStorage.getItem('integrantes')) || [
+  {id:Date.now(),nome:'SRR MESQUITA',patente:'Major General',status:'online',coroa:true},
+  {id:Date.now()+1,nome:'DOMM ED',patente:'Major General',status:'online',coroa:false},
+  {id:Date.now()+2,nome:'ALOK MESQUITA',patente:'Coronel',status:'online',coroa:false},
+  {id:Date.now()+3,nome:'JAMES MECFERSON',patente:'Coronel',status:'offline',coroa:true},
+  {id:Date.now()+4,nome:'SR BIGODEK',patente:'Major',status:'ausente',coroa:false},
+];
+let editId = null;
 
-window.onload = function() {
-  verificarAcesso();
-  carregarDados();
-  atualizarLista();
-  document.getElementById('linkVisitante').value = window.location.origin + window.location.pathname.replace('controle.html','painel.html');
+window.onload = function(){
+  carregarDadosGerais();
+  renderLista();
 };
 
-function verificarAcesso() {
-  if (localStorage.getItem('nivel') !== 'admin') {
-    window.location.href = 'index.html';
-  }
+function carregarDadosGerais(){
+  document.getElementById('farmDia').value = localStorage.getItem('farmDia') || '';
+  document.getElementById('maisFormou').value = localStorage.getItem('maisFormou') || '';
+  document.getElementById('caixa').value = localStorage.getItem('caixa') || '';
+  document.getElementById('estoque').value = localStorage.getItem('estoque') || '';
 }
 
-function carregarDados() {
-  document.getElementById('totalFrag').value = localStorage.getItem('totalFrag') || '990';
-  document.getElementById('caixa').value = localStorage.getItem('caixa') || 'R$ 0,00';
-  document.getElementById('estoque').value = localStorage.getItem('estoque') || '2500';
-  document.getElementById('melhorNome').value = localStorage.getItem('melhorNome') || 'Sr Bristow';
-  document.getElementById('melhorFrag').value = localStorage.getItem('melhorFrag') || '200 fragmentos formados';
-}
-
-function salvarGerais() {
-  localStorage.setItem('totalFrag', document.getElementById('totalFrag').value);
+function salvarDadosGerais(){
+  localStorage.setItem('farmDia', document.getElementById('farmDia').value);
+  localStorage.setItem('maisFormou', document.getElementById('maisFormou').value);
   localStorage.setItem('caixa', document.getElementById('caixa').value);
   localStorage.setItem('estoque', document.getElementById('estoque').value);
-  mostrarMsg('msg1');
+  alert('✅ Dados gerais salvos!');
 }
 
-function salvarMelhor() {
-  localStorage.setItem('melhorNome', document.getElementById('melhorNome').value);
-  localStorage.setItem('melhorFrag', document.getElementById('melhorFrag').value);
-  mostrarMsg('msg2');
-}
-
-function adicionarFarmer() {
-  const nome = document.getElementById('nomeFarmer').value.trim();
-  const frag = document.getElementById('qtdFrag').value;
-  if(nome) {
-    farmers.unshift({nome, frag});
-    localStorage.setItem('farmers', JSON.stringify(farmers));
-    atualizarLista();
-    document.getElementById('nomeFarmer').value = '';
-    document.getElementById('qtdFrag').value = '';
-  }
-}
-
-function atualizarLista() {
-  const ul = document.getElementById('listaFarmers');
-  ul.innerHTML = '';
-  farmers.forEach((f,i) => {
-    ul.innerHTML += `<li><span><strong>#${i+1}</strong> — ${f.nome}: <span style="color:#ff6b00">${f.frag}</span> frags</span><button onclick="removerFarmer(${i})">✕</button></li>`;
+function renderLista(){
+  const container = document.getElementById('listaIntegrantes');
+  container.innerHTML = '';
+  integrantes.forEach(i=>{
+    const statusClass = i.status === 'online' ? 'green' : i.status === 'ausente' ? 'yellow' : 'red';
+    container.innerHTML += `
+      <div class="row">
+        <div class="status-dots"><div class="dot ${statusClass}"></div><div class="dot green"></div></div>
+        <div class="name">${i.nome}</div>
+        <div class="rank">${i.patente}</div>
+        <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
+        <div style="display:flex;gap:4px;">
+          <button class="btn-edit" onclick="editar(${i.id})">EDITAR</button>
+          <button class="btn-del" onclick="excluir(${i.id})">EXONERAR</button>
+        </div>
+      </div>
+    `;
   });
+  localStorage.setItem('integrantes', JSON.stringify(integrantes));
 }
 
-function removerFarmer(i) {
-  farmers.splice(i,1);
-  localStorage.setItem('farmers', JSON.stringify(farmers));
-  atualizarLista();
+function abrirModal(){
+  editId = null;
+  document.getElementById('modalTitulo').textContent = '➕ Adicionar Integrante';
+  document.getElementById('inputNome').value = '';
+  document.getElementById('inputPatente').value = 'Major General';
+  document.getElementById('inputStatus').value = 'online';
+  document.getElementById('inputCoroa').checked = false;
+  document.getElementById('modal').style.display = 'flex';
 }
 
-function limparLista() {
-  if(confirm('Tem certeza que deseja limpar todos os registros?')) {
-    farmers = [];
-    localStorage.setItem('farmers', JSON.stringify(farmers));
-    atualizarLista();
+function fecharModal(){
+  document.getElementById('modal').style.display = 'none';
+}
+
+function editar(id){
+  const i = integrantes.find(x=>x.id===id);
+  if(!i)return;
+  editId = id;
+  document.getElementById('modalTitulo').textContent = '✏️ Editar Integrante';
+  document.getElementById('inputNome').value = i.nome;
+  document.getElementById('inputPatente').value = i.patente;
+  document.getElementById('inputStatus').value = i.status;
+  document.getElementById('inputCoroa').checked = i.coroa;
+  document.getElementById('modal').style.display = 'flex';
+}
+
+function salvarIntegrante(){
+  const nome = document.getElementById('inputNome').value.trim();
+  const patente = document.getElementById('inputPatente').value;
+  const status = document.getElementById('inputStatus').value;
+  const coroa = document.getElementById('inputCoroa').checked;
+  if(!nome){alert('Digite o nome!');return;}
+  
+  if(editId){
+    const idx = integrantes.findIndex(x=>x.id===editId);
+    integrantes[idx] = {id:editId,nome,patente,status,coroa};
+  }else{
+    integrantes.push({id:Date.now(),nome,patente,status,coroa});
+  }
+  fecharModal();
+  renderLista();
+}
+
+function excluir(id){
+  if(confirm('Tem certeza? Isso não pode ser desfeito!')){
+    integrantes = integrantes.filter(x=>x.id!==id);
+    renderLista();
   }
 }
 
-function copiarLink() {
-  document.getElementById('linkVisitante').select();
-  document.execCommand('copy');
-  mostrarMsg('msgLink');
-}
-
-function mostrarMsg(id) {
-  const el = document.getElementById(id);
-  el.style.display = 'block';
-  setTimeout(()=>el.style.display='none',3000);
-}
-
-function sair() {
-  localStorage.removeItem('usuario');
-  localStorage.removeItem('nivel');
-  window.location.href = 'index.html';
-}
+document.querySelector('.btn-add').addEventListener('click',function(){
+  if(this.textContent.includes('SALVAR')) salvarDadosGerais();
+});
 </script>
 </body>
 </html>

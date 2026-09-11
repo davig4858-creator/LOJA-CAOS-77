@@ -115,15 +115,18 @@ body{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
 }
 .stats-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;}
 .stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:6px;text-transform:uppercase;}
 .stat-value{font-size:20px;font-weight:800;color:var(--texto);}
+.stat-value.green{color:var(--verde);}
+.stat-value.blue{color:var(--azul);}
 .stat-value input{background:transparent;border:none;color:inherit;font-size:inherit;width:100%;outline:none;}
 
 @media(max-width:600px){
   .table-header,.row{grid-template-columns:1fr 90px 80px 140px;gap:6px;}
   .farm-input{font-size:14px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
 }
 </style>
 </head>
@@ -140,23 +143,19 @@ body{
   <h2>📊 DADOS GERAIS</h2>
   <div class="stats-grid">
     <div class="stat-item">
-      <div class="stat-label">Farm do Dia</div>
-      <div class="stat-value"><input type="text" id="farmDia" placeholder="0"></div>
+      <div class="stat-label">MAIS FARTOU</div>
+      <div class="stat-value" id="maisFarmou">—</div>
     </div>
     <div class="stat-item">
-      <div class="stat-label">Mais Formou</div>
-      <div class="stat-value"><input type="text" id="maisFormou" placeholder="—"></div>
+      <div class="stat-label">CAIXA</div>
+      <div class="stat-value green"><input type="text" id="caixa" placeholder="R$ 0,00"></div>
     </div>
     <div class="stat-item">
-      <div class="stat-label">Caixa</div>
-      <div class="stat-value" style="color:#00FF88;"><input type="text" id="caixa" placeholder="R$ 0,00"></div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">Estoque</div>
-      <div class="stat-value" style="color:#00B8FF;"><input type="text" id="estoque" placeholder="0"></div>
+      <div class="stat-label">ESTOQUE</div>
+      <div class="stat-value blue" id="estoque">0</div>
     </div>
   </div>
-  <button class="btn-add" style="margin-top:16px;padding:12px;font-size:14px;width:auto;" onclick="salvarDadosGerais()">💾 SALVAR DADOS</button>
+  <button class="btn-add" style="margin-top:16px;padding:12px;font-size:14px;width:auto;" onclick="salvarCaixa()">💾 SALVAR CAIXA</button>
 </div>
 
 <input type="text" class="search-bar" placeholder="🔍 Buscar por nome...">
@@ -192,32 +191,42 @@ body{
 
 <script>
 let integrantes = JSON.parse(localStorage.getItem('integrantes')) || [
-  {id:Date.now(),nome:'SRR MESQUITA',farm:'100',coroa:true},
-  {id:Date.now()+1,nome:'DOMM ED',farm:'85',coroa:true},
-  {id:Date.now()+2,nome:'ALOK MESQUITA',farm:'60',coroa:false},
-  {id:Date.now()+3,nome:'JAMES MECFERSON',farm:'45',coroa:false},
-  {id:Date.now()+4,nome:'SR BIGODEK',farm:'30',coroa:false},
+  {id:Date.now(),nome:'Sr Bristow',farm:'200',coroa:true},
+  {id:Date.now()+1,nome:'Katy Bristow',farm:'0',coroa:true},
+  {id:Date.now()+2,nome:'Andres Bristow',farm:'100',coroa:true},
 ];
 let editId = null;
 
 window.onload = function(){
-  carregarDadosGerais();
+  document.getElementById('caixa').value = localStorage.getItem('caixa') || '';
+  atualizarTotais();
   renderLista();
 };
 
-function carregarDadosGerais(){
-  document.getElementById('farmDia').value = localStorage.getItem('farmDia') || '';
-  document.getElementById('maisFormou').value = localStorage.getItem('maisFormou') || '';
-  document.getElementById('caixa').value = localStorage.getItem('caixa') || '';
-  document.getElementById('estoque').value = localStorage.getItem('estoque') || '';
+function salvarCaixa(){
+  localStorage.setItem('caixa', document.getElementById('caixa').value);
+  alert('✅ Caixa salva!');
 }
 
-function salvarDadosGerais(){
-  localStorage.setItem('farmDia', document.getElementById('farmDia').value);
-  localStorage.setItem('maisFormou', document.getElementById('maisFormou').value);
-  localStorage.setItem('caixa', document.getElementById('caixa').value);
-  localStorage.setItem('estoque', document.getElementById('estoque').value);
-  alert('✅ Dados gerais salvos!');
+function atualizarTotais(){
+  // Soma todo o farm
+  let totalFarm = 0;
+  integrantes.forEach(i=>{
+    totalFarm += parseInt(i.farm) || 0;
+  });
+  document.getElementById('estoque').textContent = totalFarm;
+  
+  // Encontra quem mais farmou
+  if(integrantes.length > 0){
+    let topIntegrante = integrantes.reduce((max, i) => {
+      return (parseInt(i.farm) || 0) > (parseInt(max.farm) || 0) ? i : max;
+    }, integrantes[0]);
+    document.getElementById('maisFarmou').textContent = topIntegrante.nome + ' — ' + (parseInt(topIntegrante.farm) || 0);
+  }else{
+    document.getElementById('maisFarmou').textContent = '—';
+  }
+  
+  localStorage.setItem('integrantes', JSON.stringify(integrantes));
 }
 
 function renderLista(){
@@ -238,14 +247,14 @@ function renderLista(){
       </div>
     `;
   });
-  localStorage.setItem('integrantes', JSON.stringify(integrantes));
+  atualizarTotais();
 }
 
 function atualizarFarm(id, valor){
   const idx = integrantes.findIndex(x=>x.id===id);
   if(idx !== -1){
     integrantes[idx].farm = valor;
-    localStorage.setItem('integrantes', JSON.stringify(integrantes));
+    atualizarTotais();
   }
 }
 

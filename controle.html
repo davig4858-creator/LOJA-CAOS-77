@@ -1,414 +1,599 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOJA CAOS 77 — Controle</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
-        body {
-            background: #0a0a0a;
-            min-height: 100vh;
-            color: #e5e5e5;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-        h1 {
-            color: #ff0000;
-            font-size: 26px;
-            letter-spacing: 2px;
-        }
-        .btn-sair {
-            background: #2a2a2a;
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .btn-sair:hover { background: #444; }
-        .cards-top {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        .card {
-            background: #171717;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 3px solid #ff0000;
-        }
-        .card h3 {
-            font-size: 14px;
-            color: #aaa;
-            margin-bottom: 8px;
-        }
-        .card .valor {
-            font-size: 22px;
-            font-weight: bold;
-            color: #00ff88;
-        }
-        .card .valor-amarelo { color: #ffcc00; }
-        .section {
-            background: #171717;
-            padding: 22px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        .section h2 {
-            color: #ff4444;
-            margin-bottom: 15px;
-            font-size: 17px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #333;
-        }
- table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 11px 10px;
-            text-align: left;
-            border-bottom: 1px solid #2a2a2a;
-            font-size: 14px;
-        }
-        th {
-            background: #1f1f1f;
-            color: #ff6666;
-            font-size: 13px;
-        }
-        tr:hover { background: #1e1e1e; }
-        input {
-            background: #242424;
-            border: 1px solid #444;
-            color: white;
-            padding: 7px 10px;
-            border-radius: 4px;
-            font-size: 14px;
-            width: 120px;
-        }
-        button {
-            background: linear-gradient(90deg, #8b0000, #ff0000);
-            border: none;
-            color: white;
-            padding: 7px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        button:hover { opacity: 0.9; }
-        button.pequeno { padding: 4px 8px; font-size: 12px; margin-left: 4px; }
-        button.cinza { background: #444; }
-        .linha-acao {
-            margin-top: 12px;
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .dia {
-            width: 32px;
-            height: 32px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .dia-G { background: #00ff88; color: #000; }
-        .dia-Y { background: #ffcc00; color: #000; }
-        .dia- { background: #2a2a2a; color: #777; }
-        .ranking-badge {
-            background: linear-gradient(90deg, #ffd700, #ffaa00);
-            color: #000;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 13px;
-        }
-        .escondido { display: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAINEL DE CONTROLE — LOJA CAOS 77</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+:root{
+  --bg-dark: #0A0F1A;
+  --bg-card: #0F1726;
+  --bg-card-hover: #172338;
+  --azul: #00D4FF;
+  --verde: #00FF88;
+  --amarelo: #FFD700;
+  --laranja: #FF9500;
+  --vermelho: #FF3B3B;
+  --ouro: #FFD700;
+  --texto: #E0E6ED;
+  --texto-sec: #8A9AB8;
+}
+
+body{
+  background:var(--bg-dark);
+  min-height:100vh;color:var(--texto);padding:0;margin:0;
+  background-image: 
+    linear-gradient(rgba(0,212,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.02) 1px, transparent 1px);
+  background-size:25px 25px;
+}
+
+.visitante-banner{
+  background:rgba(255,193,7,0.1);
+  color:#FFC107;
+  padding:8px 16px;
+  text-align:center;
+  font-size:13px;font-weight:600;
+  position:sticky;top:0;z-index:101;
+  border-bottom:1px solid rgba(255,193,7,0.2);
+}
+
+.header-top{
+  background:linear-gradient(180deg, rgba(15,23,38,0.95), rgba(10,15,26,0.9));
+  padding:18px 20px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(0,212,255,0.1);position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(10px);
+}
+
+.header-top .title{font-size:20px;font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:10px;}
+.header-top .title span{color:var(--azul);}
+.status-badge{
+  background:rgba(0,255,136,0.1);color:var(--verde);padding:6px 14px;border-radius:20px;
+  font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;border:1px solid rgba(0,255,136,0.2);
+}
+.status-badge::before{content:'';width:8px;height:8px;background:var(--verde);border-radius:50%;animation:pulse-green 2s infinite;}
+@keyframes pulse-green{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+.container{max-width:1000px;margin:0 auto;padding:25px 15px;}
+
+.card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
+}
+.card.hidden{display:none !important;}
+.card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
+
+.precos-table{width:100%;border-collapse:collapse;}
+.precos-table th{background:rgba(0,212,255,0.1);padding:12px;text-align:left;color:var(--azul);font-size:13px;font-weight:700;}
+.precos-table td{padding:12px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:15px;}
+.qtd-frag{font-weight:700;color:var(--texto);}
+.valor-frag{font-weight:800;color:var(--verde);}
+
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;text-align:center;}
+.stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:8px;text-transform:uppercase;}
+.stat-value{font-size:20px;font-weight:800;color:var(--texto);}
+.stat-value.green{color:var(--verde);font-size:22px;}
+.stat-value.blue{color:var(--azul);font-size:22px;}
+.stat-value.red{color:var(--vermelho);font-size:22px;}
+.stat-value.gold{color:var(--ouro);font-size:22px;}
+.stat-item input{
+  width:100%;background:transparent;border:none;color:var(--verde);
+  font-size:18px;font-weight:800;text-align:center;outline:none;
+}
+.stat-item input:disabled{opacity:0.8;cursor:not-allowed;}
+.stat-item input.blue{color:var(--azul);}
+.stat-item input.red{color:var(--vermelho);}
+.stat-item input.gold{color:var(--ouro);}
+
+.btn-salvar-nuvem{
+  width:100%;padding:16px;background:linear-gradient(90deg,#7B2FFD,#A855F7);border:none;
+  border-radius:10px;color:white;font-size:16px;font-weight:800;cursor:pointer;
+  margin-bottom:25px;transition:all 0.2s ease;box-shadow:0 0 20px rgba(123,47,253,0.25);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn-salvar-nuvem:hover{transform:translateY(-2px);}
+.btn-salvar-nuvem:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.btn-salvar-nuvem.salvo{background:linear-gradient(90deg,#0099CC,#00D4FF);}
+
+.legend-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:18px;margin-bottom:25px;
+  display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap;gap:12px;
+}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--texto);}
+
+.search-bar{
+  width:100%;padding:14px 18px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
+  border-radius:10px;color:var(--texto);font-size:15px;margin-bottom:20px;outline:none;
+}
+.search-bar:disabled{opacity:0.7;cursor:not-allowed;}
+.search-bar:focus{border-color:var(--azul);}
+.search-bar::placeholder{color:var(--texto-sec);}
+
+.btn-add{
+  width:100%;padding:16px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;
+  border-radius:10px;color:#000;font-size:16px;font-weight:800;cursor:pointer;
+  margin-bottom:25px;transition:all 0.2s ease;box-shadow:0 0 20px rgba(0,212,255,0.25);
+}
+.btn-add:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.btn-add:hover{transform:translateY(-2px);}
+
+.dias-header{
+  display:grid;grid-template-columns:150px repeat(6,50px) 90px 110px 75px;gap:4px;
+  padding:12px 8px;color:var(--azul);font-size:9px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.5px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
+  text-align:center;
+}
+.dias-header .nome-col{text-align:left;}
+
+.membro-row{
+  display:grid;grid-template-columns:150px repeat(6,50px) 90px 110px 75px;gap:4px;
+  padding:10px 8px;border-radius:10px;background:var(--bg-card);margin-bottom:8px;
+  align-items:center;border:1px solid transparent;transition:all 0.2s ease;
+}
+.membro-row:hover{background:var(--bg-card-hover);border-color:rgba(0,212,255,0.15);}
+
+.membro-nome{font-size:12px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.coroa{font-size:14px;filter:drop-shadow(0 0 3px gold);}
+.pontos-cell{font-size:11px;font-weight:700;color:var(--ouro);text-align:center;}
+.valor-cell{font-size:11px;font-weight:800;color:var(--verde);text-align:center;}
+.dia-cell{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.bolinha{
+  width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;
+  transition:all 0.15s ease;background:#2a2a2a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;
+}
+.bolinha:hover{transform:scale(1.1);}
+.bolinha.vazia{background:#2a2a2a;border-color:#444;}
+.bolinha.verde{background:var(--verde);border-color:#00DD77;box-shadow:0 0 6px rgba(255,255,0,0.3);color:#000;}
+.bolinha.amarela{background:var(--amarelo);border-color:#EEC900;box-shadow:0 0 6px rgba(255,215,0,0.4);color:#000;}
+.bolinha.vermelha{background:var(--vermelho);border-color:#EE2B2B;box-shadow:0 0 6px rgba(255,59,59,0.4);color:#fff;}
+.bolinha:disabled{cursor:not-allowed;transform:none;opacity:0.7;}
+
+.btn-del{
+  padding:6px 4px;background:linear-gradient(135deg,#5C1A1A,#7A2424);border:none;
+  border-radius:6px;color:#FF6B6B;font-size:10px;font-weight:700;cursor:pointer;
+  transition:all 0.2s ease;width:100%;white-space:nowrap;
+}
+.btn-del:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+
+.secao-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;margin-bottom:20px;
+}
+.secao-titulo{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.secao-lista{display:flex;flex-wrap:wrap;gap:8px;}
+.secao-item{
+  background:rgba(255,255,255,0.05);padding:6px 12px;border-radius:6px;font-size:14px;font-weight:600;
+}
+.titulo-grupo1{color:var(--verde);border-bottom:2px solid var(--verde);}
+.titulo-grupo2{color:var(--amarelo);border-bottom:2px solid var(--amarelo);}
+.titulo-grupo3{color:var(--vermelho);border-bottom:2px solid var(--vermelho);}
+
+.pagamento-card{
+  background:linear-gradient(135deg,rgba(0,255,136,0.05),rgba(0,212,255,0.05));border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:20px;margin-bottom:25px;
+}
+.pagamento-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;flex-wrap:wrap;gap:12px;}
+.info-valor-ponto{font-size:13px;color:var(--texto-sec);}
+.info-valor-ponto span{color:var(--azul);font-weight:700;}
+.total-pontos{font-size:14px;font-weight:700;color:var(--ouro);}
+.total-a-pagar{font-size:18px;font-weight:800;color:var(--verde);}
+.aviso{font-size:12px;color:var(--texto-sec);margin-top:10px;padding:8px;background:rgba(0,0,0,0.2);border-radius:6px;}
+
+.links-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;margin-top:30px;
+}
+.links-card.hidden{display:none !important;}
+.links-card h2{color:var(--azul);font-size:15px;margin-bottom:15px;text-transform:uppercase;letter-spacing:1px;}
+.link-item{margin-bottom:12px;}
+.link-label{font-size:13px;color:var(--texto-sec);margin-bottom:5px;}
+.link-box{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(0,0,0,0.25);border-radius:6px;padding:10px 12px;
+  border:1px solid rgba(0,212,255,0.1);
+}
+.link-box input{
+  flex:1;background:transparent;border:none;color:var(--texto);font-size:13px;outline:none;
+}
+.link-box button{
+  background:var(--azul);border:none;border-radius:4px;padding:6px 10px;color:#000;
+  font-weight:700;cursor:pointer;font-size:12px;
+}
+
+.modal-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);
+  display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(5px);
+}
+.modal{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.2);border-radius:14px;padding:25px;
+  width:90%;max-width:450px;
+}
+.modal h3{color:var(--azul);font-size:18px;margin-bottom:20px;}
+.modal input, .modal select{
+  width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);
+  border-radius:8px;color:var(--texto);font-size:15px;margin-bottom:12px;outline:none;
+}
+.modal input:focus, .modal select:focus{border-color:var(--azul);}
+.modal-botoes{display:flex;gap:10px;margin-top:15px;}
+.modal-btn-cancel{flex:1;padding:12px;background:#2A3A55;border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
+.modal-btn-save{flex:1;padding:12px;background:var(--azul);border:none;border-radius:8px;color:#000;font-weight:700;cursor:pointer;}
+
+@media(max-width:768px){
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .dias-header,.membro-row{grid-template-columns:120px repeat(6,40px) 75px 90px 65px;gap:2px;}
+  .bolinha{width:22px;height:22px;font-size:9px;}
+  .membro-nome{font-size:10px;}
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>💀 LOJA CAOS 77 — CONTROLE</h1>
-            <button class="btn-sair" onclick="sair()">🚪 Sair</button>
-        </div>
 
-        <!-- CARDS TOPO -->
-        <div class="cards-top">
-            <div class="card">
-                <h3>💰 CAIXA DA FACÇÃO</h3>
-                <div class="valor" id="caixa">R$ 0,00</div>
-                <div class="linha-acao">
-                    <input type="number" id="inpCaixa" placeholder="Valor">
-                    <button onclick="salvarCaixa()">Salvar</button>
-                </div>
-            </div>
-            <div class="card">
-                <h3>💎 ESTOQUE DE FRAGMENTOS</h3>
-                <div class="valor" id="estoque">0</div>
-                <div class="linha-acao">
-                    <input type="number" id="inpEstoque" placeholder="Qtd">
-                    <button onclick="salvarEstoque()">Salvar</button>
-                </div>
-            </div>
-            <div class="card">
-                <h3>💲 VALOR POR FRAGMENTO</h3>
-                <div class="valor valor-amarelo" id="preco">R$ 0,00</div>
-                <div class="linha-acao">
-                    <input type="number" id="inpPreco" placeholder="R$">
-                    <button onclick="salvarPreco()">Salvar</button>
-                </div>
-            </div>
-            <div class="card">
-                <h3>🏆 TOP PRODUTOR DO DIA</h3>
-                <div class="ranking-badge" id="topProd">—</div>
-            </div>
-        </div>
+<div id="visitanteBanner" class="visitante-banner" style="display:none;">
+  👀 MODO VISITANTE — Somente leitura
+</div>
 
-        <!-- TABELA DE MEMBROS -->
-        <div class="section">
-            <h2>📋 LISTA DE MEMBROS</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>NOME</th>
-                        <th>SEG</th>
-                        <th>TER</th>
-                        <th>QUA</th>
-                        <th>QUI</th>
-                        <th>SEX</th>
-                        <th>SÁB</th>
-                        <th>DOM</th>
-                        <th style="width: 80px;">AÇÕES</th>
-                    </tr>
-                </thead>
-                <tbody id="tabela-corpo">
-                    <!-- PREENCHIDO PELO JS -->
-                </tbody>
-            </table>
-            <div class="linha-acao">
-                <input type="text" id="novoNome" placeholder="Nome do membro">
-                <button onclick="adicionarMembro()">➕ Adicionar</button>
-            </div>
-        </div>
+<div class="header-top">
+  <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
+  <div class="status-badge" id="statusSinc">Sincronizado</div>
+</div>
 
-        <!-- MOVIMENTAÇÃO -->
-        <div class="section">
-            <h2>📊 MOVIMENTAÇÃO DO DIA</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>DESCRIÇÃO</th>
-                        <th>QTD</th>
-                        <th>VALOR</th>
-                        <th style="width: 80px;">AÇÃO</th>
-                    </tr>
-                </thead>
-                <tbody id="mov-corpo">
-                    <tr><td colspan="4" style="text-align:center; color:#777; padding:20px;">Sem registros</td></tr>
-                </tbody>
-            </table>
-            <div class="linha-acao">
-                <input type="text" id="movDesc" placeholder="Descrição" style="width:220px;">
-                <input type="number" id="movQtd" placeholder="Qtd" style="width:70px;">
-                <input type="number" id="movVal" placeholder="R$" style="width:100px;">
-                <button onclick="adicionarMov()">➕ Adicionar</button>
-            </div>
-        </div>
+<div class="container">
+
+<!-- 💰 TABELA DE PREÇOS -->
+<div class="card" id="secaoPrecos">
+  <h2>💰 TABELA DE PREÇOS — FRAGMENTOS</h2>
+  <table class="precos-table">
+    <thead>
+      <tr><th>QUANTIDADE</th><th>VALOR DE VENDA</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="qtd-frag">250 Fragmentos</td><td class="valor-frag">R$ 550.000</td></tr>
+      <tr><td class="qtd-frag">1.250 Fragmentos</td><td class="valor-frag">R$ 2.750.000</td></tr>
+      <tr><td class="qtd-frag">2.500 Fragmentos</td><td class="valor-frag">R$ 5.500.000</td></tr>
+      <tr><td class="qtd-frag">3.750 Fragmentos</td><td class="valor-frag">R$ 8.500.000</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 📊 CAIXAS -->
+<div class="card" id="secaoCaixa">
+  <h2>📊 CAIXAS & ESTOQUE</h2>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-label">🏦 CAIXA DA FAC</div>
+      <div class="stat-value green"><input type="text" id="caixaFac" value="R$ 4.500.000,00" onblur="marcarAlterado(); atualizarTodosCalculos();"></div>
     </div>
+    <div class="stat-item">
+      <div class="stat-label">👑 CAIXA DOS LÍDERES</div>
+      <div class="stat-value gold"><input type="text" id="caixaLideres" value="R$ 0,00" class="gold" onblur="marcarAlterado()"></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">💵 CAIXA DE PAGAMENTOS</div>
+      <div class="stat-value red"><input type="text" id="caixaPagamentos" value="R$ 10.000,00" class="red" onblur="marcarAlterado(); atualizarTodosCalculos();"></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">📦 ESTOQUE FRAGMENTOS</div>
+      <div class="stat-value blue"><input type="text" id="estoqueFrag" value="0 frag" class="blue" onblur="marcarAlterado()"></div>
+    </div>
+  </div>
+</div>
 
-    <script>
-        // VERIFICAR LOGIN
-        const usuario = localStorage.getItem('usuario');
-        const permissao = localStorage.getItem('permissao');
-        if (!usuario) { window.location.href = 'index.html'; }
+<!-- 💰 CÁLCULO DE PAGAMENTOS — DIVISÃO AUTOMÁTICA -->
+<div class="pagamento-card">
+  <h2>💰 PAGAMENTOS — DIVISÃO AUTOMÁTICA</h2>
+  <div class="pagamento-header">
+    <div class="info-valor-ponto">
+      💵 Valor de 1 Ponto: <span id="valorPontoCalculado">R$ 0,00</span>
+    </div>
+    <div class="total-pontos">
+      📊 Total de Pontos: <span id="somaTotalPontos">0,0</span>
+    </div>
+    <div class="total-a-pagar">
+      💸 Total a Pagar: <span id="somaTotalValor">R$ 0,00</span>
+    </div>
+  </div>
+  <div class="aviso">
+    📌 <strong>Como funciona:</strong> Digite o valor disponível no <strong>CAIXA DE PAGAMENTOS</strong> → o site calcula automaticamente quanto cada um recebe, baseado nos pontos das bolinhas.<br>
+    🟢 = 1,0pt | 🟡 = 0,5pt | 🔴 = 0pt
+  </div>
+</div>
 
-        // DADOS — TUDO IGUAL, SEM OS NÚMEROS DE PRODUÇÃO
-        let dados = JSON.parse(localStorage.getItem('caos77_dados')) || {
-            caixa: 0,
-            estoque: 0,
-            precoUnidade: 0,
-            membros: [
-                {nome: 'Sr Bristow', ehLider: true, dias: { seg:['G',''], ter:['Y',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Katy Bristow', ehLider: true, dias: { seg:['G',''], ter:['G',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Andres Bristow', ehLider: true, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Ferrari Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Vn Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Patrik Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Garcia Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Vt Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Lula Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Breck Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Boladin Xt', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Sr Ghostt', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Laa Diabla', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Ejuan Handi', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Eduarda Faria', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Mateus Faria', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Zé Bagaceira', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Alex Gadernal', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Aquino Menezes', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Connorr Dyygeras', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
-                {nome: 'Lanterna Preta', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }}
-            ],
-            movimentacoes: []
-        };
+<button class="btn-salvar-nuvem" id="btnSalvar" onclick="salvarTudo()">☁️ SALVAR NAS NUVENS</button>
 
-        function salvarDados() {
-            localStorage.setItem('caos77_dados', JSON.stringify(dados));
-            carregarTela();
-        }
+<!-- 📋 CONTROLE DE FARMADORES -->
+<div class="card">
+  <h2>📋 CONTROLE DE FARMADORES</h2>
+  
+  <div class="legend-card">
+    <div class="legend-item"><span style="color:var(--verde);font-size:18px;">●</span> COMPLETO (1,0 ponto)</div>
+    <div class="legend-item"><span style="color:var(--amarelo);font-size:18px;">●</span> INCOMPLETO (0,5 ponto)</div>
+    <div class="legend-item"><span style="color:var(--vermelho);font-size:18px;">●</span> NÃO FEZ (0 ponto)</div>
+  </div>
 
-        function formatarDinheiro(valor) {
-            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
-        }
+  <input type="text" class="search-bar" id="buscaMembro" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
 
-        function carregarTela() {
-            // CAIXA
-            document.getElementById('caixa').textContent = formatarDinheiro(dados.caixa);
-            // ESTOQUE
-            document.getElementById('estoque').textContent = dados.estoque;
-            // PREÇO
-            document.getElementById('preco').textContent = formatarDinheiro(dados.precoUnidade);
-            // TOP PRODUTOR
-            document.getElementById('topProd').textContent = dados.membros.length > 0 ? dados.membros[0].nome : '—';
+  <button class="btn-add" id="btnAddMembro" onclick="abrirModal()">➕ ADICIONAR INTEGRANTE</button>
 
-            // TABELA DE MEMBROS
-            const corpo = document.getElementById('tabela-corpo');
-            corpo.innerHTML = '';
-            dados.membros.forEach((membro, index) => {
-                corpo.innerHTML += `
-                    <tr>
-                        <td><strong>${membro.nome}</strong>${membro.ehLider ? ' ⭐' : ''}</td>
-                        <td><span class="dia dia-${membro.dias.seg[0]}">${membro.dias.seg[0] || ''}</span></td>
-                        <td><span class="dia dia-${membro.dias.ter[0]}">${membro.dias.ter[0] || ''}</span></td>
-                        <td><span class="dia dia-${membro.dias.qua[0]}">${membro.dias.qua[0] || ''}</span></td>
-                        <td><span class="dia dia-${membro.dias.qui[0]}">${membro.dias.qui[0] || ''}</span></td>
-                        <td><span class="dia dia-${membro.dias.sex[0]}">${membro.dias.sex[0] || ''}</span></td>
-                        <td><span class="dia dia-${membro.dias.sab[0]}">${membro.dias.sab[0] || ''}</span></td>
-                        <td><span class="dia dia-${membro.dias.dom[0]}">${membro.dias.dom[0] || ''}</span></td>
-                        <td>
-                            ${permissao === 'admin' ? `
-                                <button class="pequeno cinza" onclick="editarMembro(${index})">✏️</button>
-                                <button class="pequeno cinza" onclick="removerMembro(${index})">🗑️</button>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `;
-            });
+  <div class="dias-header">
+    <div class="nome-col">NOME</div>
+    <div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+    <div>PONTOS</div>
+    <div>RECEBERÁ</div>
+    <div>AÇÃO</div>
+  </div>
 
-            // MOVIMENTAÇÕES
-            const movCorpo = document.getElementById('mov-corpo');
-            movCorpo.innerHTML = '';
-            if (dados.movimentacoes.length === 0) {
-                movCorpo.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#777; padding:20px;">Sem registros</td></tr>';
-            } else {
-                dados.movimentacoes.forEach((mov, index) => {
-                    movCorpo.innerHTML += `
-                        <tr>
-                            <td>${mov.desc}</td>
-                            <td>${mov.qtd}</td>
-                            <td>${formatarDinheiro(mov.val)}</td>
-                            <td>${permissao === 'admin' ? `<button class="pequeno cinza" onclick="removerMov(${index})">🗑️</button>` : ''}</td>
-                        </tr>
-                    `;
-                });
-            }
-        }
+  <div id="listaMembros"></div>
 
-        function salvarCaixa() {
-            if (permissao !== 'admin') { alert('Sem permissão!'); return; }
-            const val = parseFloat(document.getElementById('inpCaixa').value);
-            if (!isNaN(val)) { dados.caixa = val; salvarDados(); document.getElementById('inpCaixa').value = ''; }
-        }
+  <!-- GRUPOS -->
+  <div class="secao-card">
+    <div class="secao-titulo titulo-grupo1">🟢 PELO MENOS 1 VERDE</div>
+    <div class="secao-lista" id="grupoVerde"><span style="color:var(--texto-sec)">Nenhum</span></div>
+  </div>
+  <div class="secao-card">
+    <div class="secao-titulo titulo-grupo2">🟡 NENHUM VERDE / TEM AMARELO</div>
+    <div class="secao-lista" id="grupoAmarelo"><span style="color:var(--texto-sec)">Nenhum</span></div>
+  </div>
+  <div class="secao-card">
+    <div class="secao-titulo titulo-grupo3">🔴 SÓ VERMELHO</div>
+    <div class="secao-lista" id="grupoVermelho"><span style="color:var(--texto-sec)">Nenhum</span></div>
+  </div>
+</div>
 
-        function salvarEstoque() {
-            if (permissao !== 'admin') { alert('Sem permissão!'); return; }
-            const val = parseInt(document.getElementById('inpEstoque').value);
-            if (!isNaN(val)) { dados.estoque = val; salvarDados(); document.getElementById('inpEstoque').value = ''; }
-        }
+<!-- 🔗 LINKS DE ACESSO -->
+<div class="links-card" id="secaoLinks">
+  <h2>🔗 LINKS DE ACESSO</h2>
+  <div class="link-item">
+    <div class="link-label">🔑 ADMINISTRADOR</div>
+    <div class="link-box"><input type="text" id="linkAdmin" readonly><button onclick="copiarLink('linkAdmin')">📋</button></div>
+  </div>
+  <div class="link-item">
+    <div class="link-label">👀 VISITANTE</div>
+    <div class="link-box"><input type="text" id="linkVisitante" readonly><button onclick="copiarLink('linkVisitante')">📋</button></div>
+  </div>
+</div>
 
-        function salvarPreco() {
-            if (permissao !== 'admin') { alert('Sem permissão!'); return; }
-            const val = parseFloat(document.getElementById('inpPreco').value);
-            if (!isNaN(val)) { dados.precoUnidade = val; salvarDados(); document.getElementById('inpPreco').value = ''; }
-        }
+</div>
 
-        function adicionarMembro() {
-            if (permissao !== 'admin') { alert('Sem permissão!'); return; }
-            const nome = document.getElementById('novoNome').value.trim();
-            if (nome) {
-                dados.membros.push({
-                    nome: nome,
-                    ehLider: false,
-                    dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }
-                });
-                salvarDados();
-                document.getElementById('novoNome').value = '';
-            }
-        }
+<!-- MODAL ADICIONAR -->
+<div class="modal-overlay" id="modalAdicionar">
+  <div class="modal">
+    <h3>➕ Adicionar Integrante</h3>
+    <input type="text" id="nomeNovo" placeholder="Nome do integrante">
+    <label style="display:flex;align-items:center;gap:8px;margin-bottom:15px;color:var(--texto);font-size:14px;">
+      <input type="checkbox" id="ehLider"> 👑 É Líder
+    </label>
+    <div class="modal-botoes">
+      <button class="modal-btn-cancel" onclick="fecharModal()">Cancelar</button>
+      <button class="modal-btn-save" onclick="salvarMembro()">Salvar</button>
+    </div>
+  </div>
+</div>
 
-        function removerMembro(index) {
-            if (confirm('Remover esse membro?')) {
-                dados.membros.splice(index, 1);
-                salvarDados();
-            }
-        }
+<script>
+const DATABASE_URL = 'https://loja-caos-77-default-rtdb.firebaseio.com/.json';
 
-        function editarMembro(index) {
-            const novoNome = prompt('Novo nome:', dados.membros[index].nome);
-            if (novoNome !== null && novoNome.trim() !== '') {
-                dados.membros[index].nome = novoNome.trim();
-                salvarDados();
-            }
-        }
+const ehModoVisitante = new URLSearchParams(window.location.search).get('modo') === 'leitura';
 
-        function adicionarMov() {
-            if (permissao !== 'admin') { alert('Sem permissão!'); return; }
-            const desc = document.getElementById('movDesc').value.trim();
-            const qtd = parseInt(document.getElementById('movQtd').value);
-            const val = parseFloat(document.getElementById('movVal').value);
-            if (desc && !isNaN(qtd) && !isNaN(val)) {
-                dados.movimentacoes.unshift({ desc, qtd, val });
-                dados.estoque -= qtd;
-                dados.caixa += val;
-                salvarDados();
-                document.getElementById('movDesc').value = '';
-                document.getElementById('movQtd').value = '';
-                document.getElementById('movVal').value = '';
-            }
-        }
+let membros = [
+  { id: 1789112658911, nome: 'Sr Bristow', ehLider: true, dias: { seg:['G',''], ter:['Y',''], qua:['Y',''], qui:['R',''], sex:['G',''], sab:['Y',''] } },
+  { id: 1789112674552, nome: 'Katy Bristow', ehLider: true, dias: { seg:['G',''], ter:['G',''], qua:['G',''], qui:['G',''], sex:['G',''], sab:['G',''] } },
+  { id: 1789112697878, nome: 'Andres Bristow', ehLider: true, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112711976, nome: 'Ferrari Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112743926, nome: 'Vn Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112760627, nome: 'Patrik Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112771905, nome: 'Garcia Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112795946, nome: 'Vt Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112813039, nome: 'Lula Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112824616, nome: 'Breck Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112847515, nome: 'Boladin Xt', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112863622, nome: 'Sr Ghostt', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112879484, nome: 'Laa Diabla', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112909392, nome: 'Ejuan Handi', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112927917, nome: 'Eduarda Faria', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112936235, nome: 'Mateus Faria', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789151065765, nome: 'Zé Bagaceira', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789151088144, nome: 'Alex Gadernal', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789152359172, nome: 'Aquino Menezes', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789157297586, nome: 'Connorr Dyygeras', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789157430178, nome: 'Lanterna Preta', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } }
+];
 
-        function removerMov(index) {
-            if (confirm('Excluir esse registro?')) {
-                dados.movimentacoes.splice(index, 1);
-                salvarDados();
-            }
-        }
+let alterado = false;
 
-        function sair() {
-            localStorage.removeItem('usuario');
-            localStorage.removeItem('permissao');
-            window.location.href = 'index.html';
-        }
+function marcarAlterado(){
+  alterado = true;
+  document.getElementById('btnSalvar').textContent = '☁️ SALVAR NAS NUVENS *';
+  document.getElementById('btnSalvar').classList.remove('salvo');
+}
 
-        carregarTela();
-    </script>
+function calcularPontos(membro){
+  let pts = 0;
+  for(let d in membro.dias){
+    if(membro.dias[d][0] === 'G') pts += 1.0;
+    if(membro.dias[d][0] === 'Y') pts += 0.5;
+  }
+  return pts;
+}
+
+function atualizarTodosCalculos(){
+  const caixaPag = parseFloat(document.getElementById('caixaPagamentos').value.replace(/[^0-9,]/g, '').replace(',','.'));
+  let totalPontos = 0;
+  membros.forEach(m => totalPontos += calcularPontos(m));
+  const valorPonto = totalPontos > 0 ? caixaPag / totalPontos : 0;
+  
+  document.getElementById('valorPontoCalculado').textContent = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(valorPonto);
+  document.getElementById('somaTotalPontos').textContent = totalPontos.toFixed(1).replace('.',',');
+  document.getElementById('somaTotalValor').textContent = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(caixaPag);
+  
+  renderizarLista();
+  marcarAlterado();
+}
+
+function renderizarLista(){
+  const lista = document.getElementById('listaMembros');
+  const caixaPag = parseFloat(document.getElementById('caixaPagamentos').value.replace(/[^0-9,]/g, '').replace(',','.')) || 0;
+  let totalPontos = 0;
+  membros.forEach(m => totalPontos += calcularPontos(m));
+  const valorPonto = totalPontos > 0 ? caixaPag / totalPontos : 0;
+  
+  lista.innerHTML = '';
+  
+  // SEMPRE DEIXA OS GRUPOS VAZIOS — NÃO MOSTRA NENHUM NOME
+  document.getElementById('grupoVerde').innerHTML = '<span style="color:var(--texto-sec)">Nenhum</span>';
+  document.getElementById('grupoAmarelo').innerHTML = '<span style="color:var(--texto-sec)">Nenhum</span>';
+  document.getElementById('grupoVermelho').innerHTML = '<span style="color:var(--texto-sec)">Nenhum</span>';
+  
+  membros.forEach((item, index) => {
+    const pontos = calcularPontos(item);
+    const receber = pontos * valorPonto;
+    
+    lista.innerHTML += `
+      <div class="membro-row" data-nome="${item.nome.toLowerCase()}">
+        <div class="membro-nome">${item.ehLider ? '<span class="coroa">👑</span>' : ''}${item.nome}</div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.seg[0] === 'G' ? 'verde' : item.dias.seg[0] === 'Y' ? 'amarela' : item.dias.seg[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'seg', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.seg[1] || ''}</span></div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.ter[0] === 'G' ? 'verde' : item.dias.ter[0] === 'Y' ? 'amarela' : item.dias.ter[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'ter', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.ter[1] || ''}</span></div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.qua[0] === 'G' ? 'verde' : item.dias.qua[0] === 'Y' ? 'amarela' : item.dias.qua[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'qua', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.qua[1] || ''}</span></div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.qui[0] === 'G' ? 'verde' : item.dias.qui[0] === 'Y' ? 'amarela' : item.dias.qui[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'qui', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.qui[1] || ''}</span></div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.sex[0] === 'G' ? 'verde' : item.dias.sex[0] === 'Y' ? 'amarela' : item.dias.sex[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'sex', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.sex[1] || ''}</span></div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.sab[0] === 'G' ? 'verde' : item.dias.sab[0] === 'Y' ? 'amarela' : item.dias.sab[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'sab', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.sab[1] || ''}</span></div>
+        <div class="pontos-cell">${pontos.toFixed(1).replace('.',',')}pt</div>
+        <div class="valor-cell">${valorPonto > 0 ? new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(receber) : '—'}</div>
+        <div>${!ehModoVisitante ? `<button class="btn-del" onclick="removerMembro(${index})">🗑️</button>` : ''}</div>
+      </div>
+    `;
+  });
+}
+
+function trocarCor(index, dia, passo){
+  if(ehModoVisitante) return;
+  const ordem = ['', 'G', 'Y', 'R'];
+  let atual = membros[index].dias[dia][0];
+  let prox = ordem[(ordem.indexOf(atual) + 1) % ordem.length];
+  membros[index].dias[dia][0] = prox;
+  marcarAlterado();
+  renderizarLista();
+}
+
+function filtrarLista(){
+  const busca = document.getElementById('buscaMembro').value.toLowerCase();
+  document.querySelectorAll('.membro-row').forEach(row => {
+    const nome = row.getAttribute('data-nome');
+    row.style.display = nome.includes(busca) ? '' : 'none';
+  });
+}
+
+function abrirModal(){
+  if(ehModoVisitante) return;
+  document.getElementById('modalAdicionar').style.display = 'flex';
+  document.getElementById('nomeNovo').value = '';
+  document.getElementById('ehLider').checked = false;
+}
+
+function fecharModal(){
+  document.getElementById('modalAdicionar').style.display = 'none';
+}
+
+function salvarMembro(){
+  if(ehModoVisitante) return;
+  const nome = document.getElementById('nomeNovo').value.trim();
+  const ehLider = document.getElementById('ehLider').checked;
+  if(!nome) return alert('Digite o nome!');
+  
+  membros.unshift({
+    id: Date.now(),
+    nome: nome,
+    ehLider: ehLider,
+    dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
+  });
+  
+  fecharModal();
+  marcarAlterado();
+  renderizarLista();
+}
+
+function removerMembro(index){
+  if(ehModoVisitante) return;
+  if(!confirm('Remover esse integrante?')) return;
+  membros.splice(index, 1);
+  marcarAlterado();
+  renderizarLista();
+}
+
+async function salvarTudo(){
+  const btn = document.getElementById('btnSalvar');
+  btn.disabled = true;
+  btn.textContent = 'Salvando...';
+  
+  const dados = {
+    caixaFac: document.getElementById('caixaFac').value,
+    caixaLideres: document.getElementById('caixaLideres').value,
+    caixaPagamentos: document.getElementById('caixaPagamentos').value,
+    estoqueFrag: document.getElementById('estoqueFrag').value,
+    membros: membros
+  };
+  
+  try {
+    const res = await fetch(DATABASE_URL, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(dados)
+    });
+    if(res.ok){
+      alterado = false;
+      btn.textContent = '✅ SALVO NAS NUVENS';
+      btn.classList.add('salvo');
+      setTimeout(()=>{
+        btn.textContent = '☁️ SALVAR NAS NUVENS';
+        btn.classList.remove('salvo');
+      }, 2500);
+    }
+  } catch(e) {
+    alert('Erro ao salvar!');
+  }
+  btn.disabled = false;
+}
+
+async function carregarDados(){
+  try {
+    const res = await fetch(DATABASE_URL);
+    if(res.ok){
+      const dados = await res.json();
+      if(dados && dados.membros){
+        document.getElementById('caixaFac').value = dados.caixaFac || 'R$ 4.500.000,00';
+        document.getElementById('caixaLideres').value = dados.caixaLideres || 'R$ 0,00';
+        document.getElementById('caixaPagamentos').value = dados.caixaPagamentos || 'R$ 10.000,00';
+        document.getElementById('estoqueFrag').value = dados.estoqueFrag || '0 frag';
+        membros = dados.membros;
+      }
+    }
+  } catch(e) {}
+  
+  if(ehModoVisitante){
+    document.getElementById('visitanteBanner').style.display = 'block';
+    document.getElementById('btnSalvar').style.display = 'none';
+    document.getElementById('btnAddMembro').style.display = 'none';
+    document.getElementById('secaoLinks').style.display = 'none';
+    document.querySelectorAll('input[type="text"]').forEach(el => el.disabled = true);
+  }
+  
+  atualizarTodosCalculos();
+  gerarLinks();
+}
+
+function gerarLinks(){
+  const base = window.location.href.split('?')[0];
+  document.getElementById('linkAdmin').value = base;
+  document.getElementById('linkVisitante').value = base + '?modo=leitura';
+}
+
+function copiarLink(id){
+  const el = document.getElementById(id);
+  el.select();
+  document.execCommand('copy');
+  alert('Link copiado! ✅');
+}
+
+carregarDados();
+</script>
 </body>
 </html>

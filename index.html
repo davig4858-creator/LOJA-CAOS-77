@@ -39,6 +39,10 @@ body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40p
 .section-card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:20px;margin-bottom:20px;}
 .section-title{font-size:15px;font-weight:800;margin-bottom:16px;color:var(--primaria);}
 
+.regras-box{background:rgba(124,58,237,0.05);border:1px solid rgba(124,58,237,0.15);border-radius:10px;padding:14px;margin-bottom:16px;}
+.regras-titulo{font-weight:800;margin-bottom:10px;font-size:14px;}
+.regras-linha{font-size:12px;margin-bottom:6px;line-height:1.6;}
+
 .caixas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
 .caixa-item{background:rgba(0,0,0,0.25);border-radius:10px;padding:14px;text-align:center;}
 .caixa-label{font-size:11px;color:var(--textoSec);margin-bottom:6px;font-weight:600;text-transform:uppercase;}
@@ -51,20 +55,20 @@ body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40p
 .desconto-row input{width:70px;padding:6px 8px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:6px;color:var(--texto);font-size:14px;font-weight:700;text-align:center;outline:none;}
 
 .total-pontos{background:rgba(124,58,237,0.08);border-radius:10px;padding:12px;text-align:center;margin:12px 0;border:1px solid rgba(124,58,237,0.15);}
-.total-pontos span{font-size:20px;font-weight:900;color:var(--primaria);}
+.total-pontos span{font-size:18px;font-weight:900;color:var(--primaria);}
 
 .btn-add{width:100%;padding:14px;background:linear-gradient(90deg,var(--primaria),#3B82F6);border:none;border-radius:10px;color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:12px;}
 .btn-calcular{width:100%;padding:14px;background:linear-gradient(90deg,var(--verde),#34D399);border:none;border-radius:10px;color:white;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:16px;}
 .btn-salvar{width:100%;padding:12px;background:linear-gradient(90deg,#8B5CF6,#EC4899);border:none;border-radius:10px;color:white;font-size:14px;font-weight:800;cursor:pointer;margin-bottom:16px;}
 .btn-del{padding:5px 8px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:5px;color:#FCA5A5;font-size:10px;font-weight:700;cursor:pointer;}
 
-.membros-header{display:grid;grid-template-columns:160px repeat(7,36px) 60px 100px 45px;gap:2px;padding:8px 6px;color:var(--primaria);font-size:8px;font-weight:800;text-transform:uppercase;border-bottom:1px solid var(--borda);margin-bottom:4px;text-align:center;}
+.membros-header{display:grid;grid-template-columns:150px repeat(7,36px) 70px 100px 45px;gap:2px;padding:8px 6px;color:var(--primaria);font-size:8px;font-weight:800;text-transform:uppercase;border-bottom:1px solid var(--borda);margin-bottom:4px;text-align:center;}
 .membros-header .nome-col{text-align:left;}
 
-.membro-row{display:grid;grid-template-columns:160px repeat(7,36px) 60px 100px 45px;gap:2px;padding:8px 6px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:4px;align-items:center;}
+.membro-row{display:grid;grid-template-columns:150px repeat(7,36px) 70px 100px 45px;gap:2px;padding:8px 6px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:4px;align-items:center;}
 .membro-nome{font-size:12px;font-weight:700;color:var(--texto);}
 .valor-cell{font-size:11px;font-weight:700;color:var(--verde);}
-.pontos-cell{font-size:11px;font-weight:700;color:var(--ouro);}
+.porc-cell{font-size:10px;font-weight:600;color:var(--ouro);}
 
 .bolinha{width:26px;height:26px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,0.06);font-size:12px;}
 .bolinha.verde{background:var(--verde);}
@@ -99,7 +103,7 @@ body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40p
 
 @media(max-width:768px){
   .caixas-grid{grid-template-columns:1fr;}
-  .membros-header,.membro-row{grid-template-columns:130px repeat(7,30px) 50px 85px 40px;}
+  .membros-header,.membro-row{grid-template-columns:120px repeat(7,30px) 60px 85px 40px;}
   .bolinha{width:22px;height:22px;font-size:10px;}
 }
 </style>
@@ -130,6 +134,17 @@ body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40p
 <!-- CONTEÚDO PRINCIPAL -->
 <div class="container" id="conteudoPrincipal" style="display:none;">
 
+<!-- REGRAS DE CÁLCULO -->
+<div class="section-card">
+  <div class="section-title">📐 REGRAS DE PAGAMENTO</div>
+  <div class="regras-box">
+    <div class="regras-titulo">📊 Porcentagens Semanais:</div>
+    <div class="regras-linha">🟢 <strong>VERDE:</strong> 50% → diminui até 20% conforme aumenta amarelos + vermelhos na semana</div>
+    <div class="regras-linha">🟡 <strong>AMARELO:</strong> 25% → diminui até 10% conforme aumenta vermelhos na semana</div>
+    <div class="regras-linha">🔴 <strong>VERMELHO:</strong> 0% — não recebe</div>
+  </div>
+</div>
+
 <!-- CAIXAS -->
 <div class="section-card">
   <div class="section-title">💰 CAIXAS</div>
@@ -149,13 +164,7 @@ body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40p
   </div>
 
   <div class="total-pontos">
-    📊 TOTAL DE PONTOS: <span id="totalPontos">0,0</span>
-  </div>
-
-  <div class="legenda">
-    <div class="leg-item"><span class="leg-bola" style="background:var(--verde)"></span> = 1,0</div>
-    <div class="leg-item"><span class="leg-bola" style="background:var(--amarelo)"></span> = 0,5</div>
-    <div class="leg-item"><span class="leg-bola" style="background:var(--vermelho)"></span> = 0,0</div>
+    📊 TOTAL A DISTRIBUIR: <span id="totalGeral">R$ 0,00</span>
   </div>
 </div>
 
@@ -170,7 +179,7 @@ body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40p
   <div class="membros-header">
     <div class="nome-col">MEMBRO / FARM</div>
     <div>D1</div><div>D2</div><div>D3</div><div>D4</div><div>D5</div><div>D6</div><div>D7</div>
-    <div>PTS</div><div>VALOR</div><div>✖</div>
+    <div>%</div><div>VALOR</div><div>✖</div>
   </div>
 
   <div id="listaMembros"></div>
@@ -179,7 +188,7 @@ body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40p
   <div class="resultado" id="resultado">
     <div class="res-titulo">📋 RESUMO DE PAGAMENTOS</div>
     <div class="res-linha">
-      <span>💰 Caixa de Pagamento:</span>
+      <span>💰 Caixa de Pagamento (Bruto):</span>
       <span id="resCaixaBruto">R$ 0,00</span>
     </div>
     <div class="res-linha desconto">
@@ -191,7 +200,7 @@ body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40p
       <span id="resCaixaLiquido">R$ 0,00</span>
     </div>
     <div style="margin-top:12px;">
-      <div style="font-weight:700;margin-bottom:8px;color:var(--verde);">👥 Valores por Membro:</div>
+      <div style="font-weight:700;margin-bottom:8px;color:var(--verde);">👥 Detalhe por Membro:</div>
       <div id="resPorMembro"></div>
     </div>
   </div>
@@ -199,7 +208,7 @@ body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40p
 
 <!-- RANKING -->
 <div class="section-card">
-  <div class="section-title">🏆 RANKING — MAIS FARMADOS</div>
+  <div class="section-title">🏆 RANKING — MAIS RECEBEM</div>
   <div id="ranking"></div>
 </div>
 
@@ -304,8 +313,8 @@ function adicionarMembro() {
   membros.push({
     id: Date.now(),
     nome: nome,
-    dias: ['', '', '', '', '', '', ''], // '', 'verde', 'amarelo', 'vermelho'
-    pontos: 0,
+    dias: ['', '', '', '', '', '', ''],
+    porcentagem: 0,
     valor: 0
   });
   
@@ -341,52 +350,106 @@ function trocarBolinha(id, diaIndex) {
   calcular();
 }
 
-// --- CÁLCULO AUTOMÁTICO ---
-function calcular() {
-  // 1. Calcular pontos de cada membro
-  membros.forEach(m => {
-    let pts = 0;
-    m.dias.forEach(cor => {
-      if (cor === 'verde') pts += 1.0;
-      else if (cor === 'amarelo') pts += 0.5;
-      // vermelho ou vazio = 0
+// 🧮 CÁLCULO DA PORCENTAGEM VARIÁVEL
+function calcularPorcentagensSemanais() {
+  // Conta TOTAL de amarelos e vermelhos de TODOS os membros na semana
+  let totalAmarelosSemana = 0;
+  let totalVermelhosSemana = 0;
+  
+  membros.forEach(membro => {
+    membro.dias.forEach(cor => {
+      if (cor === 'amarelo') totalAmarelosSemana++;
+      if (cor === 'vermelho') totalVermelhosSemana++;
     });
-    m.pontos = pts;
   });
+  
+  const totalDiasPreenchidos = totalAmarelosSemana + totalVermelhosSemana;
+  
+  // Calcula fator de redução baseado na quantidade de amarelos + vermelhos
+  // Quanto mais amarelos e vermelhos, menor a porcentagem final
+  let fatorReducaoVerde = 1.0; // sem redução
+  let fatorReducaoAmarelo = 1.0; // sem redução
+  
+  if (totalDiasPreenchidos > 0) {
+    // Fator redução para verde: mais amarelos+vermelhos = redução maior (50% → 20%)
+    fatorReducaoVerde = 1 - (totalAmarelosSemana + totalVermelhosSemana) / 14;
+    // Limita entre 0.4 (máxima redução = 20%) e 1.0 (sem redução = 50%)
+    fatorReducaoVerde = Math.max(0.4, Math.min(1.0, fatorReducaoVerde));
+    
+    // Fator redução para amarelo: mais vermelhos = redução maior (25% → 10%)
+    if (totalVermelhosSemana > 0) {
+      fatorReducaoAmarelo = 1 - (totalVermelhosSemana / 14);
+      fatorReducaoAmarelo = Math.max(0.4, Math.min(1.0, fatorReducaoAmarelo));
+    }
+  }
+  
+  // Calcula porcentagem individual de cada membro
+  membros.forEach(membro => {
+    let pct = 0;
+    
+    membro.dias.forEach(cor => {
+      if (cor === 'verde') {
+        // Base 50% reduz até 20%
+        pct += 50 * fatorReducaoVerde;
+      } else if (cor === 'amarelo') {
+        // Base 25% reduz até 10%
+        pct += 25 * fatorReducaoAmarelo;
+      }
+      // vermelho = 0, não soma nada
+    });
+    
+    membro.porcentagem = pct;
+  });
+  
+  return {
+    fatorReducaoVerde: (fatorReducaoVerde * 100).toFixed(0),
+    fatorReducaoAmarelo: (fatorReducaoAmarelo * 100).toFixed(0)
+  };
+}
 
-  // 2. Total de pontos
-  const totalPontos = membros.reduce((s, m) => s + m.pontos, 0);
-  document.getElementById('totalPontos').textContent = totalPontos.toFixed(1).replace('.', ',');
-
+// --- CÁLCULO PRINCIPAL ---
+function calcular() {
+  // 1. Calcular porcentagens de todos os membros
+  const fatores = calcularPorcentagensSemanais();
+  
+  // 2. Somar total de porcentagens
+  const totalPorcentagens = membros.reduce((s, m) => s + m.porcentagem, 0);
+  
   // 3. Valores do caixa
   const caixaBruto = parseDinheiro(document.getElementById('caixaPagamento').value);
   const descontoPerc = parseFloat(document.getElementById('descontoPerc').value) || 0;
   const valorDesconto = caixaBruto * (descontoPerc / 100);
   const caixaLiquido = caixaBruto - valorDesconto;
-
-  // 4. Calcular valor de cada membro
+  
+  // 4. Calcular valor proporcional de cada membro
   membros.forEach(m => {
-    if (totalPontos > 0) {
-      m.valor = caixaLiquido * (m.pontos / totalPontos);
+    if (totalPorcentagens > 0) {
+      m.valor = caixaLiquido * (m.porcentagem / totalPorcentagens);
     } else {
       m.valor = 0;
     }
   });
-
-  // 5. Atualizar resumo
+  
+  // 5. Atualizar total na tela
+  document.getElementById('totalGeral').textContent = formatarDinheiro(caixaLiquido);
+  
+  // 6. Mostrar resultado detalhado
   const elResultado = document.getElementById('resultado');
-  if (totalPontos > 0 || caixaBruto > 0) {
+  if (totalPorcentagens > 0 || caixaBruto > 0) {
     elResultado.classList.add('mostrar');
     document.getElementById('resCaixaBruto').textContent = formatarDinheiro(caixaBruto);
     document.getElementById('resDescPerc').textContent = descontoPerc;
     document.getElementById('resDesconto').textContent = '- ' + formatarDinheiro(valorDesconto);
     document.getElementById('resCaixaLiquido').textContent = formatarDinheiro(caixaLiquido);
     
-    // Lista por membro
-    let htmlMembros = '';
-    membros.filter(m => m.pontos > 0).sort((a, b) => b.valor - a.valor).forEach((m, i) => {
+    // Lista detalhada
+    let htmlMembros = `<div style="font-size:11px;color:var(--textoSec);margin-bottom:10px;padding:6px;background:rgba(124,58,237,0.05);border-radius:6px;">
+      📉 Fator de redução atual: 🟢 × ${fatores.fatorReducaoVerde}% | 🟡 × ${fatores.fatorReducaoAmarelo}%
+    </div>`;
+    
+    membros.filter(m => m.porcentagem > 0).sort((a, b) => b.valor - a.valor).forEach((m, i) => {
       htmlMembros += `<div class="res-linha" style="font-size:12px;">
-        <span>${i+1}. ${m.nome} (${m.pontos.toFixed(1).replace('.',',')} pts)</span>
+        <span>${i+1}. ${m.nome} → ${m.porcentagem.toFixed(1)}%</span>
         <span style="color:var(--verde);font-weight:700;">${formatarDinheiro(m.valor)}</span>
       </div>`;
     });
@@ -394,14 +457,15 @@ function calcular() {
   } else {
     elResultado.classList.remove('mostrar');
   }
-
-  // 6. Atualizar ranking
+  
+  // 7. Atualizar ranking
   atualizarRanking();
+  renderizarLista();
 }
 
 // --- RANKING ---
 function atualizarRanking() {
-  const top = [...membros].filter(m => m.pontos > 0).sort((a, b) => b.pontos - a.pontos).slice(0, 5);
+  const top = [...membros].filter(m => m.porcentagem > 0).sort((a, b) => b.valor - a.valor).slice(0, 5);
   let html = '';
   
   if (top.length === 0) {
@@ -418,7 +482,7 @@ function atualizarRanking() {
           <div class="ranking-pos ${classe}">${i+1}</div>
           <div>
             <div style="font-weight:700;font-size:13px;">${m.nome}</div>
-            <div style="font-size:11px;color:var(--textoSec);">${m.pontos.toFixed(1).replace('.',',')} pts</div>
+            <div style="font-size:11px;color:var(--textoSec);">${m.porcentagem.toFixed(1)}%</div>
           </div>
         </div>
         <div style="font-weight:900;color:var(--verde);font-size:14px;">${formatarDinheiro(m.valor)}</div>
@@ -448,7 +512,7 @@ function renderizarLista() {
     });
     
     html += `
-      <div class="pontos-cell">${m.pontos.toFixed(1).replace('.',',')}</div>
+      <div class="porc-cell">${m.porcentagem.toFixed(0)}%</div>
       <div class="valor-cell">${formatarDinheiro(m.valor)}</div>
       <div>${modoAdmin ? `<button class="btn-del" onclick="removerMembro(${m.id})">✖</button>` : ''}</div>
     </div>`;
@@ -488,7 +552,6 @@ function carregarDados() {
   document.getElementById('statusSinc').classList.remove('nao-salvo');
 }
 
-// Inicializar
 document.getElementById('nomeNovo').addEventListener('keypress', function(e) {
   if (e.key === 'Enter') adicionarMembro();
 });

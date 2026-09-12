@@ -91,17 +91,18 @@ body{
 
 .container{max-width:1100px;margin:0 auto;padding:20px 14px;}
 
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
 .stat-card{
-  background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:18px 16px;
+  background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:16px 14px;
   transition:all 0.3s ease;
 }
 .stat-card:hover{transform:translateY(-3px);border-color:rgba(124,58,237,0.4);}
-.stat-label{font-size:12px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
-.stat-value{font-size:22px;font-weight:900;}
+.stat-label{font-size:11px;color:var(--textoSec);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.stat-value{font-size:18px;font-weight:900;}
 .stat-value.purple{color:var(--primaria);}
 .stat-value.gold{color:var(--ouro);}
 .stat-value.green{color:var(--verde);}
+.stat-value.blue{color:var(--azul);}
 
 .section-card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:22px;margin-bottom:24px;}
 .section-title{font-size:15px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--primaria);}
@@ -121,7 +122,7 @@ body{
 .btn-salvar-nuvem:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(139,92,246,0.3);}
 .btn-salvar-nuvem.salvo{background:linear-gradient(90deg,var(--verde),#34D399);}
 
-.caixas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.caixas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
 .caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;transition:opacity 0.2s;}
 .caixa-item.oculto{display:none !important;}
 .caixa-label{font-size:11px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;}
@@ -133,6 +134,7 @@ body{
 .caixa-valor.azul{color:var(--azul);}
 .caixa-valor.ouro{color:var(--ouro);}
 .caixa-valor.verde{color:var(--verde);}
+.caixa-valor.roxo{color:var(--primaria);}
 
 .legend-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--textoSec);}
@@ -156,42 +158,49 @@ body{
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
 
 .dias-header{
-  display:grid;grid-template-columns:200px repeat(6,50px) 60px;gap:4px;
-  padding:10px 8px;color:var(--primaria);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
+  display:grid;grid-template-columns:170px 70px repeat(6,45px) 50px;gap:4px;
+  padding:10px 8px;color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
 .dias-header .nome-col{text-align:left;}
+.dias-header .qtd-col{text-align:center;}
 
 .membro-row{
-  display:grid;grid-template-columns:200px repeat(6,50px) 60px;gap:4px;
-  padding:10px 8px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
+  display:grid;grid-template-columns:170px 70px repeat(6,45px) 50px;gap:4px;
+  padding:8px 6px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:4px;
   align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
 .membro-row:hover{background:rgba(255,255,255,0.05);border-color:var(--borda);}
 
-.membro-nome{font-size:15px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:8px;}
-.coroa{font-size:16px;filter:drop-shadow(0 0 4px gold);}
+.membro-nome{font-size:14px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.coroa{font-size:14px;filter:drop-shadow(0 0 3px gold);}
+.qtd-farm-cell{text-align:center;}
+.qtd-farm-input{
+  width:50px;padding:4px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:6px;
+  color:var(--texto);font-size:13px;font-weight:800;text-align:center;outline:none;
+}
+.qtd-farm-input:disabled{opacity:0.5;cursor:not-allowed;}
 .dia-cell{display:flex;justify-content:center;}
 .bolinha{
-  width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;
+  width:24px;height:24px;border-radius:50%;border:2px solid transparent;cursor:pointer;
   transition:all 0.15s ease;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:bold;
+  font-size:10px;font-weight:bold;
 }
 .bolinha:disabled{cursor:not-allowed;opacity:0.6;}
 .bolinha:hover{transform:scale(1.15);}
 .bolinha.vazia{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);}
-.bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 8px rgba(16,185,129,0.4);color:#000;}
-.bolinha.amarela{background:var(--amarelo);border-color:#D97706;box-shadow:0 0 8px rgba(245,158,11,0.4);color:#000;}
-.bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 8px rgba(239,68,68,0.4);color:#fff;}
+.bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 6px rgba(16,185,129,0.4);color:#000;}
+.bolinha.amarela{background:var(--amarelo);border-color:#D97706;box-shadow:0 0 6px rgba(245,158,11,0.4);color:#000;}
+.bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 6px rgba(239,68,68,0.4);color:#fff;}
 
 .btn-del{
-  padding:6px 4px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
-  color:#FCA5A5;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s ease;width:100%;
+  padding:5px 2px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
+  color:#FCA5A5;font-size:9px;font-weight:700;cursor:pointer;transition:all 0.2s ease;width:100%;
 }
 .btn-del:disabled{opacity:0.4;cursor:not-allowed;}
 .btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);}
 
-.grupos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
+.grupos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
 .grupo-card{border-radius:12px;padding:14px;}
 .grupo-card.verde{background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);}
 .grupo-card.amarelo{background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.2);}
@@ -200,13 +209,13 @@ body{
 .grupo-card.verde .grupo-titulo{color:var(--verde);}
 .grupo-card.amarelo .grupo-titulo{color:var(--amarelo);}
 .grupo-card.vermelho .grupo-titulo{color:var(--vermelho);}
-.grupo-lista{display:flex;flex-wrap:wrap;gap:6px;}
-.grupo-item{background:rgba(255,255,255,0.05);padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;}
+.grupo-lista{display:flex;flex-wrap:wrap;gap:6px;max-height:120px;overflow-y:auto;}
+.grupo-item{background:rgba(255,255,255,0.05);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;}
 
 .modal-fundo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);}
 .modal{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:24px;width:90%;max-width:420px;}
 .modal h3{color:var(--primaria);font-size:17px;margin-bottom:18px;}
-.modal input{
+.modal input, .modal select{
   width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:8px;
   color:var(--texto);font-size:14px;margin-bottom:12px;outline:none;
 }
@@ -215,11 +224,11 @@ body{
 .modal-btn-save{flex:1;padding:12px;background:var(--primaria);border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
 
 @media(max-width:768px){
-  .stats-row{grid-template-columns:repeat(1,1fr);}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
   .caixas-grid{grid-template-columns:repeat(1,1fr);}
   .grupos-grid{grid-template-columns:1fr;}
-  .dias-header,.membro-row{grid-template-columns:160px repeat(6,40px) 50px;gap:2px;}
-  .bolinha{width:22px;height:22px;}
+  .dias-header,.membro-row{grid-template-columns:130px 55px repeat(6,35px) 40px;gap:2px;}
+  .bolinha{width:20px;height:20px;}
   .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
 }
 </style>
@@ -255,8 +264,7 @@ body{
 
 <!-- 🔗 LINKS DE COMPARTILHAMENTO -->
 <div class="section-card" id="secaoLinks">
-  <div class="section-title">🔗 COMPARTILHAR NO WHATSAPP</div>
-  
+  <div class="section-title">🔗 COMPARTILHAR</div>
   <div class="link-compartilhar">
     <p>👀 Visitante — só visualizar:</p>
     <div class="link-box">
@@ -264,7 +272,6 @@ body{
       <button onclick="copiarLink('visitante')">📋 Copiar</button>
     </div>
   </div>
-  
   <div class="link-compartilhar">
     <p>👑 Admin — editar tudo:</p>
     <div class="link-box">
@@ -274,36 +281,44 @@ body{
   </div>
 </div>
 
-<!-- ☁️ SALVAR NA NUVEM -->
+<!-- ☁️ SALVAR -->
 <button class="btn-salvar-nuvem" id="btnSalvarNuvem" onclick="salvarNuvem()">☁️ SALVAR TUDO</button>
 
-<!-- 📊 ESTATÍSTICAS -->
+<!-- 📊 ESTATÍSTICAS COM CÁLCULO AUTOMÁTICO -->
 <div class="stats-row">
   <div class="stat-card">
     <div class="stat-label">👥 INTEGRANTES</div>
     <div class="stat-value purple" id="totalMembros">0</div>
   </div>
   <div class="stat-card">
-    <div class="stat-label">🏦 CAIXA DA FAC</div>
-    <div class="stat-value ouro" id="caixaFacDisplay">R$ 0,00</div>
+    <div class="stat-label">💎 TOTAL FRAGMENTOS</div>
+    <div class="stat-value blue" id="totalFragmentos">0</div>
   </div>
   <div class="stat-card">
-    <div class="stat-label">💵 CAIXA DE PAGAMENTOS</div>
-    <div class="stat-value green" id="caixaPagDisplay">R$ 0,00</div>
+    <div class="stat-label">🏦 CAIXA DA FAC</div>
+    <div class="stat-value gold" id="caixaFacDisplay">R$ 0,00</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">💰 VALOR TOTAL</div>
+    <div class="stat-value green" id="valorTotal">R$ 0,00</div>
   </div>
 </div>
 
-<!-- 📦 CAIXAS -->
+<!-- 📦 CAIXAS E VALORES -->
 <div class="section-card">
-  <div class="section-title">📦 CAIXAS</div>
+  <div class="section-title">📦 CONTROLE DE VALORES</div>
   <div class="caixas-grid">
     <div class="caixa-item" id="caixaFacContainer">
       <div class="caixa-label">🏦 CAIXA DA FAC</div>
-      <div class="caixa-valor ouro"><input type="text" id="caixaFac" value="R$ 0,00" class="ouro" onblur="marcarAlterado();atualizarStats();"></div>
+      <div class="caixa-valor ouro"><input type="text" id="caixaFac" value="R$ 0,00" class="ouro" onblur="marcarAlterado();"></div>
+    </div>
+    <div class="caixa-item">
+      <div class="caixa-label">💎 VALOR POR FRAGMENTO</div>
+      <div class="caixa-valor roxo"><input type="number" id="valorPorFrag" value="1" min="0" class="roxo" oninput="marcarAlterado();calcularTudo();"></div>
     </div>
     <div class="caixa-item">
       <div class="caixa-label">💵 CAIXA DE PAGAMENTOS</div>
-      <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="verde" onblur="marcarAlterado();atualizarStats();"></div>
+      <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="verde" onblur="marcarAlterado();"></div>
     </div>
   </div>
 </div>
@@ -324,6 +339,7 @@ body{
 
   <div class="dias-header">
     <div class="nome-col">NOME</div>
+    <div class="qtd-col">💎 QTD</div>
     <div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div>
     <div>✖</div>
   </div>
@@ -334,15 +350,15 @@ body{
   <div class="grupos-grid">
     <div class="grupo-card verde">
       <div class="grupo-titulo">🟢 FEZ O DIA</div>
-      <div class="grupo-lista" id="grupoVerde"><span style="color:var(--textoSec);font-size:12px;">Nenhum</span></div>
+      <div class="grupo-lista" id="grupoVerde"><span style="color:var(--textoSec);font-size:11px;">Nenhum</span></div>
     </div>
     <div class="grupo-card amarelo">
       <div class="grupo-titulo">🟡 FEZ PARCIAL</div>
-      <div class="grupo-lista" id="grupoAmarelo"><span style="color:var(--textoSec);font-size:12px;">Nenhum</span></div>
+      <div class="grupo-lista" id="grupoAmarelo"><span style="color:var(--textoSec);font-size:11px;">Nenhum</span></div>
     </div>
     <div class="grupo-card vermelho">
       <div class="grupo-titulo">🔴 NÃO FEZ</div>
-      <div class="grupo-lista" id="grupoVermelho"><span style="color:var(--textoSec);font-size:12px;">Nenhum</span></div>
+      <div class="grupo-lista" id="grupoVermelho"><span style="color:var(--textoSec);font-size:11px;">Nenhum</span></div>
     </div>
   </div>
 </div>
@@ -354,7 +370,7 @@ body{
   <div class="modal">
     <h3>➕ Adicionar Integrante</h3>
     <input type="text" id="nomeNovo" placeholder="Nome do integrante">
-    <label style="display:flex;align-items:center;gap:8px;margin-bottom:15px;color:var(--texto);font-size:14px;">
+    <label style="display:flex;align-items:center;gap:8px;margin-bottom:10px;color:var(--texto);font-size:14px;">
       <input type="checkbox" id="ehLider"> 👑 É Líder
     </label>
     <div class="modal-botoes">
@@ -369,48 +385,72 @@ const SENHA_ADMIN = '123477';
 let modoAdmin = false;
 const CHAVE_NUVEM = 'loja_caos77_dados';
 
-// 🏅 LISTA DE INTEGRANTES JÁ CADASTRADOS
+// 🏅 LISTA DE INTEGRANTES
 const NOMES_INICIAIS = [
-  { nome: 'Sr Bristow', lider: true },
-  { nome: 'Katy Bristow', lider: false },
-  { nome: 'Andres Bristow', lider: false },
-  { nome: 'Ferrari Bristow', lider: false },
-  { nome: 'Vn Bristow', lider: false },
-  { nome: 'Patrik Bristow', lider: false },
-  { nome: 'Garcia Bristow', lider: false },
-  { nome: 'Vt Bristow', lider: false },
-  { nome: 'Lula Bristow', lider: false },
-  { nome: 'Breck Bristow', lider: false },
-  { nome: 'Boladin Xt', lider: false },
-  { nome: 'Sr Ghostt', lider: false },
-  { nome: 'Laa Diabla', lider: false },
-  { nome: 'Ejuan Handi', lider: false },
-  { nome: 'Eduarda Faria', lider: false },
-  { nome: 'Mateus Faria', lider: false },
-  { nome: 'Zé Bagaceira', lider: false },
-  { nome: 'Alex Gadernal', lider: false },
-  { nome: 'Aquino Menezes', lider: false },
-  { nome: 'Connorr', lider: false },
-  { nome: 'Dyygeras', lider: false },
-  { nome: 'Lanterna Preta', lider: false }
+  { nome: 'Sr Bristow', lider: true, farm: 0 },
+  { nome: 'Katy Bristow', lider: false, farm: 0 },
+  { nome: 'Andres Bristow', lider: false, farm: 0 },
+  { nome: 'Ferrari Bristow', lider: false, farm: 0 },
+  { nome: 'Vn Bristow', lider: false, farm: 0 },
+  { nome: 'Patrik Bristow', lider: false, farm: 0 },
+  { nome: 'Garcia Bristow', lider: false, farm: 0 },
+  { nome: 'Vt Bristow', lider: false, farm: 0 },
+  { nome: 'Lula Bristow', lider: false, farm: 0 },
+  { nome: 'Breck Bristow', lider: false, farm: 0 },
+  { nome: 'Boladin Xt', lider: false, farm: 0 },
+  { nome: 'Sr Ghostt', lider: false, farm: 0 },
+  { nome: 'Laa Diabla', lider: false, farm: 0 },
+  { nome: 'Ejuan Handi', lider: false, farm: 0 },
+  { nome: 'Eduarda Faria', lider: false, farm: 0 },
+  { nome: 'Mateus Faria', lider: false, farm: 0 },
+  { nome: 'Zé Bagaceira', lider: false, farm: 0 },
+  { nome: 'Alex Gadernal', lider: false, farm: 0 },
+  { nome: 'Aquino Menezes', lider: false, farm: 0 },
+  { nome: 'Connorr', lider: false, farm: 0 },
+  { nome: 'Dyygeras', lider: false, farm: 0 },
+  { nome: 'Lanterna Preta', lider: false, farm: 0 }
 ];
 
 let membros = [];
 let alterado = false;
 
-// 📋 INICIALIZAR COM NOMES
+// 📋 INICIALIZAR
 function inicializarNomes(){
   const salvos = localStorage.getItem(CHAVE_NUVEM);
   if(!salvos){
-    // Se não tem dados salvos, carrega a lista inicial
     membros = NOMES_INICIAIS.map(m => ({
       id: Date.now() + Math.random(),
       nome: m.nome,
       coroa: m.lider,
+      farm: m.farm,
       dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
     }));
-    salvarNuvem(true); // salva inicial sem confirmação
+    salvarNuvem(true);
   }
+}
+
+// ➕ CÁLCULO AUTOMÁTICO PRINCIPAL
+function calcularTudo(){
+  const valorPorFrag = parseFloat(document.getElementById('valorPorFrag').value) || 0;
+  
+  // Soma TODOS os fragmentos
+  let totalFrags = 0;
+  membros.forEach(m => totalFrags += Number(m.farm) || 0);
+  
+  // Calcula valor total
+  const valorTotal = totalFrags * valorPorFrag;
+  
+  // Atualiza na tela
+  document.getElementById('totalFragmentos').textContent = totalFrags.toLocaleString('pt-BR');
+  document.getElementById('valorTotal').textContent = formatarMoeda(valorTotal);
+}
+
+function formatarMoeda(valor){
+  return 'R$ ' + valor.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+}
+
+function parseMoeda(texto){
+  return parseFloat(texto.replace(/[R$\s.]/g,'').replace(',','.')) || 0;
 }
 
 // ☁️ SALVAR E CARREGAR
@@ -419,6 +459,7 @@ function salvarNuvem(inicial = false){
     membros: membros,
     caixaFac: document.getElementById('caixaFac').value,
     caixaPagamentos: document.getElementById('caixaPagamentos').value,
+    valorPorFrag: document.getElementById('valorPorFrag').value,
     ultimaAtualizacao: new Date().toLocaleString('pt-BR')
   };
   localStorage.setItem(CHAVE_NUVEM, JSON.stringify(dados));
@@ -447,7 +488,8 @@ function carregarNuvem(){
       membros = dados.membros || [];
       document.getElementById('caixaFac').value = dados.caixaFac || 'R$ 0,00';
       document.getElementById('caixaPagamentos').value = dados.caixaPagamentos || 'R$ 0,00';
-      atualizarStats();
+      document.getElementById('valorPorFrag').value = dados.valorPorFrag || 1;
+      calcularTudo();
       return true;
     }catch(e){console.log('Erro ao carregar');}
   }
@@ -457,15 +499,15 @@ function carregarNuvem(){
 // 🔗 LINKS
 function configurarLinks(){
   const linkAtual = window.location.href;
-  document.getElementById('linkVisitante').value = linkAtual + ' → Clique: ENTRAR COMO VISITANTE';
-  document.getElementById('linkAdmin').value = linkAtual + ' → Senha: 123477';
+  document.getElementById('linkVisitante').value = linkAtual;
+  document.getElementById('linkAdmin').value = linkAtual;
 }
 
 function copiarLink(tipo){
   const input = document.getElementById(tipo === 'admin' ? 'linkAdmin' : 'linkVisitante');
   input.select();
   document.execCommand('copy');
-  alert('📋 Link copiado! Agora é só colar no WhatsApp! ✅');
+  alert('📋 Link copiado! ✅');
 }
 
 // 🔐 LOGIN
@@ -475,7 +517,7 @@ function fazerLogin(){
     modoAdmin = true;
     abrirPainel();
   }else{
-    alert('❌ Senha incorreta! 123477');
+    alert('❌ Senha incorreta!');
   }
 }
 
@@ -535,14 +577,14 @@ function sair(){
 function marcarAlterado(){
   if(!modoAdmin) return;
   alterado = true;
-  document.getElementById('statusSinc').innerHTML = '⚠️ Não salvo — SALVE!';
+  document.getElementById('statusSinc').innerHTML = '⚠️ Não salvo';
   document.getElementById('statusSinc').style.color = '#FBBF24';
 }
 
 function atualizarStats(){
   document.getElementById('totalMembros').textContent = membros.length;
   document.getElementById('caixaFacDisplay').textContent = document.getElementById('caixaFac').value;
-  document.getElementById('caixaPagDisplay').textContent = document.getElementById('caixaPagamentos').value;
+  calcularTudo();
 }
 
 function alternarCorBolinha(membro, diaIndex){
@@ -563,13 +605,13 @@ function atualizarGrupos(){
     const temVerde = cores.includes('G');
     const temAmarelo = cores.includes('Y');
     if(temVerde) verde.push(`<span class="grupo-item">${membro.nome}</span>`);
-    else if(temamarelo) amarelo.push(`<span class="grupo-item">${membro.nome}</span>`);
+    else if(temAmarelo) amarelo.push(`<span class="grupo-item">${membro.nome}</span>`);
     else vermelho.push(`<span class="grupo-item">${membro.nome}</span>`);
   });
   
-  document.getElementById('grupoVerde').innerHTML = verde.length ? verde.join('') : '<span style="color:var(--textoSec);font-size:12px;">Nenhum</span>';
-  document.getElementById('grupoAmarelo').innerHTML = amarelo.length ? amarelo.join('') : '<span style="color:var(--textoSec);font-size:12px;">Nenhum</span>';
-  document.getElementById('grupoVermelho').innerHTML = vermelho.length ? vermelho.join('') : '<span style="color:var(--textoSec);font-size:12px;">Nenhum</span>';
+  document.getElementById('grupoVerde').innerHTML = verde.length ? verde.join('') : '<span style="color:var(--textoSec);font-size:11px;">Nenhum</span>';
+  document.getElementById('grupoAmarelo').innerHTML = amarelo.length ? amarelo.join('') : '<span style="color:var(--textoSec);font-size:11px;">Nenhum</span>';
+  document.getElementById('grupoVermelho').innerHTML = vermelho.length ? vermelho.join('') : '<span style="color:var(--textoSec);font-size:11px;">Nenhum</span>';
 }
 
 function renderizarLista(){
@@ -582,6 +624,13 @@ function renderizarLista(){
         <div class="membro-nome">
           ${membro.coroa ? '<span class="coroa">👑</span>' : ''}${membro.nome}
         </div>
+        <div class="qtd-farm-cell">
+          <input type="number" class="qtd-farm-input" 
+                 value="${membro.farm}" 
+                 min="0" 
+                 onchange="membros[${idx}].farm = Number(this.value); marcarAlterado(); calcularTudo();"
+                 ${!modoAdmin?'disabled':''}>
+        </div>
         ${['seg','ter','qua','qui','sex','sab'].map((d,i) => {
           let c = membro.dias[d][0];
           let cls = c === 'G' ? 'verde' : c === 'Y' ? 'amarela' : c === 'R' ? 'vermelha' : 'vazia';
@@ -591,10 +640,10 @@ function renderizarLista(){
       </div>
     `;
   });
+  atualizarStats();
 }
 
 function filtrarLista(){
-  if(!modoAdmin) return;
   const busca = document.getElementById('buscaMembro').value.toLowerCase();
   document.querySelectorAll('.membro-row').forEach(row => {
     row.style.display = row.dataset.nome.includes(busca) ? 'grid' : 'none';
@@ -627,12 +676,12 @@ function salvarMembro(){
     id: Date.now(),
     nome: nome,
     coroa: ehLider,
+    farm: 0,
     dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
   });
   
   fecharModalMembro();
   marcarAlterado();
-  atualizarStats();
   renderizarLista();
   atualizarGrupos();
   alert('✅ Adicionado! Não esqueça de SALVAR! ☁️');
@@ -643,7 +692,6 @@ function removerMembro(idx){
   if(!confirm(`❌ Remover ${membros[idx].nome}?`)) return;
   membros.splice(idx, 1);
   marcarAlterado();
-  atualizarStats();
   renderizarLista();
   atualizarGrupos();
 }

@@ -31,11 +31,51 @@ body{
   padding-bottom:40px;
 }
 
+/* 🔑 TELA DE LOGIN */
+.tela-login{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:var(--bg);
+  display:flex;justify-content:center;align-items:center;z-index:999;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(124,58,237,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(59,130,246,0.06) 0%, transparent 50%);
+}
+.caixa-login{
+  background:var(--card);border:1px solid var(--borda);border-radius:20px;padding:40px 30px;width:90%;max-width:400px;text-align:center;
+  box-shadow:0 10px 40px rgba(124,58,237,0.15);
+}
+.caixa-login h1{font-size:26px;font-weight:900;margin-bottom:8px;}
+.caixa-login h1 span{color:var(--primaria);}
+.caixa-login p{color:var(--textoSec);font-size:14px;margin-bottom:30px;}
+.caixa-login input{
+  width:100%;padding:14px 16px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:10px;
+  color:var(--texto);font-size:15px;margin-bottom:16px;outline:none;text-align:center;
+}
+.caixa-login input:focus{border-color:var(--primaria);box-shadow:0 0 0 3px rgba(124,58,237,0.15);}
+.btn-login{
+  width:100%;padding:14px;background:linear-gradient(90deg,var(--primaria),var(--azul));border:none;border-radius:10px;
+  color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:12px;transition:all 0.25s ease;
+}
+.btn-login:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
+.btn-visita{
+  width:100%;padding:12px;background:transparent;border:1px solid var(--textoSec);border-radius:10px;
+  color:var(--textoSec);font-size:14px;font-weight:700;cursor:pointer;transition:all 0.25s ease;
+}
+.btn-visita:hover{border-color:var(--primaria);color:var(--primaria);background:rgba(124,58,237,0.05);}
+.dica-senha{font-size:11px;color:var(--textoSec);margin-top:16px;}
+
+/* 👀 BANNER VISITANTE */
 .visitante-banner{
   background:linear-gradient(90deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05));
   color:#FBBF24;padding:10px;text-align:center;font-size:13px;font-weight:700;
   position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(251,191,36,0.2);
 }
+.btn-sair{
+  position:absolute;right:16px;top:14px;padding:8px 14px;background:rgba(239,68,68,0.1);
+  border:1px solid rgba(239,68,68,0.3);border-radius:8px;color:#FCA5A5;font-size:13px;font-weight:700;cursor:pointer;
+  transition:all 0.2s ease;
+}
+.btn-sair:hover{background:rgba(239,68,68,0.2);}
 
 .header-top{
   background:linear-gradient(180deg,rgba(18,26,46,0.98),rgba(10,16,31,0.95));
@@ -53,7 +93,7 @@ body{
 
 .container{max-width:1100px;margin:0 auto;padding:20px 14px;}
 
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
 .stat-card{
   background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:18px 16px;
   transition:all 0.3s ease;
@@ -63,45 +103,21 @@ body{
 .stat-value{font-size:22px;font-weight:900;}
 .stat-value.purple{color:var(--primaria);}
 .stat-value.gold{color:var(--ouro);}
-.stat-value.cyan{color:var(--azul);}
 .stat-value.green{color:var(--verde);}
-
-.meta-card{
-  background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(59,130,246,0.05));
-  border:1px solid var(--borda);border-radius:16px;padding:20px;margin-bottom:24px;
-}
-.meta-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
-.meta-bar{height:10px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;}
-.meta-fill{height:100%;background:linear-gradient(90deg,var(--primaria),var(--azul));border-radius:10px;transition:width 0.5s ease;}
-
-.ranking-card{
-  background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:20px;margin-bottom:24px;
-}
-.ranking-title{font-size:14px;font-weight:800;color:var(--ouro);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.ranking-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;margin-bottom:6px;background:rgba(255,255,255,0.03);}
-.ranking-item:nth-child(1){background:rgba(251,191,36,0.08);border-left:3px solid var(--ouro);}
-.ranking-item:nth-child(2){background:rgba(148,163,184,0.05);border-left:3px solid #94A3B8;}
-.ranking-item:nth-child(3){background:rgba(180,83,9,0.08);border-left:3px solid #B45309;}
-.ranking-pos{font-size:16px;font-weight:900;width:24px;text-align:center;}
-.ranking-nome{flex:1;font-size:14px;font-weight:700;}
-.ranking-farm{font-size:13px;color:var(--textoSec);font-weight:600;}
+.caixa-sinc{font-size:11px;color:var(--verde);margin-top:4px;}
 
 .section-card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:22px;margin-bottom:24px;}
 .section-title{font-size:15px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--primaria);}
 
-.precos-table{width:100%;border-collapse:collapse;}
-.precos-table th{background:rgba(124,58,237,0.1);padding:14px;text-align:left;color:var(--primaria);font-size:13px;font-weight:800;border-radius:8px 8px 0 0;}
-.precos-table td{padding:14px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:15px;font-weight:600;}
-.qtd-frag{color:var(--texto);}
-.valor-frag{color:var(--verde);font-weight:900;}
-
-.caixas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;}
+.caixas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;transition:opacity 0.2s;}
+.caixa-item.oculto{display:none !important;}
 .caixa-label{font-size:11px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;}
 .caixa-valor{font-size:17px;font-weight:900;}
 .caixa-valor input{
   width:100%;background:transparent;border:none;font-size:17px;font-weight:900;text-align:center;outline:none;color:inherit;
 }
+.caixa-valor input:disabled{opacity:0.6;cursor:not-allowed;}
 .caixa-valor.azul{color:var(--azul);}
 .caixa-valor.ouro{color:var(--ouro);}
 .caixa-valor.verde{color:var(--verde);}
@@ -117,31 +133,32 @@ body{
   width:100%;padding:14px 18px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:10px;
   color:var(--texto);font-size:14px;margin-bottom:16px;outline:none;
 }
+.search-bar:disabled{opacity:0.5;}
 .search-bar:focus{border-color:var(--primaria);}
 
 .btn-add{
   width:100%;padding:15px;background:linear-gradient(90deg,var(--primaria),var(--azul));border:none;border-radius:10px;
   color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:20px;transition:all 0.25s ease;
 }
+.btn-add:disabled{opacity:0.4;cursor:not-allowed;transform:none !important;}
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
 
 .dias-header{
-  display:grid;grid-template-columns:160px 70px repeat(6,48px) 80px 110px 70px;gap:4px;
+  display:grid;grid-template-columns:180px repeat(6,50px) 80px 110px 70px;gap:4px;
   padding:10px 8px;color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
 .dias-header .nome-col{text-align:left;}
 
 .membro-row{
-  display:grid;grid-template-columns:160px 70px repeat(6,48px) 80px 110px 70px;gap:4px;
+  display:grid;grid-template-columns:180px repeat(6,50px) 80px 110px 70px;gap:4px;
   padding:10px 8px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
   align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
 .membro-row:hover{background:rgba(255,255,255,0.05);border-color:var(--borda);}
 
-.membro-nome{font-size:12px;font-weight:800;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.membro-nome{font-size:14px;font-weight:800;color:var(--texto);display:flex;align-items:center;gap:6px;}
 .coroa{font-size:14px;filter:drop-shadow(0 0 4px gold);}
-.farm-cell{font-size:11px;font-weight:700;color:var(--textoSec);text-align:center;}
 .pontos-cell{font-size:11px;font-weight:800;color:var(--ouro);text-align:center;}
 .valor-cell{font-size:11px;font-weight:900;color:var(--verde);text-align:center;}
 .dia-cell{display:flex;justify-content:center;}
@@ -150,6 +167,7 @@ body{
   transition:all 0.15s ease;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;
   font-size:11px;font-weight:bold;
 }
+.bolinha:disabled{cursor:not-allowed;opacity:0.6;}
 .bolinha:hover{transform:scale(1.15);}
 .bolinha.vazia{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);}
 .bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 8px rgba(16,185,129,0.4);color:#000;}
@@ -160,6 +178,7 @@ body{
   padding:6px 4px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
   color:#FCA5A5;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s ease;width:100%;
 }
+.btn-del:disabled{opacity:0.4;cursor:not-allowed;}
 .btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);}
 
 .grupos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
@@ -174,29 +193,10 @@ body{
 .grupo-lista{display:flex;flex-wrap:wrap;gap:6px;}
 .grupo-item{background:rgba(255,255,255,0.05);padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600;}
 
-.vendas-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
-.btn-venda{padding:10px 16px;background:linear-gradient(90deg,var(--verde),#34D399);border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;font-size:13px;}
-.linha-venda{display:grid;grid-template-columns:1fr 100px 140px 80px;gap:10px;padding:10px;background:rgba(0,0,0,0.2);border-radius:8px;margin-bottom:6px;align-items:center;font-size:13px;}
-.linha-venda.total{background:rgba(16,185,129,0.1);font-weight:800;border:1px solid rgba(16,185,129,0.2);}
-
 .pagamento-resumo{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
 .pag-item{background:rgba(0,0,0,0.25);border-radius:10px;padding:14px;text-align:center;}
 .pag-label{font-size:11px;color:var(--textoSec);margin-bottom:6px;font-weight:600;}
 .pag-valor{font-size:16px;font-weight:900;}
-
-.btn-salvar{
-  width:100%;padding:16px;background:linear-gradient(90deg,var(--primaria),var(--azul));border:none;border-radius:12px;
-  color:white;font-size:16px;font-weight:800;cursor:pointer;margin-bottom:24px;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:10px;
-}
-.btn-salvar:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,58,237,0.3);}
-.btn-salvar.salvo{background:linear-gradient(90deg,var(--verde),#34D399);}
-
-.links-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
-.link-box{background:rgba(0,0,0,0.3);border-radius:10px;padding:14px;}
-.link-label{font-size:12px;color:var(--textoSec);margin-bottom:8px;font-weight:600;}
-.link-input-group{display:flex;gap:6px;}
-.link-input-group input{flex:1;padding:8px 10px;background:rgba(255,255,255,0.05);border:1px solid var(--borda);border-radius:6px;color:var(--texto);font-size:12px;outline:none;}
-.link-input-group button{padding:8px 12px;background:var(--primaria);border:none;border-radius:6px;color:white;font-weight:700;cursor:pointer;font-size:12px;}
 
 .modal-fundo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);}
 .modal{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:24px;width:90%;max-width:420px;}
@@ -209,31 +209,45 @@ body{
 .modal-btn-cancel{flex:1;padding:12px;background:#1E293B;border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
 .modal-btn-save{flex:1;padding:12px;background:var(--primaria);border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
 
-.somente-admin{display:block;}
-
 @media(max-width:768px){
-  .stats-row{grid-template-columns:repeat(2,1fr);}
-  .caixas-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-row{grid-template-columns:repeat(1,1fr);}
+  .caixas-grid{grid-template-columns:repeat(1,1fr);}
   .pagamento-resumo{grid-template-columns:1fr;}
   .grupos-grid{grid-template-columns:1fr;}
-  .dias-header,.membro-row{grid-template-columns:120px 50px repeat(6,38px) 65px 90px 55px;gap:2px;}
+  .dias-header,.membro-row{grid-template-columns:140px repeat(6,38px) 65px 90px 55px;gap:2px;}
   .bolinha{width:22px;height:22px;}
-  .linha-venda{grid-template-columns:1fr 80px 100px 60px;font-size:11px;}
+  .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
 }
 </style>
 </head>
 <body>
 
+<!-- 🔑 TELA DE LOGIN -->
+<div class="tela-login" id="telaLogin">
+  <div class="caixa-login">
+    <h1>⚡ <span>LOJA CAOS 77</span></h1>
+    <p>Acesse o painel de controle</p>
+    <input type="password" id="senhaLogin" placeholder="Digite a senha de ADMIN">
+    <button class="btn-login" onclick="fazerLogin()">🔐 ENTRAR COMO ADMIN</button>
+    <button class="btn-visita" onclick="fazerVisita()">👀 ENTRAR COMO VISITANTE</button>
+    <div class="dica-senha">💡 Senha Admin: <strong>123477</strong></div>
+  </div>
+</div>
+
+<!-- 👀 BANNER VISITANTE -->
 <div id="visitanteBanner" class="visitante-banner" style="display:none;">
   👀 MODO VISITANTE — Somente leitura
 </div>
 
-<div class="header-top">
+<div class="header-top" id="barraTopo" style="display:none;">
   <div class="title">⚡ <span>LOJA CAOS 77</span></div>
-  <div class="status-badge" id="statusSinc">Sincronizado</div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="status-badge" id="statusSinc">Sincronizado</div>
+    <button class="btn-sair" onclick="sair()">🚪 Sair</button>
+  </div>
 </div>
 
-<div class="container">
+<div class="container" id="conteudoPrincipal" style="display:none;">
 
 <!-- 📊 ESTATÍSTICAS -->
 <div class="stats-row">
@@ -242,78 +256,29 @@ body{
     <div class="stat-value purple" id="totalMembros">0</div>
   </div>
   <div class="stat-card">
-    <div class="stat-label">🏆 TOP FARMADOR</div>
-    <div class="stat-value gold" id="topFarmador">-</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">📦 TOTAL FRAGMENTOS</div>
-    <div class="stat-value cyan" id="totalFrag">0</div>
+    <div class="stat-label">🏆 TOP PONTOS</div>
+    <div class="stat-value gold" id="topPontos">-</div>
   </div>
   <div class="stat-card">
     <div class="stat-label">💰 CAIXA TOTAL</div>
-    <div class="stat-value green" id="totalGeral">R$ 0</div>
+    <div class="stat-value green" id="totalGeral">R$ 0,00</div>
+    <div class="caixa-sinc" id="sincStatus">✅ Sincronizado com Caixa de Pagamentos</div>
   </div>
 </div>
 
-<!-- 🎯 META SEMANAL -->
-<div class="meta-card">
-  <div class="meta-header">
-    <div><strong>🎯 META SEMANAL DE FARM</strong></div>
-    <div style="font-weight:700;color:var(--primaria);" id="metaTexto">0 / 5.000</div>
-  </div>
-  <div class="meta-bar"><div class="meta-fill" id="metaBar" style="width:0%"></div></div>
-</div>
-
-<!-- 🏆 RANKING -->
-<div class="ranking-card">
-  <div class="ranking-title">🏆 RANKING — MAIS FARMARAM NA SEMANA</div>
-  <div id="listaRanking"></div>
-</div>
-
-<!-- 💰 TABELA DE PREÇOS -->
+<!-- 📦 CAIXAS -->
 <div class="section-card">
-  <div class="section-title">💰 TABELA DE PREÇOS — FRAGMENTOS</div>
-  <table class="precos-table">
-    <thead><tr><th>QUANTIDADE</th><th>VALOR DE VENDA</th></tr></thead>
-    <tbody>
-      <tr><td class="qtd-frag">250 Fragmentos</td><td class="valor-frag">R$ 550.000</td></tr>
-      <tr><td class="qtd-frag">1.250 Fragmentos</td><td class="valor-frag">R$ 2.750.000</td></tr>
-      <tr><td class="qtd-frag">2.500 Fragmentos</td><td class="valor-frag">R$ 5.500.000</td></tr>
-      <tr><td class="qtd-frag">3.750 Fragmentos</td><td class="valor-frag">R$ 8.500.000</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- 📦 CAIXAS & ESTOQUE -->
-<div class="section-card">
-  <div class="section-title">📦 CAIXAS & ESTOQUE</div>
+  <div class="section-title">📦 CAIXAS</div>
   <div class="caixas-grid">
-    <div class="caixa-item somente-admin">
+    <div class="caixa-item" id="caixaFacContainer">
       <div class="caixa-label">🏦 CAIXA DA FAC</div>
-      <div class="caixa-valor azul"><input type="text" id="caixaFac" value="R$ 4.500.000,00" class="azul" onblur="marcarAlterado();atualizarStats();"></div>
-    </div>
-    <div class="caixa-item somente-admin">
-      <div class="caixa-label">👑 CAIXA LÍDERES</div>
-      <div class="caixa-valor ouro"><input type="text" id="caixaLideres" value="R$ 0,00" class="ouro" onblur="marcarAlterado();"></div>
+      <div class="caixa-valor azul"><input type="text" id="caixaFac" value="R$ 0,00" class="azul" onblur="marcarAlterado();atualizarStats();"></div>
     </div>
     <div class="caixa-item">
-      <div class="caixa-label">💵 CAIXA PAGAMENTOS</div>
-      <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 3.214.944,00" class="verde" onblur="marcarAlterado();atualizarTodosCalculos();"></div>
-    </div>
-    <div class="caixa-item">
-      <div class="caixa-label">📦 ESTOQUE FRAG</div>
-      <div class="caixa-valor azul"><input type="text" id="estoqueFrag" value="" class="azul" onblur="marcarAlterado();atualizarStats();"></div>
+      <div class="caixa-label">💵 CAIXA DE PAGAMENTOS</div>
+      <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="verde" onblur="marcarAlterado();atualizarTodosCalculos();"></div>
     </div>
   </div>
-</div>
-
-<!-- 📊 VENDAS -->
-<div class="section-card">
-  <div class="vendas-header">
-    <div class="section-title" style="margin:0;">📊 HISTÓRICO DE VENDAS</div>
-    <button class="btn-venda somente-admin" onclick="abrirModalVenda()">➕ REGISTRAR VENDA</button>
-  </div>
-  <div id="listaVendas"></div>
 </div>
 
 <!-- 💰 PAGAMENTOS -->
@@ -338,11 +303,9 @@ body{
   </div>
 </div>
 
-<button class="btn-salvar somente-admin" id="btnSalvar" onclick="salvarTudo()">☁️ SALVAR NAS NUVENS</button>
-
-<!-- 📋 CONTROLE DE FARMADORES -->
+<!-- 📋 CONTROLE DE INTEGRANTES -->
 <div class="section-card">
-  <div class="section-title">📋 CONTROLE DE FARMADORES</div>
+  <div class="section-title">📋 CONTROLE DE INTEGRANTES</div>
   
   <div class="legend-row">
     <div class="legend-item"><div class="legend-dot dot-green"></div> Completo (1,0pt)</div>
@@ -352,15 +315,14 @@ body{
 
   <input type="text" class="search-bar" id="buscaMembro" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
 
-  <button class="btn-add somente-admin" onclick="abrirModalMembro()">➕ ADICIONAR INTEGRANTE</button>
+  <button class="btn-add" id="btnAdicionar" onclick="abrirModalMembro()">➕ ADICIONAR INTEGRANTE</button>
 
   <div class="dias-header">
     <div class="nome-col">NOME</div>
-    <div>FARM</div>
     <div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div>
     <div>PTS</div>
     <div>RECEBERÁ</div>
-    <div class="somente-admin">✖</div>
+    <div>✖</div>
   </div>
 
   <div id="listaMembros"></div>
@@ -382,21 +344,6 @@ body{
   </div>
 </div>
 
-<!-- 🔗 LINKS -->
-<div class="section-card somente-admin">
-  <div class="section-title">🔗 LINKS DE ACESSO</div>
-  <div class="links-grid">
-    <div class="link-box">
-      <div class="link-label">🔑 ADMINISTRADOR</div>
-      <div class="link-input-group"><input type="text" id="linkAdmin" readonly><button onclick="copiarLink('linkAdmin')">📋</button></div>
-    </div>
-    <div class="link-box">
-      <div class="link-label">👀 VISITANTE</div>
-      <div class="link-input-group"><input type="text" id="linkVisitante" readonly><button onclick="copiarLink('linkVisitante')">📋</button></div>
-    </div>
-  </div>
-</div>
-
 </div>
 
 <!-- MODAL ADICIONAR INTEGRANTE -->
@@ -404,7 +351,6 @@ body{
   <div class="modal">
     <h3>➕ Adicionar Integrante</h3>
     <input type="text" id="nomeNovo" placeholder="Nome do integrante">
-    <input type="text" id="farmNovo" placeholder="Ex: 0/240" style="margin-bottom:10px;">
     <label style="display:flex;align-items:center;gap:8px;margin-bottom:15px;color:var(--texto);font-size:14px;">
       <input type="checkbox" id="ehLider"> 👑 É Líder
     </label>
@@ -415,77 +361,98 @@ body{
   </div>
 </div>
 
-<!-- MODAL VENDA -->
-<div class="modal-fundo" id="modalVenda">
-  <div class="modal">
-    <h3>💰 Registrar Venda de Fragmentos</h3>
-    <input type="text" id="vendaQtd" placeholder="Quantidade de fragmentos">
-    <input type="text" id="vendaValor" placeholder="Valor da venda (R$)">
-    <input type="text" id="vendaComprador" placeholder="Comprador / Facção" style="margin-bottom:10px;">
-    <div class="modal-botoes">
-      <button class="modal-btn-cancel" onclick="fecharModalVenda()">Cancelar</button>
-      <button class="modal-btn-save" onclick="salvarVenda()">Registrar</button>
-    </div>
-  </div>
-</div>
-
 <script>
-const META_SEMANAL = 5000;
+// 🔐 DADOS DE ACESSO
+const SENHA_ADMIN = '123477';
+let modoAdmin = false;
 
-const ehModoVisitante = new URLSearchParams(window.location.search).get('modo') === 'leitura';
-
-// 👥 TODOS OS INTEGRANTES — da imagem + 3 novos + 10 extras pra você ver como fica!
+// 👥 INTEGRANTES
 let membros = [
-  { id:1, nome:'Sr Bristow', coroa:true, farm:'151/240', dias:{seg:['G',''],ter:['',''],qua:['Y',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:2, nome:'Katy Bristow', coroa:true, farm:'121/240', dias:{seg:['',''],ter:['G',''],qua:['',''],qui:['',''],sex:['Y',''],sab:['','']} },
-  { id:3, nome:'Andres Bristow', coroa:true, farm:'0/240', dias:{seg:['',''],ter:['',''],qua:['',''],qui:['G',''],sex:['',''],sab:['','']} },
-  { id:4, nome:'Ferrari Bristow', coroa:false, farm:'220/240', dias:{seg:['G',''],ter:['G',''],qua:['G',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:5, nome:'Vn Bristow', coroa:false, farm:'100/240', dias:{seg:['',''],ter:['',''],qua:['Y',''],qui:['G',''],sex:['',''],sab:['','']} },
-  { id:6, nome:'Patrik Bristow', coroa:false, farm:'185/240', dias:{seg:['G',''],ter:['',''],qua:['',''],qui:['',''],sex:['G',''],sab:['','']} },
-  { id:7, nome:'Garcia Bristow', coroa:false, farm:'168/240', dias:{seg:['',''],ter:['G',''],qua:['',''],qui:['',''],sex:['',''],sab:['Y','']} },
-  { id:8, nome:'Vt Bristow', coroa:false, farm:'50/240', dias:{seg:['',''],ter:['',''],qua:['',''],qui:['Y',''],sex:['',''],sab:['','']} },
-  { id:9, nome:'Lula Bristow', coroa:false, farm:'95/240', dias:{seg:['Y',''],ter:['',''],qua:['G',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:10, nome:'Breck Bristow', coroa:false, farm:'30/240', dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['Y',''],sab:['','']} },
-  { id:11, nome:'Boladin Xt', coroa:false, farm:'240/240', dias:{seg:['G',''],ter:['G',''],qua:['G',''],qui:['G',''],sex:['G',''],sab:['G','']} },
-  { id:12, nome:'Sr Ghostt', coroa:false, farm:'145/240', dias:{seg:['',''],ter:['G',''],qua:['',''],qui:['Y',''],sex:['',''],sab:['','']} },
-  { id:13, nome:'Laa Diabla', coroa:false, farm:'78/240', dias:{seg:['Y',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['G','']} },
-  { id:14, nome:'Ejuan Handi', coroa:false, farm:'177/240', dias:{seg:['G',''],ter:['',''],qua:['G',''],qui:['',''],sex:['Y',''],sab:['','']} },
-  { id:15, nome:'Eduarda Faria', coroa:false, farm:'60/240', dias:{seg:['',''],ter:['Y',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:16, nome:'Mateus Faria', coroa:false, farm:'190/240', dias:{seg:['G',''],ter:['',''],qua:['',''],qui:['G',''],sex:['',''],sab:['Y','']} },
-  { id:17, nome:'Zé Bagaceira', coroa:false, farm:'110/240', dias:{seg:['',''],ter:['G',''],qua:['Y',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:18, nome:'Alex Gadernal', coroa:false, farm:'38/240', dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['Y',''],sab:['','']} },
-  { id:19, nome:'Aquino Menezes', coroa:false, farm:'130/240', dias:{seg:['G',''],ter:['',''],qua:['',''],qui:['',''],sex:['G',''],sab:['','']} },
-  { id:20, nome:'Connorr Dyygeras', coroa:false, farm:'205/240', dias:{seg:['',''],ter:['G',''],qua:['G',''],qui:['',''],sex:['',''],sab:['G','']} },
-  { id:21, nome:'Lanterna Preta', coroa:false, farm:'88/240', dias:{seg:['Y',''],ter:['',''],qua:['',''],qui:['G',''],sex:['',''],sab:['','']} },
-  { id:22, nome:'Jorge Capeta', coroa:false, farm:'230/240', dias:{seg:['G',''],ter:['G',''],qua:['G',''],qui:['G',''],sex:['G',''],sab:['','']} },
-  { id:23, nome:'Maria Pistolinha', coroa:false, farm:'160/240', dias:{seg:['',''],ter:['Y',''],qua:['',''],qui:['G',''],sex:['',''],sab:['Y','']} },
-  { id:24, nome:'Pedro Pimenta', coroa:false, farm:'45/240', dias:{seg:['',''],ter:['',''],qua:['Y',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:25, nome:'Ana Bala', coroa:false, farm:'210/240', dias:{seg:['G',''],ter:['',''],qua:['G',''],qui:['',''],sex:['G',''],sab:['','']} },
-  { id:26, nome:'Carlos Canhão', coroa:false, farm:'125/240', dias:{seg:['',''],ter:['G',''],qua:['',''],qui:['Y',''],sex:['',''],sab:['G','']} },
-  { id:27, nome:'Luiza Laranja', coroa:false, farm:'70/240', dias:{seg:['Y',''],ter:['',''],qua:['',''],qui:['',''],sex:['Y',''],sab:['','']} },
-  { id:28, nome:'Rafael Rambo', coroa:false, farm:'195/240', dias:{seg:['G',''],ter:['G',''],qua:['',''],qui:['G',''],sex:['',''],sab:['Y','']} },
-  { id:29, nome:'Beatriz Bala', coroa:false, farm:'55/240', dias:{seg:['',''],ter:['Y',''],qua:['',''],qui:['',''],sex:['',''],sab:['G','']} },
-  { id:30, nome:'Bruno Bruto', coroa:false, farm:'140/240', dias:{seg:['G',''],ter:['',''],qua:['Y',''],qui:['',''],sex:['G',''],sab:['','']} },
-  { id:31, nome:'Carla Carteira', coroa:false, farm:'175/240', dias:{seg:['',''],ter:['G',''],qua:['',''],qui:['G',''],sex:['Y',''],sab:['','']} }
+  { id:1, nome:'Sr Bristow', coroa:true, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:2, nome:'Katy Bristow', coroa:true, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:3, nome:'Andres Bristow', coroa:true, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:4, nome:'Ferrari Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:5, nome:'Vn Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:6, nome:'Patrik Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:7, nome:'Garcia Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:8, nome:'Vt Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:9, nome:'Lula Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:10, nome:'Breck Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:11, nome:'Boladin Xt', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:12, nome:'Sr Ghostt', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:13, nome:'Laa Diabla', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:14, nome:'Ejuan Handi', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:15, nome:'Eduarda Faria', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:16, nome:'Mateus Faria', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:17, nome:'Zé Bagaceira', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:18, nome:'Alex Gadernal', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:19, nome:'Aquino Menezes', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:20, nome:'Connorr Dyygeras', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:21, nome:'Lanterna Preta', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} }
 ];
 
-let vendas = [];
 let alterado = false;
 
+// 🔐 FUNÇÕES DE LOGIN
+function fazerLogin(){
+  const senha = document.getElementById('senhaLogin').value;
+  if(senha === SENHA_ADMIN){
+    modoAdmin = true;
+    abrirPainel();
+  }else{
+    alert('❌ Senha incorreta! Tente: 123477');
+  }
+}
+
+function fazerVisita(){
+  modoAdmin = false;
+  abrirPainel();
+}
+
+function abrirPainel(){
+  document.getElementById('telaLogin').style.display = 'none';
+  document.getElementById('barraTopo').style.display = 'flex';
+  document.getElementById('conteudoPrincipal').style.display = 'block';
+  
+  // 👀 MODO VISITANTE: oculta caixa da fac e desativa edições
+  if(!modoAdmin){
+    document.getElementById('visitanteBanner').style.display = 'block';
+    document.getElementById('caixaFacContainer').classList.add('oculto');
+    document.getElementById('btnAdicionar').disabled = true;
+    document.getElementById('buscaMembro').disabled = true;
+    // Desabilita inputs
+    document.querySelectorAll('input, button, .bolinha, .btn-del').forEach(el => {
+      if(el.id !== 'buscaMembro') el.disabled = true;
+    });
+  }else{
+    document.getElementById('visitanteBanner').style.display = 'none';
+    document.getElementById('caixaFacContainer').classList.remove('oculto');
+    document.getElementById('btnAdicionar').disabled = false;
+    document.getElementById('buscaMembro').disabled = false;
+    document.querySelectorAll('input, button, .bolinha, .btn-del').forEach(el => {
+      el.disabled = false;
+    });
+  }
+  
+  atualizarTodosCalculos();
+}
+
+function sair(){
+  if(confirm('🚪 Sair do painel?')){
+    document.getElementById('senhaLogin').value = '';
+    document.getElementById('telaLogin').style.display = 'flex';
+    document.getElementById('barraTopo').style.display = 'none';
+    document.getElementById('conteudoPrincipal').style.display = 'none';
+    document.getElementById('visitanteBanner').style.display = 'none';
+  }
+}
+
 function marcarAlterado(){
+  if(!modoAdmin) return;
   alterado = true;
   document.getElementById('statusSinc').innerHTML = '⚠️ Não salvo';
   document.getElementById('statusSinc').style.background = 'rgba(245,158,11,0.1)';
   document.getElementById('statusSinc').style.color = '#FBBF24';
-  document.getElementById('btnSalvar').classList.remove('salvo');
-}
-
-function marcarSalvo(){
-  alterado = false;
-  document.getElementById('statusSinc').innerHTML = '✅ Sincronizado';
-  document.getElementById('statusSinc').style.background = 'rgba(16,185,129,0.1)';
-  document.getElementById('statusSinc').style.color = 'var(--verde)';
-  document.getElementById('btnSalvar').classList.add('salvo');
 }
 
 function parseDinheiro(valor){
@@ -495,12 +462,6 @@ function parseDinheiro(valor){
 
 function formatarDinheiro(valor){
   return 'R$ ' + valor.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-}
-
-function parseFarm(str){
-  if(!str) return 0;
-  const num = str.split('/')[0];
-  return parseInt(num) || 0;
 }
 
 function calcularPontos(dias){
@@ -515,30 +476,17 @@ function calcularPontos(dias){
 function atualizarStats(){
   document.getElementById('totalMembros').textContent = membros.length;
   
-  const totalFrag = membros.reduce((s,m) => s + parseFarm(m.farm), 0);
-  document.getElementById('totalFrag').textContent = totalFrag.toLocaleString('pt-BR');
+  // ✅ CAIXA TOTAL = CAIXA DE PAGAMENTOS (SINCRONIZADO)
+  const valorPagamentos = parseDinheiro(document.getElementById('caixaPagamentos').value);
+  document.getElementById('totalGeral').textContent = formatarDinheiro(valorPagamentos);
   
-  const caixaFac = parseDinheiro(document.getElementById('caixaFac').value);
-  const caixaLideres = parseDinheiro(document.getElementById('caixaLideres').value);
-  document.getElementById('totalGeral').textContent = formatarDinheiro(caixaFac + caixaLideres);
+  document.getElementById('sincStatus').innerHTML = '✅ Sincronizado com Caixa de Pagamentos';
+  document.getElementById('sincStatus').style.color = 'var(--verde)';
   
-  const pct = Math.min(100, (totalFrag / META_SEMANAL) * 100);
-  document.getElementById('metaBar').style.width = pct + '%';
-  document.getElementById('metaTexto').textContent = `${totalFrag.toLocaleString('pt-BR')} / ${META_SEMANAL.toLocaleString('pt-BR')}`;
-  
-  const ordenado = [...membros].sort((a,b) => parseFarm(b.farm) - parseFarm(a.farm)).slice(0,5);
-  const listaRank = document.getElementById('listaRanking');
-  listaRank.innerHTML = '';
-  ordenado.forEach((m,i) => {
-    listaRank.innerHTML += `
-      <div class="ranking-item">
-        <div class="ranking-pos">${i+1}º</div>
-        <div class="ranking-nome">${m.nome} ${m.coroa?'👑':''}</div>
-        <div class="ranking-farm">${parseFarm(m.farm)} frag</div>
-      </div>
-    `;
-  });
-  document.getElementById('topFarmador').textContent = ordenado.length ? ordenado[0].nome.split(' ')[0] : '-';
+  const ordenado = [...membros].sort((a,b) => calcularPontos(b.dias) - calcularPontos(a.dias));
+  document.getElementById('topPontos').textContent = ordenado.length && calcularPontos(ordenado[0].dias) > 0 
+    ? ordenado[0].nome.split(' ')[0] 
+    : '-';
 }
 
 function atualizarTodosCalculos(){
@@ -551,9 +499,9 @@ function atualizarTodosCalculos(){
   document.getElementById('totalPontos').textContent = totalPontos.toFixed(1);
   document.getElementById('totalPagar').textContent = formatarDinheiro(valorCaixa);
   
+  atualizarStats();
   renderizarLista();
   atualizarGrupos();
-  atualizarStats();
 }
 
 function atualizarGrupos(){
@@ -562,11 +510,10 @@ function atualizarGrupos(){
     const cores = Object.values(membro.dias).map(d => d[0]);
     const temVerde = cores.includes('G');
     const temAmarelo = cores.includes('Y');
-    const todosVermelho = cores.every(c => c === 'R');
     
     if(temVerde) verde.push(`<span class="grupo-item">${membro.nome}</span>`);
     else if(temAmarelo) amarelo.push(`<span class="grupo-item">${membro.nome}</span>`);
-    else if(todosVermelho) vermelho.push(`<span class="grupo-item">${membro.nome}</span>`);
+    else vermelho.push(`<span class="grupo-item">${membro.nome}</span>`);
   });
   
   document.getElementById('grupoVerde').innerHTML = verde.length ? verde.join('') : '<span style="color:var(--textoSec);font-size:12px;">Nenhum</span>';
@@ -575,7 +522,7 @@ function atualizarGrupos(){
 }
 
 function alternarCorBolinha(membro, diaIndex){
-  if(ehModoVisitante) return;
+  if(!modoAdmin) return;
   const ordem = ['', 'G', 'Y', 'R'];
   const dia = ['seg','ter','qua','qui','sex','sab'][diaIndex];
   let atual = membro.dias[dia][0];
@@ -603,5 +550,70 @@ function renderizarLista(){
         <div class="membro-nome">
           ${membro.coroa ? '<span class="coroa">👑</span>' : ''}${membro.nome}
         </div>
-        <div class="farm-cell">${membro.farm}</div>
-        ${
+        ${['seg','ter','qua','qui','sex','sab'].map((d,i) => {
+          let c = membro.dias[d][0];
+          let cls = c === 'G' ? 'verde' : c === 'Y' ? 'amarela' : c === 'R' ? 'vermelha' : 'vazia';
+          return `<div class="dia-cell"><button class="bolinha ${cls}" onclick="alternarCorBolinha(membros[${idx}],${i})" ${!modoAdmin?'disabled':''}>${c?'●':''}</button></div>`;
+        }).join('')}
+        <div class="pontos-cell">${pontos.toFixed(1)}</div>
+        <div class="valor-cell">${receber > 0 ? formatarDinheiro(receber) : '-'}</div>
+        <div><button class="btn-del" onclick="removerMembro(${idx})" ${!modoAdmin?'disabled':''}>🗑️</button></div>
+      </div>
+    `;
+  });
+}
+
+function filtrarLista(){
+  if(!modoAdmin) return;
+  const busca = document.getElementById('buscaMembro').value.toLowerCase();
+  document.querySelectorAll('.membro-row').forEach(row => {
+    row.style.display = row.dataset.nome.includes(busca) ? 'grid' : 'none';
+  });
+  atualizarGrupos();
+}
+
+function abrirModalMembro(){
+  if(!modoAdmin) return;
+  document.getElementById('modalMembro').style.display = 'flex';
+  document.getElementById('nomeNovo').value = '';
+  document.getElementById('ehLider').checked = false;
+}
+
+function fecharModalMembro(){
+  document.getElementById('modalMembro').style.display = 'none';
+}
+
+function salvarMembro(){
+  if(!modoAdmin) return;
+  const nome = document.getElementById('nomeNovo').value.trim();
+  const ehLider = document.getElementById('ehLider').checked;
+  
+  if(!nome){
+    alert('⚠️ Digite o nome do integrante!');
+    return;
+  }
+  
+  membros.unshift({
+    id: Date.now(),
+    nome: nome,
+    coroa: ehLider,
+    dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
+  });
+  
+  fecharModalMembro();
+  marcarAlterado();
+  atualizarTodosCalculos();
+  alert('✅ Integrante adicionado com sucesso!');
+}
+
+function removerMembro(idx){
+  if(!modoAdmin) return;
+  if(!confirm(`❌ Remover ${membros[idx].nome}?`)) return;
+  membros.splice(idx, 1);
+  marcarAlterado();
+  atualizarTodosCalculos();
+}
+</script>
+
+</body>
+</html>

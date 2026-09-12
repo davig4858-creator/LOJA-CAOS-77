@@ -30,6 +30,19 @@ body{
   background-size:25px 25px;
 }
 
+.visitante-banner{
+  background:rgba(255,193,7,0.1);
+  color:#FFC107;
+  padding:8px 16px;
+  text-align:center;
+  font-size:13px;
+  font-weight:600;
+  position:sticky;
+  top:0;
+  z-index:101;
+  border-bottom:1px solid rgba(255,193,7,0.2);
+}
+
 .header-top{
   background:linear-gradient(180deg, rgba(15,23,38,0.95), rgba(10,15,26,0.9));
   padding:18px 20px;display:flex;align-items:center;justify-content:space-between;
@@ -67,11 +80,12 @@ body{
 .stat-value{font-size:20px;font-weight:800;color:var(--texto);}
 .stat-value.green{color:var(--verde);font-size:24px;}
 .stat-value.blue{color:var(--azul);}
-.stat-value.red{color:var(--vermelho));font-size:24px;}
+.stat-value.red{color:var(--vermelho);font-size:24px;}
 .stat-item input{
   width:100%;background:transparent;border:none;color:var(--verde);
   font-size:20px;font-weight:800;text-align:center;outline:none;
 }
+.stat-item input:disabled{opacity:0.7;cursor:not-allowed;}
 .stat-item input.blue{color:var(--azul);}
 .stat-item input.red{color:var(--vermelho);}
 
@@ -83,6 +97,7 @@ body{
   display:flex;align-items:center;justify-content:center;gap:10px;
 }
 .btn-salvar-nuvem:hover{transform:translateY(-2px);}
+.btn-salvar-nuvem:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
 .btn-salvar-nuvem.salvo{background:linear-gradient(90deg,#0099CC,#00D4FF);}
 
 /* RELATÓRIO MENSAL */
@@ -115,6 +130,7 @@ body{
   width:100%;padding:14px 18px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
   border-radius:10px;color:var(--texto);font-size:15px;margin-bottom:20px;outline:none;
 }
+.search-bar:disabled{opacity:0.5;cursor:not-allowed;}
 .search-bar:focus{border-color:var(--azul);}
 .search-bar::placeholder{color:var(--texto-sec);}
 
@@ -123,6 +139,7 @@ body{
   border-radius:10px;color:#000;font-size:16px;font-weight:800;cursor:pointer;
   margin-bottom:25px;transition:all 0.2s ease;box-shadow:0 0 20px rgba(0,212,255,0.25);
 }
+.btn-add:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
 .btn-add:hover{transform:translateY(-2px);}
 
 .dias-header{
@@ -151,6 +168,7 @@ body{
   font-size:15px;cursor:pointer;user-select:none;transition:all 0.15s ease;
   background:rgba(255,255,255,0.05);border-radius:50%;border:1px dashed rgba(255,255,255,0.15);
 }
+.bolinha.no-edit{cursor:not-allowed;opacity:0.8;}
 .bolinha:hover{background:rgba(255,255,255,0.1);border-style:solid;}
 .bolinha:active{transform:scale(0.9);}
 
@@ -167,6 +185,7 @@ body{
   width:100%;
   white-space:nowrap;
 }
+.btn-del:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
 .btn-del:hover{transform:scale(1.03);}
 
 .secao-card{
@@ -215,7 +234,7 @@ body{
   border-radius:8px;color:var(--texto);font-size:15px;margin-bottom:12px;outline:none;
 }
 .modal input:focus, .modal select:focus{border-color:var(--azul);}
-.modal-buttons{display:flex;gap:10px;margin-top:10px;}
+.modal-buttons{display:flex;gap:10px;}
 .modal-btn-cancel{flex:1;padding:12px;background:#2A3A58;border:none;border-radius:8px;color:var(--texto);font-weight:700;cursor:pointer;}
 .modal-btn-save{flex:1;padding:12px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;}
 
@@ -229,6 +248,10 @@ body{
 </style>
 </head>
 <body>
+
+<div id="visitanteBanner" class="visitante-banner" style="display:none;">
+  👀 MODO VISITANTE — Somente leitura. Alterações bloqueadas.
+</div>
 
 <div class="header-top">
   <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
@@ -272,7 +295,6 @@ body{
   </div>
 </div>
 
-☁️ SALVAR NAS NUVENS
 <button class="btn-salvar-nuvem" id="btn-salvar" onclick="salvarTudo()">☁️ SALVAR NAS NUVENS</button>
 
 <!-- 📊 RELATÓRIO MENSAL AUTOMÁTICO -->
@@ -368,6 +390,13 @@ body{
 <script>
 const DATABASE_URL = 'https://loja-caos-77-default-rtdb.firebaseio.com/.json';
 
+// 🔑 DETECTAR MODO DE ACESSO
+const ehModoVisitante = new URLSearchParams(window.location.search).get('modo') === 'leitura';
+
+if(ehModoVisitante){
+  document.getElementById('visitanteBanner').style.display = 'block';
+}
+
 // 📋 Tabela de preços fixos
 const PRECOS = {
   250: 550000,
@@ -383,6 +412,7 @@ let alterado = false;
 
 // Marca que há alterações não salvas
 function marcarAlterado(){
+  if(ehModoVisitante) return;
   alterado = true;
   document.getElementById('btn-salvar').classList.remove('salvo');
   document.getElementById('btn-salvar').innerHTML = '☁️ SALVAR NAS NUVENS ⚠️';
@@ -393,6 +423,10 @@ function marcarAlterado(){
 
 // Bolinha: vazio → 🟢 → 🟡 → 🔴 → vazio
 function trocarBolinha(id, dia, posicao){
+  if(ehModoVisitante){
+    alert('👀 Você está no modo visitante. Não pode alterar.');
+    return;
+  }
   const idx = integrantes.findIndex(x=>x.id===id);
   if(idx === -1) return;
   
@@ -474,6 +508,10 @@ function copiarRelatorio(){
 
 // ☁️ SALVAR TUDO NAS NUVENS
 async function salvarTudo(){
+  if(ehModoVisitante){
+    alert('👀 Você está no modo visitante. Não pode salvar.');
+    return;
+  }
   const dados = {
     integrantes,
     historico,
@@ -523,10 +561,27 @@ async function carregarDados(){
       if(data.estoque !== undefined) document.getElementById('estoque').value = data.estoque;
     }
     
+    // Bloquear campos se for visitante
+    if(ehModoVisitante){
+      document.getElementById('caixa-fac').disabled = true;
+      document.getElementById('caixa-pag').disabled = true;
+      document.getElementById('estoque').disabled = true;
+      document.getElementById('btn-salvar').disabled = true;
+      document.getElementById('btn-salvar').style.display = 'none';
+      document.getElementById('busca').disabled = true;
+      document.getElementById('btn-add').disabled = true;
+      document.getElementById('btn-add').style.display = 'none';
+    }
+    
     // Gerar links
     const baseURL = window.location.href.split('#')[0].split('?')[0];
     document.getElementById('link-admin').value = baseURL;
     document.getElementById('link-visitante').value = baseURL + '?modo=leitura';
+    
+    // Esconder links no modo visitante
+    if(ehModoVisitante){
+      document.querySelector('.links-card').style.display = 'none';
+    }
     
     renderLista();
     atualizarGrupos();
@@ -581,8 +636,8 @@ function renderLista(filtro=''){
         <div class="meta-dia">
           <div class="meta-num">120</div>
           <div class="bolinhas">
-            <div class="bolinha" onclick="trocarBolinha(${i.id}, '${dia}', 0)">${i.dias[dia][0]==='G'?'🟢':i.dias[dia][0]==='Y'?'🟡':i.dias[dia][0]==='R'?'🔴':''}</div>
-            <div class="bolinha" onclick="trocarBolinha(${i.id}, '${dia}', 1)">${i.dias[dia][1]==='G'?'🟢':i.dias[dia][1]==='Y'?'🟡':i.dias[dia][1]==='R'?'🔴':''}</div>
+            <div class="bolinha ${ehModoVisitante?'no-edit':''}" onclick="trocarBolinha(${i.id}, '${dia}', 0)">${i.dias[dia][0]==='G'?'🟢':i.dias[dia][0]==='Y'?'🟡':i.dias[dia][0]==='R'?'🔴':''}</div>
+            <div class="bolinha ${ehModoVisitante?'no-edit':''}" onclick="trocarBolinha(${i.id}, '${dia}', 1)">${i.dias[dia][1]==='G'?'🟢':i.dias[dia][1]==='Y'?'🟡':i.dias[dia][1]==='R'?'🔴':''}</div>
           </div>
         </div>
       `;
@@ -590,16 +645,23 @@ function renderLista(filtro=''){
     row.innerHTML = `
       <div class="membro-nome">${i.coroa?'<span class="coroa">👑</span>':''}${i.nome}</div>
       ${diasHTML}
-      <button class="btn-del" onclick="excluir(${i.id})">EXPULSAR</button>
+      <button class="btn-del" onclick="excluir(${i.id})" ${ehModoVisitante?'disabled':''}>EXPULSAR</button>
     `;
     container.appendChild(row);
   });
   atualizarGrupos();
 }
 
-function filtrarLista(){renderLista(document.getElementById('busca').value);}
+function filtrarLista(){
+  if(ehModoVisitante) return;
+  renderLista(document.getElementById('busca').value);
+}
 
 function abrirModal(){
+  if(ehModoVisitante){
+    alert('👀 Você está no modo visitante. Não pode adicionar integrantes.');
+    return;
+  }
   document.getElementById('modalTitulo').textContent='➕ Adicionar Integrante';
   document.getElementById('inputNome').value='';
   document.getElementById('inputCoroa').checked=false;
@@ -608,6 +670,7 @@ function abrirModal(){
 function fecharModal(){document.getElementById('modal').style.display='none';}
 
 function salvarIntegrante(){
+  if(ehModoVisitante) return;
   const nome = document.getElementById('inputNome').value.trim();
   const coroa = document.getElementById('inputCoroa').checked;
   if(!nome){alert('Digite o nome!');return;}
@@ -625,6 +688,10 @@ function salvarIntegrante(){
 }
 
 function excluir(id){
+  if(ehModoVisitante){
+    alert('👀 Você está no modo visitante. Não pode excluir.');
+    return;
+  }
   if(confirm('Tem certeza?')){
     integrantes = integrantes.filter(x=>x.id!==id);
     marcarAlterado();

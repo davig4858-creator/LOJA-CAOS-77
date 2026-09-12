@@ -44,18 +44,54 @@ body{
 .status-badge::before{content:'';width:8px;height:8px;background:var(--verde);border-radius:50%;animation:pulse-green 2s infinite;}
 @keyframes pulse-green{0%,100%{opacity:1;}50%{opacity:0.4;}}
 
-.container{max-width:1000px;margin:0 auto;padding:25px 10px;}
+.container{max-width:1000px;margin:0 auto;padding:25px 15px;}
 
-/* ✅ ESTOQUE EDITÁVEL — PARTE DE CIMA MANTIDA */
-.estoque-card{
-  background:rgba(0,0,0,0.25);border:1px solid var(--azul);border-radius:10px;padding:16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;
+/* ✅ VENDAS DA SEMANA */
+.vendas-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
 }
-.estoque-label{font-size:14px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:0.5px;}
-.estoque-input{
-  background:#050508;border:2px solid var(--azul);border-radius:6px;color:var(--azul);
-  font-size:18px;font-weight:800;text-align:center;padding:8px 16px;width:140px;outline:none;
+.vendas-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
+.vendas-table{width:100%;border-collapse:collapse;margin-bottom:15px;}
+.vendas-table th{
+  background:rgba(0,212,255,0.1);padding:12px 10px;text-align:left;color:var(--azul);
+  font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;
 }
-.estoque-input:focus{box-shadow:0 0 0 2px rgba(0,212,255,0.25);}
+.vendas-table th:nth-child(2), .vendas-table th:nth-child(3){text-align:center;}
+.vendas-table td{padding:10px 10px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.vendas-table td:nth-child(2), .vendas-table td:nth-child(3){text-align:center;}
+.vendas-table input{
+  width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);
+  border-radius:6px;color:var(--verde);font-size:15px;font-weight:600;text-align:center;
+  padding:8px 6px;outline:none;
+}
+.vendas-table input:focus{border-color:var(--azul);}
+.total-row{background:rgba(0,255,136,0.05);}
+.total-row td{padding:16px 10px !important;}
+.total-label{font-size:15px;font-weight:700;color:var(--verde);text-transform:uppercase;}
+.total-value{font-size:22px;font-weight:800;color:var(--verde);text-align:right;}
+.btn-salvar-vendas{
+  background:linear-gradient(90deg,#0099CC,#00D4FF);border:none;border-radius:8px;
+  padding:12px 24px;color:white;font-size:15px;font-weight:700;cursor:pointer;
+  margin-top:10px;transition:all 0.2s ease;
+}
+.btn-salvar-vendas:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,255,0.2);}
+
+/* ✅ DADOS GERAIS */
+.stats-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
+}
+.stats-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;text-align:center;}
+.stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:8px;text-transform:uppercase;}
+.stat-value{font-size:20px;font-weight:800;color:var(--texto);}
+.stat-value.green{color:var(--verde);font-size:24px;}
+.stat-value.blue{color:var(--azul);}
+.stat-item input{
+  width:100%;background:transparent;border:none;color:var(--verde);
+  font-size:20px;font-weight:800;text-align:center;outline:none;
+}
+.stat-item input.blue{color:var(--azul);}
 
 .search-bar{
   width:100%;padding:14px 18px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
@@ -99,7 +135,6 @@ body{
   font-size:15px;cursor:pointer;user-select:none;transition:all 0.15s ease;
   background:rgba(255,255,255,0.05);border-radius:50%;border:1px dashed rgba(255,255,255,0.15);
 }
-.bolinha:empty::after{content:'-';color:rgba(255,255,255,0.2);}
 .bolinha:hover{background:rgba(255,255,255,0.1);border-style:solid;}
 .bolinha:active{transform:scale(0.9);}
 
@@ -129,6 +164,7 @@ body{
 .modal-btn-save{flex:1;padding:12px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;}
 
 @media(max-width:700px){
+  .stats-grid{grid-template-columns:1fr;}
   .dias-header,.membro-row{grid-template-columns:150px repeat(6,55px) 80px;gap:2px;}
   .bolinha{width:22px;height:22px;font-size:13px;}
   .membro-nome{font-size:12px;}
@@ -137,7 +173,6 @@ body{
 </head>
 <body>
 
-<!-- ✅ PARTE DE CIMA — EXATAMENTE COMO ESTAVA -->
 <div class="header-top">
   <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
   <div class="status-badge">🟢 Sincronizado</div>
@@ -145,10 +180,75 @@ body{
 
 <div class="container">
 
-<!-- ✅ ESTOQUE EDITÁVEL -->
-<div class="estoque-card">
-  <div class="estoque-label">📦 ESTOQUE TOTAL DE FRAGMENTOS</div>
-  <input type="text" class="estoque-input" id="estoqueTotal" placeholder="0" onblur="salvarEstoque()">
+<!-- ✅ VENDAS DA SEMANA — VOLTOU! -->
+<div class="vendas-card">
+  <h2>💰 VENDAS DE FRAGMENTOS — SEMANA</h2>
+  <table class="vendas-table">
+    <thead>
+      <tr>
+        <th>DIA</th>
+        <th>FRAGMENTOS VENDIDOS</th>
+        <th>VALOR (R$)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Segunda</td>
+        <td><input type="text" id="frag-seg" placeholder="0"></td>
+        <td><input type="text" id="val-seg" placeholder="0"></td>
+      </tr>
+      <tr>
+        <td>Terça</td>
+        <td><input type="text" id="frag-ter" placeholder="0"></td>
+        <td><input type="text" id="val-ter" placeholder="0"></td>
+      </tr>
+      <tr>
+        <td>Quarta</td>
+        <td><input type="text" id="frag-qua" placeholder="0"></td>
+        <td><input type="text" id="val-qua" placeholder="0"></td>
+      </tr>
+      <tr>
+        <td>Quinta</td>
+        <td><input type="text" id="frag-qui" placeholder="0"></td>
+        <td><input type="text" id="val-qui" placeholder="0"></td>
+      </tr>
+      <tr>
+        <td>Sexta</td>
+        <td><input type="text" id="frag-sex" placeholder="0"></td>
+        <td><input type="text" id="val-sex" placeholder="0"></td>
+      </tr>
+      <tr>
+        <td>Sábado</td>
+        <td><input type="text" id="frag-sab" placeholder="0"></td>
+        <td><input type="text" id="val-sab" placeholder="0"></td>
+      </tr>
+      <tr class="total-row">
+        <td></td>
+        <td class="total-label">TOTAL DA SEMANA 💰</td>
+        <td class="total-value" id="total-semana">R$ 0,00</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn-salvar-vendas" onclick="salvarVendas()">💾 SALVAR VENDAS</button>
+</div>
+
+<!-- ✅ DADOS GERAIS COM CAIXA EDITÁVEL -->
+<div class="stats-card">
+  <h2>📊 DADOS GERAIS</h2>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-label">MAIS FARMOU</div>
+      <div class="stat-value" id="mais-farmou">-</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">CAIXA TOTAL DA FAC</div>
+      <div class="stat-value green"><input type="text" id="caixa-total" placeholder="R$ 0,00" onblur="salvarCaixa()"></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">ESTOQUE</div>
+      <div class="stat-value blue"><input type="text" id="estoque-total" placeholder="0" class="blue" onblur="salvarEstoque()"></div>
+    </div>
+  </div>
 </div>
 
 <input type="text" class="search-bar" placeholder="🔍 Buscar por nome..." id="busca" oninput="filtrarLista()">
@@ -199,12 +299,50 @@ function trocarBolinha(id, dia, posicao){
   else if(atual === 'G') integrantes[idx].dias[dia][posicao] = 'R';
   else integrantes[idx].dias[dia][posicao] = '';
   
-  salvarDados();
+  salvarTudo();
   renderLista();
 }
 
-async function salvarEstoque(){
-  await salvarDados();
+// ✅ Calcular total automaticamente
+function calcularTotal(){
+  let total = 0;
+  dias.forEach(dia=>{
+    const val = document.getElementById(`val-${dia}`).value.replace(/[^0-9,]/g,'').replace(',','.');
+    total += parseFloat(val) || 0;
+  });
+  document.getElementById('total-semana').textContent = `R$ ${total.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
+  return total;
+}
+
+function salvarVendas(){
+  calcularTotal();
+  salvarTudo();
+  alert('✅ VENDAS SALVAS!');
+}
+
+function salvarCaixa(){ salvarTudo(); }
+function salvarEstoque(){ salvarTudo(); }
+
+async function salvarTudo(){
+  const vendas = {};
+  dias.forEach(dia=>{
+    vendas[`frag_${dia}`] = document.getElementById(`frag-${dia}`).value;
+    vendas[`val_${dia}`] = document.getElementById(`val-${dia}`).value;
+  });
+  vendas.total = calcularTotal();
+  
+  const dados = {
+    integrantes,
+    vendas,
+    caixa: document.getElementById('caixa-total').value,
+    estoque: document.getElementById('estoque-total').value
+  };
+  
+  await fetch(DATABASE_URL, {
+    method: 'PATCH',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(dados)
+  });
 }
 
 async function carregarDados(){
@@ -214,24 +352,52 @@ async function carregarDados(){
     
     if(data){
       if(data.integrantes) integrantes = data.integrantes;
-      if(data.estoque !== undefined){
-        document.getElementById('estoqueTotal').value = data.estoque;
+      
+      if(data.vendas){
+        dias.forEach(dia=>{
+          if(data.vendas[`frag_${dia}`]) document.getElementById(`frag-${dia}`).value = data.vendas[`frag_${dia}`];
+          if(data.vendas[`val_${dia}`]) document.getElementById(`val-${dia}`).value = data.vendas[`val_${dia}`];
+        });
+        calcularTotal();
       }
+      
+      if(data.caixa !== undefined) document.getElementById('caixa-total').value = data.caixa;
+      if(data.estoque !== undefined) document.getElementById('estoque-total').value = data.estoque;
     }
     
+    atualizarMaisFarmou();
     renderLista();
+    
+    // Atualiza total quando digitar
+    dias.forEach(dia=>{
+      document.getElementById(`val-${dia}`).addEventListener('input', calcularTotal);
+    });
+    
   }catch(e){
     console.log('Erro:',e);
   }
 }
 
-async function salvarDados(){
-  const dados = { integrantes, estoque: document.getElementById('estoqueTotal').value };
-  await fetch(DATABASE_URL, {
-    method: 'PATCH',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(dados)
+function atualizarMaisFarmou(){
+  if(integrantes.length === 0){
+    document.getElementById('mais-farmou').textContent = '-';
+    return;
+  }
+  // Conta quantos dias cada um cumpriu (🟢)
+  let topNome = '-', topPontos = -1;
+  integrantes.forEach(i=>{
+    let pontos = 0;
+    if(i.dias){
+      Object.values(i.dias).forEach(d=>{
+        if(Array.isArray(d)) pontos += d.filter(x=>x==='G').length;
+      });
+    }
+    if(pontos > topPontos){
+      topPontos = pontos;
+      topNome = i.nome;
+    }
   });
+  document.getElementById('mais-farmou').textContent = topNome;
 }
 
 window.onload = carregarDados;
@@ -274,6 +440,8 @@ function renderLista(filtro=''){
     `;
     container.appendChild(row);
   });
+  
+  atualizarMaisFarmou();
 }
 
 function filtrarLista(){
@@ -308,14 +476,14 @@ function salvarIntegrante(){
   });
   
   fecharModal();
-  salvarDados();
+  salvarTudo();
   renderLista();
 }
 
 function excluir(id){
   if(confirm('Tem certeza?')){
     integrantes = integrantes.filter(x=>x.id!==id);
-    salvarDados();
+    salvarTudo();
     renderLista();
   }
 }

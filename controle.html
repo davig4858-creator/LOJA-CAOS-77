@@ -12,240 +12,225 @@
             color: #e5e5e5;
             padding: 20px;
         }
-
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
-
-        h1 {
-            text-align: center;
-            color: #ff0000;
-            margin-bottom: 30px;
-            font-size: 28px;
-            letter-spacing: 2px;
-        }
-
-        .card {
-            background: #171717;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border-left: 4px solid #ff0000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-
-        .card h2 {
-            color: #ff4444;
-            margin-bottom: 18px;
-            font-size: 18px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 8px;
-        }
-
-        .info-row {
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #2a2a2a;
+            margin-bottom: 25px;
         }
-
-        .info-row:last-child { border-bottom: none; }
-
-        .valor {
+        h1 {
+            color: #ff0000;
+            font-size: 26px;
+            letter-spacing: 2px;
+        }
+        .btn-sair {
+            background: #2a2a2a;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-sair:hover { background: #444; }
+        .cards-top {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .card {
+            background: #171717;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid #ff0000;
+        }
+        .card h3 {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+        .card .valor {
             font-size: 22px;
             font-weight: bold;
             color: #00ff88;
         }
-
+        .card .valor-amarelo { color: #ffcc00; }
+        .section {
+            background: #171717;
+            padding: 22px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #ff4444;
+            margin-bottom: 15px;
+            font-size: 17px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+ table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 11px 10px;
+            text-align: left;
+            border-bottom: 1px solid #2a2a2a;
+            font-size: 14px;
+        }
+        th {
+            background: #1f1f1f;
+            color: #ff6666;
+            font-size: 13px;
+        }
+        tr:hover { background: #1e1e1e; }
         input {
             background: #242424;
             border: 1px solid #444;
             color: white;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 15px;
-            width: 150px;
-            outline: none;
+            padding: 7px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 120px;
         }
-
-        input:focus { border-color: #ff0000; }
-
         button {
             background: linear-gradient(90deg, #8b0000, #ff0000);
             border: none;
             color: white;
-            padding: 9px 16px;
-            border-radius: 5px;
+            padding: 7px 14px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        button:hover { opacity: 0.9; transform: scale(1.03); }
-
-        button.small { padding: 5px 10px; font-size: 13px; margin-left: 5px; }
-        button.danger { background: linear-gradient(90deg, #444, #666); }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            padding: 12px 10px;
-            text-align: left;
-            border-bottom: 1px solid #2a2a2a;
-        }
-
-        th {
-            background: #222;
-            color: #ff6666;
             font-size: 14px;
-        }
-
-        tr:hover { background: #1f1f1f; }
-
-        .ranking-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 13px;
             font-weight: bold;
+        }
+        button:hover { opacity: 0.9; }
+        button.pequeno { padding: 4px 8px; font-size: 12px; margin-left: 4px; }
+        button.cinza { background: #444; }
+        .linha-acao {
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .dia {
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .dia-G { background: #00ff88; color: #000; }
+        .dia-Y { background: #ffcc00; color: #000; }
+        .dia- { background: #2a2a2a; color: #777; }
+        .ranking-badge {
             background: linear-gradient(90deg, #ffd700, #ffaa00);
             color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
         }
-
-        .add-row {
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .add-row input { flex: 1; min-width: 180px; }
-
-        .logout-btn {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background: #333;
-            z-index: 100;
-        }
-
-        .empty-msg {
-            text-align: center;
-            padding: 20px;
-            color: #777;
-            font-style: italic;
-        }
+        .escondido { display: none; }
     </style>
 </head>
 <body>
     <div class="container">
-        <button class="logout-btn" onclick="logout()">🚪 Sair</button>
+        <div class="header">
+            <h1>💀 LOJA CAOS 77 — CONTROLE</h1>
+            <button class="btn-sair" onclick="sair()">🚪 Sair</button>
+        </div>
 
-        <h1>💀 LOJA CAOS 77 — CONTROLE</h1>
-
-        <!-- CAIXA DA FACÇÃO -->
-        <div class="card">
-            <h2>💰 CAIXA DA FACÇÃO</h2>
-            <div class="info-row">
-                <span>Valor em Caixa:</span>
-                <span class="valor" id="caixaValor">R$ 0,00</span>
-            </div>
-            <div class="info-row">
-                <span>Atualizar Valor:</span>
-                <div style="display:flex; gap:8px;">
-                    <input type="number" id="novoCaixa" placeholder="R$ 0,00">
-                    <button onclick="atualizarCaixa()">Salvar</button>
+        <!-- CARDS TOPO -->
+        <div class="cards-top">
+            <div class="card">
+                <h3>💰 CAIXA DA FACÇÃO</h3>
+                <div class="valor" id="caixa">R$ 0,00</div>
+                <div class="linha-acao">
+                    <input type="number" id="inpCaixa" placeholder="Valor">
+                    <button onclick="salvarCaixa()">Salvar</button>
                 </div>
+            </div>
+            <div class="card">
+                <h3>💎 ESTOQUE DE FRAGMENTOS</h3>
+                <div class="valor" id="estoque">0</div>
+                <div class="linha-acao">
+                    <input type="number" id="inpEstoque" placeholder="Qtd">
+                    <button onclick="salvarEstoque()">Salvar</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3>💲 VALOR POR FRAGMENTO</h3>
+                <div class="valor valor-amarelo" id="preco">R$ 0,00</div>
+                <div class="linha-acao">
+                    <input type="number" id="inpPreco" placeholder="R$">
+                    <button onclick="salvarPreco()">Salvar</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3>🏆 TOP PRODUTOR DO DIA</h3>
+                <div class="ranking-badge" id="topProd">—</div>
             </div>
         </div>
 
-        <!-- ESTOQUE DE FRAGMENTOS -->
-        <div class="card">
-            <h2>💎 ESTOQUE DE FRAGMENTOS</h2>
-            <div class="info-row">
-                <span>Quantidade Total:</span>
-                <span class="valor" id="estoqueValor">0</span>
-            </div>
-            <div class="info-row">
-                <span>Valor por Unidade:</span>
-                <span class="valor" style="color:#ffcc00" id="valorUnidade">R$ 0,00</span>
-            </div>
-            <div class="info-row">
-                <span>Atualizar Estoque:</span>
-                <div style="display:flex; gap:8px;">
-                    <input type="number" id="novoEstoque" placeholder="Quantidade">
-                    <button onclick="atualizarEstoque()">Salvar</button>
-                </div>
-            </div>
-            <div class="info-row">
-                <span>Preço por Unidade:</span>
-                <div style="display:flex; gap:8px;">
-                    <input type="number" id="novoPreco" placeholder="R$ 0,00">
-                    <button onclick="atualizarPreco()">Salvar</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- RANKING DO DIA -->
-        <div class="card">
-            <h2>🏆 DESTAQUES</h2>
-            <div class="info-row">
-                <span>Top Produtor do Dia:</span>
-                <span class="ranking-badge" id="topProdutor">—</span>
-            </div>
-        </div>
-
-        <!-- LISTA DE MEMBROS -->
-        <div class="card">
+        <!-- TABELA DE MEMBROS -->
+        <div class="section">
             <h2>📋 LISTA DE MEMBROS</h2>
-            <table id="tabelaMembros">
+            <table>
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th style="width: 100px;">Ações</th>
+                        <th>NOME</th>
+                        <th>SEG</th>
+                        <th>TER</th>
+                        <th>QUA</th>
+                        <th>QUI</th>
+                        <th>SEX</th>
+                        <th>SÁB</th>
+                        <th>DOM</th>
+                        <th style="width: 80px;">AÇÕES</th>
                     </tr>
                 </thead>
-                <tbody id="corpoTabela">
-                    <!-- Membros carregados aqui -->
+                <tbody id="tabela-corpo">
+                    <!-- PREENCHIDO PELO JS -->
                 </tbody>
             </table>
-
-            <div class="add-row">
-                <input type="text" id="novoNome" placeholder="Nome do Membro">
-                <button onclick="adicionarMembro()">➕ Adicionar Membro</button>
+            <div class="linha-acao">
+                <input type="text" id="novoNome" placeholder="Nome do membro">
+                <button onclick="adicionarMembro()">➕ Adicionar</button>
             </div>
         </div>
 
-        <!-- MOVIMENTAÇÃO DO DIA -->
-        <div class="card">
+        <!-- MOVIMENTAÇÃO -->
+        <div class="section">
             <h2>📊 MOVIMENTAÇÃO DO DIA</h2>
-            <table id="tabelaMov">
+            <table>
                 <thead>
                     <tr>
-                        <th>Descrição</th>
-                        <th>Quantidade</th>
-                        <th>Valor</th>
-                        <th style="width: 80px;">Ação</th>
+                        <th>DESCRIÇÃO</th>
+                        <th>QTD</th>
+                        <th>VALOR</th>
+                        <th style="width: 80px;">AÇÃO</th>
                     </tr>
                 </thead>
-                <tbody id="corpoMov">
-                    <tr class="empty-msg"><td colspan="4">Sem registros ainda</td></tr>
+                <tbody id="mov-corpo">
+                    <tr><td colspan="4" style="text-align:center; color:#777; padding:20px;">Sem registros</td></tr>
                 </tbody>
             </table>
-            <div class="add-row">
-                <input type="text" id="movDesc" placeholder="Descrição (ex: Venda para facção X)">
-                <input type="number" id="movQtd" placeholder="Qtd" style="width:80px;">
+            <div class="linha-acao">
+                <input type="text" id="movDesc" placeholder="Descrição" style="width:220px;">
+                <input type="number" id="movQtd" placeholder="Qtd" style="width:70px;">
                 <input type="number" id="movVal" placeholder="R$" style="width:100px;">
                 <button onclick="adicionarMov()">➕ Adicionar</button>
             </div>
         </div>
-
     </div>
 
     <script>
@@ -254,39 +239,39 @@
         const permissao = localStorage.getItem('permissao');
         if (!usuario) { window.location.href = 'index.html'; }
 
-        // DADOS PADRÃO — SEM NÚMEROS DE PRODUÇÃO
-        let dados = JSON.parse(localStorage.getItem('dadosCAOS77')) || {
+        // DADOS — TUDO IGUAL, SEM OS NÚMEROS DE PRODUÇÃO
+        let dados = JSON.parse(localStorage.getItem('caos77_dados')) || {
             caixa: 0,
             estoque: 0,
             precoUnidade: 0,
             membros: [
-                { nome: 'Sr Bristow' },
-                { nome: 'Katy Bristow' },
-                { nome: 'Andres Bristow' },
-                { nome: 'Ferrari Bristow' },
-                { nome: 'Vn Bristow' },
-                { nome: 'Patrik Bristow' },
-                { nome: 'Garcia Bristow' },
-                { nome: 'Vt Bristow' },
-                { nome: 'Lula Bristow' },
-                { nome: 'Breck Bristow' },
-                { nome: 'Boladin Xt' },
-                { nome: 'Sr Ghostt' },
-                { nome: 'Laa Diabla' },
-                { nome: 'Ejuan Handi' },
-                { nome: 'Eduarda Faria' },
-                { nome: 'Mateus Faria' },
-                { nome: 'Zé Bagaceira' },
-                { nome: 'Alex Gadernal' },
-                { nome: 'Aquino Menezes' },
-                { nome: 'Connorr Dyygeras' },
-                { nome: 'Lanterna Preta' }
+                {nome: 'Sr Bristow', ehLider: true, dias: { seg:['G',''], ter:['Y',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Katy Bristow', ehLider: true, dias: { seg:['G',''], ter:['G',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Andres Bristow', ehLider: true, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Ferrari Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Vn Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Patrik Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Garcia Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Vt Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Lula Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Breck Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Boladin Xt', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Sr Ghostt', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Laa Diabla', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Ejuan Handi', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Eduarda Faria', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Mateus Faria', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Zé Bagaceira', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Alex Gadernal', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Aquino Menezes', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Connorr Dyygeras', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }},
+                {nome: 'Lanterna Preta', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }}
             ],
             movimentacoes: []
         };
 
-        function salvar() {
-            localStorage.setItem('dadosCAOS77', JSON.stringify(dados));
+        function salvarDados() {
+            localStorage.setItem('caos77_dados', JSON.stringify(dados));
             carregarTela();
         }
 
@@ -296,72 +281,85 @@
 
         function carregarTela() {
             // CAIXA
-            document.getElementById('caixaValor').textContent = formatarDinheiro(dados.caixa);
+            document.getElementById('caixa').textContent = formatarDinheiro(dados.caixa);
             // ESTOQUE
-            document.getElementById('estoqueValor').textContent = dados.estoque;
-            document.getElementById('valorUnidade').textContent = formatarDinheiro(dados.precoUnidade);
+            document.getElementById('estoque').textContent = dados.estoque;
+            // PREÇO
+            document.getElementById('preco').textContent = formatarDinheiro(dados.precoUnidade);
             // TOP PRODUTOR
-            document.getElementById('topProdutor').textContent = dados.membros.length > 0 
-                ? dados.membros[0].nome 
-                : '—';
+            document.getElementById('topProd').textContent = dados.membros.length > 0 ? dados.membros[0].nome : '—';
+
             // TABELA DE MEMBROS
-            const corpo = document.getElementById('corpoTabela');
+            const corpo = document.getElementById('tabela-corpo');
             corpo.innerHTML = '';
             dados.membros.forEach((membro, index) => {
                 corpo.innerHTML += `
                     <tr>
-                        <td>${membro.nome}</td>
+                        <td><strong>${membro.nome}</strong>${membro.ehLider ? ' ⭐' : ''}</td>
+                        <td><span class="dia dia-${membro.dias.seg[0]}">${membro.dias.seg[0] || ''}</span></td>
+                        <td><span class="dia dia-${membro.dias.ter[0]}">${membro.dias.ter[0] || ''}</span></td>
+                        <td><span class="dia dia-${membro.dias.qua[0]}">${membro.dias.qua[0] || ''}</span></td>
+                        <td><span class="dia dia-${membro.dias.qui[0]}">${membro.dias.qui[0] || ''}</span></td>
+                        <td><span class="dia dia-${membro.dias.sex[0]}">${membro.dias.sex[0] || ''}</span></td>
+                        <td><span class="dia dia-${membro.dias.sab[0]}">${membro.dias.sab[0] || ''}</span></td>
+                        <td><span class="dia dia-${membro.dias.dom[0]}">${membro.dias.dom[0] || ''}</span></td>
                         <td>
                             ${permissao === 'admin' ? `
-                                <button class="small danger" onclick="removerMembro(${index})">🗑️</button>
+                                <button class="pequeno cinza" onclick="editarMembro(${index})">✏️</button>
+                                <button class="pequeno cinza" onclick="removerMembro(${index})">🗑️</button>
                             ` : ''}
                         </td>
                     </tr>
                 `;
             });
+
             // MOVIMENTAÇÕES
-            const corpoMov = document.getElementById('corpoMov');
-            corpoMov.innerHTML = '';
+            const movCorpo = document.getElementById('mov-corpo');
+            movCorpo.innerHTML = '';
             if (dados.movimentacoes.length === 0) {
-                corpoMov.innerHTML = '<tr class="empty-msg"><td colspan="4">Sem registros ainda</td></tr>';
+                movCorpo.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#777; padding:20px;">Sem registros</td></tr>';
             } else {
                 dados.movimentacoes.forEach((mov, index) => {
-                    corpoMov.innerHTML += `
+                    movCorpo.innerHTML += `
                         <tr>
                             <td>${mov.desc}</td>
                             <td>${mov.qtd}</td>
                             <td>${formatarDinheiro(mov.val)}</td>
-                            <td>${permissao === 'admin' ? `<button class="small danger" onclick="removerMov(${index})">🗑️</button>` : ''}</td>
+                            <td>${permissao === 'admin' ? `<button class="pequeno cinza" onclick="removerMov(${index})">🗑️</button>` : ''}</td>
                         </tr>
                     `;
                 });
             }
         }
 
-        function atualizarCaixa() {
+        function salvarCaixa() {
             if (permissao !== 'admin') { alert('Sem permissão!'); return; }
-            const val = parseFloat(document.getElementById('novoCaixa').value);
-            if (!isNaN(val)) { dados.caixa = val; salvar(); document.getElementById('novoCaixa').value = ''; }
+            const val = parseFloat(document.getElementById('inpCaixa').value);
+            if (!isNaN(val)) { dados.caixa = val; salvarDados(); document.getElementById('inpCaixa').value = ''; }
         }
 
-        function atualizarEstoque() {
+        function salvarEstoque() {
             if (permissao !== 'admin') { alert('Sem permissão!'); return; }
-            const val = parseInt(document.getElementById('novoEstoque').value);
-            if (!isNaN(val)) { dados.estoque = val; salvar(); document.getElementById('novoEstoque').value = ''; }
+            const val = parseInt(document.getElementById('inpEstoque').value);
+            if (!isNaN(val)) { dados.estoque = val; salvarDados(); document.getElementById('inpEstoque').value = ''; }
         }
 
-        function atualizarPreco() {
+        function salvarPreco() {
             if (permissao !== 'admin') { alert('Sem permissão!'); return; }
-            const val = parseFloat(document.getElementById('novoPreco').value);
-            if (!isNaN(val)) { dados.precoUnidade = val; salvar(); document.getElementById('novoPreco').value = ''; }
+            const val = parseFloat(document.getElementById('inpPreco').value);
+            if (!isNaN(val)) { dados.precoUnidade = val; salvarDados(); document.getElementById('inpPreco').value = ''; }
         }
 
         function adicionarMembro() {
             if (permissao !== 'admin') { alert('Sem permissão!'); return; }
             const nome = document.getElementById('novoNome').value.trim();
             if (nome) {
-                dados.membros.push({ nome: nome });
-                salvar();
+                dados.membros.push({
+                    nome: nome,
+                    ehLider: false,
+                    dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''], dom:['',''] }
+                });
+                salvarDados();
                 document.getElementById('novoNome').value = '';
             }
         }
@@ -369,7 +367,15 @@
         function removerMembro(index) {
             if (confirm('Remover esse membro?')) {
                 dados.membros.splice(index, 1);
-                salvar();
+                salvarDados();
+            }
+        }
+
+        function editarMembro(index) {
+            const novoNome = prompt('Novo nome:', dados.membros[index].nome);
+            if (novoNome !== null && novoNome.trim() !== '') {
+                dados.membros[index].nome = novoNome.trim();
+                salvarDados();
             }
         }
 
@@ -382,7 +388,7 @@
                 dados.movimentacoes.unshift({ desc, qtd, val });
                 dados.estoque -= qtd;
                 dados.caixa += val;
-                salvar();
+                salvarDados();
                 document.getElementById('movDesc').value = '';
                 document.getElementById('movQtd').value = '';
                 document.getElementById('movVal').value = '';
@@ -392,17 +398,16 @@
         function removerMov(index) {
             if (confirm('Excluir esse registro?')) {
                 dados.movimentacoes.splice(index, 1);
-                salvar();
+                salvarDados();
             }
         }
 
-        function logout() {
+        function sair() {
             localStorage.removeItem('usuario');
             localStorage.removeItem('permissao');
             window.location.href = 'index.html';
         }
 
-        // INICIALIZAR
         carregarTela();
     </script>
 </body>

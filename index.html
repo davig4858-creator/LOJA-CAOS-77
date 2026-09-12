@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚡ LOJA CAOS 77 — PAINEL MASTER</title>
+<title>⚡ LOJA CAOS 77</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
@@ -31,7 +31,6 @@ body{
   padding-bottom:40px;
 }
 
-/* 🔑 TELA DE LOGIN */
 .tela-login{
   position:fixed;top:0;left:0;width:100%;height:100%;
   background:var(--bg);
@@ -64,7 +63,6 @@ body{
 .btn-visita:hover{border-color:var(--primaria);color:var(--primaria);background:rgba(124,58,237,0.05);}
 .dica-senha{font-size:11px;color:var(--textoSec);margin-top:16px;}
 
-/* 👀 BANNER VISITANTE */
 .visitante-banner{
   background:linear-gradient(90deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05));
   color:#FBBF24;padding:10px;text-align:center;font-size:13px;font-weight:700;
@@ -104,10 +102,24 @@ body{
 .stat-value.purple{color:var(--primaria);}
 .stat-value.gold{color:var(--ouro);}
 .stat-value.green{color:var(--verde);}
-.caixa-sinc{font-size:11px;color:var(--verde);margin-top:4px;}
 
 .section-card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:22px;margin-bottom:24px;}
 .section-title{font-size:15px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--primaria);}
+
+.link-compartilhar{
+  background:rgba(0,0,0,0.25);border-radius:10px;padding:14px;margin-bottom:10px;
+}
+.link-compartilhar p{font-size:12px;color:var(--textoSec);margin-bottom:6px;}
+.link-box{display:flex;gap:8px;}
+.link-box input{flex:1;padding:10px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:6px;color:var(--texto);font-size:12px;outline:none;}
+.link-box button{padding:10px 12px;background:var(--primaria);border:none;border-radius:6px;color:white;font-weight:700;cursor:pointer;font-size:12px;}
+
+.btn-salvar-nuvem{
+  width:100%;padding:14px;background:linear-gradient(90deg,#8B5CF6,#EC4899);border:none;border-radius:10px;
+  color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:20px;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn-salvar-nuvem:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(139,92,246,0.3);}
+.btn-salvar-nuvem.salvo{background:linear-gradient(90deg,var(--verde),#34D399);}
 
 .caixas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
 .caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;transition:opacity 0.2s;}
@@ -242,12 +254,36 @@ body{
 <div class="header-top" id="barraTopo" style="display:none;">
   <div class="title">⚡ <span>LOJA CAOS 77</span></div>
   <div style="display:flex;align-items:center;gap:12px;">
-    <div class="status-badge" id="statusSinc">Sincronizado</div>
+    <div class="status-badge" id="statusSinc">✅ Salvo</div>
     <button class="btn-sair" onclick="sair()">🚪 Sair</button>
   </div>
 </div>
 
 <div class="container" id="conteudoPrincipal" style="display:none;">
+
+<!-- 🔗 LINKS DE COMPARTILHAMENTO -->
+<div class="section-card" id="secaoLinks">
+  <div class="section-title">🔗 COMPARTILHAR NO WHATSAPP</div>
+  
+  <div class="link-compartilhar">
+    <p>👀 Visitante — só visualizar:</p>
+    <div class="link-box">
+      <input type="text" id="linkVisitante" value="" readonly>
+      <button onclick="copiarLink('visitante')">📋 Copiar</button>
+    </div>
+  </div>
+  
+  <div class="link-compartilhar">
+    <p>👑 Admin — editar tudo:</p>
+    <div class="link-box">
+      <input type="text" id="linkAdmin" value="" readonly>
+      <button onclick="copiarLink('admin')">📋 Copiar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ☁️ SALVAR NA NUVEM -->
+<button class="btn-salvar-nuvem" id="btnSalvarNuvem" onclick="salvarNuvem()">☁️ SALVAR TUDO</button>
 
 <!-- 📊 ESTATÍSTICAS -->
 <div class="stats-row">
@@ -262,7 +298,6 @@ body{
   <div class="stat-card">
     <div class="stat-label">💰 CAIXA TOTAL</div>
     <div class="stat-value green" id="totalGeral">R$ 0,00</div>
-    <div class="caixa-sinc" id="sincStatus">✅ Sincronizado com Caixa de Pagamentos</div>
   </div>
 </div>
 
@@ -272,7 +307,7 @@ body{
   <div class="caixas-grid">
     <div class="caixa-item" id="caixaFacContainer">
       <div class="caixa-label">🏦 CAIXA DA FAC</div>
-      <div class="caixa-valor azul"><input type="text" id="caixaFac" value="R$ 0,00" class="azul" onblur="marcarAlterado();atualizarStats();"></div>
+      <div class="caixa-valor azul"><input type="text" id="caixaFac" value="R$ 0,00" class="azul" onblur="marcarAlterado();"></div>
     </div>
     <div class="caixa-item">
       <div class="caixa-label">💵 CAIXA DE PAGAMENTOS</div>
@@ -283,7 +318,7 @@ body{
 
 <!-- 💰 PAGAMENTOS -->
 <div class="section-card">
-  <div class="section-title">💰 PAGAMENTOS — DIVISÃO AUTOMÁTICA</div>
+  <div class="section-title">💰 PAGAMENTOS</div>
   <div class="pagamento-resumo">
     <div class="pag-item">
       <div class="pag-label">💵 VALOR POR PONTO</div>
@@ -362,45 +397,77 @@ body{
 </div>
 
 <script>
-// 🔐 DADOS DE ACESSO
 const SENHA_ADMIN = '123477';
 let modoAdmin = false;
+const CHAVE_NUVEM = 'loja_caos77_dados';
 
-// 👥 INTEGRANTES
-let membros = [
-  { id:1, nome:'Sr Bristow', coroa:true, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:2, nome:'Katy Bristow', coroa:true, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:3, nome:'Andres Bristow', coroa:true, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:4, nome:'Ferrari Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:5, nome:'Vn Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:6, nome:'Patrik Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:7, nome:'Garcia Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:8, nome:'Vt Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:9, nome:'Lula Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:10, nome:'Breck Bristow', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:11, nome:'Boladin Xt', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:12, nome:'Sr Ghostt', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:13, nome:'Laa Diabla', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:14, nome:'Ejuan Handi', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:15, nome:'Eduarda Faria', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:16, nome:'Mateus Faria', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:17, nome:'Zé Bagaceira', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:18, nome:'Alex Gadernal', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:19, nome:'Aquino Menezes', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:20, nome:'Connorr Dyygeras', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
-  { id:21, nome:'Lanterna Preta', coroa:false, dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} }
-];
-
+let membros = [];
 let alterado = false;
 
-// 🔐 FUNÇÕES DE LOGIN
+// ☁️ SALVAR E CARREGAR
+function salvarNuvem(){
+  const dados = {
+    membros: membros,
+    caixaFac: document.getElementById('caixaFac').value,
+    caixaPagamentos: document.getElementById('caixaPagamentos').value,
+    ultimaAtualizacao: new Date().toLocaleString('pt-BR')
+  };
+  localStorage.setItem(CHAVE_NUVEM, JSON.stringify(dados));
+  
+  const btn = document.getElementById('btnSalvarNuvem');
+  btn.classList.add('salvo');
+  btn.innerHTML = '✅ SALVO!';
+  setTimeout(() => {
+    btn.innerHTML = '☁️ SALVAR TUDO';
+    btn.classList.remove('salvo');
+  }, 2000);
+  
+  alterado = false;
+  document.getElementById('statusSinc').innerHTML = '✅ Salvo';
+  document.getElementById('statusSinc').style.color = 'var(--verde)';
+  
+  alert('✅ DADOS SALVOS! ☁️');
+}
+
+function carregarNuvem(){
+  const salvos = localStorage.getItem(CHAVE_NUVEM);
+  if(salvos){
+    try{
+      const dados = JSON.parse(salvos);
+      membros = dados.membros || [];
+      document.getElementById('caixaFac').value = dados.caixaFac || 'R$ 0,00';
+      document.getElementById('caixaPagamentos').value = dados.caixaPagamentos || 'R$ 0,00';
+      return true;
+    }catch(e){console.log('Erro ao carregar');}
+  }
+  membros = [];
+  document.getElementById('caixaFac').value = 'R$ 0,00';
+  document.getElementById('caixaPagamentos').value = 'R$ 0,00';
+  return false;
+}
+
+// 🔗 LINKS
+function configurarLinks(){
+  const linkAtual = window.location.href;
+  document.getElementById('linkVisitante').value = linkAtual + ' → Clique: ENTRAR COMO VISITANTE';
+  document.getElementById('linkAdmin').value = linkAtual + ' → Senha: 123477';
+}
+
+function copiarLink(tipo){
+  const input = document.getElementById(tipo === 'admin' ? 'linkAdmin' : 'linkVisitante');
+  input.select();
+  document.execCommand('copy');
+  alert('📋 Link copiado! Agora é só colar no WhatsApp! ✅');
+}
+
+// 🔐 LOGIN
 function fazerLogin(){
   const senha = document.getElementById('senhaLogin').value;
   if(senha === SENHA_ADMIN){
     modoAdmin = true;
     abrirPainel();
   }else{
-    alert('❌ Senha incorreta! Tente: 123477');
+    alert('❌ Senha incorreta! 123477');
   }
 }
 
@@ -414,13 +481,16 @@ function abrirPainel(){
   document.getElementById('barraTopo').style.display = 'flex';
   document.getElementById('conteudoPrincipal').style.display = 'block';
   
-  // 👀 MODO VISITANTE: oculta caixa da fac e desativa edições
+  carregarNuvem();
+  configurarLinks();
+  
   if(!modoAdmin){
     document.getElementById('visitanteBanner').style.display = 'block';
     document.getElementById('caixaFacContainer').classList.add('oculto');
     document.getElementById('btnAdicionar').disabled = true;
     document.getElementById('buscaMembro').disabled = true;
-    // Desabilita inputs
+    document.getElementById('btnSalvarNuvem').style.display = 'none';
+    document.getElementById('secaoLinks').style.display = 'none';
     document.querySelectorAll('input, button, .bolinha, .btn-del').forEach(el => {
       if(el.id !== 'buscaMembro') el.disabled = true;
     });
@@ -429,6 +499,8 @@ function abrirPainel(){
     document.getElementById('caixaFacContainer').classList.remove('oculto');
     document.getElementById('btnAdicionar').disabled = false;
     document.getElementById('buscaMembro').disabled = false;
+    document.getElementById('btnSalvarNuvem').style.display = 'flex';
+    document.getElementById('secaoLinks').style.display = 'block';
     document.querySelectorAll('input, button, .bolinha, .btn-del').forEach(el => {
       el.disabled = false;
     });
@@ -438,7 +510,10 @@ function abrirPainel(){
 }
 
 function sair(){
-  if(confirm('🚪 Sair do painel?')){
+  if(alterado && modoAdmin){
+    if(confirm('⚠️ Salvar antes de sair?')) salvarNuvem();
+  }
+  if(confirm('🚪 Sair?')){
     document.getElementById('senhaLogin').value = '';
     document.getElementById('telaLogin').style.display = 'flex';
     document.getElementById('barraTopo').style.display = 'none';
@@ -450,8 +525,7 @@ function sair(){
 function marcarAlterado(){
   if(!modoAdmin) return;
   alterado = true;
-  document.getElementById('statusSinc').innerHTML = '⚠️ Não salvo';
-  document.getElementById('statusSinc').style.background = 'rgba(245,158,11,0.1)';
+  document.getElementById('statusSinc').innerHTML = '⚠️ Não salvo — SALVE!';
   document.getElementById('statusSinc').style.color = '#FBBF24';
 }
 
@@ -473,22 +547,6 @@ function calcularPontos(dias){
   return pts;
 }
 
-function atualizarStats(){
-  document.getElementById('totalMembros').textContent = membros.length;
-  
-  // ✅ CAIXA TOTAL = CAIXA DE PAGAMENTOS (SINCRONIZADO)
-  const valorPagamentos = parseDinheiro(document.getElementById('caixaPagamentos').value);
-  document.getElementById('totalGeral').textContent = formatarDinheiro(valorPagamentos);
-  
-  document.getElementById('sincStatus').innerHTML = '✅ Sincronizado com Caixa de Pagamentos';
-  document.getElementById('sincStatus').style.color = 'var(--verde)';
-  
-  const ordenado = [...membros].sort((a,b) => calcularPontos(b.dias) - calcularPontos(a.dias));
-  document.getElementById('topPontos').textContent = ordenado.length && calcularPontos(ordenado[0].dias) > 0 
-    ? ordenado[0].nome.split(' ')[0] 
-    : '-';
-}
-
 function atualizarTodosCalculos(){
   const valorCaixa = parseDinheiro(document.getElementById('caixaPagamentos').value);
   let totalPontos = 0;
@@ -499,7 +557,13 @@ function atualizarTodosCalculos(){
   document.getElementById('totalPontos').textContent = totalPontos.toFixed(1);
   document.getElementById('totalPagar').textContent = formatarDinheiro(valorCaixa);
   
-  atualizarStats();
+  document.getElementById('totalMembros').textContent = membros.length;
+  document.getElementById('totalGeral').textContent = formatarDinheiro(valorCaixa);
+  
+  const ordenado = [...membros].sort((a,b) => calcularPontos(b.dias) - calcularPontos(a.dias));
+  document.getElementById('topPontos').textContent = ordenado.length && calcularPontos(ordenado[0].dias) > 0 
+    ? ordenado[0].nome.split(' ')[0] : '-';
+  
   renderizarLista();
   atualizarGrupos();
 }
@@ -510,7 +574,6 @@ function atualizarGrupos(){
     const cores = Object.values(membro.dias).map(d => d[0]);
     const temVerde = cores.includes('G');
     const temAmarelo = cores.includes('Y');
-    
     if(temVerde) verde.push(`<span class="grupo-item">${membro.nome}</span>`);
     else if(temAmarelo) amarelo.push(`<span class="grupo-item">${membro.nome}</span>`);
     else vermelho.push(`<span class="grupo-item">${membro.nome}</span>`);
@@ -589,7 +652,7 @@ function salvarMembro(){
   const ehLider = document.getElementById('ehLider').checked;
   
   if(!nome){
-    alert('⚠️ Digite o nome do integrante!');
+    alert('⚠️ Digite o nome!');
     return;
   }
   
@@ -603,7 +666,7 @@ function salvarMembro(){
   fecharModalMembro();
   marcarAlterado();
   atualizarTodosCalculos();
-  alert('✅ Integrante adicionado com sucesso!');
+  alert('✅ Adicionado! Não esqueça de SALVAR! ☁️');
 }
 
 function removerMembro(idx){

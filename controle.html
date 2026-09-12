@@ -158,18 +158,6 @@ body{
 }
 .btn-del:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
 
-.secao-card{
-  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;margin-bottom:20px;
-}
-.secao-titulo{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
-.secao-lista{display:flex;flex-wrap:wrap;gap:8px;}
-.secao-item{
-  background:rgba(255,255,255,0.05);padding:6px 12px;border-radius:6px;font-size:14px;font-weight:600;
-}
-.titulo-grupo1{color:var(--verde);border-bottom:2px solid var(--verde);}
-.titulo-grupo2{color:var(--amarelo);border-bottom:2px solid var(--amarelo);}
-.titulo-grupo3{color:var(--vermelho);border-bottom:2px solid var(--vermelho);}
-
 .pagamento-card{
   background:linear-gradient(135deg,rgba(0,255,136,0.05),rgba(0,212,255,0.05));border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:20px;margin-bottom:25px;
 }
@@ -278,7 +266,7 @@ body{
   </div>
 </div>
 
-<!-- 💰 CÁLCULO DE PAGAMENTOS — DIVISÃO AUTOMÁTICA -->
+<!-- 💰 CÁLCULO DE PAGAMENTOS -->
 <div class="pagamento-card">
   <h2>💰 PAGAMENTOS — DIVISÃO AUTOMÁTICA</h2>
   <div class="pagamento-header">
@@ -323,20 +311,6 @@ body{
   </div>
 
   <div id="listaMembros"></div>
-
-  <!-- GRUPOS -->
-  <div class="secao-card">
-    <div class="secao-titulo titulo-grupo1">🟢 PELO MENOS 1 VERDE</div>
-    <div class="secao-lista" id="grupoVerde"><span style="color:var(--texto-sec)">Nenhum</span></div>
-  </div>
-  <div class="secao-card">
-    <div class="secao-titulo titulo-grupo2">🟡 NENHUM VERDE / TEM AMARELO</div>
-    <div class="secao-lista" id="grupoAmarelo"><span style="color:var(--texto-sec)">Nenhum</span></div>
-  </div>
-  <div class="secao-card">
-    <div class="secao-titulo titulo-grupo3">🔴 SÓ VERMELHO</div>
-    <div class="secao-lista" id="grupoVermelho"><span style="color:var(--texto-sec)">Nenhum</span></div>
-  </div>
 </div>
 
 <!-- 🔗 LINKS DE ACESSO -->
@@ -437,11 +411,6 @@ function renderizarLista(){
   const valorPonto = totalPontos > 0 ? caixaPag / totalPontos : 0;
   
   lista.innerHTML = '';
-  
-  // SEMPRE DEIXA OS GRUPOS VAZIOS — NÃO MOSTRA NENHUM NOME
-  document.getElementById('grupoVerde').innerHTML = '<span style="color:var(--texto-sec)">Nenhum</span>';
-  document.getElementById('grupoAmarelo').innerHTML = '<span style="color:var(--texto-sec)">Nenhum</span>';
-  document.getElementById('grupoVermelho').innerHTML = '<span style="color:var(--texto-sec)">Nenhum</span>';
   
   membros.forEach((item, index) => {
     const pontos = calcularPontos(item);

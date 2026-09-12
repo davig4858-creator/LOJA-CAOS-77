@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOJA CAOS 77</title>
+<title>⚡ LOJA CAOS 77 — Admin</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 body{background:#0a0a0a;color:#fff;padding:20px;min-height:100vh;}
@@ -11,167 +11,155 @@ body{background:#0a0a0a;color:#fff;padding:20px;min-height:100vh;}
 
 /* LOGIN */
 .login{position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0a0a;display:flex;justify-content:center;align-items:center;z-index:999;}
-.caixa-login{background:#1a1a1a;padding:40px;border-radius:16px;width:90%;max-width:360px;text-align:center;border:1px solid #333;}
-.caixa-login h1{font-size:24px;color:#00d4ff;margin-bottom:20px;}
-input{width:100%;padding:12px;background:#222;border:1px solid #444;border-radius:8px;color:#fff;font-size:15px;margin-bottom:12px;outline:none;}
-.btn-admin{width:100%;padding:12px;background:#00d4ff;border:none;border-radius:8px;color:#000;font-weight:bold;cursor:pointer;margin-bottom:8px;}
-.btn-visita{width:100%;padding:12px;background:transparent;border:1px solid #666;border-radius:8px;color:#aaa;cursor:pointer;}
-.erro{color:#ff4444;margin-top:10px;display:none;}
+.caixa-login{background:#1a1a1a;padding:40px;border-radius:16px;width:90%;max-width:380px;text-align:center;border:1px solid #00d4ff30;box-shadow:0 0 30px #00d4ff15;}
+.caixa-login h1{font-size:26px;color:#00d4ff;margin-bottom:25px;}
+input{width:100%;padding:14px;background:#222;border:1px solid #444;border-radius:8px;color:#fff;font-size:16px;margin-bottom:15px;outline:none;transition:border 0.2s;}
+input:focus{border-color:#00d4ff;}
+.btn-admin{width:100%;padding:14px;background:#00d4ff;border:none;border-radius:8px;color:#000;font-weight:bold;cursor:pointer;font-size:16px;transition:transform 0.1s, background 0.2s;}
+.btn-admin:hover{background:#5ce1ff;transform:scale(1.02);}
+.erro{color:#ff4444;margin-top:12px;display:none;font-size:14px;}
 
 /* CONTEÚDO */
-.topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+.topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;flex-wrap:wrap;gap:12px;}
 .topo h1{font-size:22px;color:#00d4ff;}
-.badge{padding:6px 12px;border-radius:20px;font-size:12px;background:#00d4ff20;color:#00d4ff;}
-.btn-sair{padding:8px 14px;background:#ff444420;border:none;border-radius:6px;color:#ff6666;cursor:pointer;}
-.salvar-grupo{display:flex;gap:8px;}
-.btn-salvar{padding:10px 20px;background:linear-gradient(90deg,#10b981,#34d399);border:none;border-radius:8px;color:#000;font-weight:bold;cursor:pointer;font-size:14px;transition:transform 0.2s;}
-.btn-salvar:hover{transform:scale(1.05);}
-.btn-salvar:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
-.sucesso{color:#10b981;font-size:13px;display:none;align-items:center;gap:5px;}
+.badge{padding:8px 14px;border-radius:20px;font-size:13px;background:#00d4ff20;color:#00d4ff;font-weight:bold;}
+.btn-sair{padding:10px 16px;background:#ff444420;border:none;border-radius:6px;color:#ff6666;cursor:pointer;font-size:14px;transition:background 0.2s;}
+.btn-sair:hover{background:#ff444440;}
+
+/* BOTÕES DE AÇÃO */
+.grupo-botoes{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.btn-salvar{padding:12px 24px;background:linear-gradient(90deg,#10b981,#34d399);border:none;border-radius:8px;color:#000;font-weight:bold;cursor:pointer;font-size:15px;transition:transform 0.1s;}
+.btn-salvar:hover{transform:scale(1.03);}
+.link-visitante{padding:12px 18px;background:#00d4ff20;border:none;border-radius:8px;color:#00d4ff;cursor:pointer;font-size:14px;transition:background 0.2s;}
+.link-visitante:hover{background:#00d4ff40;}
+.msg-salvo{color:#10b981;font-size:14px;display:none;align-items:center;gap:5px;font-weight:bold;}
 
 /* CAIXAS */
-.caixas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
-.caixas.uma{grid-template-columns:1fr;}
-.caixa{background:#1a1a1a;padding:16px;border-radius:12px;text-align:center;border:1px solid #333;}
-.caixa.escondida{display:none;}
-.caixa label{font-size:12px;color:#888;margin-bottom:6px;display:block;}
-.caixa input{font-size:18px;font-weight:bold;text-align:center;}
+.caixas{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-bottom:28px;}
+.caixa{background:#1a1a1a;padding:25px;border-radius:12px;text-align:center;border:1px solid #333;transition:border 0.2s;}
+.caixa:hover{border-color:#00d4ff50;}
+.caixa label{font-size:14px;color:#888;margin-bottom:10px;display:block;}
+.caixa input{font-size:24px;font-weight:bold;text-align:center;width:100%;background:#222;border:1px solid #444;border-radius:6px;color:#fff;padding:12px;margin-bottom:0;}
+
+/* BLOCOS */
+.bloco{background:#1a1a1a;padding:22px;border-radius:12px;margin-bottom:25px;border:1px solid #333;}
+.bloco h2{font-size:17px;margin-bottom:18px;color:#00d4ff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.legenda{font-size:13px;color:#888;font-weight:normal;}
 
 /* TABELAS */
-.bloco{background:#1a1a1a;padding:16px;border-radius:12px;margin-bottom:20px;border:1px solid #333;}
-.bloco h2{font-size:15px;margin-bottom:12px;color:#00d4ff;display:flex;justify-content:space-between;align-items:center;}
 table{width:100%;border-collapse:collapse;}
-th,td{padding:10px;text-align:left;border-bottom:1px solid #333;}
-th{font-size:12px;color:#00d4ff;}
-td input{margin:0;}
-.btn-add{padding:8px 14px;background:#00d4ff;border:none;border-radius:6px;color:#000;font-weight:bold;cursor:pointer;margin-top:10px;}
-.btn-add:disabled{opacity:0.4;cursor:not-allowed;}
-.btn-del{padding:5px 8px;background:#ff444420;border:none;border-radius:4px;color:#ff6666;cursor:pointer;}
-.btn-del:disabled{opacity:0.4;cursor:not-allowed;}
+th,td{padding:14px 12px;text-align:left;border-bottom:1px solid #222;}
+th{font-size:12px;color:#00d4ff;text-transform:uppercase;letter-spacing:0.5px;background:#00d4ff08;}
+td input{width:100%;background:transparent;border:none;color:#fff;font-size:16px;outline:none;margin-bottom:0;padding:4px;}
 
-/* NOMES E METAS */
-.cabeca{display:grid;grid-template-columns:180px 50px repeat(7,40px) 40px;gap:4px;margin-bottom:6px;}
-.cabeca div{font-size:10px;text-align:center;color:#00d4ff;}
-.cabeca .nome-col{text-align:left;padding-left:8px;}
-.linha{display:grid;grid-template-columns:180px 50px repeat(7,40px) 40px;gap:4px;align-items:center;padding:4px 0;border-bottom:1px solid #222;}
-.nome{background:transparent;border:none;color:#fff;font-size:14px;outline:none;width:100%;}
-.meta{width:100%;background:#222;border:1px solid #444;border-radius:4px;color:#ffcc00;text-align:center;padding:4px;}
-.bolinha{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;background:#222;font-size:14px;}
-.bolinha:disabled{cursor:not-allowed;opacity:0.5;}
-.bolinha.verde{background:#10b981;}
-.bolinha.amarela{background:#f59e0b;}
-.bolinha.vermelha{background:#ef4444;}
+/* MEMBROS */
+.cabeca{display:grid;grid-template-columns:220px 65px repeat(7,48px);gap:4px;margin-bottom:10px;}
+.cabeca div{font-size:11px;text-align:center;color:#00d4ff;padding:6px;text-transform:uppercase;font-weight:bold;}
+.cabeca .nome-col{text-align:left;padding-left:10px;}
+
+.linha{display:grid;grid-template-columns:220px 65px repeat(7,48px);gap:4px;align-items:center;padding:10px 6px;border-bottom:1px solid #222;transition:background 0.1s;}
+.linha:hover{background:#ffffff03;}
+.nome{background:transparent;border:none;color:#fff;font-size:15px;outline:none;width:100%;padding:4px;}
+.meta{width:100%;background:#222;border:1px solid #444;border-radius:4px;color:#ffcc00;text-align:center;padding:6px;font-weight:bold;}
+
+/* 🔴🟡🟢 BOLINHAS ATIVADAS */
+.bolinha{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:transform 0.15s, box-shadow 0.15s;}
+.bolinha:hover{transform:scale(1.18);box-shadow:0 0 10px currentColor;}
+.bolinha.vazia{background:#2a2a2a;}
+.bolinha.vermelha{background:#ef4444;color:#ef4444;}
+.bolinha.amarela{background:#f59e0b;color:#f59e0b;}
+.bolinha.verde{background:#10b981;color:#10b981;}
 
 @media(max-width:600px){
   .caixas{grid-template-columns:1fr;}
-  .cabeca,.linha{grid-template-columns:140px 45px repeat(7,32px) 35px;}
-  .bolinha{width:26px;height:26px;font-size:11px;}
+  .cabeca,.linha{grid-template-columns:150px 50px repeat(7,40px);}
+  .bolinha{width:30px;height:30px;font-size:15px;}
+  .grupo-botoes{flex-direction:column;align-items:stretch;}
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- TELA DE LOGIN -->
 <div class="login" id="telaLogin">
   <div class="caixa-login">
     <h1>⚡ LOJA CAOS 77</h1>
-    <input type="password" id="senha" placeholder="Senha de Admin">
-    <button class="btn-admin" onclick="entrarAdmin()">🔐 ENTRAR COMO ADMIN</button>
-    <button class="btn-visita" onclick="entrarVisitante()">👀 ENTRAR COMO VISITANTE</button>
-    <div class="erro" id="erro">Senha incorreta!</div>
-    <p style="margin-top:15px;font-size:12px;color:#666;">Admin: 123477</p>
+    <input type="password" id="senha" placeholder="🔑 Senha de Administrador">
+    <button class="btn-admin" onclick="entrarAdmin()">🔐 ENTRAR</button>
+    <div class="erro" id="erro">❌ Senha incorreta! Tente novamente.</div>
+    <p style="margin-top:18px;font-size:13px;color:#666;">Senha padrão: 123477</p>
   </div>
 </div>
 
-<!-- CONTEÚDO -->
+<!-- CONTEÚDO PRINCIPAL -->
 <div class="container" id="conteudo" style="display:none;">
   <div class="topo">
-    <h1>⚡ CONTROLE</h1>
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-      <span class="badge" id="tipo">Visitante</span>
-      <div class="salvar-grupo">
-        <button class="btn-salvar" id="btnSalvar" onclick="salvarManual()">💾 SALVAR</button>
-        <span class="sucesso" id="msgSalvo">✅ Salvo!</span>
+    <h1>⚡ PAINEL DE CONTROLE — LOJA CAOS 77</h1>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <span class="badge">👑 ADMINISTRADOR</span>
+      <div class="grupo-botoes">
+        <button class="btn-salvar" onclick="salvarManual()">💾 SALVAR</button>
+        <span class="msg-salvo" id="msgSalvo">✅ Salvo com sucesso!</span>
+        <button class="link-visitante" onclick="copiarLinkVisitante()">🔗 LINK DE VISITANTE</button>
       </div>
-      <button class="btn-sair" onclick="sair()">Sair</button>
+      <button class="btn-sair" onclick="sair()">🚪 Sair</button>
     </div>
   </div>
 
-  <!-- CAIXAS -->
-  <div class="caixas" id="gridCaixas">
-    <div class="caixa escondida" id="facBloco">
+  <!-- 🏦 DUAS CAIXAS -->
+  <div class="caixas">
+    <div class="caixa">
       <label>🏦 CAIXA DA FACÇÃO</label>
       <input type="text" id="caixaFac" value="R$ 0,00">
     </div>
-    <div class="caixa escondida" id="liderBloco">
-      <label>👑 CAIXA DO LÍDER</label>
-      <input type="text" id="caixaLider" value="R$ 0,00">
-    </div>
-    <div class="caixa" id="pagBloco">
+    <div class="caixa">
       <label>💵 CAIXA DE PAGAMENTO</label>
       <input type="text" id="caixaPag" value="R$ 0,00">
     </div>
   </div>
 
-  <!-- TABELA DE PREÇOS -->
+  <!-- 💎 TABELA DE VALORES DE FRAGMENTOS -->
   <div class="bloco">
-    <h2>📊 TABELA DE PREÇOS</h2>
+    <h2>💎 TABELA DE VALORES — FRAGMENTOS</h2>
     <table>
-      <thead><tr><th>ITEM</th><th>VALOR</th><th></th></tr></thead>
-      <tbody id="precosCorpo">
-        <tr data-id="1">
-          <td><input type="text" value="Fragmento de Cristal"></td>
-          <td><input type="text" value="R$ 1,50"></td>
-          <td><button class="btn-del" onclick="removerPreco(1)">✖</button></td>
+      <thead>
+        <tr>
+          <th>QUANTIDADE</th>
+          <th>VALOR</th>
         </tr>
+      </thead>
+      <tbody id="valoresCorpo">
+        <tr><td><input type="text" value="250 Fragmentos"></td><td><input type="text" value="R$ 550,00"></td></tr>
+        <tr><td><input type="text" value="1.250 Fragmentos"></td><td><input type="text" value="R$ 2.500kk"></td></tr>
+        <tr><td><input type="text" value="2.500 Fragmentos"></td><td><input type="text" value="R$ 5.500kk"></td></tr>
+        <tr><td><input type="text" value="3.750 Fragmentos"></td><td><input type="text" value="R$ 8.500kk"></td></tr>
       </tbody>
     </table>
-    <button class="btn-add" id="btnAddPreco" onclick="adicionarPreco()">➕ ADICIONAR ITEM</button>
   </div>
 
-  <!-- COLABORADORES -->
+  <!-- 👥 TABELA DE MEMBROS COM BOLINHAS -->
   <div class="bloco">
-    <h2>👥 COLABORADORES — META: 120</h2>
+    <h2>👥 MEMBROS — META: 120/dia &nbsp;&nbsp;<span class="legenda">🔴 Falta | 🟡 Parcial | 🟢 Completo</span></h2>
     <div class="cabeca">
-      <div class="nome-col">NOME</div><div>META</div>
+      <div class="nome-col">NOME DO COLABORADOR</div><div>META</div>
       <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
-      <div>✖</div>
     </div>
     <div id="nomesCorpo"></div>
-    <button class="btn-add" id="btnAddLinha" onclick="adicionarLinha()">➕ ADICIONAR COLABORADOR</button>
   </div>
 </div>
 
 <script>
 const SENHA = '123477';
-let ADMIN = false, idPreco = 2, idLinha = 1;
-const cores = ['', 'verde', 'amarela', 'vermelha'];
-const emojis = {verde:'🟢', amarela:'🟡', vermelha:'🔴'};
+let idLinha = 1;
 
-// ✅ TODOS OS NOMES PRONTOS
-const LISTA_NOMES = [
-  "Sr Bristow",
-  "Katy Bristow",
-  "Andres Bristow",
-  "Ferrari Bristow",
-  "Vn Bristow",
-  "Patrik Bristow",
-  "Garcia Bristow",
-  "Vt Bristow",
-  "Lula Bristow",
-  "Breck Bristow",
-  "Boladin Xt",
-  "Sr Ghostt",
-  "Laa Diabla",
-  "Ejuan Handi",
-  "Eduarda Faria",
-  "Mateus Faria",
-  "Zé Bagaceira",
-  "Alex Gadernal",
-  "Aquino Menezes",
-  "Connorr",
-  "Dyygeras",
-  "Lanterna Preta"
+// ✅ 21 MEMBROS
+const LISTA_MEMBROS = [
+  "Sr Bristow", "Katy Bristow", "Andres Bristow", "Ferrari Bristow",
+  "Vn Bristow", "Patrik Bristow", "Garcia Bristow", "Vt Bristow",
+  "Lula Bristow", "Breck Bristow", "Boladin Xt", "Sr Ghostt",
+  "Laa Diabla", "Ejuan Handi", "Eduarda Faria", "Mateus Faria",
+  "Zé Bagaceira", "Alex Gadernal", "Aquino Menezes", "Connorr",
+  "Dyygeras"
 ];
 
 // LOGIN
@@ -181,159 +169,147 @@ function entrarAdmin(){
     iniciar();
   }else{
     document.getElementById('erro').style.display = 'block';
-    setTimeout(()=>document.getElementById('erro').style.display='none',2500);
+    setTimeout(()=>document.getElementById('erro').style.display='none',3000);
   }
-}
-function entrarVisitante(){
-  localStorage.setItem('caos77', 'visitante');
-  iniciar();
 }
 function sair(){
   localStorage.removeItem('caos77');
-  localStorage.removeItem('caos77dados');
   location.reload();
 }
 document.getElementById('senha').addEventListener('keypress',e=>e.key==='Enter'&&entrarAdmin());
 
+// 🔗 COPIAR LINK DE VISITANTE
+function copiarLinkVisitante(){
+  let url = window.location.href;
+  if(url.includes('index.html')){
+    url = url.replace('index.html', 'visitante.html');
+  }else if(url.endsWith('/')){
+    url += 'visitante.html';
+  }else{
+    url += '/visitante.html';
+  }
+  navigator.clipboard.writeText(url).then(()=>{
+    alert('✅ LINK COPIADO COM SUCESSO!\n\n📋 ' + url + '\n\nMande para o pessoal!');
+  }).catch(()=>{
+    prompt('📋 Copie e compartilhe este link:', url);
+  });
+}
+
 // INICIAR
 function iniciar(){
-  const tipo = localStorage.getItem('caos77');
-  if(!tipo) return;
-  ADMIN = tipo === 'admin';
-  
+  if(!localStorage.getItem('caos77')) return;
   document.getElementById('telaLogin').style.display = 'none';
   document.getElementById('conteudo').style.display = 'block';
-  document.getElementById('tipo').textContent = ADMIN ? '👑 ADMIN' : '👀 VISITANTE';
-  
-  if(ADMIN){
-    document.getElementById('facBloco').classList.remove('escondida');
-    document.getElementById('liderBloco').classList.remove('escondida');
-  }else{
-    document.getElementById('gridCaixas').classList.add('uma');
-  }
-  
-  // Bloquear botões de admin para visitantes
-  document.getElementById('btnSalvar').disabled = !ADMIN;
-  document.getElementById('btnAddPreco').disabled = !ADMIN;
-  document.getElementById('btnAddLinha').disabled = !ADMIN;
-  
-  const todosBotoes = document.querySelectorAll('.btn-del, .bolinha, input');
-  todosBotoes.forEach(el=>{
-    if(!ADMIN && el.type!=='password' && !el.classList.contains('btn-sair')) el.disabled = true;
-  });
-  
-  carregarOuInserirNomes();
+  carregarOuInserirDados();
 }
 
-// CARREGAR OU INSERIR NOMES NA PRIMEIRA VEZ
-function carregarOuInserirNomes(){
-  const salvo = localStorage.getItem('caos77dados');
-  if(salvo){
-    carregarDados();
-  }else{
-    LISTA_NOMES.forEach(nome => {
-      criarLinha(nome, '120', ['','','','','','','']);
-    });
-    salvarManual();
-  }
+// 🔴🟡🟢 FUNÇÃO DAS BOLINHAS — TOTALMENTE ATIVADA!
+function trocarCor(btn){
+  const ordem = ['vazia', 'vermelha', 'amarela', 'verde'];
+  const emojis = {vazia:'', vermelha:'🔴', amarela:'🟡', verde:'🟢'};
+  let atual = btn.dataset.estado || 'vazia';
+  let proximo = ordem[(ordem.indexOf(atual) + 1) % ordem.length];
+  btn.dataset.estado = proximo;
+  btn.className = 'bolinha ' + proximo;
+  btn.textContent = emojis[proximo];
 }
 
-// CRIAR LINHA
+// CRIAR LINHA DE MEMBRO
 function criarLinha(nome, meta, dias){
   const div = document.createElement('div');
   div.className = 'linha';
   div.dataset.id = idLinha;
   let bolinhasHTML = '';
   for(let i=0;i<7;i++){
-    const c = dias[i] || '';
-    bolinhasHTML += `<button class="bolinha ${c}" data-cor="${c}" onclick="trocar(this)" ${!ADMIN?'disabled':''}>${emojis[c]||''}</button>`;
+    const estado = dias[i] || 'vazia';
+    const emojis = {vazia:'', vermelha:'🔴', amarela:'🟡', verde:'🟢'};
+    bolinhasHTML += `<button class="bolinha ${estado}" data-estado="${estado}" onclick="trocarCor(this)">${emojis[estado]}</button>`;
   }
   div.innerHTML = `
-    <input type="text" class="nome" value="${nome}" ${!ADMIN?'disabled':''}>
-    <input type="text" class="meta" value="${meta}" ${!ADMIN?'disabled':''}>
+    <input type="text" class="nome" value="${nome}">
+    <input type="text" class="meta" value="${meta}">
     ${bolinhasHTML}
-    <button class="btn-del" onclick="removerLinha(${idLinha})" ${!ADMIN?'disabled':''}>✖</button>
   `;
   document.getElementById('nomesCorpo').appendChild(div);
   idLinha++;
 }
 
-// PREÇOS
-function adicionarPreco(){
-  const tr = document.createElement('tr');
-  tr.dataset.id = idPreco;
-  tr.innerHTML = `<td><input type="text" placeholder="Item" ${!ADMIN?'disabled':''}></td><td><input type="text" placeholder="R$ 0,00" ${!ADMIN?'disabled':''}></td><td><button class="btn-del" onclick="removerPreco(${idPreco})" ${!ADMIN?'disabled':''}>✖</button></td>`;
-  document.getElementById('precosCorpo').appendChild(tr);
-  idPreco++;
-}
-function removerPreco(id){document.querySelector(`tr[data-id="${id}"]`)?.remove();}
-
-// ADICIONAR LINHA VAZIA
-function adicionarLinha(){
-  criarLinha('', '120', ['','','','','','','']);
+// CARREGAR OU INSERIR DADOS PELA PRIMEIRA VEZ
+function carregarOuInserirDados(){
+  const salvo = localStorage.getItem('caos77dados');
+  if(salvo){
+    carregarDados();
+  }else{
+    LISTA_MEMBROS.forEach(nome => {
+      criarLinha(nome, '120', ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']);
+    });
+    salvarManual();
+  }
 }
 
-// TROCAR COR
-function trocar(btn){
-  let i = cores.indexOf(btn.dataset.cor || '');
-  i = (i + 1) % cores.length;
-  btn.dataset.cor = cores[i];
-  btn.className = 'bolinha ' + cores[i];
-  btn.textContent = emojis[cores[i]] || '';
-}
-function removerLinha(id){document.querySelector(`.linha[data-id="${id}"]`)?.remove();}
-
-// 💾 SALVAR MANUAL — BOTÃO
+// 💾 BOTÃO SALVAR
 function salvarManual(){
-  if(!ADMIN) return;
   const dados = {
-    fac: document.getElementById('caixaFac').value,
-    lider: document.getElementById('caixaLider').value,
-    pag: document.getElementById('caixaPag').value,
-    precos: [...document.querySelectorAll('#precosCorpo tr')].map(tr=>({
-      n: tr.querySelector('td:first-child input').value,
-      v: tr.querySelector('td:nth-child(2) input').value
+    caixaFac: document.getElementById('caixaFac').value,
+    caixaPag: document.getElementById('caixaPag').value,
+    valores: [...document.querySelectorAll('#valoresCorpo tr')].map(tr=>({
+      qtd: tr.querySelector('td:first-child input').value,
+      val: tr.querySelector('td:nth-child(2) input').value
     })),
-    nomes: [...document.querySelectorAll('#nomesCorpo .linha')].map(div=>({
-      n: div.querySelector('.nome').value,
-      m: div.querySelector('.meta').value,
-      d: [...div.querySelectorAll('.bolinha')].map(b=>b.dataset.cor||'')
+    membros: [...document.querySelectorAll('#nomesCorpo .linha')].map(div=>({
+      nome: div.querySelector('.nome').value,
+      meta: div.querySelector('.meta').value,
+      dias: [...div.querySelectorAll('.bolinha')].map(b=>b.dataset.estado||'vazia')
     }))
   };
   localStorage.setItem('caos77dados', JSON.stringify(dados));
   
-  // Mostra mensagem de salvo
   const msg = document.getElementById('msgSalvo');
   msg.style.display = 'flex';
-  setTimeout(()=>msg.style.display='none', 2000);
+  setTimeout(()=>msg.style.display='none', 2500);
 }
 
-// CARREGAR
+// CARREGAR DADOS SALVOS
 function carregarDados(){
   try{
     const d = JSON.parse(localStorage.getItem('caos77dados'));
-    if(ADMIN){
-      document.getElementById('caixaFac').value = d.fac || 'R$ 0,00';
-      document.getElementById('caixaLider').value = d.lider || 'R$ 0,00';
-    }
-    document.getElementById('caixaPag').value = d.pag || 'R$ 0,00';
     
-    document.getElementById('precosCorpo').innerHTML = '';
-    (d.precos||[]).forEach(p=>{
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td><input type="text" value="${p.n}" ${!ADMIN?'disabled':''}></td><td><input type="text" value="${p.v}" ${!ADMIN?'disabled':''}></td><td><button class="btn-del" onclick="this.parentElement.parentElement.remove()" ${!ADMIN?'disabled':''}>✖</button></td>`;
-      document.getElementById('precosCorpo').appendChild(tr);
-    });
+    document.getElementById('caixaFac').value = d.caixaFac || 'R$ 0,00';
+    document.getElementById('caixaPag').value = d.caixaPag || 'R$ 0,00';
+    
+    document.getElementById('valoresCorpo').innerHTML = '';
+    if(d.valores && d.valores.length > 0){
+      d.valores.forEach(v=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td><input type="text" value="${v.qtd}"></td><td><input type="text" value="${v.val}"></td>`;
+        document.getElementById('valoresCorpo').appendChild(tr);
+      });
+    }else{
+      document.getElementById('valoresCorpo').innerHTML = `
+        <tr><td><input type="text" value="250 Fragmentos"></td><td><input type="text" value="R$ 550,00"></td></tr>
+        <tr><td><input type="text" value="1.250 Fragmentos"></td><td><input type="text" value="R$ 2.500kk"></td></tr>
+        <tr><td><input type="text" value="2.500 Fragmentos"></td><td><input type="text" value="R$ 5.500kk"></td></tr>
+        <tr><td><input type="text" value="3.750 Fragmentos"></td><td><input type="text" value="R$ 8.500kk"></td></tr>
+      `;
+    }
     
     document.getElementById('nomesCorpo').innerHTML = '';
-    (d.nomes||[]).forEach(m=>{
-      criarLinha(m.n, m.m, m.d);
+    if(d.membros && d.membros.length > 0){
+      d.membros.forEach(m=>criarLinha(m.nome, m.meta, m.dias));
+    }else{
+      LISTA_MEMBROS.forEach(nome => {
+        criarLinha(nome, '120', ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']);
+      });
+    }
+  }catch(e){
+    LISTA_MEMBROS.forEach(nome => {
+      criarLinha(nome, '120', ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']);
     });
-  }catch(e){}
+  }
 }
 
+// MANTER LOGIN
 if(localStorage.getItem('caos77')) iniciar();
 </script>
-
 </body>
 </html>

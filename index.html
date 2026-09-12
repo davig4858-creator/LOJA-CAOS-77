@@ -73,9 +73,9 @@ body{
 .header-top{
   background:linear-gradient(180deg,rgba(18,26,46,0.98),rgba(10,16,31,0.95));
   padding:20px 16px;display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--borda);position:sticky;top:0;z-index:99;backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--borda);position:sticky;top:0;z-index:98;backdrop-filter:blur(12px);
 }
-.header-top .title{font-size:18px;font-weight:900;display:flex;align-items:center;gap:10px;}
+.header-top .title{font-size:18px;font-weight:900;}
 .header-top .title span{color:var(--primaria);}
 .status-badge{
   background:rgba(16,185,129,0.1);color:var(--verde);padding:6px 14px;border-radius:50px;
@@ -97,22 +97,26 @@ body{
 .qtd-frag{font-weight:700;color:var(--texto);}
 .valor-frag{font-weight:900;color:var(--ouro);}
 
+.formula-box{background:rgba(124,58,237,0.05);border:1px solid rgba(124,58,237,0.15);border-radius:12px;padding:16px;margin-bottom:20px;}
+.formula-title{font-weight:800;margin-bottom:10px;color:var(--primaria);font-size:14px;}
+.formula-text{font-size:13px;line-height:1.8;color:var(--textoSec);}
+.formula-highlight{background:rgba(16,185,129,0.1);color:var(--verde);padding:2px 8px;border-radius:4px;font-weight:600;display:inline-block;margin:2px 0;}
+
 .caixas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
-.caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;transition:opacity 0.2s;}
-.caixa-item.estavel{opacity:1;}
-.caixa-label{font-size:11px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;}
+.caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;}
+.caixa-label{font-size:11px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
 .caixa-valor{font-size:17px;font-weight:900;}
 .caixa-valor input{
   width:100%;background:transparent;border:none;font-size:17px;font-weight:900;text-align:center;outline:none;color:inherit;
-  padding:4px;
-  border-radius:4px;
-  transition:background 0.2s;
+  padding:4px;border-radius:4px;transition:background 0.2s;
 }
-.caixa-valor input:disabled{opacity:0.6;cursor:not-allowed;}
 .caixa-valor input:focus{background:rgba(255,255,255,0.05);}
 .caixa-valor.ouro{color:var(--ouro);}
 .caixa-valor.verde{color:var(--verde);}
 .caixa-valor.azul{color:#3B82F6;}
+
+.total-pontos{text-align:center;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;margin-bottom:16px;}
+.total-pontos span{font-size:22px;font-weight:900;color:var(--primaria);}
 
 .ranking-lista{display:flex;flex-direction:column;gap:8px;}
 .ranking-item{
@@ -139,7 +143,6 @@ body{
   width:100%;padding:15px;background:linear-gradient(90deg,var(--primaria),#3B82F6);border:none;border-radius:10px;
   color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:20px;transition:all 0.25s ease;
 }
-.btn-add:disabled{opacity:0.4;cursor:not-allowed;transform:none !important;}
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
 
 .btn-distribuir{
@@ -147,7 +150,6 @@ body{
   color:white;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:20px;transition:all 0.3s ease;
 }
 .btn-distribuir:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(16,185,129,0.35);}
-.btn-distribuir:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
 
 .btn-salvar{
   width:100%;padding:14px;background:linear-gradient(90deg,#8B5CF6,#EC4899);border:none;border-radius:10px;
@@ -160,56 +162,54 @@ body{
   padding:6px 10px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
   color:#FCA5A5;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s ease;
 }
-.btn-del:disabled{opacity:0.4;cursor:not-allowed;}
 .btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);}
 
 .membros-header{
-  display:grid;grid-template-columns:200px repeat(7,40px) 100px 70px;gap:6px;
-  padding:10px 8px;color:var(--primaria);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
+  display:grid;grid-template-columns:180px repeat(7,40px) 90px 110px 60px;gap:4px;
+  padding:10px 8px;color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
 .membros-header .nome-col{text-align:left;}
 
 .membro-row{
-  display:grid;grid-template-columns:200px repeat(7,40px) 100px 70px;gap:6px;
-  padding:10px 8px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
+  display:grid;grid-template-columns:180px repeat(7,40px) 90px 110px 60px;gap:4px;
+  padding:8px 8px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:4px;
   align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
-.membro-row:hover{background:rgba(255,255,255,0.05);border-color:var(--borda);}
+.membro-row:hover{background:rgba(255,255,255,0.04);border-color:var(--borda);}
 
-.membro-nome{font-size:13px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:8px;}
-.coroa{font-size:14px;filter:drop-shadow(0 0 3px gold);}
-.valor-cell{text-align:center;font-size:13px;font-weight:800;color:var(--verde);}
-.pontos-cell{text-align:center;font-size:12px;font-weight:700;color:var(--ouro);}
+.membro-nome{font-size:12px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.coroa{font-size:12px;filter:drop-shadow(0 0 2px gold);}
+.valor-cell{text-align:center;font-size:12px;font-weight:800;color:var(--verde);}
+.pontos-cell{text-align:center;font-size:11px;font-weight:700;color:var(--ouro);}
 
 .bolinha{
-  width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;
-  transition:all 0.15s ease;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:bold;
+  width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;
+  transition:all 0.15s ease;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:bold;
 }
-.bolinha:disabled{cursor:not-allowed;opacity:0.6;}
 .bolinha:hover{transform:scale(1.15);}
-.bolinha.vazia{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);}
-.bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 8px rgba(16,185,129,0.5);}
-.bolinha.amarela{background:var(--amarelo);border-color:#D97706;box-shadow:0 0 8px rgba(245,158,11,0.5);}
-.bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 8px rgba(239,68,68,0.5);}
+.bolinha.vazia{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);}
+.bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 6px rgba(16,185,129,0.4);}
+.bolinha.amarela{background:var(--amarelo);border-color:#D97706;box-shadow:0 0 6px rgba(245,158,11,0.4);}
+.bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 6px rgba(239,68,68,0.4);}
 
 .resultado-dist{
   background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:16px;margin-bottom:20px;display:none;
 }
 .resultado-dist.mostrar{display:block;animation:fadeIn 0.4s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
-.res-linha{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
-.res-linha:last-child{border-bottom:none;}
-.res-nome{font-size:13px;font-weight:700;}
-.res-valor{font-size:14px;font-weight:900;color:var(--verde);}
+.res-linha{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;}
+.res-linha:last-child{border-bottom:none;margin-top:6px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.08);font-weight:800;}
+.res-nome{font-weight:500;}
+.res-valor{font-weight:700;color:var(--verde);}
 .res-total{font-size:16px;font-weight:900;color:var(--ouro);padding-top:8px;}
-.res-sobra{font-size:13px;font-weight:700;color:#3B82F6;margin-top:4px;}
+.res-sobra{font-size:12px;font-weight:600;color:#3B82F6;margin-top:4px;}
 
 .modal-fundo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);}
-.modal{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:24px;width:90%;max-width:450px;max-height:90vh;overflow-y:auto;}
+.modal{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:24px;width:90%;max-width:480px;max-height:90vh;overflow-y:auto;}
 .modal h3{color:var(--primaria);font-size:17px;margin-bottom:14px;}
-.modal p{font-size:13px;margin-bottom:16px;color:var(--textoSec);line-height:1.6;}
+.modal p{font-size:13px;margin-bottom:16px;color:var(--textoSec);line-height:1.7;}
 .modal input{
   width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:8px;
   color:var(--texto);font-size:14px;margin-bottom:12px;outline:none;
@@ -218,21 +218,21 @@ body{
 .modal-btn-cancel{flex:1;padding:12px;background:#1E293B;border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
 .modal-btn-save{flex:1;padding:12px;background:var(--verde);border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
 
-.link-box{display:flex;gap:8px;margin-top:8px;}
-.link-box input{flex:1;padding:10px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:6px;color:var(--texto);font-size:12px;outline:none;}
-.link-box button{padding:10px 12px;background:var(--primaria);border:none;border-radius:6px;color:white;font-weight:700;cursor:pointer;font-size:12px;}
-
-.legenda{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:16px;}
-.legenda-item{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--textoSec);}
+.legenda{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;}
+.legenda-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--textoSec);}
 .leg-bolinha{width:16px;height:16px;border-radius:50%;display:inline-block;}
 .leg-verde{background:var(--verde);}
 .leg-amarelo{background:var(--amarelo);}
 .leg-vermelho{background:var(--vermelho);}
 
+.link-box{display:flex;gap:8px;margin-top:8px;}
+.link-box input{flex:1;padding:10px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:6px;color:var(--texto);font-size:12px;outline:none;}
+.link-box button{padding:10px 12px;background:var(--primaria);border:none;border-radius:6px;color:white;font-weight:700;cursor:pointer;font-size:12px;}
+
 @media(max-width:768px){
   .caixas-grid{grid-template-columns:1fr;}
-  .membros-header,.membro-row{grid-template-columns:140px repeat(7,34px) 70px 55px;gap:2px;}
-  .bolinha{width:24px;height:24px;}
+  .membros-header,.membro-row{grid-template-columns:140px repeat(7,32px) 70px 90px 45px;gap:2px;}
+  .bolinha{width:22px;height:22px;font-size:10px;}
   .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
 }
 </style>
@@ -283,6 +283,20 @@ body{
 </div>
 
 <div class="section-card">
+  <div class="section-title">📐 FÓRMULA DE CÁLCULO</div>
+  <div class="formula-box">
+    <div class="formula-text">
+      🟢 = <span class="formula-highlight">1,0 ponto</span> &nbsp;|&nbsp; 
+      🟡 = <span class="formula-highlight">0,5 ponto</span> &nbsp;|&nbsp; 
+      🔴 = <span class="formula-highlight">0 ponto</span><br>
+      📌 <strong>Pagamento = Caixa × (Pontos do Membro ÷ Total de Pontos)</strong><br>
+      ⚙️ Pontos NÃO são arredondados — apenas valor final em dinheiro (2 casas decimais)<br>
+      ⚠️ 0 pontos = R$ 0,00 | Caixa R$ 0,00 = todos R$ 0,00 (pontos salvos)
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
   <div class="section-title">💎 VALORES DOS FRAGMENTOS</div>
   <table class="tabela-valores">
     <thead>
@@ -294,26 +308,26 @@ body{
     <tbody>
       <tr>
         <td class="qtd-frag">250 fragmentos</td>
-        <td class="valor-frag">550k</td>
+        <td class="valor-frag">R$ 550,00</td>
       </tr>
       <tr>
         <td class="qtd-frag">1.250 fragmentos</td>
-        <td class="valor-frag">2.500kk</td>
+        <td class="valor-frag">R$ 2.500,00</td>
       </tr>
       <tr>
         <td class="qtd-frag">2.500 fragmentos</td>
-        <td class="valor-frag">5.500kk</td>
+        <td class="valor-frag">R$ 5.500,00</td>
       </tr>
       <tr>
         <td class="qtd-frag">3.750 fragmentos</td>
-        <td class="valor-frag">8.500kk</td>
+        <td class="valor-frag">R$ 8.500,00</td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <div class="section-card">
-  <div class="section-title">🏆 RANKING — MAIS PRODUTIVOS (🟢)</div>
+  <div class="section-title">🏆 RANKING — MAIS PRODUTIVOS</div>
   <div id="rankingLista" class="ranking-lista">
     <div style="text-align:center;color:var(--textoSec);padding:20px;">Adicione membros para exibir o ranking</div>
   </div>
@@ -322,30 +336,33 @@ body{
 <div class="section-card" id="secaoCaixas">
   <div class="section-title">🏦 CAIXAS DA FACÇÃO</div>
   <div class="caixas-grid">
-    <div class="caixa-item estavel">
-      <div class="caixa-label">🏦 CAIXA DA FACÇÃO</div>
+    <div class="caixa-item">
+      <div class="caixa-label">🏦 Caixa da Facção</div>
       <div class="caixa-valor ouro"><input type="text" id="caixaFac" value="R$ 0,00" class="ouro" onblur="marcarAlterado();"></div>
     </div>
     <div class="caixa-item">
-      <div class="caixa-label">🏦 CAIXA DOS LÍDERES</div>
+      <div class="caixa-label">🏦 Caixa dos Líderes</div>
       <div class="caixa-valor azul"><input type="text" id="caixaLideres" value="R$ 0,00" class="azul" onblur="marcarAlterado();"></div>
     </div>
     <div class="caixa-item">
-      <div class="caixa-label">💵 CAIXA DE PAGAMENTOS</div>
+      <div class="caixa-label">💵 Caixa de Pagamentos</div>
       <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="verde" onblur="marcarAlterado();"></div>
     </div>
   </div>
+  <div class="total-pontos">
+    📊 Total de Pontos da Semana: <span id="totalPontosExibicao">0,0</span>
+  </div>
 
   <div style="margin-top:16px;">
-    <p style="font-size:12px;color:var(--textoSec);margin-bottom:8px;">📏 Pontos por bolinha:</p>
+    <p style="font-size:12px;color:var(--textoSec);margin-bottom:8px;">📏 Legenda:</p>
     <div class="legenda">
       <div class="legenda-item"><span class="leg-bolinha leg-verde"></span> 🟢 = 1,0 ponto</div>
       <div class="legenda-item"><span class="leg-bolinha leg-amarelo"></span> 🟡 = 0,5 ponto</div>
-      <div class="legenda-item"><span class="leg-bolinha leg-vermelho"></span> 🔴 = 0,0 ponto</div>
+      <div class="legenda-item"><span class="leg-bolinha leg-vermelho"></span> 🔴 = 0 ponto</div>
     </div>
   </div>
 
-  <button class="btn-distribuir" id="btnDistribuir" onclick="abrirModalConfirmar()">🚀 FAZER DISTRIBUIÇÃO SEMANAL</button>
+  <button class="btn-distribuir" id="btnDistribuir" onclick="abrirModalConfirmar()">🚀 FAZER DISTRIBUIÇÃO DE PAGAMENTOS</button>
 
   <div class="resultado-dist" id="resultadoDist">
     <h4 style="color:var(--verde);font-size:15px;margin-bottom:12px;">✅ RESULTADO DA DISTRIBUIÇÃO</h4>
@@ -362,9 +379,7 @@ body{
   <div class="membros-header">
     <div class="nome-col">NOME</div>
     <div>D1</div><div>D2</div><div>D3</div><div>D4</div><div>D5</div><div>D6</div><div>D7</div>
-    <div>PTS</div>
-    <div>VALOR</div>
-    <div>✖</div>
+    <div>PTS</div><div>VALOR</div><div>✖</div>
   </div>
 
   <div id="listaMembros"></div>
@@ -380,8 +395,8 @@ body{
       <input type="checkbox" id="ehLider"> 👑 É Líder
     </label>
     <div class="modal-botoes">
-      <button class="modal-btn-cancel" onclick="fecharModalMembro()">Cancelar</button>
-      <button class="modal-btn-save" onclick="salvarMembro()">Salvar</button>
+      <button class="modal-btn-cancel" onclick="fecharModalMembro()">❌ Cancelar</button>
+      <button class="modal-btn-save" onclick="salvarMembro()">✅ Salvar</button>
     </div>
   </div>
 </div>
@@ -390,11 +405,11 @@ body{
   <div class="modal">
     <h3>⚠️ CONFIRMAR DISTRIBUIÇÃO?</h3>
     <p>O sistema pegará o valor da <strong>Caixa de Pagamentos</strong> e dividirá proporcionalmente entre os membros de acordo com seus pontos acumulados.<br><br>
-    🟢 = 1,0 | 🟡 = 0,5 | 🔴 = 0,0<br><br>
-    ⚠️ <strong>ATENÇÃO:</strong> Os dias serão zerados para começar uma nova semana!</p>
+    📌 <strong>Fórmula:</strong> Pagamento = Caixa × (Pontos ÷ Total de Pontos)<br>
+    ⚠️ Os dias serão zerados após a distribuição para começar uma nova semana!</p>
     <div class="modal-botoes">
       <button class="modal-btn-cancel" onclick="fecharModalConfirmar()">❌ Cancelar</button>
-      <button class="modal-btn-save" onclick="executarDistribuicao()">✅ CONFIRMAR E DISTRIBUIR</button>
+      <button class="modal-btn-save" onclick="executarDistribuicao()">✅ CONFIRMAR</button>
     </div>
   </div>
 </div>
@@ -407,69 +422,78 @@ const CHAVE_DADOS = 'loja_caos77_dados';
 let membros = [];
 let alterado = false;
 
+const PESOS = { '': 0, 'G': 1.0, 'Y': 0.5, 'R': 0 };
+const CORES = { '': 'vazia', 'G': 'verde', 'Y': 'amarela', 'R': 'vermelha' };
+const EMOJIS = { '': '', 'G': '🟢', 'Y': '🟡', 'R': '🔴' };
+
 function formatarMoeda(valor){
   return 'R$ ' + parseFloat(valor).toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
 }
 
 function parseMoeda(texto){
-  return parseFloat(texto.replace('R$ ','').replace('.','').replace(',','.')) || 0;
+  return parseFloat(texto.replace('R$ ','').replace(/\./g,'').replace(',','.')) || 0;
 }
 
-function calcularPontosEValores(){
-  const caixaPag = parseMoeda(document.getElementById('caixaPagamentos').value);
-  let totalPontos = 0;
-  
-  membros.forEach(membro => {
-    let pts = 0;
-    Object.values(membro.dias).forEach(cor => {
-      if(cor === 'G') pts += 1.0;
-      else if(cor === 'Y') pts += 0.5;
-    });
-    membro.pontos = pts;
-    totalPontos += pts;
-  });
-  
-  if(totalPontos > 0 && caixaPag > 0){
-    const valorPorPonto = caixaPag / totalPontos;
-    membros.forEach(membro => {
-      membro.valorReceber = membro.pontos > 0 ? membro.pontos * valorPorPonto : 0;
-    });
-  }else{
-    membros.forEach(membro => {
-      membro.valorReceber = 0;
-    });
+function calcularPontosMembro(membro){
+  let total = 0;
+  for(let d=1;d<=7;d++){
+    total += PESOS[membro['d'+d]] || 0;
   }
-  
-  renderizarLista();
-  renderizarRanking();
+  return total;
+}
+
+function calcularTotalPontos(){
+  return membros.reduce((s,m) => s + calcularPontosMembro(m), 0);
+}
+
+function calcularPagamentos(){
+  const caixa = parseMoeda(document.getElementById('caixaPagamentos').value);
+  const totalPontos = calcularTotalPontos();
+  const resultados = [];
+  let totalPago = 0;
+
+  membros.forEach(membro => {
+    const pontos = calcularPontosMembro(membro);
+    let valor = 0;
+    if(pontos > 0 && totalPontos > 0 && caixa > 0){
+      valor = caixa * (pontos / totalPontos);
+    }
+    membro.pontos = pontos;
+    membro.valor = valor;
+    totalPago += valor;
+    resultados.push({ nome: membro.nome, pontos: pontos, valor: valor });
+  });
+
+  return { resultados, totalPontos, caixa, totalPago };
+}
+
+function atualizarTotalPontosExibicao(){
+  document.getElementById('totalPontosExibicao').textContent = calcularTotalPontos().toFixed(1);
 }
 
 function renderizarRanking(){
   const lista = document.getElementById('rankingLista');
-  const ordenado = [...membros].sort((a,b) => b.pontos - a.pontos).slice(0,10);
-  
-  if(ordenado.length === 0){
+  const comPontos = membros.map(m => ({
+    nome: m.nome,
+    pontos: calcularPontosMembro(m),
+    lider: m.ehLider
+  })).filter(m => m.pontos > 0).sort((a,b) => b.pontos - a.pontos);
+
+  if(comPontos.length === 0){
     lista.innerHTML = '<div style="text-align:center;color:var(--textoSec);padding:20px;">Adicione membros para exibir o ranking</div>';
     return;
   }
-  
-  lista.innerHTML = ordenado.map((m, idx) => {
+
+  lista.innerHTML = comPontos.slice(0,10).map((m, idx) => {
     let classePos = '';
     if(idx === 0) classePos = 'primeiro';
     else if(idx === 1) classePos = 'segundo';
     else if(idx === 2) classePos = 'terceiro';
-    
-    const qtdVerdes = Object.values(m.dias).filter(c => c === 'G').length;
-    const qtdAmarelas = Object.values(m.dias).filter(c => c === 'Y').length;
-    
+
     return `
       <div class="ranking-item">
-        <div class="ranking-posicao ${classePos}">${idx + 1}</div>
-        <div class="ranking-nome">${m.coroa?'👑 ':''}${m.nome}</div>
-        <div class="ranking-bolinhas">
-          ${Array(qtdVerdes).fill('<span class="mini-bolinha verde"></span>').join('')}
-          ${Array(qtdAmarelas).fill('<span class="mini-bolinha amarela"></span>').join('')}
-        </div>
+        <div class="ranking-posicao ${classePos}">${idx+1}</div>
+        <div class="ranking-nome">${m.lider?'👑 ':''}${m.nome}</div>
         <div class="ranking-pontos">${m.pontos.toFixed(1)} pts</div>
       </div>
     `;
@@ -479,40 +503,51 @@ function renderizarRanking(){
 function renderizarLista(){
   const lista = document.getElementById('listaMembros');
   lista.innerHTML = '';
-  
+
   membros.forEach((membro, idx) => {
-    lista.innerHTML += `
-      <div class="membro-row">
-        <div class="membro-nome">${membro.coroa?'👑 ':''}${membro.nome}</div>
-        ${['d1','d2','d3','d4','d5','d6','d7'].map((d,i) => {
-          let c = membro.dias[d];
-          let cls = c === 'G' ? 'verde' : c === 'Y' ? 'amarela' : c === 'R' ? 'vermelha' : 'vazia';
-          return `<button class="bolinha ${cls}" ${!modoAdmin?'disabled':''} onclick="alternarCor(${idx},'${d}')">${c==='G'?'🟢':c==='Y'?'🟡':c==='R'?'🔴':''}</button>`;
-        }).join('')}
-        <div class="pontos-cell">${membro.pontos.toFixed(1)}</div>
-        <div class="valor-cell">${membro.valorReceber > 0 ? formatarMoeda(membro.valorReceber) : '—'}</div>
-        <div><button class="btn-del" ${!modoAdmin?'disabled':''} onclick="removerMembro(${idx})">🗑️</button></div>
-      </div>
-    `;
+    const pontos = calcularPontosMembro(membro);
+    const valor = membro.valor || 0;
+
+    let html = `<div class="membro-row">
+      <div class="membro-nome">${membro.ehLider?'👑 ':''}${membro.nome}</div>`;
+
+    for(let d=1;d<=7;d++){
+      const dia = 'd'+d;
+      const valorDia = membro[dia] || '';
+      const cor = CORES[valorDia];
+      html += `<button class="bolinha ${cor}" ${!modoAdmin?'disabled':''} onclick="trocarBolinha(${idx},'${dia}')">${valorDia?EMOJIS[valorDia]:'·'}</button>`;
+    }
+
+    html += `
+      <div class="pontos-cell">${pontos.toFixed(1)}</div>
+      <div class="valor-cell">${formatarMoeda(valor)}</div>
+      <div><button class="btn-del" ${!modoAdmin?'disabled':''} onclick="removerMembro(${idx})">🗑️</button></div>
+    </div>`;
+
+    lista.innerHTML += html;
   });
+
+  atualizarTotalPontosExibicao();
+  renderizarRanking();
 }
 
-function alternarCor(idx, dia){
+function trocarBolinha(idx, dia){
   if(!modoAdmin) return;
   const ordem = ['', 'G', 'Y', 'R'];
-  let atual = membros[idx].dias[dia];
-  let prox = ordem[(ordem.indexOf(atual) + 1) % ordem.length];
-  membros[idx].dias[dia] = prox;
+  const atual = membros[idx][dia] || '';
+  const proxIdx = (ordem.indexOf(atual) + 1) % ordem.length;
+  membros[idx][dia] = ordem[proxIdx];
   marcarAlterado();
-  calcularPontosEValores();
+  renderizarLista();
 }
 
 function removerMembro(idx){
   if(!modoAdmin) return;
   if(confirm(`Remover "${membros[idx].nome}"?`)){
-    membros.splice(idx, 1);
+    membros.splice(idx,1);
     marcarAlterado();
-    calcularPontosEValores();
+    renderizarLista();
+    renderizarRanking();
   }
 }
 
@@ -528,21 +563,23 @@ function fecharModalMembro(){
 }
 
 function salvarMembro(){
+  if(!modoAdmin) return;
   const nome = document.getElementById('nomeNovo').value.trim();
   if(!nome){ alert('Digite um nome!'); return; }
-  
+
   membros.push({
     id: Date.now() + Math.random(),
     nome: nome,
-    coroa: document.getElementById('ehLider').checked,
-    dias: { d1:'', d2:'', d3:'', d4:'', d5:'', d6:'', d7:'' },
+    ehLider: document.getElementById('ehLider').checked,
+    d1: '', d2: '', d3: '', d4: '', d5: '', d6: '', d7: '',
     pontos: 0,
-    valorReceber: 0
+    valor: 0
   });
-  
+
   fecharModalMembro();
   marcarAlterado();
-  calcularPontosEValores();
+  renderizarLista();
+  renderizarRanking();
 }
 
 function abrirModalConfirmar(){
@@ -557,69 +594,43 @@ function fecharModalConfirmar(){
 function executarDistribuicao(){
   fecharModalConfirmar();
   
-  const caixaPag = parseMoeda(document.getElementById('caixaPagamentos').value);
-  let totalPontos = 0;
-  
-  membros.forEach(m => {
-    let pts = 0;
-    Object.values(m.dias).forEach(c => {
-      if(c === 'G') pts += 1.0;
-      else if(c === 'Y') pts += 0.5;
-    });
-    m.pontos = pts;
-    totalPontos += pts;
-  });
-  
+  const { resultados, totalPontos, caixa, totalPago } = calcularPagamentos();
+  const listaResultado = document.getElementById('listaResultado');
+
   if(totalPontos === 0){
-    alert('⚠️ Nenhum ponto registrado! Marque os dias primeiro.');
+    alert('⚠️ Nenhum ponto registrado! Defina as bolinhas antes de distribuir.');
     return;
   }
-  
-  if(caixaPag <= 0){
+
+  if(caixa === 0){
     alert('⚠️ Caixa de Pagamentos está vazia!');
     return;
   }
-  
-  const valorPorPonto = caixaPag / totalPontos;
-  let totalDistribuido = 0;
-  let html = '';
-  
-  membros.forEach(membro => {
-    if(membro.pontos > 0){
-      const valor = membro.pontos * valorPorPonto;
-      membro.valorReceber = valor;
-      totalDistribuido += valor;
-      html += `
-        <div class="res-linha">
-          <div class="res-nome">${membro.coroa?'👑 ':''}${membro.nome} — ${membro.pontos.toFixed(1)} pts</div>
-          <div class="res-valor">${formatarMoeda(valor)}</div>
-        </div>
-      `;
-    }else{
-      membro.valorReceber = 0;
-    }
-  });
-  
-  document.getElementById('caixaPagamentos').value = formatarMoeda(0);
-  
-  html += `
+
+  listaResultado.innerHTML = resultados.map(r => {
+    let linhas = `<div class="res-linha">
+      <span class="res-nome">${r.pontos>0?'✅':'—'} ${r.nome}${r.pontos>0?' ('+r.pontos.toFixed(1)+' pts)':''}</span>
+      <span class="res-valor">${formatarMoeda(r.valor)}</span>
+    </div>`;
+    return linhas;
+  }).join('') + `
     <div class="res-linha res-total">
-      <div>💵 TOTAL DISTRIBUÍDO</div>
-      <div>${formatarMoeda(totalDistribuido)}</div>
+      <span>💰 TOTAL PAGO</span>
+      <span>${formatarMoeda(totalPago)}</span>
     </div>
+    <div class="res-sobra">📊 Fórmula usada: ${formatarMoeda(caixa)} × (pontos ÷ ${totalPontos.toFixed(1)})</div>
   `;
-  
-  document.getElementById('listaResultado').innerHTML = html;
+
   document.getElementById('resultadoDist').classList.add('mostrar');
-  
+
   membros.forEach(m => {
-    m.dias = { d1:'', d2:'', d3:'', d4:'', d5:'', d6:'', d7:'' };
+    m.d1 = ''; m.d2 = ''; m.d3 = ''; m.d4 = ''; m.d5 = ''; m.d6 = ''; m.d7 = '';
   });
-  
+
   marcarAlterado();
-  calcularPontosEValores();
-  
-  alert(`✅ DISTRIBUIÇÃO CONCLUÍDA!\n\n💵 Total distribuído: ${formatarMoeda(totalDistribuido)}\n\nOs dias foram zerados para a nova semana! 🎉`);
+  salvarDados();
+  renderizarLista();
+  alert(`✅ DISTRIBUIÇÃO CONCLUÍDA!\n💰 Total distribuído: ${formatarMoeda(totalPago)}\n📅 Semana reiniciada!`);
 }
 
 function salvarDados(){
@@ -642,6 +653,7 @@ function salvarDados(){
   
   alterado = false;
   document.getElementById('statusSinc').innerHTML = '✅ Salvo';
+  document.getElementById('statusSinc').style.background = 'rgba(16,185,129,0.1)';
   document.getElementById('statusSinc').style.color = 'var(--verde)';
 }
 
@@ -654,17 +666,18 @@ function carregarDados(){
       document.getElementById('caixaFac').value = dados.caixaFac || 'R$ 0,00';
       document.getElementById('caixaLideres').value = dados.caixaLideres || 'R$ 0,00';
       document.getElementById('caixaPagamentos').value = dados.caixaPagamentos || 'R$ 0,00';
-      calcularPontosEValores();
+      renderizarLista();
+      renderizarRanking();
       return true;
-    }catch(e){console.log('Erro ao carregar');}
+    }catch(e){console.log('Erro ao carregar',e);}
   }
   return false;
 }
 
 function configurarLinks(){
   const linkAtual = window.location.href;
-  document.getElementById('linkVisitante').value = linkAtual;
   document.getElementById('linkAdmin').value = linkAtual;
+  document.getElementById('linkVisitante').value = linkAtual;
 }
 
 function copiarLink(tipo){
@@ -704,6 +717,7 @@ function abrirPainel(){
     document.getElementById('btnAdicionar').style.display = 'none';
     document.getElementById('btnSalvar').style.display = 'none';
     document.getElementById('resultadoDist').style.display = 'none';
+    document.querySelector('.section-card:nth-child(3)').style.display = 'none';
   }else{
     document.getElementById('visitanteBanner').style.display = 'none';
     document.getElementById('secaoCaixas').style.display = 'block';
@@ -733,9 +747,17 @@ function marcarAlterado(){
   if(!modoAdmin) return;
   alterado = true;
   document.getElementById('statusSinc').innerHTML = '⚠️ Não salvo';
-  document.getElementById('statusSinc').style.color = '#FBBF24';
+  document.getElementById('statusSinc').style.background = 'rgba(245,158,11,0.1)';
+  document.getElementById('statusSinc').style.color = 'var(--amarelo)';
   document.getElementById('resultadoDist').classList.remove('mostrar');
 }
+
+document.addEventListener('keydown', function(e){
+  if(e.ctrlKey && e.key === 's'){
+    e.preventDefault();
+    if(modoAdmin) salvarDados();
+  }
+});
 </script>
 
 </body>

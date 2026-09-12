@@ -92,7 +92,6 @@ body{
 .section-title{font-size:15px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--primaria);}
 
 .formula-box{background:rgba(124,58,237,0.05);border:1px solid rgba(124,58,237,0.15);border-radius:12px;padding:16px;margin-bottom:20px;}
-.formula-title{font-weight:800;margin-bottom:10px;color:var(--primaria);font-size:14px;}
 .formula-text{font-size:13px;line-height:2;color:var(--textoSec);}
 .formula-highlight{background:rgba(16,185,129,0.1);color:var(--verde);padding:2px 8px;border-radius:4px;font-weight:600;display:inline-block;margin:2px 0;}
 .formula-highlight.yellow{background:rgba(245,158,11,0.1);color:var(--amarelo);}
@@ -762,14 +761,8 @@ function abrirPainel(){
     document.getElementById('btnAdicionar').style.display = 'none';
     document.getElementById('btnSalvar').style.display = 'none';
     document.getElementById('btnDistribuir').style.display = 'none';
-    document.querySelector('.section-card:nth-child(4)').style.display = 'none';
   }else{
     document.getElementById('visitanteBanner').style.display = 'none';
-    document.getElementById('secaoLinks').style.display = 'block';
-    document.getElementById('btnAdicionar').style.display = 'block';
-    document.getElementById('btnSalvar').style.display = 'block';
-    document.getElementById('btnDistribuir').style.display = 'block';
-    document.querySelector('.section-card:nth-child(4)').style.display = 'block';
   }
   
   renderizarLista();
@@ -790,4 +783,12 @@ function sair(){
   }
 }
 
-function mar
+function marcarAlterado(){
+  alterado = true;
+  document.getElementById('statusSinc').innerHTML = '⚠️ Não Salvo';
+  document.getElementById('statusSinc').classList.add('nao-salvo');
+}
+</script>
+
+</body>
+</html>

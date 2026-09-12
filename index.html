@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOJA CAOS 77 — Painel de Controle</title>
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI', Arial, sans-serif;
+}
+body{
+  background:#0a0a0a;
+  min-height:100vh;
+}
+input{
+  width:100%;padding:16px 18px;border:1px solid #333;border-radius:12px;
+  background:rgba(30,30,30,0.8);color:#fff;font-size:15px;font-weight:500;
+  outline:none;transition:all 0.3s ease;
+}
+input:focus{border-color:#00D4FF;box-shadow:0 0 3px rgba(0,212,255,0.2);background:rgba(40,40,40,0.9);}
+input::placeholder{color:#666;}
+button{
+  width:100%;padding:16px;background:linear-gradient(135deg,#00B8E6,#00D4FF);
+  color:#000;border:none;border-radius:12px;font-weight:800;font-size:16px;
+  cursor:pointer;transition:all 0.3s ease;margin-top:10px;
+  box-shadow:0 4px 20px rgba(0,212,255,0.2);letter-spacing:1px;
+}
+button:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,0.3);}
+button:active{transform:translateY(0);}
+.erro{
+  color:#FF3B3B;margin-top:20px;display:none;font-size:14px;
+  background:rgba(255,59,59,0.1);padding:10px;border-radius:8px;border:1px solid rgba(255,59,59,0.2);
+}
+.links{margin-top:30px;padding-top:25px;border-top:1px solid rgba(255,255,255,0.05);}
+.links a{
+  color:#00D4FF;text-decoration:none;font-size:14px;font-weight:600;
+  transition:color 0.2s ease;
+}
+.links a:hover{color:#fff;text-decoration:underline;}
+
+/* === NOVA TELA DE LOGIN === */
+.tela-login{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(135deg,#0A0F1A 0%,#121a2b 50%,#0F1726 100%);
+  display:flex;justify-content:center;align-items:center;z-index:999;
+  overflow:hidden;
+}
+.tela-login::before,
+.tela-login::after{
+  content:'';position:absolute;border-radius:50%;filter:blur(80px);opacity:0.4;
+  animation:flutuar 8s ease-in-out infinite alternate;
+}
+.tela-login::before{
+  width:400px;height:400px;background:rgba(0,212,255,0.15);top:5%;left:5%;
+}
+.tela-login::after{
+  width:350px;height:350px;background:rgba(255,59,59,0.12);bottom:5%;right:5%;
+  animation-delay:-4s;
+}
+@keyframes flutuar{
+  0%{transform:translate(0,0) scale(1);}
+  100%{transform:translate(30px,-30px) scale(1.15);}
+}
+.caixa-login{
+  background:#0F1726;border:1px solid rgba(0,212,255,0.18);
+  border-radius:20px;padding:50px 40px;width:90%;max-width:420px;
+  box-shadow:0 0 60px rgba(0,212,255,0.08),inset 0 1px 0 rgba(255,255,255,0.05);
+  text-align:center;position:relative;z-index:10;
+  backdrop-filter:blur(10px);animation:aparecer 0.6s ease-out;
+}
+@keyframes aparecer{
+  from{opacity:0;transform:translateY(20px) scale(0.95);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+.logo-caos{
+  width:80px;height:80px;margin:0 auto 25px;
+  background:linear-gradient(135deg,#00D4FF,#FF3B3B);
+  border-radius:16px;display:flex;align-items:center;justify-content:center;
+  font-size:36px;font-weight:800;color:#000;
+  box-shadow:0 0 30px rgba(0,212,255,0.3);
+  animation:brilho 3s ease-in-out infinite alternate;
+}
+@keyframes brilho{
+  0%{box-shadow:0 0 20px rgba(0,212,255,0.25);}
+  100%{box-shadow:0 0 35px rgba(255,59,59,0.2),0 0 60px rgba(0,212,255,0.15);}
+}
+.caixa-login h1{
+  font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:2px;
+  background:linear-gradient(90deg,#00D4FF,#fff,#FF3B3B);
+  background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:textoBrilho 4s linear infinite;
+}
+@keyframes textoBrilho{to{background-position:200% center;}}
+.caixa-login .subtitulo{font-size:14px;color:#8A9AB8;margin-bottom:40px;letter-spacing:1px;}
+.caixa-login input{
+  width:100%;padding:16px 20px;background:rgba(0,0,0,0.35);
+  border:1px solid rgba(0,212,255,0.12);border-radius:12px;
+  color:#E0E6ED;font-size:15px;margin-bottom:16px;outline:none;
+  transition:all 0.3s ease;letter-spacing:0.5px;
+}
+.caixa-login input:focus{
+  border-color:#00D4FF;box-shadow:0 0 0 4px rgba(0,212,255,0.08),0 0 20px rgba(0,212,255,0.08);
+  background:rgba(0,0,0,0.45);
+}
+.btn-entrar{
+  width:100%;padding:16px;background:linear-gradient(90deg,#00B8E6,#00D4FF);
+  border:none;border-radius:12px;color:#000;font-size:16px;font-weight:800;
+  cursor:pointer;transition:all 0.3s ease;margin-top:8px;letter-spacing:1px;
+  box-shadow:0 4px 15px rgba(0,212,255,0.2);
+}
+.btn-entrar:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,212,255,0.3);}
+.erro-login{
+  color:#FF3B3B;font-size:13px;margin-top:15px;display:none;
+  animation:tremer 0.4s ease;
+}
+@keyframes tremer{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+.senha-dica{font-size:12px;color:#8A9AB8;margin-top:25px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);}
+.senha-dica strong{color:#00D4FF;}
+</style>
+</head>
+<body>
+
+<!-- 🔐 NOVA TELA DE LOGIN — LOJA CAOS 77 -->
+<div class="tela-login" id="telaLogin">
+  <div class="caixa-login">
+    <div class="logo-caos">⚡</div>
+    <h1>LOJA CAOS 77</h1>
+    <p class="subtitulo">PAINEL DE CONTROLE • GESTÃO DA FACÇÃO</p>
+
+    <input type="password" id="senha" placeholder="🔑 Digite sua senha de acesso">
+
+    <button class="btn-entrar" onclick="fazerLogin()">ACESSAR PAINEL</button>
+
+    <div class="erro-login" id="erro">❌ Usuário ou senha inválidos</div>
+
+    <div class="senha-dica">💡 Senha de acesso: <strong>123477</strong></div>
+
+    <div class="links">
+      <a href="painel.html">👁️ Acesso de Visitante (sem login)</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function fazerLogin(){
+  const senhaDigitada = document.getElementById('senha').value;
+  const senhaCorreta = '123477';
+  
+  if(senhaDigitada === senhaCorreta){
+    window.location.href = 'painel.html';
+  }else{
+    const erro = document.getElementById('erro');
+    erro.style.display = 'block';
+    document.getElementById('senha').value = '';
+    setTimeout(() => {
+      erro.style.display = 'none';
+    }, 3500);
+  }
+}
+
+// Enter para logar
+document.getElementById('senha').addEventListener('keypress', function(e){
+  if(e.key === 'Enter') fazerLogin();
+});
+</script>
+
+</body>
+</html>

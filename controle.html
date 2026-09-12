@@ -14,9 +14,14 @@
   --bg-card-hover: #172338;
   --azul: #00D4FF;
   --verde: #00FF88;
+  --amarelo: #FFD700;
+  --laranja: #FF9500;
   --vermelho: #FF3B3B;
   --texto: #E0E6ED;
   --texto-sec: #8A9AB8;
+  --ouro: #FFD700;
+  --prata: #C0C0C0;
+  --bronze: #CD7F32;
 }
 
 body{
@@ -46,52 +51,81 @@ body{
 
 .container{max-width:1000px;margin:0 auto;padding:25px 15px;}
 
-/* ✅ VENDAS DA SEMANA */
-.vendas-card{
+.card{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
 }
-.vendas-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
-.vendas-table{width:100%;border-collapse:collapse;margin-bottom:15px;}
-.vendas-table th{
-  background:rgba(0,212,255,0.1);padding:12px 10px;text-align:left;color:var(--azul);
-  font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;
-}
-.vendas-table th:nth-child(2), .vendas-table th:nth-child(3){text-align:center;}
-.vendas-table td{padding:10px 10px;border-bottom:1px solid rgba(255,255,255,0.05);}
-.vendas-table td:nth-child(2), .vendas-table td:nth-child(3){text-align:center;}
-.vendas-table input{
-  width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);
-  border-radius:6px;color:var(--verde);font-size:15px;font-weight:600;text-align:center;
-  padding:8px 6px;outline:none;
-}
-.vendas-table input:focus{border-color:var(--azul);}
-.total-row{background:rgba(0,255,136,0.05);}
-.total-row td{padding:16px 10px !important;}
-.total-label{font-size:15px;font-weight:700;color:var(--verde);text-transform:uppercase;}
-.total-value{font-size:22px;font-weight:800;color:var(--verde);text-align:right;}
-.btn-salvar-vendas{
-  background:linear-gradient(90deg,#0099CC,#00D4FF);border:none;border-radius:8px;
-  padding:12px 24px;color:white;font-size:15px;font-weight:700;cursor:pointer;
-  margin-top:10px;transition:all 0.2s ease;
-}
-.btn-salvar-vendas:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,255,0.2);}
+.card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
 
-/* ✅ DADOS GERAIS */
-.stats-card{
-  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
-}
-.stats-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
+/* TABELA DE PREÇOS */
+.precos-table{width:100%;border-collapse:collapse;}
+.precos-table th{background:rgba(0,212,255,0.1);padding:12px;text-align:left;color:var(--azul);font-size:13px;font-weight:700;}
+.precos-table td{padding:12px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:15px;}
+.qtd-frag{font-weight:700;color:var(--texto);}
+.valor-frag{font-weight:800;color:var(--verde);}
+
+/* DADOS GERAIS */
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;text-align:center;}
 .stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:8px;text-transform:uppercase;}
 .stat-value{font-size:20px;font-weight:800;color:var(--texto);}
 .stat-value.green{color:var(--verde);font-size:24px;}
 .stat-value.blue{color:var(--azul);}
+.stat-value.red{color:var(--vermelho);font-size:24px;}
 .stat-item input{
   width:100%;background:transparent;border:none;color:var(--verde);
   font-size:20px;font-weight:800;text-align:center;outline:none;
 }
 .stat-item input.blue{color:var(--azul);}
+.stat-item input.red{color:var(--vermelho);}
+
+/* BOTÃO SALVAR NUVEM */
+.btn-salvar-nuvem{
+  width:100%;padding:16px;background:linear-gradient(90deg,#7B2FFD,#A855F7);border:none;
+  border-radius:10px;color:white;font-size:16px;font-weight:800;cursor:pointer;
+  margin-bottom:25px;transition:all 0.2s ease;box-shadow:0 0 20px rgba(123,47,253,0.25);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn-salvar-nuvem:hover{transform:translateY(-2px);}
+.btn-salvar-nuvem.salvo{background:linear-gradient(90deg,#0099CC,#00D4FF);}
+
+/* RANKING */
+.ranking-lista{display:flex;flex-direction:column;gap:8px;}
+.ranking-item{
+  display:grid;grid-template-columns:50px 1fr 120px;gap:10px;align-items:center;
+  padding:12px 15px;border-radius:8px;background:rgba(255,255,255,0.03);
+}
+.ranking-pos{font-size:22px;font-weight:800;text-align:center;}
+.pos-1{color:var(--ouro);text-shadow:0 0 8px rgba(255,215,0,0.4);}
+.pos-2{color:var(--prata);}
+.pos-3{color:var(--bronze);}
+.ranking-nome{font-size:14px;font-weight:600;}
+.ranking-qtd{font-size:16px;font-weight:800;color:var(--verde);text-align:right;}
+
+/* RELATÓRIO MENSAL */
+.relatorio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px;}
+.rel-item{background:rgba(0,0,0,0.25);padding:14px;border-radius:8px;text-align:center;}
+.rel-label{font-size:12px;color:var(--texto-sec);margin-bottom:6px;}
+.rel-val{font-size:18px;font-weight:800;}
+.btn-relatorio{
+  background:linear-gradient(90deg,#7B2FFD,#A855F7);border:none;border-radius:8px;
+  padding:12px 24px;color:white;font-weight:700;cursor:pointer;transition:all 0.2s;
+}
+.btn-relatorio:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(123,47,253,0.25);}
+.relatorio-texto{
+  margin-top:15px;padding:15px;background:rgba(0,0,0,0.25);border-radius:8px;
+  font-family:monospace;font-size:13px;line-height:1.8;white-space:pre-wrap;display:none;
+}
+.btn-copiar{
+  background:var(--azul);border:none;border-radius:6px;padding:8px 14px;color:#000;
+  font-weight:700;cursor:pointer;margin-top:10px;
+}
+
+/* LEGENDA E GRUPOS */
+.legend-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:18px;margin-bottom:25px;
+  display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap;gap:12px;
+}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--texto);}
 
 .search-bar{
   width:100%;padding:14px 18px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
@@ -125,9 +159,7 @@ body{
 .membro-nome{font-size:14px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
 .coroa{font-size:16px;filter:drop-shadow(0 0 3px gold);}
 
-.meta-dia{
-  display:flex;flex-direction:column;align-items:center;gap:2px;
-}
+.meta-dia{display:flex;flex-direction:column;align-items:center;gap:2px;}
 .meta-num{font-size:12px;font-weight:600;color:var(--texto-sec);}
 .bolinhas{display:flex;gap:4px;}
 .bolinha{
@@ -145,6 +177,38 @@ body{
 }
 .btn-del:hover{transform:scale(1.03);}
 
+.secao-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;margin-bottom:20px;
+}
+.secao-titulo{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.secao-lista{display:flex;flex-wrap:wrap;gap:8px;}
+.secao-item{
+  background:rgba(255,255,255,0.05);padding:6px 12px;border-radius:6px;font-size:14px;font-weight:600;
+}
+.titulo-grupo1{color:var(--verde);border-bottom:2px solid var(--verde);}
+.titulo-grupo2{color:var(--amarelo);border-bottom:2px solid var(--amarelo);}
+.titulo-grupo3{color:var(--vermelho);border-bottom:2px solid var(--vermelho);}
+
+/* LINKS DE ACESSO */
+.links-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;margin-top:30px;
+}
+.links-card h2{color:var(--azul);font-size:15px;margin-bottom:15px;text-transform:uppercase;letter-spacing:1px;}
+.link-item{margin-bottom:12px;}
+.link-label{font-size:13px;color:var(--texto-sec);margin-bottom:5px;}
+.link-box{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(0,0,0,0.3);border-radius:6px;padding:10px 12px;
+  border:1px solid rgba(0,212,255,0.1);
+}
+.link-box input{
+  flex:1;background:transparent;border:none;color:var(--texto);font-size:13px;outline:none;
+}
+.link-box button{
+  background:var(--azul);border:none;border-radius:4px;padding:6px 10px;color:#000;
+  font-weight:700;cursor:pointer;font-size:12px;
+}
+
 .modal-overlay{
   position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);
   display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);
@@ -154,17 +218,18 @@ body{
   width:90%;max-width:450px;
 }
 .modal h3{color:var(--azul);font-size:18px;margin-bottom:20px;}
-.modal input{
+.modal input, modal select{
   width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);
   border-radius:8px;color:var(--texto);font-size:15px;margin-bottom:12px;outline:none;
 }
-.modal input:focus{border-color:var(--azul);}
+.modal input:focus, .modal select:focus{border-color:var(--azul);}
 .modal-buttons{display:flex;gap:10px;margin-top:10px;}
 .modal-btn-cancel{flex:1;padding:12px;background:#2A3A58;border:none;border-radius:8px;color:var(--texto);font-weight:700;cursor:pointer;}
 .modal-btn-save{flex:1;padding:12px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;}
 
 @media(max-width:700px){
   .stats-grid{grid-template-columns:1fr;}
+  .relatorio-grid{grid-template-columns:repeat(2,1fr);}
   .dias-header,.membro-row{grid-template-columns:150px repeat(6,55px) 80px;gap:2px;}
   .bolinha{width:22px;height:22px;font-size:13px;}
   .membro-nome{font-size:12px;}
@@ -175,80 +240,76 @@ body{
 
 <div class="header-top">
   <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
-  <div class="status-badge">🟢 Sincronizado</div>
+  <div class="status-badge" id="status-sinc">🟢 Sincronizado</div>
 </div>
 
 <div class="container">
 
-<!-- ✅ VENDAS DA SEMANA — VOLTOU! -->
-<div class="vendas-card">
-  <h2>💰 VENDAS DE FRAGMENTOS — SEMANA</h2>
-  <table class="vendas-table">
+<!-- 💰 TABELA DE PREÇOS FIXOS -->
+<div class="card">
+  <h2>💰 TABELA DE PREÇOS — FRAGMENTOS</h2>
+  <table class="precos-table">
     <thead>
-      <tr>
-        <th>DIA</th>
-        <th>FRAGMENTOS VENDIDOS</th>
-        <th>VALOR (R$)</th>
-      </tr>
+      <tr><th>QUANTIDADE</th><th>VALOR</th></tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Segunda</td>
-        <td><input type="text" id="frag-seg" placeholder="0"></td>
-        <td><input type="text" id="val-seg" placeholder="0"></td>
-      </tr>
-      <tr>
-        <td>Terça</td>
-        <td><input type="text" id="frag-ter" placeholder="0"></td>
-        <td><input type="text" id="val-ter" placeholder="0"></td>
-      </tr>
-      <tr>
-        <td>Quarta</td>
-        <td><input type="text" id="frag-qua" placeholder="0"></td>
-        <td><input type="text" id="val-qua" placeholder="0"></td>
-      </tr>
-      <tr>
-        <td>Quinta</td>
-        <td><input type="text" id="frag-qui" placeholder="0"></td>
-        <td><input type="text" id="val-qui" placeholder="0"></td>
-      </tr>
-      <tr>
-        <td>Sexta</td>
-        <td><input type="text" id="frag-sex" placeholder="0"></td>
-        <td><input type="text" id="val-sex" placeholder="0"></td>
-      </tr>
-      <tr>
-        <td>Sábado</td>
-        <td><input type="text" id="frag-sab" placeholder="0"></td>
-        <td><input type="text" id="val-sab" placeholder="0"></td>
-      </tr>
-      <tr class="total-row">
-        <td></td>
-        <td class="total-label">TOTAL DA SEMANA 💰</td>
-        <td class="total-value" id="total-semana">R$ 0,00</td>
-      </tr>
+      <tr><td class="qtd-frag">250 Fragmentos</td><td class="valor-frag">R$ 550.000</td></tr>
+      <tr><td class="qtd-frag">1.250 Fragmentos</td><td class="valor-frag">R$ 2.750.000</td></tr>
+      <tr><td class="qtd-frag">2.500 Fragmentos</td><td class="valor-frag">R$ 5.500.000</td></tr>
+      <tr><td class="qtd-frag">3.750 Fragmentos</td><td class="valor-frag">R$ 8.500.000</td></tr>
     </tbody>
   </table>
-  <button class="btn-salvar-vendas" onclick="salvarVendas()">💾 SALVAR VENDAS</button>
 </div>
 
-<!-- ✅ DADOS GERAIS COM CAIXA EDITÁVEL -->
-<div class="stats-card">
-  <h2>📊 DADOS GERAIS</h2>
+<!-- 📊 DADOS GERAIS -->
+<div class="card">
+  <h2>📊 CAIXA & ESTOQUE</h2>
   <div class="stats-grid">
     <div class="stat-item">
-      <div class="stat-label">MAIS FARMOU</div>
-      <div class="stat-value" id="mais-farmou">-</div>
+      <div class="stat-label">CAIXA DA FAC</div>
+      <div class="stat-value green"><input type="text" id="caixa-fac" placeholder="R$ 0,00" onblur="marcarAlterado()"></div>
     </div>
     <div class="stat-item">
-      <div class="stat-label">CAIXA TOTAL DA FAC</div>
-      <div class="stat-value green"><input type="text" id="caixa-total" placeholder="R$ 0,00" onblur="salvarCaixa()"></div>
+      <div class="stat-label">CAIXA DE PAGAMENTOS</div>
+      <div class="stat-value red"><input type="text" id="caixa-pag" placeholder="R$ 0,00" class="red" onblur="marcarAlterado()"></div>
     </div>
     <div class="stat-item">
-      <div class="stat-label">ESTOQUE</div>
-      <div class="stat-value blue"><input type="text" id="estoque-total" placeholder="0" class="blue" onblur="salvarEstoque()"></div>
+      <div class="stat-label">ESTOQUE DE FRAGMENTOS</div>
+      <div class="stat-value blue"><input type="text" id="estoque" placeholder="0" class="blue" onblur="marcarAlterado()"></div>
     </div>
   </div>
+</div>
+
+☁️ SALVAR NAS NUVENS
+<button class="btn-salvar-nuvem" id="btn-salvar" onclick="salvarTudo()">☁️ SALVAR NAS NUVENS</button>
+
+<!-- 🏆 RANKING TOP 5 FARMADORES -->
+<div class="card">
+  <h2>🏆 RANKING TOP 5 — MAIS FARMARAM</h2>
+  <div class="ranking-lista" id="ranking-lista">
+    <div style="text-align:center;color:var(--texto-sec);padding:30px;">Nenhum registro ainda</div>
+  </div>
+</div>
+
+<!-- 📊 RELATÓRIO MENSAL AUTOMÁTICO -->
+<div class="card">
+  <h2>📊 RELATÓRIO MENSAL</h2>
+  <div class="relatorio-grid">
+    <div class="rel-item"><div class="rel-label">Total Entregue</div><div class="rel-val green" id="rel-entradas">0 frag</div></div>
+    <div class="rel-item"><div class="rel-label">Total Vendido</div><div class="rel-val laranja" id="rel-vendido">0 frag</div></div>
+    <div class="rel-item"><div class="rel-label">Valor Total Vendas</div><div class="rel-val green" id="rel-valor">R$ 0</div></div>
+    <div class="rel-item"><div class="rel-label">Farmadores Ativos</div><div class="rel-val azul" id="rel-ativos">0</div></div>
+  </div>
+  <button class="btn-relatorio" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO COMPLETO</button>
+  <div class="relatorio-texto" id="relatorio-texto"></div>
+  <button class="btn-copiar" id="btn-copiar" onclick="copiarRelatorio()" style="display:none;">📋 COPIAR RELATÓRIO</button>
+</div>
+
+<!-- 🟢 LEGENDA -->
+<div class="legend-card">
+  <div class="legend-item">🟢 COMPLETO</div>
+  <div class="legend-item">🟡 INCOMPLETO</div>
+  <div class="legend-item">🔴 NÃO COMPLETO</div>
 </div>
 
 <input type="text" class="search-bar" placeholder="🔍 Buscar por nome..." id="busca" oninput="filtrarLista()">
@@ -262,6 +323,41 @@ body{
 </div>
 
 <div id="listaIntegrantes"></div>
+
+<!-- 📋 GRUPOS -->
+<div class="secao-card">
+  <div class="secao-titulo titulo-grupo1">🟢🔴🟡 — PELO MENOS 1 VERDE</div>
+  <div class="secao-lista" id="grupo1"></div>
+</div>
+
+<div class="secao-card">
+  <div class="secao-titulo titulo-grupo2">🟡🔴 — NENHUM VERDE / TEM AMARELO</div>
+  <div class="secao-lista" id="grupo2"></div>
+</div>
+
+<div class="secao-card">
+  <div class="secao-titulo titulo-grupo3">🔴🔴 — SÓ VERMELHO</div>
+  <div class="secao-lista" id="grupo3"></div>
+</div>
+
+<!-- 🔗 LINKS DE ACESSO -->
+<div class="links-card">
+  <h2>🔗 LINKS DE ACESSO</h2>
+  <div class="link-item">
+    <div class="link-label">🔑 ADMINISTRADOR</div>
+    <div class="link-box">
+      <input type="text" id="link-admin" value="" readonly>
+      <button onclick="copiarLink('link-admin')">📋</button>
+    </div>
+  </div>
+  <div class="link-item">
+    <div class="link-label">👀 VISITANTE (Somente Leitura)</div>
+    <div class="link-box">
+      <input type="text" id="link-visitante" value="" readonly>
+      <button onclick="copiarLink('link-visitante')">📋</button>
+    </div>
+  </div>
+</div>
 
 </div>
 
@@ -283,10 +379,30 @@ body{
 <script>
 const DATABASE_URL = 'https://loja-caos-77-default-rtdb.firebaseio.com/.json';
 
-let integrantes = [];
-const dias = ['seg','ter','qua','qui','sex','sab'];
+// 📋 Tabela de preços fixos — ATUALIZADA!
+const PRECOS = {
+  250: 550000,
+  1250: 2750000,
+  2500: 5500000,
+  3750: 8500000
+};
 
-// ✅ Bolinha: vazio → 🟢 → 🔴 → vazio
+let integrantes = [];
+let historico = [];
+const dias = ['seg','ter','qua','qui','sex','sab'];
+let alterado = false;
+
+// Marca que há alterações não salvas
+function marcarAlterado(){
+  alterado = true;
+  document.getElementById('btn-salvar').classList.remove('salvo');
+  document.getElementById('btn-salvar').innerHTML = '☁️ SALVAR NAS NUVENS ⚠️';
+  document.getElementById('status-sinc').textContent = '⚠️ Não salvo';
+  document.getElementById('status-sinc').style.background = 'rgba(255,193,7,0.1)';
+  document.getElementById('status-sinc').style.color = '#FFC107';
+}
+
+// Bolinha: vazio → 🟢 → 🟡 → 🔴 → vazio
 function trocarBolinha(id, dia, posicao){
   const idx = integrantes.findIndex(x=>x.id===id);
   if(idx === -1) return;
@@ -296,53 +412,147 @@ function trocarBolinha(id, dia, posicao){
   
   const atual = integrantes[idx].dias[dia][posicao];
   if(atual === '') integrantes[idx].dias[dia][posicao] = 'G';
-  else if(atual === 'G') integrantes[idx].dias[dia][posicao] = 'R';
+  else if(atual === 'G') integrantes[idx].dias[dia][posicao] = 'Y';
+  else if(atual === 'Y') integrantes[idx].dias[dia][posicao] = 'R';
   else integrantes[idx].dias[dia][posicao] = '';
   
-  salvarTudo();
+  marcarAlterado();
   renderLista();
+  atualizarGrupos();
+  atualizarRanking();
 }
 
-// ✅ Calcular total automaticamente
-function calcularTotal(){
-  let total = 0;
-  dias.forEach(dia=>{
-    const val = document.getElementById(`val-${dia}`).value.replace(/[^0-9,]/g,'').replace(',','.');
-    total += parseFloat(val) || 0;
-  });
-  document.getElementById('total-semana').textContent = `R$ ${total.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
-  return total;
-}
-
-function salvarVendas(){
-  calcularTotal();
-  salvarTudo();
-  alert('✅ VENDAS SALVAS!');
-}
-
-function salvarCaixa(){ salvarTudo(); }
-function salvarEstoque(){ salvarTudo(); }
-
-async function salvarTudo(){
-  const vendas = {};
-  dias.forEach(dia=>{
-    vendas[`frag_${dia}`] = document.getElementById(`frag-${dia}`).value;
-    vendas[`val_${dia}`] = document.getElementById(`val-${dia}`).value;
-  });
-  vendas.total = calcularTotal();
+// 🏆 Ranking Top 5 — sem nome até ter pontuação
+function atualizarRanking(){
+  const top5 = [...integrantes].sort((a,b)=>(b.totalFrag||0)-(a.totalFrag||0)).slice(0,5);
+  const container = document.getElementById('ranking-lista');
   
+  const temPontos = top5.some(m=>(m.totalFrag||0)>0);
+  
+  if(!temPontos){
+    container.innerHTML = '<div style="text-align:center;color:var(--texto-sec);padding:30px;">Nenhum registro ainda</div>';
+    return;
+  }
+  
+  container.innerHTML = top5.map((m,i)=>{
+    const pos = i+1;
+    const pontos = m.totalFrag||0;
+    let classe = '';
+    if(pos===1) classe='pos-1';
+    else if(pos===2) classe='pos-2';
+    else if(pos===3) classe='pos-3';
+    return `
+      <div class="ranking-item">
+        <div class="ranking-pos ${classe}">${pos}º</div>
+        <div class="ranking-nome">${pontos>0?(m.coroa?'👑 ':'')+m.nome:'—'}</div>
+        <div class="ranking-qtd">${pontos.toLocaleString()} frag</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// 📊 Relatório Mensal
+function atualizarRelatorio(){
+  const totalEntrada = historico.filter(h=>h.tipo==='entrada').reduce((s,h)=>s+h.quantidade,0);
+  const totalVendido = historico.filter(h=>h.tipo==='venda').reduce((s,h)=>s+h.quantidade,0);
+  const totalValor = historico.filter(h=>h.tipo==='venda').reduce((s,h)=>s+h.valor,0);
+  const ativos = integrantes.filter(i=>(i.totalFrag||0)>0).length;
+  
+  document.getElementById('rel-entradas').textContent = totalEntrada.toLocaleString() + ' frag';
+  document.getElementById('rel-vendido').textContent = totalVendido.toLocaleString() + ' frag';
+  document.getElementById('rel-valor').textContent = 'R$ ' + totalValor.toLocaleString();
+  document.getElementById('rel-ativos').textContent = ativos;
+}
+
+function gerarRelatorio(){
+  const mes = new Date().toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  const totalEntrada = historico.filter(h=>h.tipo==='entrada').reduce((s,h)=>s+h.quantidade,0);
+  const totalVendido = historico.filter(h=>h.tipo==='venda').reduce((s,h)=>s+h.quantidade,0);
+  const totalValor = historico.filter(h=>h.tipo==='venda').reduce((s,h)=>s+h.valor,0);
+  const estoqueAtual = parseInt(document.getElementById('estoque').value) || 0;
+  const caixaFac = document.getElementById('caixa-fac').value || 'R$ 0';
+  const caixaPag = document.getElementById('caixa-pag').value || 'R$ 0';
+  
+  const top3 = [...integrantes].sort((a,b)=>(b.totalFrag||0)-(a.totalFrag||0)).slice(0,3);
+  const top3texto = top3.filter(m=>(m.totalFrag||0)>0).map((m,i)=>`${i+1}º ${m.nome} — ${(m.totalFrag||0).toLocaleString()} fragmentos`).join('\n') || '  Sem registros ainda';
+  
+  const texto = `
+═══════════════════════════════════
+       📊 RELATÓRIO MENSAL — ${mes.toUpperCase()}
+           🔥 LOJA CAOS 77 🔥
+═══════════════════════════════════
+
+📦 ESTOQUE
+  • Total Entregado: ${totalEntrada.toLocaleString()} fragmentos
+  • Total Vendido:   ${totalVendido.toLocaleString()} fragmentos
+  • Em Estoque:      ${estoqueAtual.toLocaleString()} fragmentos
+
+💰 FINANCEIRO
+  • Valor em Vendas: ${'R$ ' + totalValor.toLocaleString()}
+  • Caixa da Fac:    ${caixaFac}
+  • Caixa de Pag.:   ${caixaPag}
+
+🏆 TOP 3 FARMADORES DO MÊS
+${top3texto}
+
+📋 TABELA DE PREÇOS
+  • 250 frag   → R$ 550.000
+  • 1.250 frag → R$ 2.750.000
+  • 2.500 frag → R$ 5.500.000
+  • 3.750 frag → R$ 8.500.000
+
+═══════════════════════════════════
+  Gerado em: ${new Date().toLocaleString('pt-BR')}
+═══════════════════════════════════
+  `.trim();
+  
+  const el = document.getElementById('relatorio-texto');
+  el.textContent = texto;
+  el.style.display = 'block';
+  document.getElementById('btn-copiar').style.display = 'inline-block';
+}
+
+function copiarRelatorio(){
+  const texto = document.getElementById('relatorio-texto').textContent;
+  navigator.clipboard.writeText(texto).then(()=>alert('✅ Relatório copiado!'));
+}
+
+// ☁️ SALVAR TUDO NAS NUVENS
+async function salvarTudo(){
   const dados = {
     integrantes,
-    vendas,
-    caixa: document.getElementById('caixa-total').value,
-    estoque: document.getElementById('estoque-total').value
+    historico,
+    caixa: document.getElementById('caixa-fac').value,
+    caixaPagamentos: document.getElementById('caixa-pag').value,
+    estoque: document.getElementById('estoque').value
   };
   
-  await fetch(DATABASE_URL, {
-    method: 'PATCH',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(dados)
-  });
+  document.getElementById('btn-salvar').innerHTML = '⏳ SALVANDO...';
+  document.getElementById('btn-salvar').disabled = true;
+  
+  try{
+    await fetch(DATABASE_URL, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(dados)
+    });
+    
+    alterado = false;
+    document.getElementById('btn-salvar').classList.add('salvo');
+    document.getElementById('btn-salvar').innerHTML = '✅ SALVO COM SUCESSO!';
+    document.getElementById('status-sinc').textContent = '🟢 Sincronizado';
+    document.getElementById('status-sinc').style.background = 'rgba(0,255,136,0.1)';
+    document.getElementById('status-sinc').style.color = 'var(--verde)';
+    
+    setTimeout(()=>{
+      document.getElementById('btn-salvar').innerHTML = '☁️ SALVAR NAS NUVENS';
+      document.getElementById('btn-salvar').disabled = false;
+    }, 2000);
+  }catch(e){
+    alert('❌ Erro ao salvar! Tente novamente.');
+    document.getElementById('btn-salvar').innerHTML = '☁️ SALVAR NAS NUVENS';
+    document.getElementById('btn-salvar').disabled = false;
+  }
 }
 
 async function carregarDados(){
@@ -352,52 +562,51 @@ async function carregarDados(){
     
     if(data){
       if(data.integrantes) integrantes = data.integrantes;
-      
-      if(data.vendas){
-        dias.forEach(dia=>{
-          if(data.vendas[`frag_${dia}`]) document.getElementById(`frag-${dia}`).value = data.vendas[`frag_${dia}`];
-          if(data.vendas[`val_${dia}`]) document.getElementById(`val-${dia}`).value = data.vendas[`val_${dia}`];
-        });
-        calcularTotal();
-      }
-      
-      if(data.caixa !== undefined) document.getElementById('caixa-total').value = data.caixa;
-      if(data.estoque !== undefined) document.getElementById('estoque-total').value = data.estoque;
+      if(data.historico) historico = data.historico;
+      if(data.caixa !== undefined) document.getElementById('caixa-fac').value = data.caixa;
+      if(data.caixaPagamentos !== undefined) document.getElementById('caixa-pag').value = data.caixaPagamentos;
+      if(data.estoque !== undefined) document.getElementById('estoque').value = data.estoque;
     }
     
-    atualizarMaisFarmou();
+    // Gerar links
+    const baseURL = window.location.href.split('#')[0].split('?')[0];
+    document.getElementById('link-admin').value = baseURL;
+    document.getElementById('link-visitante').value = baseURL + '?modo=leitura';
+    
     renderLista();
+    atualizarGrupos();
+    atualizarRanking();
+    atualizarRelatorio();
     
-    // Atualiza total quando digitar
-    dias.forEach(dia=>{
-      document.getElementById(`val-${dia}`).addEventListener('input', calcularTotal);
-    });
-    
-  }catch(e){
-    console.log('Erro:',e);
-  }
+  }catch(e){console.log('Erro:',e);}
 }
 
-function atualizarMaisFarmou(){
-  if(integrantes.length === 0){
-    document.getElementById('mais-farmou').textContent = '-';
-    return;
-  }
-  // Conta quantos dias cada um cumpriu (🟢)
-  let topNome = '-', topPontos = -1;
-  integrantes.forEach(i=>{
-    let pontos = 0;
-    if(i.dias){
-      Object.values(i.dias).forEach(d=>{
-        if(Array.isArray(d)) pontos += d.filter(x=>x==='G').length;
+function copiarLink(id){
+  const input = document.getElementById(id);
+  input.select();
+  navigator.clipboard.writeText(input.value).then(()=>alert('✅ Link copiado!'));
+}
+
+function classificarIntegrante(i){
+  let temG=false,temY=false,temR=false;
+  if(i.dias){
+    Object.values(i.dias).forEach(d=>{
+      if(Array.isArray(d))d.forEach(x=>{
+        if(x==='G')temG=true;else if(x==='Y')temY=true;else if(x==='R')temR=true;
       });
-    }
-    if(pontos > topPontos){
-      topPontos = pontos;
-      topNome = i.nome;
-    }
-  });
-  document.getElementById('mais-farmou').textContent = topNome;
+    });
+  }
+  if(temG)return 1;else if(temY)return 2;else if(temR)return 3;else return 0;
+}
+
+function atualizarGrupos(){
+  const grupo1 = integrantes.filter(i=>classificarIntegrante(i)===1);
+  const grupo2 = integrantes.filter(i=>classificarIntegrante(i)===2);
+  const grupo3 = integrantes.filter(i=>classificarIntegrante(i)===3);
+  
+  document.getElementById('grupo1').innerHTML = grupo1.length?grupo1.map(i=>`<span class="secao-item">${i.coroa?'👑 ':''}${i.nome}</span>`).join(''):'<span style="color:var(--texto-sec);font-size:14px;">Nenhum</span>';
+  document.getElementById('grupo2').innerHTML = grupo2.length?grupo2.map(i=>`<span class="secao-item">${i.coroa?'👑 ':''}${i.nome}</span>`).join(''):'<span style="color:var(--texto-sec);font-size:14px;">Nenhum</span>';
+  document.getElementById('grupo3').innerHTML = grupo3.length?grupo3.map(i=>`<span class="secao-item">${i.coroa?'👑 ':''}${i.nome}</span>`).join(''):'<span style="color:var(--texto-sec);font-size:14px;">Nenhum</span>';
 }
 
 window.onload = carregarDados;
@@ -405,60 +614,44 @@ window.onload = carregarDados;
 function renderLista(filtro=''){
   const container = document.getElementById('listaIntegrantes');
   container.innerHTML = '';
-  
-  const filtrados = integrantes.filter(i=>
-    i.nome.toLowerCase().includes(filtro.toLowerCase())
-  );
+  const filtrados = integrantes.filter(i=>i.nome.toLowerCase().includes(filtro.toLowerCase()));
   
   filtrados.forEach(i=>{
     const row = document.createElement('div');
     row.className = 'membro-row';
-    
     let diasHTML = '';
     dias.forEach(dia=>{
-      if(!i.dias) i.dias = {};
-      if(!i.dias[dia]) i.dias[dia] = ['',''];
-      
+      if(!i.dias)i.dias={};
+      if(!i.dias[dia])i.dias[dia]=['',''];
       diasHTML += `
         <div class="meta-dia">
           <div class="meta-num">120</div>
           <div class="bolinhas">
-            <div class="bolinha" onclick="trocarBolinha(${i.id}, '${dia}', 0)">${i.dias[dia][0]==='G'?'🟢':i.dias[dia][0]==='R'?'🔴':''}</div>
-            <div class="bolinha" onclick="trocarBolinha(${i.id}, '${dia}', 1)">${i.dias[dia][1]==='G'?'🟢':i.dias[dia][1]==='R'?'🔴':''}</div>
+            <div class="bolinha" onclick="trocarBolinha(${i.id}, '${dia}', 0)">${i.dias[dia][0]==='G'?'🟢':i.dias[dia][0]==='Y'?'🟡':i.dias[dia][0]==='R'?'🔴':''}</div>
+            <div class="bolinha" onclick="trocarBolinha(${i.id}, '${dia}', 1)">${i.dias[dia][1]==='G'?'🟢':i.dias[dia][1]==='Y'?'🟡':i.dias[dia][1]==='R'?'🔴':''}</div>
           </div>
         </div>
       `;
     });
-    
     row.innerHTML = `
-      <div class="membro-nome">
-        ${i.coroa ? '<span class="coroa">👑</span>' : ''}
-        ${i.nome}
-      </div>
+      <div class="membro-nome">${i.coroa?'<span class="coroa">👑</span>':''}${i.nome}</div>
       ${diasHTML}
       <button class="btn-del" onclick="excluir(${i.id})">EXPULSO</button>
     `;
     container.appendChild(row);
   });
-  
-  atualizarMaisFarmou();
+  atualizarGrupos();
 }
 
-function filtrarLista(){
-  const valor = document.getElementById('busca').value;
-  renderLista(valor);
-}
+function filtrarLista(){renderLista(document.getElementById('busca').value);}
 
 function abrirModal(){
-  document.getElementById('modalTitulo').textContent = '➕ Adicionar Integrante';
-  document.getElementById('inputNome').value = '';
-  document.getElementById('inputCoroa').checked = false;
-  document.getElementById('modal').style.display = 'flex';
+  document.getElementById('modalTitulo').textContent='➕ Adicionar Integrante';
+  document.getElementById('inputNome').value='';
+  document.getElementById('inputCoroa').checked=false;
+  document.getElementById('modal').style.display='flex';
 }
-
-function fecharModal(){
-  document.getElementById('modal').style.display = 'none';
-}
+function fecharModal(){document.getElementById('modal').style.display='none';}
 
 function salvarIntegrante(){
   const nome = document.getElementById('inputNome').value.trim();
@@ -467,24 +660,24 @@ function salvarIntegrante(){
   
   integrantes.push({
     id: Date.now(),
-    nome: nome,
-    coroa: coroa,
-    dias: {
-      seg:['',''], ter:['',''], qua:['',''],
-      qui:['',''], sex:['',''], sab:['','']
-    }
+    nome,
+    coroa,
+    totalFrag: 0,
+    dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']}
   });
   
   fecharModal();
-  salvarTudo();
+  marcarAlterado();
   renderLista();
+  atualizarRanking();
 }
 
 function excluir(id){
   if(confirm('Tem certeza?')){
     integrantes = integrantes.filter(x=>x.id!==id);
-    salvarTudo();
+    marcarAlterado();
     renderLista();
+    atualizarRanking();
   }
 }
 </script>

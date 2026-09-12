@@ -93,8 +93,10 @@ body{
 
 .formula-box{background:rgba(124,58,237,0.05);border:1px solid rgba(124,58,237,0.15);border-radius:12px;padding:16px;margin-bottom:20px;}
 .formula-title{font-weight:800;margin-bottom:10px;color:var(--primaria);font-size:14px;}
-.formula-text{font-size:13px;line-height:1.8;color:var(--textoSec);}
+.formula-text{font-size:13px;line-height:2;color:var(--textoSec);}
 .formula-highlight{background:rgba(16,185,129,0.1);color:var(--verde);padding:2px 8px;border-radius:4px;font-weight:600;display:inline-block;margin:2px 0;}
+.formula-highlight.yellow{background:rgba(245,158,11,0.1);color:var(--amarelo);}
+.formula-highlight.red{background:rgba(239,68,68,0.1);color:var(--vermelho);}
 
 .tabela-valores{width:100%;border-collapse:collapse;}
 .tabela-valores th,.tabela-valores td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--borda);}
@@ -120,6 +122,8 @@ body{
 .total-pontos{text-align:center;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;margin-bottom:16px;}
 .total-pontos span{font-size:22px;font-weight:900;color:var(--primaria);}
 
+.meta-info{text-align:center;padding:10px;background:rgba(16,185,129,0.05);border-radius:8px;margin-bottom:16px;font-size:13px;color:var(--textoSec);}
+
 .ranking-lista{display:flex;flex-direction:column;gap:8px;}
 .ranking-item{
   display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(0,0,0,0.25);border-radius:10px;
@@ -136,11 +140,10 @@ body{
 .ranking-nome{flex:1;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:space-between;}
 .ranking-valor{font-size:13px;font-weight:900;color:var(--verde);}
 .ranking-pontos{font-size:12px;color:var(--ouro);}
-.ranking-bolinhas{display:flex;gap:2px;}
-.mini-bolinha{width:14px;height:14px;border-radius:50%;}
-.mini-bolinha.verde{background:var(--verde);}
-.mini-bolinha.amarela{background:var(--amarelo);}
-.mini-bolinha.vazia{background:rgba(255,255,255,0.1);}
+.ranking-status{font-size:11px;padding:2px 6px;border-radius:4px;font-weight:600;}
+.status-recebe{background:rgba(16,185,129,0.15);color:var(--verde);}
+.status-parcial{background:rgba(245,158,11,0.15);color:var(--amarelo);}
+.status-nao{background:rgba(239,68,68,0.15);color:var(--vermelho);}
 
 .btn-add{
   width:100%;padding:15px;background:linear-gradient(90deg,var(--primaria),#3B82F6);border:none;border-radius:10px;
@@ -168,14 +171,14 @@ body{
 .btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);}
 
 .membros-header{
-  display:grid;grid-template-columns:200px repeat(7,40px) 80px 110px 50px;gap:4px;
+  display:grid;grid-template-columns:200px repeat(7,44px) 70px 100px 50px;gap:4px;
   padding:10px 8px;color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
 .membros-header .nome-col{text-align:left;}
 
 .membro-row{
-  display:grid;grid-template-columns:200px repeat(7,40px) 80px 110px 50px;gap:4px;
+  display:grid;grid-template-columns:200px repeat(7,44px) 70px 100px 50px;gap:4px;
   padding:10px 8px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
   align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
@@ -183,13 +186,14 @@ body{
 
 .membro-nome{font-size:13px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;justify-content:space-between;}
 .membro-nome .nome-text{display:flex;align-items:center;gap:6px;}
-.membro-nome .valor-membro{font-size:12px;font-weight:800;color:var(--verde);background:rgba(16,185,129,0.1);padding:2px 8px;border-radius:4px;}
+.membro-nome .valor-membro{font-size:11px;font-weight:800;color:var(--verde);background:rgba(16,185,129,0.1);padding:2px 6px;border-radius:4px;min-width:85px;text-align:center;}
 .coroa{font-size:12px;filter:drop-shadow(0 0 2px gold);}
 .valor-cell{text-align:center;font-size:13px;font-weight:800;color:var(--verde);}
 .pontos-cell{text-align:center;font-size:12px;font-weight:700;color:var(--ouro);}
+.status-cell{text-align:center;font-size:10px;font-weight:600;}
 
 .bolinha{
-  width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;
+  width:30px;height:30px;border-radius:50%;border:2px solid transparent;cursor:pointer;
   transition:all 0.15s ease;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;
   font-size:14px;font-weight:bold;
 }
@@ -204,8 +208,8 @@ body{
 }
 .resultado-dist.mostrar{display:block;animation:fadeIn 0.4s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
-.res-linha{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;}
-.res-linha:last-child{border-bottom:none;margin-top:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);font-weight:800;}
+.res-linha{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;}
+.res-linha:last-child{border-bottom:none;margin-top:10px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);font-weight:800;}
 .res-nome{font-weight:500;display:flex;align-items:center;gap:8px;}
 .res-valor{font-weight:700;color:var(--verde);}
 .res-total{font-size:16px;font-weight:900;color:var(--ouro);padding-top:8px;}
@@ -236,8 +240,8 @@ body{
 
 @media(max-width:768px){
   .caixas-grid{grid-template-columns:1fr;}
-  .membros-header,.membro-row{grid-template-columns:160px repeat(7,32px) 65px 95px 45px;gap:2px;}
-  .bolinha{width:24px;height:24px;font-size:11px;}
+  .membros-header,.membro-row{grid-template-columns:160px repeat(7,36px) 55px 90px 45px;gap:2px;}
+  .bolinha{width:26px;height:26px;font-size:12px;}
   .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
 }
 </style>
@@ -288,15 +292,14 @@ body{
 </div>
 
 <div class="section-card">
-  <div class="section-title">📐 FÓRMULA DE CÁLCULO</div>
+  <div class="section-title">📐 FÓRMULA DE CÁLCULO & META</div>
   <div class="formula-box">
     <div class="formula-text">
-      🟢 = <span class="formula-highlight">1,0 ponto</span> &nbsp;|&nbsp; 
-      🟡 = <span class="formula-highlight">0,5 ponto</span> &nbsp;|&nbsp; 
-      🔴 = <span class="formula-highlight">0 ponto</span><br>
-      📌 <strong>Pagamento = Caixa × (Pontos do Membro ÷ Total de Pontos)</strong><br>
-      ⚙️ Pontos NÃO são arredondados — apenas valor final em dinheiro (2 casas decimais)<br>
-      ⚠️ 0 pontos = R$ 0,00 | Caixa R$ 0,00 = todos R$ 0,00 (pontos salvos)
+      🟢 <span class="formula-highlight">BATEU A META → RECEBE INTEGRAL</span> = 1,0 ponto<br>
+      🟡 <span class="formula-highlight yellow">PARCIAL → RECEBE METADE</span> = 0,5 ponto<br>
+      🔴 <span class="formula-highlight red">NÃO BATEU → NÃO RECEBE</span> = 0 ponto<br>
+      📌 <strong>FÓRMULA:</strong> Caixa ÷ Total de Pontos × Pontos do Membro = Valor a Receber<br>
+      💡 As bolinhas definem QUEM e QUANTO cada membro recebe!
     </div>
   </div>
 </div>
@@ -324,18 +327,11 @@ body{
         <td class="valor-frag">R$ 5.500,00</td>
       </tr>
       <tr>
-        <td class="qtd-frag">3.750 fragmentos</td>
-        <td class="valor-frag">R$ 8.500,00</td>
+        <td class="qtd-frag">5.000 fragmentos</td>
+        <td class="valor-frag">R$ 11.000,00</td>
       </tr>
     </tbody>
   </table>
-</div>
-
-<div class="section-card">
-  <div class="section-title">🏆 RANKING — MAIS PRODUTIVOS</div>
-  <div id="rankingLista" class="ranking-lista">
-    <div style="text-align:center;color:var(--textoSec);padding:20px;">Adicione membros para exibir o ranking</div>
-  </div>
 </div>
 
 <div class="section-card" id="secaoCaixas">
@@ -350,20 +346,25 @@ body{
       <div class="caixa-valor azul"><input type="text" id="caixaLideres" value="R$ 0,00" class="azul" onblur="marcarAlterado();"></div>
     </div>
     <div class="caixa-item">
-      <div class="caixa-label">💵 Caixa de Pagamentos</div>
+      <div class="caixa-label">💰 CAIXA DE PAGAMENTO</div>
       <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="verde" onblur="marcarAlterado();"></div>
     </div>
   </div>
+  
   <div class="total-pontos">
     📊 Total de Pontos da Semana: <span id="totalPontosExibicao">0,0</span>
   </div>
 
+  <div class="meta-info">
+    🟢 Pontos definem o valor de cada membro — marque as bolinhas conforme cumprimento da meta
+  </div>
+
   <div style="margin-top:16px;">
-    <p style="font-size:12px;color:var(--textoSec);margin-bottom:8px;">📏 Legenda:</p>
+    <p style="font-size:12px;color:var(--textoSec);margin-bottom:8px;">📏 Legenda da Meta:</p>
     <div class="legenda">
-      <div class="legenda-item"><span class="leg-bolinha leg-verde"></span> 🟢 = 1,0 ponto</div>
-      <div class="legenda-item"><span class="leg-bolinha leg-amarelo"></span> 🟡 = 0,5 ponto</div>
-      <div class="legenda-item"><span class="leg-bolinha leg-vermelho"></span> 🔴 = 0 ponto</div>
+      <div class="legenda-item"><span class="leg-bolinha leg-verde"></span> BATEU A META = RECEBE</div>
+      <div class="legenda-item"><span class="leg-bolinha leg-amarelo"></span> PARCIAL = RECEBE METADE</div>
+      <div class="legenda-item"><span class="leg-bolinha leg-vermelho"></span> NÃO BATEU = NÃO RECEBE</div>
     </div>
   </div>
 
@@ -376,15 +377,22 @@ body{
 </div>
 
 <div class="section-card">
+  <div class="section-title">🏆 RANKING — VALORES A RECEBER</div>
+  <div id="rankingLista" class="ranking-lista">
+    <div style="text-align:center;color:var(--textoSec);padding:20px;">Adicione membros e faça a distribuição para ver o ranking</div>
+  </div>
+</div>
+
+<div class="section-card">
   <div class="section-title">👥 CONTROLE DE MEMBROS — SEMANA</div>
   
   <button class="btn-add" id="btnAdicionar" onclick="abrirModalMembro()">➕ ADICIONAR INTEGRANTE</button>
   <button class="btn-salvar" id="btnSalvar" onclick="salvarDados()">💾 SALVAR ALTERAÇÕES</button>
 
   <div class="membros-header">
-    <div class="nome-col">NOME</div>
+    <div class="nome-col">NOME / VALOR</div>
     <div>D1</div><div>D2</div><div>D3</div><div>D4</div><div>D5</div><div>D6</div><div>D7</div>
-    <div>PTS</div><div>VALOR</div><div>✖</div>
+    <div>PTS</div><div>RECEBERÁ</div><div>✖</div>
   </div>
 
   <div id="listaMembros"></div>
@@ -395,7 +403,7 @@ body{
 <div class="modal-fundo" id="modalMembro">
   <div class="modal">
     <h3>➕ Adicionar Integrante</h3>
-    <input type="text" id="nomeNovo" placeholder="Nome do integrante">
+    <input type="text" id="nomeNovo" placeholder="Nome do membro">
     <label style="display:flex;align-items:center;gap:8px;margin-bottom:10px;color:var(--texto);font-size:14px;">
       <input type="checkbox" id="ehLider"> 👑 É Líder
     </label>
@@ -409,9 +417,11 @@ body{
 <div class="modal-fundo" id="modalConfirmar">
   <div class="modal">
     <h3>⚠️ CONFIRMAR DISTRIBUIÇÃO?</h3>
-    <p>O sistema pegará o valor da <strong>Caixa de Pagamentos</strong> e dividirá proporcionalmente entre os membros de acordo com seus pontos acumulados.<br><br>
-    📌 <strong>Fórmula:</strong> Pagamento = Caixa × (Pontos ÷ Total de Pontos)<br>
-    ⚠️ Os dias serão zerados após a distribuição para começar uma nova semana!</p>
+    <p>Os valores serão calculados com base nas bolinhas (pontos) de cada membro.<br><br>
+    🟢 Bateu a meta → recebe integral<br>
+    🟡 Parcial → recebe metade<br>
+    🔴 Não bateu → não recebe<br><br>
+    ⚠️ <strong>Após a distribuição, os dias serão zerados para a próxima semana!</strong></p>
     <div class="modal-botoes">
       <button class="modal-btn-cancel" onclick="fecharModalConfirmar()">❌ Cancelar</button>
       <button class="modal-btn-save" onclick="executarDistribuicao()">✅ CONFIRMAR</button>
@@ -461,18 +471,24 @@ function calcularPagamentos(){
     const pontos = calcularPontosMembro(membro);
     let valor = 0;
     if(pontos > 0 && totalPontos > 0 && caixa > 0){
-      valor = caixa * (pontos / totalPontos);
+      valor = (caixa / totalPontos) * pontos;
     }
     membro.pontos = pontos;
     membro.valor = valor;
     totalPago += valor;
-    resultados.push({ nome: membro.nome, pontos: pontos, valor: valor, ehLider: membro.ehLider });
+    resultados.push({ 
+      nome: membro.nome, 
+      pontos: pontos, 
+      valor: valor, 
+      ehLider: membro.ehLider,
+      status: pontos >= 6 ? 'recebe' : pontos > 0 ? 'parcial' : 'nao'
+    });
   });
 
   return { resultados, totalPontos, caixa, totalPago };
 }
 
-function atualizarTotalPontosExibicao(){
+function atualizarTotalPontos(){
   document.getElementById('totalPontosExibicao').textContent = calcularTotalPontos().toFixed(1);
 }
 
@@ -482,11 +498,12 @@ function renderizarRanking(){
     nome: m.nome,
     pontos: calcularPontosMembro(m),
     valor: m.valor || 0,
-    ehLider: m.ehLider
-  })).filter(m => m.pontos > 0).sort((a,b) => b.pontos - a.pontos);
+    ehLider: m.ehLider,
+    status: calcularPontosMembro(m) >= 6 ? 'recebe' : calcularPontosMembro(m) > 0 ? 'parcial' : 'nao'
+  })).sort((a,b) => b.valor - a.valor);
 
-  if(comPontos.length === 0){
-    lista.innerHTML = '<div style="text-align:center;color:var(--textoSec);padding:20px;">Adicione membros para exibir o ranking</div>';
+  if(comPontos.every(m => m.valor === 0)){
+    lista.innerHTML = '<div style="text-align:center;color:var(--textoSec);padding:20px;">Marque as bolinhas e faça a distribuição para ver os valores</div>';
     return;
   }
 
@@ -496,6 +513,12 @@ function renderizarRanking(){
     else if(idx === 1) classePos = 'segundo';
     else if(idx === 2) classePos = 'terceiro';
 
+    let classeStatus = '';
+    let textoStatus = '';
+    if(m.status === 'recebe'){ classeStatus = 'status-recebe'; textoStatus = '✅ RECEBE'; }
+    else if(m.status === 'parcial'){ classeStatus = 'status-parcial'; textoStatus = '⚠️ PARCIAL'; }
+    else{ classeStatus = 'status-nao'; textoStatus = '❌ NÃO RECEBE'; }
+
     return `
       <div class="ranking-item">
         <div class="ranking-posicao ${classePos}">${idx+1}</div>
@@ -503,6 +526,7 @@ function renderizarRanking(){
           <span>${m.ehLider?'👑 ':''}${m.nome}</span>
           <span class="ranking-valor">${formatarMoeda(m.valor)}</span>
         </div>
+        <div class="ranking-status ${classeStatus}">${textoStatus}</div>
         <div class="ranking-pontos">${m.pontos.toFixed(1)} pts</div>
       </div>
     `;
@@ -516,6 +540,12 @@ function renderizarLista(){
   membros.forEach((membro, idx) => {
     const pontos = calcularPontosMembro(membro);
     const valor = membro.valor || 0;
+    
+    let classeStatus = '';
+    let textoStatus = '';
+    if(pontos >= 6){ classeStatus = 'status-recebe'; textoStatus = 'RECEBE'; }
+    else if(pontos > 0){ classeStatus = 'status-parcial'; textoStatus = 'PARCIAL'; }
+    else{ classeStatus = 'status-nao'; textoStatus = 'SEM VALOR'; }
 
     let html = `<div class="membro-row">
       <div class="membro-nome">
@@ -532,14 +562,14 @@ function renderizarLista(){
 
     html += `
       <div class="pontos-cell">${pontos.toFixed(1)}</div>
-      <div class="valor-cell">${formatarMoeda(valor)}</div>
+      <div class="status-cell ${classeStatus}">${textoStatus}</div>
       <div><button class="btn-del" ${!modoAdmin?'disabled':''} onclick="removerMembro(${idx})">🗑️</button></div>
     </div>`;
 
     lista.innerHTML += html;
   });
 
-  atualizarTotalPontosExibicao();
+  atualizarTotalPontos();
   renderizarRanking();
 }
 
@@ -591,7 +621,6 @@ function salvarMembro(){
   fecharModalMembro();
   marcarAlterado();
   renderizarLista();
-  renderizarRanking();
 }
 
 function abrirModalConfirmar(){
@@ -610,27 +639,31 @@ function executarDistribuicao(){
   const listaResultado = document.getElementById('listaResultado');
 
   if(totalPontos === 0){
-    alert('⚠️ Nenhum ponto registrado! Defina as bolinhas antes de distribuir.');
+    alert('⚠️ Nenhum ponto registrado! Marque as bolinhas primeiro.');
     return;
   }
 
   if(caixa === 0){
-    alert('⚠️ Caixa de Pagamentos está vazia!');
+    alert('⚠️ Caixa de Pagamentos está vazia! Digite um valor.');
     return;
   }
 
   listaResultado.innerHTML = resultados.map(r => {
-    let linhas = `<div class="res-linha">
-      <span class="res-nome">${r.pontos>0?'✅':'—'} ${r.ehLider?'👑 ':''}${r.nome}${r.pontos>0?' ('+r.pontos.toFixed(1)+' pts)':''}</span>
+    let classeStatus = '';
+    if(r.status === 'recebe') classeStatus = '✅';
+    else if(r.status === 'parcial') classeStatus = '⚠️';
+    else classeStatus = '❌';
+
+    return `<div class="res-linha">
+      <span class="res-nome">${classeStatus} ${r.ehLider?'👑 ':''}${r.nome} — ${r.pontos.toFixed(1)} pts</span>
       <span class="res-valor">${formatarMoeda(r.valor)}</span>
     </div>`;
-    return linhas;
   }).join('') + `
     <div class="res-linha res-total">
-      <span>💰 TOTAL PAGO</span>
+      <span>💰 TOTAL DISTRIBUÍDO</span>
       <span>${formatarMoeda(totalPago)}</span>
     </div>
-    <div class="res-sobra">📊 Fórmula usada: ${formatarMoeda(caixa)} × (pontos ÷ ${totalPontos.toFixed(1)})</div>
+    <div class="res-sobra">📊 Fórmula: ${formatarMoeda(caixa)} ÷ ${totalPontos.toFixed(1)} pts = ${formatarMoeda(caixa/totalPontos || 0)} por ponto</div>
   `;
 
   document.getElementById('resultadoDist').classList.add('mostrar');
@@ -642,7 +675,9 @@ function executarDistribuicao(){
   marcarAlterado();
   salvarDados();
   renderizarLista();
-  alert(`✅ DISTRIBUIÇÃO CONCLUÍDA!\n💰 Total distribuído: ${formatarMoeda(totalPago)}\n📅 Semana reiniciada!`);
+  renderizarRanking();
+  
+  alert(`✅ DISTRIBUIÇÃO CONCLUÍDA!\n💰 Caixa: ${formatarMoeda(caixa)}\n👥 ${resultados.filter(r => r.valor > 0).length} membros receberam\n📅 Semana zerada!`);
 }
 
 function salvarDados(){
@@ -680,7 +715,7 @@ function carregarDados(){
       renderizarLista();
       renderizarRanking();
       return true;
-    }catch(e){console.log('Erro ao carregar',e);}
+    }catch(e){console.log('Erro ao carregar');}
   }
   return false;
 }
@@ -723,18 +758,18 @@ function abrirPainel(){
   
   if(!modoAdmin){
     document.getElementById('visitanteBanner').style.display = 'block';
-    document.getElementById('secaoCaixas').style.display = 'none';
     document.getElementById('secaoLinks').style.display = 'none';
     document.getElementById('btnAdicionar').style.display = 'none';
     document.getElementById('btnSalvar').style.display = 'none';
-    document.getElementById('resultadoDist').style.display = 'none';
-    document.querySelector('.section-card:nth-child(3)').style.display = 'none';
+    document.getElementById('btnDistribuir').style.display = 'none';
+    document.querySelector('.section-card:nth-child(4)').style.display = 'none';
   }else{
     document.getElementById('visitanteBanner').style.display = 'none';
-    document.getElementById('secaoCaixas').style.display = 'block';
     document.getElementById('secaoLinks').style.display = 'block';
     document.getElementById('btnAdicionar').style.display = 'block';
     document.getElementById('btnSalvar').style.display = 'block';
+    document.getElementById('btnDistribuir').style.display = 'block';
+    document.querySelector('.section-card:nth-child(4)').style.display = 'block';
   }
   
   renderizarLista();
@@ -751,24 +786,8 @@ function sair(){
     document.getElementById('barraTopo').style.display = 'none';
     document.getElementById('conteudoPrincipal').style.display = 'none';
     document.getElementById('visitanteBanner').style.display = 'none';
+    modoAdmin = false;
   }
 }
 
-function marcarAlterado(){
-  if(!modoAdmin) return;
-  alterado = true;
-  document.getElementById('statusSinc').innerHTML = '⚠️ Não salvo';
-  document.getElementById('statusSinc').classList.add('nao-salvo');
-  document.getElementById('resultadoDist').classList.remove('mostrar');
-}
-
-document.addEventListener('keydown', function(e){
-  if(e.ctrlKey && e.key === 's'){
-    e.preventDefault();
-    if(modoAdmin) salvarDados();
-  }
-});
-</script>
-
-</body>
-</html>
+function mar

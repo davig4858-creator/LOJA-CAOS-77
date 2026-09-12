@@ -3,168 +3,440 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOJA CAOS 77 — Painel de Controle</title>
+<title>⚡ LOJA CAOS 77 — CONTROLE TOTAL</title>
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI', Arial, sans-serif;
-}
-body{
-  background:#0a0a0a;
-  min-height:100vh;
-}
-input{
-  width:100%;padding:16px 18px;border:1px solid #333;border-radius:12px;
-  background:rgba(30,30,30,0.8);color:#fff;font-size:15px;font-weight:500;
-  outline:none;transition:all 0.3s ease;
-}
-input:focus{border-color:#00D4FF;box-shadow:0 0 3px rgba(0,212,255,0.2);background:rgba(40,40,40,0.9);}
-input::placeholder{color:#666;}
-button{
-  width:100%;padding:16px;background:linear-gradient(135deg,#00B8E6,#00D4FF);
-  color:#000;border:none;border-radius:12px;font-weight:800;font-size:16px;
-  cursor:pointer;transition:all 0.3s ease;margin-top:10px;
-  box-shadow:0 4px 20px rgba(0,212,255,0.2);letter-spacing:1px;
-}
-button:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,0.3);}
-button:active{transform:translateY(0);}
-.erro{
-  color:#FF3B3B;margin-top:20px;display:none;font-size:14px;
-  background:rgba(255,59,59,0.1);padding:10px;border-radius:8px;border:1px solid rgba(255,59,59,0.2);
-}
-.links{margin-top:30px;padding-top:25px;border-top:1px solid rgba(255,255,255,0.05);}
-.links a{
-  color:#00D4FF;text-decoration:none;font-size:14px;font-weight:600;
-  transition:color 0.2s ease;
-}
-.links a:hover{color:#fff;text-decoration:underline;}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
 
-/* === NOVA TELA DE LOGIN === */
-.tela-login{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:linear-gradient(135deg,#0A0F1A 0%,#121a2b 50%,#0F1726 100%);
-  display:flex;justify-content:center;align-items:center;z-index:999;
-  overflow:hidden;
+:root{
+  --bg: #050508; --card: #171A2C; --borda: rgba(0,212,255,0.2);
+  --primaria: #00D4FF; --verde: #10B981; --ouro: #FBBF24;
+  --azul: #3B82F6; --amarelo: #F59E0B; --vermelho: #EF4444;
+  --texto: #F8FAFC; --textoSec: #94A3B8;
 }
-.tela-login::before,
-.tela-login::after{
-  content:'';position:absolute;border-radius:50%;filter:blur(80px);opacity:0.4;
-  animation:flutuar 8s ease-in-out infinite alternate;
+
+body{background:var(--bg);min-height:100vh;color:var(--texto);padding:16px;}
+.container{max-width:1100px;margin:0 auto;}
+
+/* ===== LOGIN ===== */
+.tela-login{position:fixed;inset:0;background:linear-gradient(135deg,#0A0F1A,#121a2b);display:flex;justify-content:center;align-items:center;z-index:999;}
+.caixa-login{background:var(--card);border:1px solid var(--borda);border-radius:20px;padding:40px;width:90%;max-width:400px;text-align:center;}
+.caixa-login h1{font-size:28px;color:var(--primaria);margin-bottom:8px;}
+.caixa-login p{color:var(--textoSec);margin-bottom:30px;}
+input{width:100%;padding:14px;background:#0F1726;border:1px solid var(--borda);border-radius:10px;color:white;font-size:15px;margin-bottom:16px;outline:none;}
+.btn-admin{width:100%;padding:14px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;border-radius:10px;color:#000;font-weight:800;cursor:pointer;margin-bottom:10px;}
+.btn-visita{width:100%;padding:14px;background:transparent;border:1px solid var(--textoSec);border-radius:10px;color:var(--textoSec);cursor:pointer;}
+.btn-visita:hover{border-color:var(--primaria);color:var(--primaria);}
+.dica{margin-top:20px;font-size:12px;color:var(--textoSec);}
+.erro{color:var(--vermelho);margin-top:10px;display:none;}
+
+/* ===== CABEÇALHO ===== */
+.topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:10px;}
+.topo h1{font-size:22px;color:var(--primaria);}
+.badge{padding:6px 12px;border-radius:50px;font-size:12px;font-weight:700;}
+.badge.admin{background:rgba(0,212,255,0.15);color:var(--primaria);}
+.badge.visitante{background:rgba(16,185,129,0.1);color:var(--verde);}
+.btn-sair{padding:8px 14px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;color:#FCA5A5;cursor:pointer;}
+
+/* ===== CAIXAS ===== */
+.caixas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.caixas.uma-so{grid-template-columns:1fr;}
+.caixa{background:var(--card);border:1px solid var(--borda);border-radius:14px;padding:20px;text-align:center;transition:all 0.2s;}
+.caixa.escondida{display:none;}
+.caixa label{font-size:12px;color:var(--textoSec);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:0.5px;}
+.caixa input{width:100%;background:#0F1726;border:1px solid var(--borda);border-radius:8px;color:var(--texto);font-size:20px;font-weight:900;text-align:center;padding:8px;outline:none;}
+.caixa input:disabled{opacity:0.6;cursor:default;}
+.c-fac{color:var(--ouro);} .c-lider{color:var(--azul);} .c-pag{color:var(--verde);}
+
+/* ===== BLOCO ===== */
+.bloco{background:var(--card);border:1px solid var(--borda);border-radius:14px;padding:20px;margin-bottom:24px;}
+.bloco h2{font-size:15px;font-weight:800;margin-bottom:16px;color:var(--primaria);display:flex;align-items:center;gap:8px;}
+
+/* ===== TABELA PREÇOS ===== */
+table{width:100%;border-collapse:collapse;}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid rgba(0,212,255,0.08);}
+th{background:rgba(0,212,255,0.05);font-size:11px;font-weight:800;text-transform:uppercase;color:var(--primaria);}
+td input{width:100%;background:#0F1726;border:1px solid transparent;border-radius:6px;color:var(--texto);padding:7px 10px;font-size:14px;outline:none;}
+td input:disabled{opacity:0.6;}
+.btn-add{padding:9px 16px;background:var(--primaria);border:none;border-radius:8px;color:#000;font-weight:700;cursor:pointer;margin-top:12px;}
+.btn-add:disabled{opacity:0.4;cursor:not-allowed;}
+.btn-del{padding:5px 9px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;color:#FCA5A5;cursor:pointer;font-size:11px;font-weight:700;}
+.btn-del:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* ===== TABELA NOMES ===== */
+.dias-cabeca{display:grid;grid-template-columns:180px 60px repeat(7,50px) 45px;gap:4px;margin-bottom:6px;}
+.dias-cabeca div{font-size:10px;font-weight:800;text-align:center;color:var(--primaria);padding:6px;text-transform:uppercase;}
+.dias-cabeca .col-nome{text-align:left;padding-left:8px;}
+
+.linha{display:grid;grid-template-columns:180px 60px repeat(7,50px) 45px;gap:4px;align-items:center;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,0.03);}
+.nome-cel{background:transparent;border:none;color:var(--texto);font-size:14px;font-weight:700;padding:6px 8px;outline:none;width:100%;}
+.nome-cel:disabled{opacity:0.6;}
+.meta-cel{width:100%;background:#0F1726;border:1px solid var(--borda);border-radius:6px;color:var(--ouro);font-size:13px;font-weight:800;text-align:center;padding:5px;outline:none;}
+.meta-cel:disabled{opacity:0.6;}
+.bolinha{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,0.05);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.bolinha:disabled{cursor:default;opacity:0.5;}
+.bolinha:hover{transform:scale(1.1);}
+.bolinha.verde{background:var(--verde);box-shadow:0 0 8px rgba(16,185,129,0.3);}
+.bolinha.amarela{background:var(--amarelo);box-shadow:0 0 8px rgba(245,158,11,0.3);}
+.bolinha.vermelha{background:var(--vermelho);box-shadow:0 0 8px rgba(239,68,68,0.3);}
+
+.btn-add-linha{padding:10px 18px;background:var(--verde);border:none;border-radius:8px;color:white;font-weight:800;cursor:pointer;margin-top:12px;}
+.btn-add-linha:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* ===== RELATÓRIO ===== */
+.relatorio{background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.15);border-radius:14px;padding:20px;margin-top:24px;display:none;}
+.relatorio.mostrar{display:block;}
+.resumo-linhas{margin-top:12px;}
+.res-linha{display:flex;justify-content:space-between;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.03);font-size:14px;}
+.res-linha.total{font-weight:900;color:var(--ouro);border-bottom:none;padding-top:10px;margin-top:6px;}
+
+@media(max-width:768px){
+  .caixas{grid-template-columns:1fr;}
+  .dias-cabeca,.linha{grid-template-columns:130px 48px repeat(7,38px) 40px;}
+  .bolinha{width:30px;height:30px;font-size:13px;}
 }
-.tela-login::before{
-  width:400px;height:400px;background:rgba(0,212,255,0.15);top:5%;left:5%;
-}
-.tela-login::after{
-  width:350px;height:350px;background:rgba(255,59,59,0.12);bottom:5%;right:5%;
-  animation-delay:-4s;
-}
-@keyframes flutuar{
-  0%{transform:translate(0,0) scale(1);}
-  100%{transform:translate(30px,-30px) scale(1.15);}
-}
-.caixa-login{
-  background:#0F1726;border:1px solid rgba(0,212,255,0.18);
-  border-radius:20px;padding:50px 40px;width:90%;max-width:420px;
-  box-shadow:0 0 60px rgba(0,212,255,0.08),inset 0 1px 0 rgba(255,255,255,0.05);
-  text-align:center;position:relative;z-index:10;
-  backdrop-filter:blur(10px);animation:aparecer 0.6s ease-out;
-}
-@keyframes aparecer{
-  from{opacity:0;transform:translateY(20px) scale(0.95);}
-  to{opacity:1;transform:translateY(0) scale(1);}
-}
-.logo-caos{
-  width:80px;height:80px;margin:0 auto 25px;
-  background:linear-gradient(135deg,#00D4FF,#FF3B3B);
-  border-radius:16px;display:flex;align-items:center;justify-content:center;
-  font-size:36px;font-weight:800;color:#000;
-  box-shadow:0 0 30px rgba(0,212,255,0.3);
-  animation:brilho 3s ease-in-out infinite alternate;
-}
-@keyframes brilho{
-  0%{box-shadow:0 0 20px rgba(0,212,255,0.25);}
-  100%{box-shadow:0 0 35px rgba(255,59,59,0.2),0 0 60px rgba(0,212,255,0.15);}
-}
-.caixa-login h1{
-  font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:2px;
-  background:linear-gradient(90deg,#00D4FF,#fff,#FF3B3B);
-  background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  animation:textoBrilho 4s linear infinite;
-}
-@keyframes textoBrilho{to{background-position:200% center;}}
-.caixa-login .subtitulo{font-size:14px;color:#8A9AB8;margin-bottom:40px;letter-spacing:1px;}
-.caixa-login input{
-  width:100%;padding:16px 20px;background:rgba(0,0,0,0.35);
-  border:1px solid rgba(0,212,255,0.12);border-radius:12px;
-  color:#E0E6ED;font-size:15px;margin-bottom:16px;outline:none;
-  transition:all 0.3s ease;letter-spacing:0.5px;
-}
-.caixa-login input:focus{
-  border-color:#00D4FF;box-shadow:0 0 0 4px rgba(0,212,255,0.08),0 0 20px rgba(0,212,255,0.08);
-  background:rgba(0,0,0,0.45);
-}
-.btn-entrar{
-  width:100%;padding:16px;background:linear-gradient(90deg,#00B8E6,#00D4FF);
-  border:none;border-radius:12px;color:#000;font-size:16px;font-weight:800;
-  cursor:pointer;transition:all 0.3s ease;margin-top:8px;letter-spacing:1px;
-  box-shadow:0 4px 15px rgba(0,212,255,0.2);
-}
-.btn-entrar:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,212,255,0.3);}
-.erro-login{
-  color:#FF3B3B;font-size:13px;margin-top:15px;display:none;
-  animation:tremer 0.4s ease;
-}
-@keyframes tremer{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
-.senha-dica{font-size:12px;color:#8A9AB8;margin-top:25px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);}
-.senha-dica strong{color:#00D4FF;}
 </style>
 </head>
 <body>
 
-<!-- 🔐 NOVA TELA DE LOGIN — LOJA CAOS 77 -->
+<!-- ===== TELA DE LOGIN ===== -->
 <div class="tela-login" id="telaLogin">
   <div class="caixa-login">
-    <div class="logo-caos">⚡</div>
-    <h1>LOJA CAOS 77</h1>
-    <p class="subtitulo">PAINEL DE CONTROLE • GESTÃO DA FACÇÃO</p>
+    <h1>⚡ LOJA CAOS 77</h1>
+    <p>Controle de Produção & Finanças</p>
+    <input type="password" id="senha" placeholder="🔑 Senha de Administrador">
+    <button class="btn-admin" onclick="entrarAdmin()">🔐 ENTRAR COMO ADMIN</button>
+    <button class="btn-visita" onclick="entrarVisitante()">👀 ENTRAR COMO VISITANTE</button>
+    <div class="erro" id="erro">❌ Senha incorreta!</div>
+    <div class="dica">💡 Admin: <strong>123477</strong> | Visitante: sem senha</div>
+  </div>
+</div>
 
-    <input type="password" id="senha" placeholder="🔑 Digite sua senha de acesso">
-
-    <button class="btn-entrar" onclick="fazerLogin()">ACESSAR PAINEL</button>
-
-    <div class="erro-login" id="erro">❌ Usuário ou senha inválidos</div>
-
-    <div class="senha-dica">💡 Senha de acesso: <strong>123477</strong></div>
-
-    <div class="links">
-      <a href="painel.html">👁️ Acesso de Visitante (sem login)</a>
+<!-- ===== CONTEÚDO PRINCIPAL ===== -->
+<div id="conteudo" style="display:none;">
+  <div class="topo">
+    <h1>⚡ CONTROLE TOTAL</h1>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="badge" id="tipoAcesso">👤 Visitante</span>
+      <button class="btn-sair" onclick="sair()">🚪 Sair</button>
     </div>
+  </div>
+
+  <!-- ===== 3 CAIXAS ===== -->
+  <div class="caixas" id="gridCaixas">
+    <div class="caixa c-fac escondida" id="blocoFac">
+      <label>🏦 CAIXA DA FACÇÃO</label>
+      <input type="text" id="caixaFac" value="R$ 0,00">
+    </div>
+    <div class="caixa c-lider escondida" id="blocoLider">
+      <label>👑 CAIXA DO LÍDER</label>
+      <input type="text" id="caixaLider" value="R$ 0,00">
+    </div>
+    <div class="caixa c-pag" id="blocoPag">
+      <label>💵 CAIXA DE PAGAMENTO</label>
+      <input type="text" id="caixaPag" value="R$ 0,00">
+    </div>
+  </div>
+
+  <!-- ===== TABELA DE PREÇOS ===== -->
+  <div class="bloco">
+    <h2>📊 TABELA DE PREÇOS — FRAGMENTOS/PRODUTOS</h2>
+    <table>
+      <thead><tr><th style="width:65%">ITEM</th><th style="width:25%">VALOR UNITÁRIO</th><th></th></tr></thead>
+      <tbody id="corpoPrecos">
+        <tr data-id="1">
+          <td><input type="text" class="nome-item" value="Fragmento de Cristal"></td>
+          <td><input type="text" class="valor-item" value="R$ 1,50"></td>
+          <td><button class="btn-del" onclick="removerPreco(1)">🗑️</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn-add" id="btnAddPreco" onclick="adicionarPreco()">➕ ADICIONAR ITEM</button>
+  </div>
+
+  <!-- ===== TABELA DE NOMES ===== -->
+  <div class="bloco">
+    <h2>👥 COLABORADORES — META: 120/dia</h2>
+    <div class="dias-cabeca">
+      <div class="col-nome">NOME DO COLABORADOR</div>
+      <div>META</div>
+      <div>D1</div><div>D2</div><div>D3</div><div>D4</div><div>D5</div><div>D6</div><div>D7</div>
+      <div>✖</div>
+    </div>
+    <div id="corpoNomes"></div>
+    <button class="btn-add-linha" id="btnAddLinha" onclick="adicionarLinha()">➕ ADICIONAR COLABORADOR</button>
+  </div>
+
+  <!-- ===== RELATÓRIO ===== -->
+  <div class="relatorio" id="relatorio">
+    <h2>📋 RELATÓRIO DE PAGAMENTOS</h2>
+    <div class="resumo-linhas" id="resumo"></div>
   </div>
 </div>
 
 <script>
-function fazerLogin(){
-  const senhaDigitada = document.getElementById('senha').value;
-  const senhaCorreta = '123477';
-  
-  if(senhaDigitada === senhaCorreta){
-    window.location.href = 'painel.html';
+const SENHA_ADMIN = '123477';
+const META_PADRAO = 120;
+const DESC_AMARELO = 0.05;
+const DESC_VERMELHO = 0.20;
+
+let ADMIN = false;
+let idPreco = 2, idLinha = 1;
+const estados = ['', 'verde', 'amarela', 'vermelha'];
+const emojis = {verde:'🟢', amarela:'🟡', vermelha:'🔴'};
+
+// ===== LOGIN =====
+function entrarAdmin(){
+  if(document.getElementById('senha').value === SENHA_ADMIN){
+    localStorage.setItem('caos77_acesso', 'admin');
+    inicializar();
   }else{
-    const erro = document.getElementById('erro');
-    erro.style.display = 'block';
-    document.getElementById('senha').value = '';
-    setTimeout(() => {
-      erro.style.display = 'none';
-    }, 3500);
+    document.getElementById('erro').style.display = 'block';
+    setTimeout(()=>document.getElementById('erro').style.display='none',3000);
   }
 }
+function entrarVisitante(){
+  localStorage.setItem('caos77_acesso', 'visitante');
+  inicializar();
+}
+function sair(){
+  localStorage.removeItem('caos77_acesso');
+  location.reload();
+}
+document.getElementById('senha').addEventListener('keypress',e=>{if(e.key==='Enter')entrarAdmin();});
 
-// Enter para logar
-document.getElementById('senha').addEventListener('keypress', function(e){
-  if(e.key === 'Enter') fazerLogin();
-});
+// ===== INICIALIZAR =====
+function inicializar(){
+  const acesso = localStorage.getItem('caos77_acesso');
+  if(!acesso) return;
+  
+  ADMIN = acesso === 'admin';
+  document.getElementById('telaLogin').style.display = 'none';
+  document.getElementById('conteudo').style.display = 'block';
+  
+  // Badge e permissões
+  const badge = document.getElementById('tipoAcesso');
+  if(ADMIN){
+    badge.textContent = '👑 ADMINISTRADOR';
+    badge.className = 'badge admin';
+    document.getElementById('blocoFac').classList.remove('escondida');
+    document.getElementById('blocoLider').classList.remove('escondida');
+  }else{
+    badge.textContent = '👀 VISITANTE';
+    badge.className = 'badge visitante';
+    document.getElementById('gridCaixas').classList.add('uma-so');
+  }
+  
+  // Bloquear/desbloquear todos os inputs
+  const todos = document.querySelectorAll('input, button.btn-add, button.btn-add-linha, button.btn-del, button.bolinha');
+  todos.forEach(el => el.disabled = !ADMIN);
+  
+  carregarDados();
+  if(document.getElementById('corpoNomes').children.length === 0){
+    adicionarLinha(); adicionarLinha();
+  }
+  calcular();
+}
+
+// ===== PREÇOS =====
+function adicionarPreco(){
+  if(!ADMIN) return;
+  const tr = document.createElement('tr');
+  tr.setAttribute('data-id', idPreco);
+  tr.innerHTML = `
+    <td><input type="text" class="nome-item" placeholder="Nome do item"></td>
+    <td><input type="text" class="valor-item" placeholder="R$ 0,00"></td>
+    <td><button class="btn-del" onclick="removerPreco(${idPreco})">🗑️</button></td>
+  `;
+  document.getElementById('corpoPrecos').appendChild(tr);
+  idPreco++;
+  salvarDados();
+}
+function removerPreco(id){
+  if(!ADMIN) return;
+  document.querySelector(`tr[data-id="${id}"]`)?.remove();
+  salvarDados();
+}
+
+// ===== COLABORADORES =====
+function adicionarLinha(){
+  const div = document.createElement('div');
+  div.className = 'linha';
+  div.setAttribute('data-id', idLinha);
+  div.innerHTML = `
+    <input type="text" class="nome-cel" placeholder="Nome" ${!ADMIN?'disabled':''}>
+    <input type="text" class="meta-cel" value="${META_PADRAO}" ${!ADMIN?'disabled':''}>
+    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
+    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
+    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
+    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
+    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
+    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
+    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
+    <button class="btn-del" onclick="removerLinha(${idLinha})" ${!ADMIN?'disabled':''}>🗑️</button>
+  `;
+  document.getElementById('corpoNomes').appendChild(div);
+  idLinha++;
+  salvarDados();
+  calcular();
+}
+function trocarCor(btn){
+  if(!ADMIN) return;
+  const atual = btn.getAttribute('data-cor');
+  const idx = estados.indexOf(atual);
+  const prox = (idx + 1) % estados.length;
+  const nova = estados[prox];
+  btn.setAttribute('data-cor', nova);
+  btn.className = 'bolinha ' + nova;
+  btn.textContent = emojis[nova] || '';
+  salvarDados();
+  calcular();
+}
+function removerLinha(id){
+  if(!ADMIN) return;
+  document.querySelector(`.linha[data-id="${id}"]`)?.remove();
+  salvarDados();
+  calcular();
+}
+
+// ===== CÁLCULO =====
+function parseDinheiro(t){return parseFloat(t.replace('R$ ','').replace(',','.'))||0;}
+function formatarDinheiro(v){return 'R$ '+parseFloat(v).toFixed(2).replace('.',',');}
+
+function calcular(){
+  const valorPagamento = parseDinheiro(document.getElementById('caixaPag').value);
+  const linhas = document.querySelectorAll('#corpoNomes .linha');
+  const ativos = [];
+  
+  linhas.forEach(linha=>{
+    const nome = linha.querySelector('.nome-cel').value.trim();
+    if(!nome) return;
+    const meta = parseInt(linha.querySelector('.meta-cel').value) || META_PADRAO;
+    const bolinhas = linha.querySelectorAll('.bolinha');
+    let amarelos = 0, vermelhos = 0;
+    bolinhas.forEach(b=>{
+      const c = b.getAttribute('data-cor');
+      if(c==='amarela') amarelos++;
+      if(c==='vermelha') vermelhos++;
+    });
+    const temDias = [...bolinhas].some(b=>b.getAttribute('data-cor')!=='');
+    if(temDias){
+      ativos.push({nome,meta,amarelos,vermelhos});
+    }
+  });
+
+  const qtd = ativos.length;
+  if(qtd === 0 || valorPagamento === 0){
+    document.getElementById('relatorio').classList.remove('mostrar');
+    return;
+  }
+
+  const valorBase = valorPagamento / qtd;
+  let totalDistribuido = 0;
+  let html = '';
+  
+  ativos.sort((a,b)=>(b.amarelos + b.vermelhos) - (a.amarelos + a.vermelhos) || a.nome.localeCompare(b.nome)).forEach(p=>{
+    const desc = (p.amarelos * DESC_AMARELO) + (p.vermelhos * DESC_VERMELHO);
+    const valorFinal = valorBase * (1 - Math.min(desc,1));
+    totalDistribuido += valorFinal;
+    html += `
+    <div class="res-linha">
+      <span>${p.nome} • 🟡×${p.amarelos} • 🔴×${p.vermelhos}</span>
+      <span style="color:var(--verde);font-weight:700;">${formatarDinheiro(valorFinal)}</span>
+    </div>`;
+  });
+  
+  html += `<div class="res-linha total">
+    <span>💰 TOTAL DISTRIBUÍDO</span>
+    <span>${formatarDinheiro(totalDistribuido)}</span>
+  </div>`;
+  
+  document.getElementById('resumo').innerHTML = html;
+  document.getElementById('relatorio').classList.add('mostrar');
+}
+
+// ===== SALVAR/CARREGAR =====
+function salvarDados(){
+  if(!ADMIN) return;
+  const precos = [];
+  document.querySelectorAll('#corpoPrecos tr').forEach(tr=>{
+    const n = tr.querySelector('.nome-item')?.value;
+    const v = tr.querySelector('.valor-item')?.value;
+    if(n) precos.push({nome:n,valor:v});
+  });
+  const membros = [];
+  document.querySelectorAll('#corpoNomes .linha').forEach(div=>{
+    const bolinhas = div.querySelectorAll('.bolinha');
+    const dias = [];
+    bolinhas.forEach(b=>dias.push(b.getAttribute('data-cor')||''));
+    membros.push({
+      nome: div.querySelector('.nome-cel')?.value||'',
+      meta: div.querySelector('.meta-cel')?.value||META_PADRAO,
+      dias: dias
+    });
+  });
+  const dados = {
+    caixaFac: document.getElementById('caixaFac').value,
+    caixaLider: document.getElementById('caixaLider').value,
+    caixaPag: document.getElementById('caixaPag').value,
+    precos, membros, idPreco, idLinha
+  };
+  localStorage.setItem('caos77_completo', JSON.stringify(dados));
+}
+
+function carregarDados(){
+  const salvo = localStorage.getItem('caos77_completo');
+  if(!salvo) return;
+  try{
+    const d = JSON.parse(salvo);
+    if(ADMIN){
+      document.getElementById('caixaFac').value = d.caixaFac || 'R$ 0,00';
+      document.getElementById('caixaLider').value = d.caixaLider || 'R$ 0,00';
+    }
+    document.getElementById('caixaPag').value = d.caixaPag || 'R$ 0,00';
+    idPreco = d.idPreco || 2;
+    idLinha = d.idLinha || 1;
+    
+    // Preços
+    document.getElementById('corpoPrecos').innerHTML = '';
+    (d.precos||[]).forEach(p=>{
+      const tr = document.createElement('tr');
+      tr.setAttribute('data-id', idPreco++);
+      tr.innerHTML = `
+        <td><input type="text" class="nome-item" value="${p.nome}" ${!ADMIN?'disabled':''}></td>
+        <td><input type="text" class="valor-item" value="${p.valor}" ${!ADMIN?'disabled':''}></td>
+        <td><button class="btn-del" onclick="removerPreco(${idPreco-1})" ${!ADMIN?'disabled':''}>🗑️</button></td>
+      `;
+      document.getElementById('corpoPrecos').appendChild(tr);
+    });
+    
+    // Membros
+    document.getElementById('corpoNomes').innerHTML = '';
+    (d.membros||[]).forEach(m=>{
+      const div = document.createElement('div');
+      div.className = 'linha';
+      div.setAttribute('data-id', idLinha++);
+      let diasHTML = '';
+      for(let i=0;i<7;i++){
+        const c = m.dias?.[i] || '';
+        diasHTML += `<button class="bolinha ${c}" data-cor="${c}" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}>${emojis[c]||''}</button>`;
+      }
+      div.innerHTML = `
+        <input type="text" class="nome-cel" value="${m.nome}" ${!ADMIN?'disabled':''}>
+        <input type="text" class="meta-cel" value="${m.meta||META_PADRAO}" ${!ADMIN?'disabled':''}>
+        ${diasHTML}
+        <button class="btn-del" onclick="removerLinha(${idLinha-1})" ${!ADMIN?'disabled':''}>🗑️</button>
+      `;
+      document.getElementById('corpoNomes').appendChild(div);
+    });
+  }catch(e){console.log('Erro:',e);}
+}
+
+// Atualiza relatório quando valor de pagamento muda
+document.getElementById('caixaPag').addEventListener('input', calcular);
+
+// Verifica se já está logado
+if(localStorage.getItem('caos77_acesso')) inicializar();
 </script>
 
 </body>

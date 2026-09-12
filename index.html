@@ -156,23 +156,21 @@ body{
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
 
 .dias-header{
-  display:grid;grid-template-columns:180px repeat(6,50px) 80px 110px 70px;gap:4px;
-  padding:10px 8px;color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
+  display:grid;grid-template-columns:200px repeat(6,50px) 70px;gap:4px;
+  padding:10px 8px;color:var(--primaria);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
 .dias-header .nome-col{text-align:left;}
 
 .membro-row{
-  display:grid;grid-template-columns:180px repeat(6,50px) 80px 110px 70px;gap:4px;
+  display:grid;grid-template-columns:200px repeat(6,50px) 70px;gap:4px;
   padding:10px 8px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
   align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
 .membro-row:hover{background:rgba(255,255,255,0.05);border-color:var(--borda);}
 
-.membro-nome{font-size:14px;font-weight:800;color:var(--texto);display:flex;align-items:center;gap:6px;}
-.coroa{font-size:14px;filter:drop-shadow(0 0 4px gold);}
-.pontos-cell{font-size:11px;font-weight:800;color:var(--ouro);text-align:center;}
-.valor-cell{font-size:11px;font-weight:900;color:var(--verde);text-align:center;}
+.membro-nome{font-size:15px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:8px;}
+.coroa{font-size:16px;filter:drop-shadow(0 0 4px gold);}
 .dia-cell{display:flex;justify-content:center;}
 .bolinha{
   width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;
@@ -187,8 +185,8 @@ body{
 .bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 8px rgba(239,68,68,0.4);color:#fff;}
 
 .btn-del{
-  padding:6px 4px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
-  color:#FCA5A5;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s ease;width:100%;
+  padding:6px 8px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
+  color:#FCA5A5;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s ease;
 }
 .btn-del:disabled{opacity:0.4;cursor:not-allowed;}
 .btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);}
@@ -203,12 +201,7 @@ body{
 .grupo-card.amarelo .grupo-titulo{color:var(--amarelo);}
 .grupo-card.vermelho .grupo-titulo{color:var(--vermelho);}
 .grupo-lista{display:flex;flex-wrap:wrap;gap:6px;}
-.grupo-item{background:rgba(255,255,255,0.05);padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600;}
-
-.pagamento-resumo{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
-.pag-item{background:rgba(0,0,0,0.25);border-radius:10px;padding:14px;text-align:center;}
-.pag-label{font-size:11px;color:var(--textoSec);margin-bottom:6px;font-weight:600;}
-.pag-valor{font-size:16px;font-weight:900;}
+.grupo-item{background:rgba(255,255,255,0.05);padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;}
 
 .modal-fundo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);}
 .modal{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:24px;width:90%;max-width:420px;}
@@ -224,9 +217,8 @@ body{
 @media(max-width:768px){
   .stats-row{grid-template-columns:repeat(1,1fr);}
   .caixas-grid{grid-template-columns:repeat(1,1fr);}
-  .pagamento-resumo{grid-template-columns:1fr;}
   .grupos-grid{grid-template-columns:1fr;}
-  .dias-header,.membro-row{grid-template-columns:140px repeat(6,38px) 65px 90px 55px;gap:2px;}
+  .dias-header,.membro-row{grid-template-columns:160px repeat(6,40px) 55px;gap:2px;}
   .bolinha{width:22px;height:22px;}
   .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
 }
@@ -292,12 +284,12 @@ body{
     <div class="stat-value purple" id="totalMembros">0</div>
   </div>
   <div class="stat-card">
-    <div class="stat-label">🏆 TOP PONTOS</div>
-    <div class="stat-value gold" id="topPontos">-</div>
+    <div class="stat-label">🏦 CAIXA DA FAC</div>
+    <div class="stat-value ouro" id="caixaFacDisplay">R$ 0,00</div>
   </div>
   <div class="stat-card">
-    <div class="stat-label">💰 CAIXA TOTAL</div>
-    <div class="stat-value green" id="totalGeral">R$ 0,00</div>
+    <div class="stat-label">💵 CAIXA DE PAGAMENTOS</div>
+    <div class="stat-value green" id="caixaPagDisplay">R$ 0,00</div>
   </div>
 </div>
 
@@ -307,34 +299,12 @@ body{
   <div class="caixas-grid">
     <div class="caixa-item" id="caixaFacContainer">
       <div class="caixa-label">🏦 CAIXA DA FAC</div>
-      <div class="caixa-valor azul"><input type="text" id="caixaFac" value="R$ 0,00" class="azul" onblur="marcarAlterado();"></div>
+      <div class="caixa-valor ouro"><input type="text" id="caixaFac" value="R$ 0,00" class="ouro" onblur="marcarAlterado();atualizarStats();"></div>
     </div>
     <div class="caixa-item">
       <div class="caixa-label">💵 CAIXA DE PAGAMENTOS</div>
-      <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="verde" onblur="marcarAlterado();atualizarTodosCalculos();"></div>
+      <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="verde" onblur="marcarAlterado();atualizarStats();"></div>
     </div>
-  </div>
-</div>
-
-<!-- 💰 PAGAMENTOS -->
-<div class="section-card">
-  <div class="section-title">💰 PAGAMENTOS</div>
-  <div class="pagamento-resumo">
-    <div class="pag-item">
-      <div class="pag-label">💵 VALOR POR PONTO</div>
-      <div class="pag-valor verde" id="valorPonto">R$ 0,00</div>
-    </div>
-    <div class="pag-item">
-      <div class="pag-label">📊 TOTAL DE PONTOS</div>
-      <div class="pag-valor azul" id="totalPontos">0,0</div>
-    </div>
-    <div class="pag-item">
-      <div class="pag-label">💸 TOTAL A PAGAR</div>
-      <div class="pag-valor ouro" id="totalPagar">R$ 0,00</div>
-    </div>
-  </div>
-  <div style="font-size:12px;color:var(--textoSec);padding:10px;background:rgba(0,0,0,0.25);border-radius:8px;">
-    📌 🟢 = 1,0pt | 🟡 = 0,5pt | 🔴 = 0pt
   </div>
 </div>
 
@@ -343,9 +313,9 @@ body{
   <div class="section-title">📋 CONTROLE DE INTEGRANTES</div>
   
   <div class="legend-row">
-    <div class="legend-item"><div class="legend-dot dot-green"></div> Completo (1,0pt)</div>
-    <div class="legend-item"><div class="legend-dot dot-yellow"></div> Incompleto (0,5pt)</div>
-    <div class="legend-item"><div class="legend-dot dot-red"></div> Não Fez (0pt)</div>
+    <div class="legend-item"><div class="legend-dot dot-green"></div> Feito</div>
+    <div class="legend-item"><div class="legend-dot dot-yellow"></div> Parcial</div>
+    <div class="legend-item"><div class="legend-dot dot-red"></div> Não Feito</div>
   </div>
 
   <input type="text" class="search-bar" id="buscaMembro" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
@@ -355,8 +325,6 @@ body{
   <div class="dias-header">
     <div class="nome-col">NOME</div>
     <div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div>
-    <div>PTS</div>
-    <div>RECEBERÁ</div>
     <div>✖</div>
   </div>
 
@@ -365,15 +333,15 @@ body{
   <!-- GRUPOS -->
   <div class="grupos-grid">
     <div class="grupo-card verde">
-      <div class="grupo-titulo">🟢 PELO MENOS 1 VERDE</div>
+      <div class="grupo-titulo">🟢 FEZ O DIA</div>
       <div class="grupo-lista" id="grupoVerde"><span style="color:var(--textoSec);font-size:12px;">Nenhum</span></div>
     </div>
     <div class="grupo-card amarelo">
-      <div class="grupo-titulo">🟡 SEM VERDE / TEM AMARELO</div>
+      <div class="grupo-titulo">🟡 FEZ PARCIAL</div>
       <div class="grupo-lista" id="grupoAmarelo"><span style="color:var(--textoSec);font-size:12px;">Nenhum</span></div>
     </div>
     <div class="grupo-card vermelho">
-      <div class="grupo-titulo">🔴 SÓ VERMELHO</div>
+      <div class="grupo-titulo">🔴 NÃO FEZ</div>
       <div class="grupo-lista" id="grupoVermelho"><span style="color:var(--textoSec);font-size:12px;">Nenhum</span></div>
     </div>
   </div>
@@ -437,6 +405,7 @@ function carregarNuvem(){
       membros = dados.membros || [];
       document.getElementById('caixaFac').value = dados.caixaFac || 'R$ 0,00';
       document.getElementById('caixaPagamentos').value = dados.caixaPagamentos || 'R$ 0,00';
+      atualizarStats();
       return true;
     }catch(e){console.log('Erro ao carregar');}
   }
@@ -506,7 +475,8 @@ function abrirPainel(){
     });
   }
   
-  atualizarTodosCalculos();
+  renderizarLista();
+  atualizarGrupos();
 }
 
 function sair(){
@@ -529,42 +499,20 @@ function marcarAlterado(){
   document.getElementById('statusSinc').style.color = '#FBBF24';
 }
 
-function parseDinheiro(valor){
-  if(!valor) return 0;
-  return parseFloat(valor.replace(/R\$ /g,'').replace(/\./g,'').replace(',','.')) || 0;
-}
-
-function formatarDinheiro(valor){
-  return 'R$ ' + valor.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-}
-
-function calcularPontos(dias){
-  let pts = 0;
-  for(let d in dias){
-    if(dias[d][0] === 'G') pts += 1.0;
-    else if(dias[d][0] === 'Y') pts += 0.5;
-  }
-  return pts;
-}
-
-function atualizarTodosCalculos(){
-  const valorCaixa = parseDinheiro(document.getElementById('caixaPagamentos').value);
-  let totalPontos = 0;
-  membros.forEach(m => { totalPontos += calcularPontos(m.dias); });
-  
-  const valorPorPonto = totalPontos > 0 ? valorCaixa / totalPontos : 0;
-  document.getElementById('valorPonto').textContent = formatarDinheiro(valorPorPonto);
-  document.getElementById('totalPontos').textContent = totalPontos.toFixed(1);
-  document.getElementById('totalPagar').textContent = formatarDinheiro(valorCaixa);
-  
+function atualizarStats(){
   document.getElementById('totalMembros').textContent = membros.length;
-  document.getElementById('totalGeral').textContent = formatarDinheiro(valorCaixa);
-  
-  const ordenado = [...membros].sort((a,b) => calcularPontos(b.dias) - calcularPontos(a.dias));
-  document.getElementById('topPontos').textContent = ordenado.length && calcularPontos(ordenado[0].dias) > 0 
-    ? ordenado[0].nome.split(' ')[0] : '-';
-  
-  renderizarLista();
+  document.getElementById('caixaFacDisplay').textContent = document.getElementById('caixaFac').value;
+  document.getElementById('caixaPagDisplay').textContent = document.getElementById('caixaPagamentos').value;
+}
+
+function alternarCorBolinha(membro, diaIndex){
+  if(!modoAdmin) return;
+  const ordem = ['', 'G', 'Y', 'R'];
+  const dia = ['seg','ter','qua','qui','sex','sab'][diaIndex];
+  let atual = membro.dias[dia][0];
+  let prox = ordem[(ordem.indexOf(atual) + 1) % ordem.length];
+  membro.dias[dia][0] = prox;
+  marcarAlterado();
   atualizarGrupos();
 }
 
@@ -576,7 +524,7 @@ function atualizarGrupos(){
     const temAmarelo = cores.includes('Y');
     if(temVerde) verde.push(`<span class="grupo-item">${membro.nome}</span>`);
     else if(temAmarelo) amarelo.push(`<span class="grupo-item">${membro.nome}</span>`);
-    else vermelho.push(`<span class="grupo-item">${membro.nome}</span>`);
+    else vermelho.push(`<span class="grupo-item">${membro.nome}</span>`”;
   });
   
   document.getElementById('grupoVerde').innerHTML = verde.length ? verde.join('') : '<span style="color:var(--textoSec);font-size:12px;">Nenhum</span>';
@@ -584,30 +532,11 @@ function atualizarGrupos(){
   document.getElementById('grupoVermelho').innerHTML = vermelho.length ? vermelho.join('') : '<span style="color:var(--textoSec);font-size:12px;">Nenhum</span>';
 }
 
-function alternarCorBolinha(membro, diaIndex){
-  if(!modoAdmin) return;
-  const ordem = ['', 'G', 'Y', 'R'];
-  const dia = ['seg','ter','qua','qui','sex','sab'][diaIndex];
-  let atual = membro.dias[dia][0];
-  let prox = ordem[(ordem.indexOf(atual) + 1) % ordem.length];
-  membro.dias[dia][0] = prox;
-  marcarAlterado();
-  atualizarTodosCalculos();
-}
-
 function renderizarLista(){
   const lista = document.getElementById('listaMembros');
   lista.innerHTML = '';
   
-  const valorCaixa = parseDinheiro(document.getElementById('caixaPagamentos').value);
-  let totalPontosGeral = 0;
-  membros.forEach(m => { totalPontosGeral += calcularPontos(m.dias); });
-  
   membros.forEach((membro, idx) => {
-    const pontos = calcularPontos(membro.dias);
-    const valorPonto = totalPontosGeral > 0 ? valorCaixa / totalPontosGeral : 0;
-    const receber = pontos * valorPonto;
-    
     lista.innerHTML += `
       <div class="membro-row" data-nome="${membro.nome.toLowerCase()}">
         <div class="membro-nome">
@@ -618,8 +547,6 @@ function renderizarLista(){
           let cls = c === 'G' ? 'verde' : c === 'Y' ? 'amarela' : c === 'R' ? 'vermelha' : 'vazia';
           return `<div class="dia-cell"><button class="bolinha ${cls}" onclick="alternarCorBolinha(membros[${idx}],${i})" ${!modoAdmin?'disabled':''}>${c?'●':''}</button></div>`;
         }).join('')}
-        <div class="pontos-cell">${pontos.toFixed(1)}</div>
-        <div class="valor-cell">${receber > 0 ? formatarDinheiro(receber) : '-'}</div>
         <div><button class="btn-del" onclick="removerMembro(${idx})" ${!modoAdmin?'disabled':''}>🗑️</button></div>
       </div>
     `;
@@ -665,7 +592,9 @@ function salvarMembro(){
   
   fecharModalMembro();
   marcarAlterado();
-  atualizarTodosCalculos();
+  atualizarStats();
+  renderizarLista();
+  atualizarGrupos();
   alert('✅ Adicionado! Não esqueça de SALVAR! ☁️');
 }
 
@@ -674,7 +603,9 @@ function removerMembro(idx){
   if(!confirm(`❌ Remover ${membros[idx].nome}?`)) return;
   membros.splice(idx, 1);
   marcarAlterado();
-  atualizarTodosCalculos();
+  atualizarStats();
+  renderizarLista();
+  atualizarGrupos();
 }
 </script>
 

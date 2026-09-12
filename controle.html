@@ -67,7 +67,7 @@ body{
 .stat-value{font-size:20px;font-weight:800;color:var(--texto);}
 .stat-value.green{color:var(--verde);font-size:24px;}
 .stat-value.blue{color:var(--azul);}
-.stat-value.red{color:var(--vermelho);font-size:24px;}
+.stat-value.red{color:var(--vermelho));font-size:24px;}
 .stat-item input{
   width:100%;background:transparent;border:none;color:var(--verde);
   font-size:20px;font-weight:800;text-align:center;outline:none;
@@ -126,7 +126,7 @@ body{
 .btn-add:hover{transform:translateY(-2px);}
 
 .dias-header{
-  display:grid;grid-template-columns:200px repeat(6,1fr) 100px;gap:4px;
+  display:grid;grid-template-columns:180px repeat(6,1fr) 85px;gap:4px;
   padding:12px 8px;color:var(--azul);font-size:11px;font-weight:700;text-transform:uppercase;
   letter-spacing:0.5px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
   text-align:center;
@@ -134,7 +134,7 @@ body{
 .dias-header .nome-col{text-align:left;}
 
 .membro-row{
-  display:grid;grid-template-columns:200px repeat(6,1fr) 100px;gap:4px;
+  display:grid;grid-template-columns:180px repeat(6,1fr) 85px;gap:4px;
   padding:10px 8px;border-radius:10px;background:var(--bg-card);margin-bottom:8px;
   align-items:center;border:1px solid transparent;transition:all 0.2s ease;
 }
@@ -155,9 +155,17 @@ body{
 .bolinha:active{transform:scale(0.9);}
 
 .btn-del{
-  padding:8px 10px;background:linear-gradient(135deg,#5C1A1A,#7A2424);border:none;
-  border-radius:6px;color:#FF6B6B;font-size:12px;font-weight:700;cursor:pointer;
-  transition:all 0.2s ease;width:100%;
+  padding:7px 4px;
+  background:linear-gradient(135deg,#5C1A1A,#7A2424);
+  border:none;
+  border-radius:6px;
+  color:#FF6B6B;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  width:100%;
+  white-space:nowrap;
 }
 .btn-del:hover{transform:scale(1.03);}
 
@@ -214,7 +222,7 @@ body{
 @media(max-width:700px){
   .stats-grid{grid-template-columns:1fr;}
   .relatorio-grid{grid-template-columns:repeat(2,1fr);}
-  .dias-header,.membro-row{grid-template-columns:150px repeat(6,55px) 80px;gap:2px;}
+  .dias-header,.membro-row{grid-template-columns:130px repeat(6,48px) 72px;gap:2px;}
   .bolinha{width:22px;height:22px;font-size:13px;}
   .membro-nome{font-size:12px;}
 }
@@ -582,7 +590,7 @@ function renderLista(filtro=''){
     row.innerHTML = `
       <div class="membro-nome">${i.coroa?'<span class="coroa">👑</span>':''}${i.nome}</div>
       ${diasHTML}
-      <button class="btn-del" onclick="excluir(${i.id})">EXPULSO</button>
+      <button class="btn-del" onclick="excluir(${i.id})">EXPULSAR</button>
     `;
     container.appendChild(row);
   });

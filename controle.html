@@ -64,6 +64,7 @@ body{
 .card{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
 }
+.card.hidden{display:none !important;}
 .card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
 
 /* TABELA DE PREÇOS */
@@ -212,7 +213,7 @@ body{
 .link-label{font-size:13px;color:var(--texto-sec);margin-bottom:5px;}
 .link-box{
   display:flex;align-items:center;gap:8px;
-  background:rgba(0,0,0,0.3);border-radius:6px;padding:10px 12px;
+  background:rgba(0,0,0.3);border-radius:6px;padding:10px 12px;
   border:1px solid rgba(0,212,255,0.1);
 }
 .link-box input{
@@ -233,7 +234,7 @@ body{
 }
 .modal h3{color:var(--azul);font-size:18px;margin-bottom:20px;}
 .modal input, modal select{
-  width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);
+  width:100%;padding:12px 14px;background:rgba(0,0,0.3);border:1px solid rgba(0,212,255,0.15);
   border-radius:8px;color:var(--texto);font-size:15px;margin-bottom:12px;outline:none;
 }
 .modal input:focus, .modal select:focus{border-color:var(--azul);}
@@ -253,7 +254,7 @@ body{
 <body>
 
 <div id="visitanteBanner" class="visitante-banner" style="display:none;">
-  👀 MODO VISITANTE — Somente leitura. Apenas o administrador pode alterar os dados.
+  👀 MODO VISITANTE — Somente leitura
 </div>
 
 <div class="header-top">
@@ -263,8 +264,8 @@ body{
 
 <div class="container">
 
-<!-- 💰 TABELA DE PREÇOS FIXOS -->
-<div class="card">
+<!-- 💰 TABELA DE PREÇOS — SÓ ADMIN VÊ -->
+<div class="card" id="secaoPrecos">
   <h2>💰 TABELA DE PREÇOS — FRAGMENTOS</h2>
   <table class="precos-table">
     <thead>
@@ -279,8 +280,8 @@ body{
   </table>
 </div>
 
-<!-- 📊 DADOS GERAIS -->
-<div class="card">
+<!-- 📊 CAIXA & ESTOQUE — SÓ ADMIN VÊ -->
+<div class="card" id="secaoCaixa">
   <h2>📊 CAIXA & ESTOQUE</h2>
   <div class="stats-grid">
     <div class="stat-item">
@@ -300,7 +301,7 @@ body{
 
 <button class="btn-salvar-nuvem" id="btn-salvar" onclick="salvarTudo()">☁️ SALVAR NAS NUVENS</button>
 
-<!-- 📊 RELATÓRIO MENSAL AUTOMÁTICO -->
+<!-- 📊 RELATÓRIO MENSAL -->
 <div class="card">
   <h2>📊 RELATÓRIO MENSAL</h2>
   <div class="relatorio-grid">
@@ -314,7 +315,7 @@ body{
   <button class="btn-copiar" id="btn-copiar" onclick="copiarRelatorio()" style="display:none;">📋 COPIAR RELATÓRIO</button>
 </div>
 
-<!-- 👥 PAINEL DE FUNCIONÁRIOS -->
+<!-- 👥 CONTROLE DE FARMADORES — VISITANTE TAMBÉM VÊ COMPLETO -->
 <div class="card">
   <h2>👥 CONTROLE DE FARMADORES</h2>
   
@@ -400,20 +401,11 @@ if(ehModoVisitante){
   document.getElementById('visitanteBanner').style.display = 'block';
 }
 
-// 📋 Tabela de preços fixos
-const PRECOS = {
-  250: 550000,
-  1250: 2750000,
-  2500: 5500000,
-  3750: 8500000
-};
-
 let integrantes = [];
 let historico = [];
 const dias = ['seg','ter','qua','qui','sex','sab'];
 let alterado = false;
 
-// Marca que há alterações não salvas
 function marcarAlterado(){
   if(ehModoVisitante) return;
   alterado = true;
@@ -424,7 +416,6 @@ function marcarAlterado(){
   document.getElementById('status-sinc').style.color = '#FFC107';
 }
 
-// Bolinha: vazio → 🟢 → 🟡 → 🔴 → vazio
 function trocarBolinha(id, dia, posicao){
   if(ehModoVisitante){
     alert('👀 Você está no modo visitante. Não pode alterar.');
@@ -447,7 +438,6 @@ function trocarBolinha(id, dia, posicao){
   atualizarGrupos();
 }
 
-// 📊 Relatório Mensal
 function atualizarRelatorio(){
   const totalEntrada = historico.filter(h=>h.tipo==='entrada').reduce((s,h)=>s+h.quantidade,0);
   const totalVendido = historico.filter(h=>h.tipo==='venda').reduce((s,h)=>s+h.quantidade,0);
@@ -485,12 +475,6 @@ function gerarRelatorio(){
   • Caixa da Fac:    ${caixaFac}
   • Caixa de Pag.:   ${caixaPag}
 
-📋 TABELA DE PREÇOS
-  • 250 frag   → R$ 550.000
-  • 1.250 frag → R$ 2.750.000
-  • 2.500 frag → R$ 5.500.000
-  • 3.750 frag → R$ 8.500.000
-
 👥 TOTAL DE INTEGRANTES: ${integrantes.length}
 
 ═══════════════════════════════════
@@ -513,7 +497,6 @@ function copiarRelatorio(){
   navigator.clipboard.writeText(texto).then(()=>alert('✅ Relatório copiado!'));
 }
 
-// ☁️ SALVAR TUDO NAS NUVENS
 async function salvarTudo(){
   if(ehModoVisitante){
     alert('👀 Você está no modo visitante. Não pode salvar.');
@@ -568,21 +551,20 @@ async function carregarDados(){
       if(data.estoque !== undefined) document.getElementById('estoque').value = data.estoque;
     }
     
-    // 🔒 BLOQUEIA ELEMENTOS PARA VISITANTE
+    // 🔒 CONFIGURAÇÕES PARA VISITANTE
     if(ehModoVisitante){
-      // Esconde a seção de links completamente
+      // ESCONDE tabela de preços, caixa e estoque
+      document.getElementById('secaoPrecos').classList.add('hidden');
+      document.getElementById('secaoCaixa').classList.add('hidden');
+      document.getElementById('btn-salvar').style.display = 'none';
       document.getElementById('secaoLinks').classList.add('hidden');
       
-      // Bloqueia campos de edição
-      document.getElementById('caixa-fac').disabled = true;
-      document.getElementById('caixa-pag').disabled = true;
-      document.getElementById('estoque').disabled = true;
-      document.getElementById('btn-salvar').disabled = true;
+      // Bloqueia edição dos farmadores
       document.getElementById('busca').disabled = true;
       document.getElementById('btn-add').disabled = true;
       document.getElementById('btn-copiar').disabled = true;
     } else {
-      // Apenas o administrador vê os links
+      // Apenas admin vê os links
       const baseURL = window.location.href.split('#')[0].split('?')[0];
       document.getElementById('link-admin').value = baseURL;
       document.getElementById('link-visitante').value = baseURL + '?modo=leitura';

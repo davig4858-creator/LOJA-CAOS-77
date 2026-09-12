@@ -222,7 +222,10 @@ body{
 
 <div class="header-top">
   <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
-  <div class="status-badge" id="statusSinc">Sincronizado</div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="status-badge" id="statusSinc">Sincronizado</div>
+    <button class="btn-sair" onclick="sairDoSistema()">🚪 Sair</button>
+  </div>
 </div>
 
 <div class="container">
@@ -564,5 +567,15 @@ function copiarLink(id){
 
 carregarDados();
 </script>
+
+<style>
+.btn-sair{
+  padding:8px 16px;background:transparent;border:1px solid rgba(255,255,255,0.15);
+  color:var(--texto);border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;
+  transition:all 0.2s ease;
+}
+.btn-sair:hover{background:rgba(255,59,59,0.1);border-color:rgba(255,59,59,0.3);color:var(--vermelho);}
+</style>
+
 </body>
 </html>

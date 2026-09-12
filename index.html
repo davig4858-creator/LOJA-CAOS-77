@@ -81,13 +81,20 @@ body{
   background:rgba(16,185,129,0.1);color:var(--verde);padding:6px 14px;border-radius:50px;
   font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;border:1px solid rgba(16,185,129,0.2);
 }
+.status-badge.nao-salvo{background:rgba(245,158,11,0.1);color:var(--amarelo);border-color:rgba(245,158,11,0.2);}
 .status-badge::before{content:'';width:8px;height:8px;background:var(--verde);border-radius:50%;animation:pulse 2s infinite;}
+.status-badge.nao-salvo::before{background:var(--amarelo);}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
 .container{max-width:1100px;margin:0 auto;padding:20px 14px;}
 
 .section-card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:22px;margin-bottom:24px;}
 .section-title{font-size:15px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--primaria);}
+
+.formula-box{background:rgba(124,58,237,0.05);border:1px solid rgba(124,58,237,0.15);border-radius:12px;padding:16px;margin-bottom:20px;}
+.formula-title{font-weight:800;margin-bottom:10px;color:var(--primaria);font-size:14px;}
+.formula-text{font-size:13px;line-height:1.8;color:var(--textoSec);}
+.formula-highlight{background:rgba(16,185,129,0.1);color:var(--verde);padding:2px 8px;border-radius:4px;font-weight:600;display:inline-block;margin:2px 0;}
 
 .tabela-valores{width:100%;border-collapse:collapse;}
 .tabela-valores th,.tabela-valores td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--borda);}
@@ -96,11 +103,6 @@ body{
 .tabela-valores tr:last-child td{border-bottom:none;}
 .qtd-frag{font-weight:700;color:var(--texto);}
 .valor-frag{font-weight:900;color:var(--ouro);}
-
-.formula-box{background:rgba(124,58,237,0.05);border:1px solid rgba(124,58,237,0.15);border-radius:12px;padding:16px;margin-bottom:20px;}
-.formula-title{font-weight:800;margin-bottom:10px;color:var(--primaria);font-size:14px;}
-.formula-text{font-size:13px;line-height:1.8;color:var(--textoSec);}
-.formula-highlight{background:rgba(16,185,129,0.1);color:var(--verde);padding:2px 8px;border-radius:4px;font-weight:600;display:inline-block;margin:2px 0;}
 
 .caixas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
 .caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;}
@@ -131,8 +133,9 @@ body{
 .ranking-posicao.primeiro{background:linear-gradient(135deg,#FBBF24,#F59E0B);color:#000;}
 .ranking-posicao.segundo{background:linear-gradient(135deg,#9CA3AF,#6B7280);color:#000;}
 .ranking-posicao.terceiro{background:linear-gradient(135deg,#CD853F,#8B4513);color:#fff;}
-.ranking-nome{flex:1;font-size:14px;font-weight:700;}
-.ranking-pontos{font-size:14px;font-weight:900;color:var(--ouro);}
+.ranking-nome{flex:1;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:space-between;}
+.ranking-valor{font-size:13px;font-weight:900;color:var(--verde);}
+.ranking-pontos{font-size:12px;color:var(--ouro);}
 .ranking-bolinhas{display:flex;gap:2px;}
 .mini-bolinha{width:14px;height:14px;border-radius:50%;}
 .mini-bolinha.verde{background:var(--verde);}
@@ -141,7 +144,7 @@ body{
 
 .btn-add{
   width:100%;padding:15px;background:linear-gradient(90deg,var(--primaria),#3B82F6);border:none;border-radius:10px;
-  color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:20px;transition:all 0.25s ease;
+  color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:16px;transition:all 0.25s ease;
 }
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
 
@@ -165,28 +168,30 @@ body{
 .btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);}
 
 .membros-header{
-  display:grid;grid-template-columns:180px repeat(7,40px) 90px 110px 60px;gap:4px;
+  display:grid;grid-template-columns:200px repeat(7,40px) 80px 110px 50px;gap:4px;
   padding:10px 8px;color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
 .membros-header .nome-col{text-align:left;}
 
 .membro-row{
-  display:grid;grid-template-columns:180px repeat(7,40px) 90px 110px 60px;gap:4px;
-  padding:8px 8px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:4px;
+  display:grid;grid-template-columns:200px repeat(7,40px) 80px 110px 50px;gap:4px;
+  padding:10px 8px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
   align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
 .membro-row:hover{background:rgba(255,255,255,0.04);border-color:var(--borda);}
 
-.membro-nome{font-size:12px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.membro-nome{font-size:13px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;justify-content:space-between;}
+.membro-nome .nome-text{display:flex;align-items:center;gap:6px;}
+.membro-nome .valor-membro{font-size:12px;font-weight:800;color:var(--verde);background:rgba(16,185,129,0.1);padding:2px 8px;border-radius:4px;}
 .coroa{font-size:12px;filter:drop-shadow(0 0 2px gold);}
-.valor-cell{text-align:center;font-size:12px;font-weight:800;color:var(--verde);}
-.pontos-cell{text-align:center;font-size:11px;font-weight:700;color:var(--ouro);}
+.valor-cell{text-align:center;font-size:13px;font-weight:800;color:var(--verde);}
+.pontos-cell{text-align:center;font-size:12px;font-weight:700;color:var(--ouro);}
 
 .bolinha{
-  width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;
+  width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;
   transition:all 0.15s ease;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:bold;
+  font-size:14px;font-weight:bold;
 }
 .bolinha:hover{transform:scale(1.15);}
 .bolinha.vazia{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);}
@@ -199,9 +204,9 @@ body{
 }
 .resultado-dist.mostrar{display:block;animation:fadeIn 0.4s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
-.res-linha{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;}
-.res-linha:last-child{border-bottom:none;margin-top:6px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.08);font-weight:800;}
-.res-nome{font-weight:500;}
+.res-linha{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;}
+.res-linha:last-child{border-bottom:none;margin-top:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);font-weight:800;}
+.res-nome{font-weight:500;display:flex;align-items:center;gap:8px;}
 .res-valor{font-weight:700;color:var(--verde);}
 .res-total{font-size:16px;font-weight:900;color:var(--ouro);padding-top:8px;}
 .res-sobra{font-size:12px;font-weight:600;color:#3B82F6;margin-top:4px;}
@@ -231,8 +236,8 @@ body{
 
 @media(max-width:768px){
   .caixas-grid{grid-template-columns:1fr;}
-  .membros-header,.membro-row{grid-template-columns:140px repeat(7,32px) 70px 90px 45px;gap:2px;}
-  .bolinha{width:22px;height:22px;font-size:10px;}
+  .membros-header,.membro-row{grid-template-columns:160px repeat(7,32px) 65px 95px 45px;gap:2px;}
+  .bolinha{width:24px;height:24px;font-size:11px;}
   .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
 }
 </style>
@@ -461,7 +466,7 @@ function calcularPagamentos(){
     membro.pontos = pontos;
     membro.valor = valor;
     totalPago += valor;
-    resultados.push({ nome: membro.nome, pontos: pontos, valor: valor });
+    resultados.push({ nome: membro.nome, pontos: pontos, valor: valor, ehLider: membro.ehLider });
   });
 
   return { resultados, totalPontos, caixa, totalPago };
@@ -476,7 +481,8 @@ function renderizarRanking(){
   const comPontos = membros.map(m => ({
     nome: m.nome,
     pontos: calcularPontosMembro(m),
-    lider: m.ehLider
+    valor: m.valor || 0,
+    ehLider: m.ehLider
   })).filter(m => m.pontos > 0).sort((a,b) => b.pontos - a.pontos);
 
   if(comPontos.length === 0){
@@ -493,7 +499,10 @@ function renderizarRanking(){
     return `
       <div class="ranking-item">
         <div class="ranking-posicao ${classePos}">${idx+1}</div>
-        <div class="ranking-nome">${m.lider?'👑 ':''}${m.nome}</div>
+        <div class="ranking-nome">
+          <span>${m.ehLider?'👑 ':''}${m.nome}</span>
+          <span class="ranking-valor">${formatarMoeda(m.valor)}</span>
+        </div>
         <div class="ranking-pontos">${m.pontos.toFixed(1)} pts</div>
       </div>
     `;
@@ -509,7 +518,10 @@ function renderizarLista(){
     const valor = membro.valor || 0;
 
     let html = `<div class="membro-row">
-      <div class="membro-nome">${membro.ehLider?'👑 ':''}${membro.nome}</div>`;
+      <div class="membro-nome">
+        <span class="nome-text">${membro.ehLider?'👑 ':''}${membro.nome}</span>
+        <span class="valor-membro">${valor > 0 ? formatarMoeda(valor) : '—'}</span>
+      </div>`;
 
     for(let d=1;d<=7;d++){
       const dia = 'd'+d;
@@ -609,7 +621,7 @@ function executarDistribuicao(){
 
   listaResultado.innerHTML = resultados.map(r => {
     let linhas = `<div class="res-linha">
-      <span class="res-nome">${r.pontos>0?'✅':'—'} ${r.nome}${r.pontos>0?' ('+r.pontos.toFixed(1)+' pts)':''}</span>
+      <span class="res-nome">${r.pontos>0?'✅':'—'} ${r.ehLider?'👑 ':''}${r.nome}${r.pontos>0?' ('+r.pontos.toFixed(1)+' pts)':''}</span>
       <span class="res-valor">${formatarMoeda(r.valor)}</span>
     </div>`;
     return linhas;
@@ -653,8 +665,7 @@ function salvarDados(){
   
   alterado = false;
   document.getElementById('statusSinc').innerHTML = '✅ Salvo';
-  document.getElementById('statusSinc').style.background = 'rgba(16,185,129,0.1)';
-  document.getElementById('statusSinc').style.color = 'var(--verde)';
+  document.getElementById('statusSinc').classList.remove('nao-salvo');
 }
 
 function carregarDados(){
@@ -747,8 +758,7 @@ function marcarAlterado(){
   if(!modoAdmin) return;
   alterado = true;
   document.getElementById('statusSinc').innerHTML = '⚠️ Não salvo';
-  document.getElementById('statusSinc').style.background = 'rgba(245,158,11,0.1)';
-  document.getElementById('statusSinc').style.color = 'var(--amarelo)';
+  document.getElementById('statusSinc').classList.add('nao-salvo');
   document.getElementById('resultadoDist').classList.remove('mostrar');
 }
 

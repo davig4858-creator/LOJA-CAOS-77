@@ -3,140 +3,181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚡ LOJA CAOS 77 — PAINEL COMPLETO</title>
+<title>⚡ LOJA CAOS 77 — CONTROLE TOTAL</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
 
 :root{
-  --bg: #0A101F;--card: #121A2E;--primaria: #7C3AED;
-  --verde: #10B981;--ouro: #FBBF24;--amarelo: #F59E0B;--vermelho: #EF4444;
-  --texto: #F1F5F9;--textoSec: #94A3B8;--borda: rgba(124,58,237,0.2);
+  --bg: #050508;--fundo: #0F111A;--card: #171A2C;--cardHover: #1E2238;
+  --primaria: #7C3AED;--primariaHover: #6D28D9;
+  --verde: #10B981;--verdeHover: #059669;--ouro: #FBBF24;
+  --amarelo: #F59E0B;--vermelho: #EF4444;--vermelhoHover: #DC2626;
+  --texto: #F8FAFC;--textoSec: #94A3B8;--borda: rgba(124,58,237,0.25);
+  --sombra: 0 8px 32px rgba(0,0,0,0.4);
 }
 
-body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40px;}
+body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:60px;}
 
-/* LOGIN */
-.tela-login{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);display:flex;justify-content:center;align-items:center;z-index:999;}
-.caixa-login{background:var(--card);border:1px solid var(--borda);border-radius:20px;padding:45px 30px;width:90%;max-width:420px;text-align:center;box-shadow:0 10px 40px rgba(124,58,237,0.15);}
-.caixa-login h1{font-size:26px;font-weight:900;margin-bottom:8px;}
-.caixa-login h1 span{color:var(--primaria);}
-.caixa-login p{color:var(--textoSec);font-size:14px;margin-bottom:30px;}
-.caixa-login input{width:100%;padding:14px 16px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:10px;color:var(--texto);font-size:15px;margin-bottom:16px;outline:none;text-align:center;}
-.btn-login{width:100%;padding:14px;background:linear-gradient(90deg,var(--primaria),#3B82F6);border:none;border-radius:10px;color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:12px;}
-.btn-login:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
-.btn-visita{width:100%;padding:12px;background:transparent;border:1px solid var(--textoSec);border-radius:10px;color:var(--textoSec);font-size:14px;font-weight:700;cursor:pointer;}
-.btn-visita:hover{border-color:var(--primaria);color:var(--primaria);}
-.dica-senha{font-size:11px;color:var(--textoSec);margin-top:16px;}
+/* ===== TELA DE LOGIN ===== */
+.tela-login{position:fixed;inset:0;background:linear-gradient(135deg,var(--bg),var(--fundo));display:flex;justify-content:center;align-items:center;z-index:999;}
+.caixa-login{background:var(--card);border:1px solid var(--borda);border-radius:24px;padding:48px 36px;width:90%;max-width:440px;text-align:center;box-shadow:var(--sombra);animation:aparecer 0.4s ease;}
+@keyframes aparecer{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.caixa-login h1{font-size:30px;font-weight:900;margin-bottom:6px;letter-spacing:-0.5px;}
+.caixa-login h1 span{color:var(--primaria);text-shadow:0 0 20px rgba(124,58,237,0.4);}
+.caixa-login p{color:var(--textoSec);font-size:15px;margin-bottom:32px;}
+.caixa-login input{width:100%;padding:16px 18px;background:var(--fundo);border:1px solid var(--borda);border-radius:12px;color:var(--texto);font-size:16px;margin-bottom:18px;outline:none;transition:border 0.2s;}
+.caixa-login input:focus{border-color:var(--primaria);box-shadow:0 0 0 3px rgba(124,58,237,0.15);}
+.btn-login{width:100%;padding:16px;background:linear-gradient(90deg,var(--primaria),#8B5CF6);border:none;border-radius:12px;color:white;font-size:16px;font-weight:800;cursor:pointer;margin-bottom:12px;transition:all 0.2s;}
+.btn-login:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,58,237,0.35);}
+.btn-visita{width:100%;padding:14px;background:transparent;border:1px solid var(--textoSec);border-radius:12px;color:var(--textoSec);font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-visita:hover{border-color:var(--primaria);color:var(--primaria);background:rgba(124,58,237,0.05);}
+.dica-senha{font-size:12px;color:var(--textoSec);margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.05);}
+.dica-senha strong{color:var(--primaria);}
 
-/* CABEÇALHO */
-.header-top{background:linear-gradient(180deg,rgba(18,26,46,0.98),rgba(10,16,31,0.95));padding:16px;border-bottom:1px solid var(--borda);position:sticky;top:0;z-index:98;display:flex;justify-content:space-between;align-items:center;}
-.header-top .title{font-size:18px;font-weight:900;}
+/* ===== CABEÇALHO ===== */
+.header-top{background:rgba(15,17,26,0.8);backdrop-filter:blur(12px);padding:16px 24px;border-bottom:1px solid var(--borda);position:sticky;top:0;z-index:98;display:flex;justify-content:space-between;align-items:center;}
+.header-top .title{font-size:20px;font-weight:900;letter-spacing:-0.3px;}
 .header-top .title span{color:var(--primaria);}
-.status-badge{background:rgba(16,185,129,0.1);color:var(--verde);padding:6px 12px;border-radius:50px;font-size:12px;font-weight:700;}
+.status-badge{display:flex;align-items:center;gap:6px;background:rgba(16,185,129,0.1);color:var(--verde);padding:8px 14px;border-radius:50px;font-size:13px;font-weight:700;}
 .status-badge.nao-salvo{background:rgba(245,158,11,0.1);color:var(--amarelo);}
-.btn-sair{padding:6px 12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:6px;color:#FCA5A5;font-size:12px;font-weight:700;cursor:pointer;}
+.status-badge .ponto{width:8px;height:8px;border-radius:50%;background:currentColor;}
+.btn-sair{padding:10px 16px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;color:#FCA5A5;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-sair:hover{background:rgba(239,68,68,0.2);}
 
-.container{max-width:1200px;margin:0 auto;padding:20px 14px;}
-.section-card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:20px;margin-bottom:20px;}
-.section-title{font-size:15px;font-weight:800;margin-bottom:16px;color:var(--primaria);}
+/* ===== CONTEÚDO ===== */
+.container{max-width:1280px;margin:0 auto;padding:24px 16px;}
+.section-card{background:var(--card);border:1px solid var(--borda);border-radius:20px;padding:24px;margin-bottom:24px;transition:transform 0.2s,box-shadow 0.2s;}
+.section-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.2);}
+.section-title{font-size:16px;font-weight:800;margin-bottom:18px;color:var(--primaria);display:flex;align-items:center;gap:8px;}
+.section-title span{font-size:18px;}
 
-/* 3 CAIXAS */
-.caixas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
-.caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:18px;text-align:center;transition:transform 0.2s;}
-.caixa-item:hover{transform:translateY(-2px);}
-.caixa-label{font-size:12px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
-.caixa-valor{font-size:22px;font-weight:900;}
-.caixa-valor input{width:100%;background:transparent;border:none;font-size:22px;font-weight:900;text-align:center;outline:none;color:inherit;}
+/* ===== 3 CAIXAS ===== */
+.caixas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:8px;}
+.caixa-item{background:var(--fundo);border-radius:16px;padding:24px 20px;text-align:center;transition:all 0.2s;border:1px solid transparent;}
+.caixa-item:hover{transform:translateY(-3px);border-color:var(--borda);}
+.caixa-label{font-size:13px;color:var(--textoSec);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;}
+.caixa-valor{font-size:26px;font-weight:900;letter-spacing:-0.5px;}
+.caixa-valor input{width:100%;background:transparent;border:none;font-size:26px;font-weight:900;text-align:center;outline:none;color:inherit;}
 .c-faccao{color:var(--ouro);}
 .c-lider{color:#3B82F6;}
 .c-pagamento{color:var(--verde);}
 
-/* REGRAS DE DESCONTO */
-.regras-box{background:rgba(124,58,237,0.05);border:1px solid rgba(124,58,237,0.15);border-radius:10px;padding:14px;margin-bottom:16px;}
-.regras-titulo{font-weight:800;margin-bottom:10px;font-size:14px;}
-.regras-linha{font-size:12px;margin-bottom:6px;line-height:1.7;}
-.regras-linha span{font-weight:700;}
+/* ===== REGRAS ===== */
+.regras-box{background:var(--fundo);border-radius:14px;padding:20px;margin-bottom:8px;}
+.regras-titulo{font-weight:800;margin-bottom:12px;font-size:15px;color:var(--ouro);}
+.regras-linha{font-size:14px;margin-bottom:8px;line-height:1.7;display:flex;align-items:center;gap:10px;}
+.regras-linha span:first-child{font-size:18px;}
+.regras-linha .destaque{font-weight:700;color:var(--verde);}
+.regras-linha .amarelo{color:var(--amarelo);font-weight:700;}
+.regras-linha .vermelho{color:var(--vermelho);font-weight:700;}
 
-/* BOTÕES */
-.btn-add{width:100%;padding:14px;background:linear-gradient(90deg,var(--primaria),#3B82F6);border:none;border-radius:10px;color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px;}
-.btn-calcular{width:100%;padding:14px;background:linear-gradient(90deg,var(--verde),#34D399);border:none;border-radius:10px;color:white;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:10px;}
-.btn-salvar{width:100%;padding:12px;background:linear-gradient(90deg,#8B5CF6,#EC4899);border:none;border-radius:10px;color:white;font-size:14px;font-weight:800;cursor:pointer;margin-bottom:16px;}
-.btn-del{padding:6px 10px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;color:#FCA5A5;font-size:11px;font-weight:700;cursor:pointer;}
+/* ===== BOTÕES ===== */
+.botoes-acao{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;}
+.btn-add{padding:16px;background:linear-gradient(90deg,var(--primaria),#8B5CF6);border:none;border-radius:12px;color:white;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-add:hover{background:linear-gradient(90deg,var(--primariaHover),#7C3AED);transform:translateY(-1px);}
+.btn-calcular{padding:16px;background:linear-gradient(90deg,var(--verde),#34D399);border:none;border-radius:12px;color:white;font-size:16px;font-weight:900;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-calcular:hover{background:linear-gradient(90deg,var(--verdeHover),var(--verde));transform:translateY(-1px);}
+.btn-salvar{padding:14px;background:linear-gradient(90deg,#EC4899,#8B5CF6);border:none;border-radius:12px;color:white;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-salvar:hover{transform:translateY(-1px);}
+.btn-del{padding:8px 12px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:8px;color:#FCA5A5;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);transform:scale(1.05);}
 
-/* PLANILHA */
-.planilha-wrapper{overflow-x:auto;border-radius:10px;border:1px solid var(--borda);}
-.planilha-header{display:grid;grid-template-columns:100px 160px repeat(7,44px) 70px 90px 70px;gap:4px;padding:10px 8px;background:rgba(124,58,237,0.08);color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;border-bottom:1px solid var(--borda);}
+/* ===== PLANILHA ===== */
+.planilha-wrapper{overflow-x:auto;border-radius:14px;border:1px solid var(--borda);background:var(--fundo);}
+.planilha-header{display:grid;grid-template-columns:90px 180px repeat(7,50px) 70px 90px 110px 60px;gap:4px;padding:14px 10px;background:rgba(124,58,237,0.08);color:var(--primaria);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--borda);}
 .planilha-header .meta-col{text-align:center;}
-.planilha-header .nome-col{text-align:left;padding-left:8px;}
+.planilha-header .nome-col{text-align:left;padding-left:10px;}
 
-.linha-membro{display:grid;grid-template-columns:100px 160px repeat(7,44px) 70px 90px 70px;gap:4px;padding:8px;background:rgba(255,255,255,0.01);border-bottom:1px solid rgba(255,255,255,0.03);align-items:center;transition:background 0.15s;}
+.linha-membro{display:grid;grid-template-columns:90px 180px repeat(7,50px) 70px 90px 110px 60px;gap:4px;padding:12px 10px;background:rgba(255,255,255,0.01);border-bottom:1px solid rgba(255,255,255,0.03);align-items:center;transition:background 0.15s;}
 .linha-membro:hover{background:rgba(124,58,237,0.03);}
-.meta-cell{font-size:14px;font-weight:700;text-align:center;color:var(--ouro);background:rgba(251,191,36,0.1);padding:4px 0;border-radius:4px;}
-.nome-membro{font-size:13px;font-weight:700;color:var(--texto);padding-left:8px;}
-.contador-cell{font-size:11px;font-weight:700;text-align:center;}
-.valor-cell{font-size:12px;font-weight:800;text-align:center;color:var(--verde);}
-.desconto-cell{font-size:11px;font-weight:700;text-align:center;color:var(--vermelho);}
+.meta-cell{font-size:14px;font-weight:800;text-align:center;color:var(--ouro);background:rgba(251,191,36,0.1);padding:6px 0;border-radius:8px;border:1px solid rgba(251,191,36,0.2);}
+.nome-membro{font-size:14px;font-weight:700;color:var(--texto);padding-left:10px;}
+.contador-cell{font-size:13px;font-weight:800;text-align:center;}
+.valor-cell{font-size:13px;font-weight:900;text-align:center;color:var(--verde);}
+.desconto-cell{font-size:12px;font-weight:700;text-align:center;color:var(--vermelho);}
 
-.bolinha{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,0.06);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.15s ease;}
+.bolinha{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,0.05);font-size:18px;display:flex;align-items:center;justify-content:center;transition:all 0.15s ease;}
 .bolinha:hover{transform:scale(1.15);}
-.bolinha.verde{background:var(--verde);box-shadow:0 0 8px rgba(16,185,129,0.4);}
-.bolinha.amarela{background:var(--amarelo);box-shadow:0 0 8px rgba(245,158,11,0.4);}
-.bolinha.vermelha{background:var(--vermelho);box-shadow:0 0 8px rgba(239,68,68,0.4);}
+.bolinha:disabled{cursor:default;opacity:0.7;}
+.bolinha.verde{background:var(--verde);box-shadow:0 0 12px rgba(16,185,129,0.4);}
+.bolinha.amarela{background:var(--amarelo);box-shadow:0 0 12px rgba(245,158,11,0.4);}
+.bolinha.vermelha{background:var(--vermelho);box-shadow:0 0 12px rgba(239,68,68,0.4);}
 
-/* RESULTADO */
-.resultado{background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:18px;margin-top:20px;display:none;}
+/* ===== RESULTADO ===== */
+.resultado{background:linear-gradient(135deg,rgba(16,185,129,0.05),rgba(124,58,237,0.03));border:1px solid rgba(16,185,129,0.2);border-radius:16px;padding:24px;margin-top:24px;display:none;animation:aparecer 0.3s ease;}
 .resultado.mostrar{display:block;}
-.res-titulo{font-weight:800;color:var(--verde);margin-bottom:14px;font-size:15px;}
-.res-linha{display:flex;justify-content:space-between;padding:8px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04);}
-.res-linha.total{font-weight:800;color:var(--ouro);border-bottom:none;padding-top:10px;font-size:15px;}
+.res-titulo{font-weight:900;color:var(--verde);margin-bottom:18px;font-size:17px;display:flex;align-items:center;gap:8px;}
+.res-geral{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px;}
+.res-card{background:rgba(0,0,0,0.2);border-radius:12px;padding:16px;}
+.res-card-label{font-size:12px;color:var(--textoSec);margin-bottom:6px;font-weight:600;}
+.res-card-valor{font-size:20px;font-weight:900;}
+.res-linha{display:flex;justify-content:space-between;padding:10px 12px;font-size:14px;border-bottom:1px solid rgba(255,255,255,0.04);border-radius:6px;transition:background 0.1s;}
+.res-linha:hover{background:rgba(255,255,255,0.02);}
+.res-linha.total{font-weight:900;color:var(--ouro);border-bottom:none;padding-top:14px;margin-top:8px;font-size:16px;background:rgba(251,191,36,0.05);border-radius:8px;}
+.res-linha.negativo{color:var(--vermelho);}
+.rank{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--primaria);color:white;font-size:11px;font-weight:900;margin-right:10px;}
 
-/* MODAL */
-.modal-fundo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:200;}
-.modal{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:26px;width:90%;max-width:420px;}
-.modal h3{color:var(--primaria);margin-bottom:16px;font-size:17px;}
-.modal input{width:100%;padding:13px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:8px;color:var(--texto);font-size:15px;margin-bottom:14px;outline:none;}
-.modal-botoes{display:flex;gap:12px;margin-top:6px;}
-.modal-btn-cancel{flex:1;padding:13px;background:#1E293B;border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
-.modal-btn-save{flex:1;padding:13px;background:var(--verde);border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
+/* ===== MODAL ===== */
+.modal-fundo{position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);display:none;justify-content:center;align-items:center;z-index:200;}
+.modal{background:var(--card);border:1px solid var(--borda);border-radius:20px;padding:30px;width:90%;max-width:440px;box-shadow:var(--sombra);animation:aparecer 0.3s ease;}
+.modal h3{color:var(--primaria);margin-bottom:18px;font-size:18px;font-weight:800;}
+.modal input{width:100%;padding:15px;background:var(--fundo);border:1px solid var(--borda);border-radius:10px;color:var(--texto);font-size:16px;margin-bottom:16px;outline:none;}
+.modal-botoes{display:flex;gap:12px;margin-top:8px;}
+.modal-btn-cancel{flex:1;padding:14px;background:#1E293B;border:none;border-radius:10px;color:white;font-weight:700;cursor:pointer;transition:background 0.2s;}
+.modal-btn-cancel:hover{background:#334155;}
+.modal-btn-save{flex:1;padding:14px;background:var(--verde);border:none;border-radius:10px;color:white;font-weight:700;cursor:pointer;transition:background 0.2s;}
+.modal-btn-save:hover{background:var(--verdeHover);}
 
-/* RESPONSIVO */
+/* ===== RESPONSIVO ===== */
 @media(max-width:768px){
   .caixas-grid{grid-template-columns:1fr;}
-  .planilha-header,.linha-membro{grid-template-columns:80px 130px repeat(7,36px) 60px 80px 50px;}
-  .bolinha{width:28px;height:28px;font-size:14px;}
+  .botoes-acao{grid-template-columns:1fr;}
+  .planilha-header,.linha-membro{grid-template-columns:80px 140px repeat(7,40px) 60px 75px 95px 50px;}
+  .bolinha{width:30px;height:30px;font-size:15px;}
+  .res-geral{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:480px){
+  .res-geral{grid-template-columns:1fr;}
+  .header-top{flex-wrap:wrap;gap:10px;}
 }
 </style>
 </head>
 <body>
 
-<!-- TELA DE LOGIN -->
+<!-- ====================================== -->
+<!--           TELA DE LOGIN               -->
+<!-- ====================================== -->
 <div class="tela-login" id="telaLogin">
   <div class="caixa-login">
     <h1>⚡ <span>LOJA CAOS 77</span></h1>
-    <p>Painel de Controle de Pagamentos</p>
-    <input type="password" id="senhaLogin" placeholder="Senha de Administrador">
+    <p>Sistema de Controle de Produção e Pagamentos</p>
+    <input type="password" id="senhaLogin" placeholder="🔑 Senha de Administrador">
     <button class="btn-login" onclick="fazerLogin()">🔐 ENTRAR COMO ADMIN</button>
     <button class="btn-visita" onclick="fazerVisita()">👀 ENTRAR COMO VISITANTE</button>
-    <div class="dica-senha">💡 Senha: <strong>123477</strong></div>
+    <div class="dica-senha">💡 Senha padrão: <strong>123477</strong><br>Altere no código quando precisar</div>
   </div>
 </div>
 
-<!-- CABEÇALHO -->
+<!-- ====================================== -->
+<!--              CABEÇALHO                -->
+<!-- ====================================== -->
 <div class="header-top" id="barraTopo" style="display:none;">
-  <div class="title">⚡ <span>LOJA CAOS 77</span> — CONTROLE</div>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <div class="status-badge" id="statusSinc">✅ Salvo</div>
-    <button class="btn-sair" onclick="sair()">Sair</button>
+  <div class="title">⚡ <span>LOJA CAOS 77</span> — CONTROLE TOTAL</div>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <div class="status-badge" id="statusSinc"><span class="ponto"></span> <span id="textoStatus">Salvo</span></div>
+    <button class="btn-sair" onclick="sair()">🚪 Sair</button>
   </div>
 </div>
 
-<!-- CONTEÚDO PRINCIPAL -->
+<!-- ====================================== -->
+<!--           CONTEÚDO PRINCIPAL          -->
+<!-- ====================================== -->
 <div class="container" id="conteudoPrincipal" style="display:none;">
 
-<!-- 3 CAIXAS -->
+<!-- ===== 💰 PAINEL DE CAIXAS ===== -->
 <div class="section-card">
-  <div class="section-title">💰 CAIXAS</div>
+  <div class="section-title"><span>💰</span> CAIXAS FINANCEIRAS</div>
   <div class="caixas-grid">
     <div class="caixa-item">
       <div class="caixa-label">🏦 Caixa da Facção</div>
@@ -153,84 +194,101 @@ body{background:var(--bg);min-height:100vh;color:var(--texto);padding-bottom:40p
   </div>
 </div>
 
-<!-- REGRAS DE DESCONTO -->
+<!-- ===== 📐 REGRAS ===== -->
 <div class="section-card">
-  <div class="section-title">📐 REGRAS DE DESCONTO</div>
+  <div class="section-title"><span>📐</span> SISTEMA DE AVALIAÇÃO</div>
   <div class="regras-box">
-    <div class="regras-titulo">Como funciona o cálculo:</div>
-    <div class="regras-linha">🎯 Meta diária: <strong>120</strong> fragmentos por colaborador</div>
-    <div class="regras-linha">🟢 <strong>Verde:</strong> Meta batida — Sem desconto</div>
-    <div class="regras-linha">🟡 <strong>Amarelo:</strong> Meta parcial — Desconta <span style="color:var(--amarelo)">5%</span> por dia</div>
-    <div class="regras-linha">🔴 <strong>Vermelho:</strong> Meta não batida — Desconta <span style="color:var(--vermelho)">20%</span> por dia</div>
+    <div class="regras-titulo">📋 Como funciona o sistema:</div>
+    <div class="regras-linha"><span>🎯</span> Meta diária: <strong class="destaque">120 fragmentos</strong> por colaborador</div>
+    <div class="regras-linha"><span>🟢</span> Verde = Meta batida → <strong class="destaque">Sem desconto</strong> (recebe valor integral)</div>
+    <div class="regras-linha"><span>🟡</span> Amarelo = Meta parcial → <strong class="amarelo">-5%</strong> de desconto por dia</div>
+    <div class="regras-linha"><span>🔴</span> Vermelho = Meta não batida → <strong class="vermelho">-20%</strong> de desconto por dia</div>
+    <div class="regras-linha" style="margin-top:10px;font-size:13px;color:var(--textoSec);">💡 Quanto mais amarelo/vermelho → maior o desconto → menor o valor a receber</div>
   </div>
 </div>
 
-<!-- PLANILHA -->
+<!-- ===== 📋 PLANILHA ===== -->
 <div class="section-card">
-  <div class="section-title">📋 PLANILHA DE COLABORADORES</div>
+  <div class="section-title"><span>📋</span> PLANILHA DE COLABORADORES</div>
   
-  <button class="btn-add" onclick="abrirModalMembro()">➕ ADICIONAR COLABORADOR</button>
-  <button class="btn-calcular" onclick="calcular()">🧮 CALCULAR PAGAMENTOS</button>
-  <button class="btn-salvar" onclick="salvarDados()">💾 SALVAR TUDO</button>
+  <div class="botoes-acao">
+    <button class="btn-add" onclick="abrirModalMembro()"><span>➕</span> ADICIONAR COLABORADOR</button>
+    <button class="btn-calcular" onclick="calcular()"><span>🧮</span> CALCULAR PAGAMENTOS</button>
+    <button class="btn-salvar" onclick="salvarDados()"><span>💾</span> SALVAR TUDO</button>
+  </div>
 
   <div class="planilha-wrapper">
     <div class="planilha-header">
       <div class="meta-col">META</div>
       <div class="nome-col">COLABORADOR</div>
       <div>D1</div><div>D2</div><div>D3</div><div>D4</div><div>D5</div><div>D6</div><div>D7</div>
-      <div>🟡 5%</div><div>🔴 20%</div><div>✖</div>
+      <div>🟡 5%</div><div>🔴 20%</div><div>VALOR</div><div>✖</div>
     </div>
     <div id="listaMembros"></div>
   </div>
 
-  <!-- RESULTADO DOS PAGAMENTOS -->
+  <!-- ===== 📊 RESULTADO ===== -->
   <div class="resultado" id="resultado">
-    <div class="res-titulo">📋 RESUMO DE PAGAMENTOS</div>
-    <div class="res-linha">
-      <span>💵 Valor total para distribuir:</span>
-      <span id="resValorTotal">R$ 0,00</span>
+    <div class="res-titulo">📋 RESUMO DE PAGAMENTOS — SEMANA COMPLETA</div>
+    
+    <div class="res-geral">
+      <div class="res-card">
+        <div class="res-card-label">💵 Valor Total para Distribuir</div>
+        <div class="res-card-valor" id="resValorTotal">R$ 0,00</div>
+      </div>
+      <div class="res-card">
+        <div class="res-card-label">👥 Colaboradores Ativos</div>
+        <div class="res-card-valor" id="resTotalPessoas">0</div>
+      </div>
+      <div class="res-card">
+        <div class="res-card-label">💰 Valor Base por Pessoa</div>
+        <div class="res-card-valor" id="resValorBase">R$ 0,00</div>
+      </div>
+      <div class="res-card">
+        <div class="res-card-label">✅ Total Distribuído</div>
+        <div class="res-card-valor" id="resTotalFinal">R$ 0,00</div>
+      </div>
     </div>
-    <div class="res-linha">
-      <span>👥 Número de colaboradores ativos:</span>
-      <span id="resTotalPessoas">0</span>
-    </div>
-    <div class="res-linha">
-      <span>💰 Valor base por pessoa (sem desconto):</span>
-      <span id="resValorBase">R$ 0,00</span>
-    </div>
-    <div style="margin-top:16px;">
-      <div style="font-weight:700;margin-bottom:10px;color:var(--verde);">📋 Detalhe com descontos:</div>
+
+    <div style="margin-top:8px;">
+      <div style="font-weight:800;margin-bottom:12px;color:var(--verde);font-size:15px;">🏆 RANKING — Do maior para o menor valor:</div>
       <div id="resPorPessoa"></div>
     </div>
-    <div class="res-linha total">
-      <span>✅ VALOR TOTAL DISTRIBUÍDO:</span>
-      <span id="resTotalFinal">R$ 0,00</span>
-    </div>
   </div>
 </div>
 
 </div>
 
-<!-- MODAL ADICIONAR -->
+<!-- ====================================== -->
+<!--              MODAL                     -->
+<!-- ====================================== -->
 <div class="modal-fundo" id="modalMembro">
   <div class="modal">
-    <h3>➕ Adicionar Colaborador</h3>
+    <h3>➕ Adicionar Novo Colaborador</h3>
     <input type="text" id="nomeNovo" placeholder="Digite o nome do colaborador">
     <div class="modal-botoes">
-      <button class="modal-btn-cancel" onclick="fecharModalMembro()">Cancelar</button>
-      <button class="modal-btn-save" onclick="adicionarMembro()">Adicionar</button>
+      <button class="modal-btn-cancel" onclick="fecharModalMembro()">❌ Cancelar</button>
+      <button class="modal-btn-save" onclick="adicionarMembro()">✅ Adicionar</button>
     </div>
   </div>
 </div>
 
+<!-- ====================================== -->
+<!--            JAVASCRIPT                  -->
+<!-- ====================================== -->
 <script>
-const SENHA_ADMIN = '123477';
-const META_DIARIA = 120;
+// ⚙️ CONFIGURAÇÕES — ALTERE AQUI SE PRECISAR
+const SENHA_ADMIN = '123477';   // ← Altere sua senha aqui!
+const META_DIARIA = 120;         // ← Meta diária por pessoa
+const DESC_AMARELO = 0.05;       // ← 5% de desconto
+const DESC_VERMELHO = 0.20;      // ← 20% de desconto
+
+// 📦 DADOS
 let modoAdmin = false;
 let membros = [];
 let alterado = false;
 
-// --- UTILITÁRIOS ---
+// 🛠️ FUNÇÕES UTILITÁRIAS
 function formatarDinheiro(valor) {
   return 'R$ ' + parseFloat(valor).toFixed(2).replace('.', ',');
 }
@@ -241,18 +299,19 @@ function parseDinheiro(texto) {
 
 function marcarAlterado() {
   alterado = true;
-  document.getElementById('statusSinc').textContent = '⚠️ Não Salvo';
   document.getElementById('statusSinc').classList.add('nao-salvo');
+  document.getElementById('textoStatus').textContent = 'Não Salvo';
 }
 
-// --- LOGIN ---
+// 🔐 LOGIN
 function fazerLogin() {
   const senha = document.getElementById('senhaLogin').value;
   if (senha === SENHA_ADMIN) {
     modoAdmin = true;
     abrirPainel();
   } else {
-    alert('❌ Senha incorreta!');
+    alert('❌ Senha incorreta! Tente novamente.');
+    document.getElementById('senhaLogin').value = '';
   }
 }
 
@@ -272,7 +331,7 @@ function abrirPainel() {
 }
 
 function sair() {
-  if (alterado && confirm('Salvar alterações antes de sair?')) salvarDados();
+  if (alterado && confirm('💾 Salvar alterações antes de sair?')) salvarDados();
   modoAdmin = false;
   document.getElementById('senhaLogin').value = '';
   document.getElementById('telaLogin').style.display = 'flex';
@@ -280,9 +339,10 @@ function sair() {
   document.getElementById('conteudoPrincipal').style.display = 'none';
 }
 
-// --- MODAL ---
+// 📝 MODAL
 function abrirModalMembro() {
   document.getElementById('modalMembro').style.display = 'flex';
+  document.getElementById('nomeNovo').focus();
 }
 
 function fecharModalMembro() {
@@ -292,7 +352,7 @@ function fecharModalMembro() {
 
 function adicionarMembro() {
   const nome = document.getElementById('nomeNovo').value.trim();
-  if (!nome) { alert('Digite o nome!'); return; }
+  if (!nome) { alert('⚠️ Digite o nome do colaborador!'); return; }
   
   membros.push({
     id: Date.now(),
@@ -310,11 +370,13 @@ function adicionarMembro() {
   marcarAlterado();
   renderizarLista();
   calcular();
+  alert(`✅ Colaborador "${nome}" adicionado com sucesso!`);
 }
 
 function removerMembro(id) {
   if (!modoAdmin) return;
-  if (confirm('Remover este colaborador?')) {
+  const membro = membros.find(m => m.id === id);
+  if (confirm(`🗑️ Remover "${membro?.nome}"? Esta ação não pode ser desfeita!`)) {
     membros = membros.filter(m => m.id !== id);
     marcarAlterado();
     renderizarLista();
@@ -322,7 +384,7 @@ function removerMembro(id) {
   }
 }
 
-// --- TROCAR COR DA BOLINHA ---
+// 🎯 BOLINHAS
 function trocarBolinha(id, diaIndex) {
   if (!modoAdmin) return;
   const membro = membros.find(m => m.id === id);
@@ -338,9 +400,9 @@ function trocarBolinha(id, diaIndex) {
   calcular();
 }
 
-// 🧮 CÁLCULO PRINCIPAL — COM DESCONTO
+// 🧮 CÁLCULO PRINCIPAL
 function calcular() {
-  // 1. Conta amarelos e vermelhos de cada membro
+  // 1. Conta os dias de cada cor
   membros.forEach(m => {
     let amarelos = 0;
     let vermelhos = 0;
@@ -352,11 +414,11 @@ function calcular() {
     m.contVermelho = vermelhos;
   });
 
-  // 2. Conta membros com pelo menos 1 dia marcado
+  // 2. Filtra quem tem pelo menos 1 dia registrado
   const membrosAtivos = membros.filter(m => m.dias.some(c => c !== ''));
   const totalAtivos = membrosAtivos.length;
 
-  // 3. Valores do caixa
+  // 3. Pega valor do caixa de pagamento
   const valorTotal = parseDinheiro(document.getElementById('caixaPagamento').value);
 
   if (totalAtivos === 0 || valorTotal === 0) {
@@ -365,7 +427,7 @@ function calcular() {
     return;
   }
 
-  // 4. Valor base por pessoa
+  // 4. Divisão igualitária
   const valorBasePorPessoa = valorTotal / totalAtivos;
 
   // 5. Aplica descontos individuais
@@ -374,41 +436,39 @@ function calcular() {
   membrosAtivos.forEach(m => {
     m.valorBase = valorBasePorPessoa;
     
-    // 5% por amarelo, 20% por vermelho
-    const descAmarelo = m.contAmarelo * 0.05;
-    const descVermelho = m.contVermelho * 0.20;
+    const descAmarelo = m.contAmarelo * DESC_AMARELO;
+    const descVermelho = m.contVermelho * DESC_VERMELHO;
     const descontoTotal = descAmarelo + descVermelho;
-    
-    const descontoAplicado = Math.min(descontoTotal, 1.00);
+    const descontoAplicado = Math.min(descontoTotal, 1.00); // Máximo 100%
     m.desconto = descontoAplicado;
     
     m.valorFinal = m.valorBase * (1 - descontoAplicado);
     valorTotalDistribuido += m.valorFinal;
   });
 
-  // 6. Atualiza tela
+  // 6. Atualiza os cards gerais
   document.getElementById('resultado').classList.add('mostrar');
   document.getElementById('resValorTotal').textContent = formatarDinheiro(valorTotal);
   document.getElementById('resTotalPessoas').textContent = totalAtivos;
   document.getElementById('resValorBase').textContent = formatarDinheiro(valorBasePorPessoa);
+  document.getElementById('resTotalFinal').textContent = formatarDinheiro(valorTotalDistribuido);
 
+  // 7. Ranking ordenado do maior para o menor
   let htmlResumo = '';
   membrosAtivos.sort((a, b) => b.valorFinal - a.valorFinal).forEach((m, i) => {
     const descPerc = (m.desconto * 100).toFixed(0);
     htmlResumo += `
-    <div class="res-linha" style="font-size:12px;">
-      <span>${i+1}. ${m.nome} | 🎯 ${m.meta} | 🟡×${m.contAmarelo} 🔴×${m.contVermelho} | Desc: ${descPerc}%</span>
-      <span style="color:var(--verde);font-weight:700;">${formatarDinheiro(m.valorFinal)}</span>
+    <div class="res-linha">
+      <span><span class="rank">${i+1}</span> ${m.nome} • 🎯 ${m.meta} • 🟡×${m.contAmarelo} • 🔴×${m.contVermelho} • Desc: ${descPerc}%</span>
+      <span style="color:var(--verde);font-weight:900;">${formatarDinheiro(m.valorFinal)}</span>
     </div>`;
   });
   
   document.getElementById('resPorPessoa').innerHTML = htmlResumo;
-  document.getElementById('resTotalFinal').textContent = formatarDinheiro(valorTotalDistribuido);
-
   renderizarLista();
 }
 
-// --- RENDERIZAR PLANILHA ---
+// 📊 RENDERIZAR PLANILHA
 function renderizarLista() {
   let html = '';
   membros.forEach(m => {
@@ -428,17 +488,17 @@ function renderizarLista() {
     });
     
     html += `
-      <div class="contador-cell" style="color:var(--amarelo);font-weight:800;">${m.contAmarelo}</div>
-      <div class="contador-cell" style="color:var(--vermelho);font-weight:800;">${m.contVermelho}</div>
-      <div>${m.valorFinal > 0 ? `<div class="valor-cell">${formatarDinheiro(m.valorFinal)}</div>` : '<div class="valor-cell" style="color:var(--textoSec);">—</div>'}</div>
-      <div>${modoAdmin ? `<button class="btn-del" onclick="removerMembro(${m.id})">✖</button>` : ''}</div>
+      <div class="contador-cell" style="color:var(--amarelo);">${m.contAmarelo}</div>
+      <div class="contador-cell" style="color:var(--vermelho);">${m.contVermelho}</div>
+      <div class="valor-cell">${m.valorFinal > 0 ? formatarDinheiro(m.valorFinal) : '—'}</div>
+      <div>${modoAdmin ? `<button class="btn-del" onclick="removerMembro(${m.id})">🗑️</button>` : ''}</div>
     </div>`;
   });
   
   document.getElementById('listaMembros').innerHTML = html;
 }
 
-// --- SALVAR / CARREGAR ---
+// 💾 SALVAR / CARREGAR
 function salvarDados() {
   const dados = {
     membros: membros,
@@ -446,15 +506,15 @@ function salvarDados() {
     caixaLider: document.getElementById('caixaLider').value,
     caixaPagamento: document.getElementById('caixaPagamento').value
   };
-  localStorage.setItem('caos77_dados', JSON.stringify(dados));
+  localStorage.setItem('caos77_dados_v2', JSON.stringify(dados));
   alterado = false;
-  document.getElementById('statusSinc').textContent = '✅ Salvo';
   document.getElementById('statusSinc').classList.remove('nao-salvo');
-  alert('✅ Todos os dados salvos com sucesso!');
+  document.getElementById('textoStatus').textContent = '✅ Salvo';
+  alert('✅ TODOS OS DADOS SALVOS COM SUCESSO!');
 }
 
 function carregarDados() {
-  const salvo = localStorage.getItem('caos77_dados');
+  const salvo = localStorage.getItem('caos77_dados_v2');
   if (salvo) {
     try {
       const dados = JSON.parse(salvo);
@@ -462,13 +522,17 @@ function carregarDados() {
       document.getElementById('caixaFaccao').value = dados.caixaFaccao || 'R$ 0,00';
       document.getElementById('caixaLider').value = dados.caixaLider || 'R$ 0,00';
       document.getElementById('caixaPagamento').value = dados.caixaPagamento || 'R$ 0,00';
-    } catch(e) { console.log('Erro ao carregar dados'); }
+    } catch(e) { 
+      console.log('Erro ao carregar dados:', e); 
+      membros = [];
+    }
   }
   alterado = false;
-  document.getElementById('statusSinc').textContent = '✅ Salvo';
   document.getElementById('statusSinc').classList.remove('nao-salvo');
+  document.getElementById('textoStatus').textContent = '✅ Salvo';
 }
 
+// ⌨️ Enter para adicionar
 document.getElementById('nomeNovo').addEventListener('keypress', function(e) {
   if (e.key === 'Enter') adicionarMembro();
 });

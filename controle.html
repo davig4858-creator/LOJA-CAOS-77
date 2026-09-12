@@ -135,7 +135,7 @@ body{
 }
 .membro-row:hover{background:var(--bg-card-hover);border-color:rgba(0,212,255,0.15);}
 
-.membro-nome{font-size:12px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.membro-nome{font-size:14px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
 .coroa{font-size:14px;filter:drop-shadow(0 0 3px gold);}
 .pontos-cell{font-size:11px;font-weight:700;color:var(--ouro);text-align:center;}
 .valor-cell{font-size:11px;font-weight:800;color:var(--verde);text-align:center;}
@@ -210,7 +210,7 @@ body{
   .stats-grid{grid-template-columns:repeat(2,1fr);}
   .dias-header,.membro-row{grid-template-columns:120px repeat(6,40px) 75px 90px 65px;gap:2px;}
   .bolinha{width:22px;height:22px;font-size:9px;}
-  .membro-nome{font-size:10px;}
+  .membro-nome{font-size:12px;}
 }
 </style>
 </head>
@@ -222,10 +222,7 @@ body{
 
 <div class="header-top">
   <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <div class="status-badge" id="statusSinc">Sincronizado</div>
-    <button class="btn-sair" onclick="window.location.href='index.html'">🚪 Sair</button>
-  </div>
+  <div class="status-badge" id="statusSinc">Sincronizado</div>
 </div>
 
 <div class="container">
@@ -308,7 +305,7 @@ body{
   <div class="dias-header">
     <div class="nome-col">NOME</div>
     <div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
-    <div>PONTOS</div>
+    <div>PTS</div>
     <div>RECEBERÁ</div>
     <div>AÇÃO</div>
   </div>
@@ -351,7 +348,29 @@ const DATABASE_URL = 'https://loja-caos-77-default-rtdb.firebaseio.com/.json';
 
 const ehModoVisitante = new URLSearchParams(window.location.search).get('modo') === 'leitura';
 
-let membros = [];
+let membros = [
+  { id: 1789112658911, nome: 'Sr Bristow', coroa: true, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112674552, nome: 'Katy Bristow', coroa: true, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112697878, nome: 'Andres Bristow', coroa: true, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112711976, nome: 'Ferrari Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112743926, nome: 'Vn Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112760627, nome: 'Patrik Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112771905, nome: 'Garcia Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112795946, nome: 'Vt Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112813039, nome: 'Lula Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112824616, nome: 'Breck Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112847515, nome: 'Boladin Xt', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112863622, nome: 'Sr Ghostt', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112879484, nome: 'Laa Diabla', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112909392, nome: 'Ejuan Handi', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112927917, nome: 'Eduarda Faria', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112936235, nome: 'Mateus Faria', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789151065765, nome: 'Zé Bagaceira', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789151088144, nome: 'Alex Gadernal', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789152359172, nome: 'Aquino Menezes', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789157297586, nome: 'Connorr Dyygeras', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789157430178, nome: 'Lanterna Preta', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } }
+];
 
 let alterado = false;
 
@@ -400,13 +419,13 @@ function renderizarLista(){
     lista.innerHTML += `
       <div class="membro-row" data-nome="${item.nome.toLowerCase()}">
         <div class="membro-nome">${item.coroa ? '<span class="coroa">👑</span>' : ''}${item.nome}</div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.seg[0] === 'G' ? 'verde' : item.dias.seg[0] === 'Y' ? 'amarela' : item.dias.seg[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'seg', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.seg[1] || ''}</span></div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.ter[0] === 'G' ? 'verde' : item.dias.ter[0] === 'Y' ? 'amarela' : item.dias.ter[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'ter', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.ter[1] || ''}</span></div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.qua[0] === 'G' ? 'verde' : item.dias.qua[0] === 'Y' ? 'amarela' : item.dias.qua[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'qua', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.qua[1] || ''}</span></div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.qui[0] === 'G' ? 'verde' : item.dias.qui[0] === 'Y' ? 'amarela' : item.dias.qui[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'qui', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.qui[1] || ''}</span></div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.sex[0] === 'G' ? 'verde' : item.dias.sex[0] === 'Y' ? 'amarela' : item.dias.sex[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'sex', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.sex[1] || ''}</span></div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.sab[0] === 'G' ? 'verde' : item.dias.sab[0] === 'Y' ? 'amarela' : item.dias.sab[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'sab', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.sab[1] || ''}</span></div>
-        <div class="pontos-cell">${pontos.toFixed(1).replace('.',',')}pt</div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.seg[0] === 'G' ? 'verde' : item.dias.seg[0] === 'Y' ? 'amarela' : item.dias.seg[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'seg')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.ter[0] === 'G' ? 'verde' : item.dias.ter[0] === 'Y' ? 'amarela' : item.dias.ter[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'ter')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.qua[0] === 'G' ? 'verde' : item.dias.qua[0] === 'Y' ? 'amarela' : item.dias.qua[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'qua')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.qui[0] === 'G' ? 'verde' : item.dias.qui[0] === 'Y' ? 'amarela' : item.dias.qui[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'qui')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.sex[0] === 'G' ? 'verde' : item.dias.sex[0] === 'Y' ? 'amarela' : item.dias.sex[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'sex')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
+        <div class="dia-cell"><span class="bolinha ${item.dias.sab[0] === 'G' ? 'verde' : item.dias.sab[0] === 'Y' ? 'amarela' : item.dias.sab[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'sab')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
+        <div class="pontos-cell">${pontos.toFixed(1).replace('.',',')}</div>
         <div class="valor-cell">${valorPonto > 0 ? new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(receber) : '—'}</div>
         <div>${!ehModoVisitante ? `<button class="btn-del" onclick="removerMembro(${index})">🗑️</button>` : ''}</div>
       </div>
@@ -414,7 +433,7 @@ function renderizarLista(){
   });
 }
 
-function trocarCor(index, dia, passo){
+function trocarCor(index, dia){
   if(ehModoVisitante) return;
   const ordem = ['', 'G', 'Y', 'R'];
   let atual = membros[index].dias[dia][0];
@@ -543,15 +562,6 @@ function copiarLink(id){
 
 carregarDados();
 </script>
-
-<style>
-.btn-sair{
-  padding:8px 16px;background:transparent;border:1px solid rgba(255,255,255,0.15);
-  color:var(--texto);border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;
-  transition:all 0.2s ease;
-}
-.btn-sair:hover{background:rgba(255,59,59,0.1);border-color:rgba(255,59,59,0.3);color:var(--vermelho);}
-</style>
 
 </body>
 </html>

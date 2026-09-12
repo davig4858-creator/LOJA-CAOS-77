@@ -385,7 +385,7 @@ const SENHA_ADMIN = '123477';
 let modoAdmin = false;
 const CHAVE_NUVEM = 'loja_caos77_dados';
 
-// 🏅 LISTA DE INTEGRANTES
+// 🏅 LISTA DE INTEGRANTES COMPLETA
 const NOMES_INICIAIS = [
   { nome: 'Sr Bristow', lider: true, farm: 0 },
   { nome: 'Katy Bristow', lider: false, farm: 0 },
@@ -429,11 +429,11 @@ function inicializarNomes(){
   }
 }
 
-// ➕ CÁLCULO AUTOMÁTICO PRINCIPAL
+// ➕ CÁLCULO AUTOMÁTICO
 function calcularTudo(){
   const valorPorFrag = parseFloat(document.getElementById('valorPorFrag').value) || 0;
   
-  // Soma TODOS os fragmentos
+  // Soma todos os fragmentos
   let totalFrags = 0;
   membros.forEach(m => totalFrags += Number(m.farm) || 0);
   
@@ -447,10 +447,6 @@ function calcularTudo(){
 
 function formatarMoeda(valor){
   return 'R$ ' + valor.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-}
-
-function parseMoeda(texto){
-  return parseFloat(texto.replace(/[R$\s.]/g,'').replace(',','.')) || 0;
 }
 
 // ☁️ SALVAR E CARREGAR

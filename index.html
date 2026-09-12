@@ -141,9 +141,18 @@ body{
 .legend-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--textoSec);}
 .legend-dot{width:14px;height:14px;border-radius:50%;display:inline-block;}
-.dot-green{background:var(--verde);}
-.dot-yellow{background:var(--amarelo);}
-.dot-red{background:var(--vermelho);}
+.dot-green{background:var(--verde);box-shadow:0 0 6px rgba(16,185,129,0.4);}
+.dot-yellow{background:var(--amarelo);box-shadow:0 0 6px rgba(245,158,11,0.4);}
+.dot-red{background:var(--vermelho);box-shadow:0 0 6px rgba(239,68,68,0.4);}
+
+.status-indicador{
+  width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.status-indicador.verde{background:var(--verde);box-shadow:0 0 6px rgba(16,185,129,0.5);}
+.status-indicador.amarelo{background:var(--amarelo);box-shadow:0 0 6px rgba(245,158,11,0.5);}
+.status-indicador.vermelho{background:var(--vermelho);box-shadow:0 0 6px rgba(239,68,68,0.5);}
+.status-indicador.vazio{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);}
 
 .search-bar{
   width:100%;padding:14px 18px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:10px;
@@ -160,7 +169,7 @@ body{
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
 
 .dias-header{
-  display:grid;grid-template-columns:160px 60px 60px repeat(6,45px) 45px;gap:4px;
+  display:grid;grid-template-columns:165px 50px 60px repeat(6,45px) 45px;gap:4px;
   padding:10px 8px;color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
@@ -168,13 +177,13 @@ body{
 .dias-header .qtd-col{text-align:center;}
 
 .membro-row{
-  display:grid;grid-template-columns:160px 60px 60px repeat(6,45px) 45px;gap:4px;
+  display:grid;grid-template-columns:165px 50px 60px repeat(6,45px) 45px;gap:4px;
   padding:10px 6px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
   align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
 .membro-row:hover{background:rgba(255,255,255,0.05);border-color:var(--borda);}
 
-.membro-nome{font-size:13px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.membro-nome{font-size:13px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:8px;}
 .coroa{font-size:14px;filter:drop-shadow(0 0 3px gold);}
 .qtd-farm-cell,.valor-cell{text-align:center;}
 .qtd-farm-input{
@@ -185,12 +194,12 @@ body{
 .valor-exibido{font-size:11px;font-weight:700;color:var(--textoSec);}
 .dia-cell{display:flex;justify-content:center;}
 .bolinha{
-  width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;
+  width:26px;height:26px;border-radius:50%;border:3px solid transparent;cursor:pointer;
   transition:all 0.15s ease;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;
-  font-size:14px;font-weight:bold;color:transparent;
+  font-size:12px;font-weight:bold;color:transparent;
 }
 .bolinha:disabled{cursor:not-allowed;opacity:0.6;}
-.bolinha:hover{transform:scale(1.2);}
+.bolinha:hover{transform:scale(1.15);}
 .bolinha.vazia{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);}
 .bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 8px rgba(16,185,129,0.5);color:#000;}
 .bolinha.amarela{background:var(--amarelo);border-color:#D97706;box-shadow:0 0 8px rgba(245,158,11,0.5);color:#000;}
@@ -230,7 +239,7 @@ body{
   .stats-row{grid-template-columns:repeat(2,1fr);}
   .caixas-grid{grid-template-columns:repeat(2,1fr);}
   .grupos-grid{grid-template-columns:1fr;}
-  .dias-header,.membro-row{grid-template-columns:110px 45px 50px repeat(6,38px) 40px;gap:2px;}
+  .dias-header,.membro-row{grid-template-columns:125px 40px 50px repeat(6,38px) 40px;gap:2px;}
   .bolinha{width:24px;height:24px;}
   .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
 }
@@ -350,7 +359,7 @@ body{
   <button class="btn-add" id="btnAdicionar" onclick="abrirModalMembro()">➕ ADICIONAR INTEGRANTE</button>
 
   <div class="dias-header">
-    <div class="nome-col">NOME</div>
+    <div class="nome-col">STATUS / NOME</div>
     <div class="qtd-col">🟢</div>
     <div class="qtd-col">💰</div>
     <div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div>
@@ -441,6 +450,15 @@ function inicializarNomes(){
   }
 }
 
+// 🎯 PEGAR COR PRINCIPAL DO MEMBRO
+function getCorMembro(membro){
+  const cores = Object.values(membro.dias);
+  if(cores.includes('G')) return 'verde';     // Se fez pelo menos 1 dia completo → VERDE
+  if(cores.includes('Y')) return 'amarelo';  // Se só fez parciais → AMARELO
+  if(cores.includes('R')) return 'vermelho';  // Se marcou não fez → VERMELHO
+  return 'vazio';                              // Sem nada marcado
+}
+
 // ➕ CONTAR E CALCULAR PELAS BOLINHAS
 function calcularTudo(){
   const valorDiaCompleto = parseFloat(document.getElementById('valorDiaCompleto').value) || 10;
@@ -472,6 +490,7 @@ function calcularTudo(){
     
     membro.diasFeitos = diasVerdeMembro;
     membro.valor = valorMembro;
+    membro.corStatus = getCorMembro(membro);
     valorTotalGeral += valorMembro;
   });
   
@@ -621,7 +640,6 @@ function marcarAlterado(){
 
 function atualizarStats(){
   document.getElementById('totalMembros').textContent = membros.length;
-  document.getElementById('caixaFacDisplay').textContent = document.getElementById('caixaFac').value;
 }
 
 // 🎯 CLICA NA BOLINHA → MUDA COR E CALCULA AUTOMÁTICO
@@ -659,9 +677,11 @@ function renderizarLista(){
   lista.innerHTML = '';
   
   membros.forEach((membro, idx) => {
+    const corStatus = membro.corStatus || 'vazio';
     lista.innerHTML += `
       <div class="membro-row" data-nome="${membro.nome.toLowerCase()}">
         <div class="membro-nome">
+          <div class="status-indicador ${corStatus}"></div>
           ${membro.coroa ? '<span class="coroa">👑</span>' : ''}${membro.nome}
         </div>
         <div class="qtd-farm-cell" style="font-weight:bold;color:var(--verde);">${membro.diasFeitos || 0}</div>

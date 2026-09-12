@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ LOJA CAOS 77</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+:root{
+  --bg: #0A101F;
+  --card: #121A2E;
+  --primaria: #7C3AED;
+  --verde: #10B981;
+  --ouro: #FBBF24;
+  --amarelo: #F59E0B;
+  --vermelho: #EF4444;
+  --texto: #F1F5F9;
+  --textoSec: #94A3B8;
+  --borda: rgba(124,58,237,0.2);
+}
+
+body{
+  background:var(--bg);
+  min-height:100vh;color:var(--texto);
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(124,58,237,0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(59,130,246,0.04) 0%, transparent 50%);
+  padding-bottom:40px;
+}
+
+/* TELA DE LOGIN */
+.tela-login{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:var(--bg);
+  display:flex;justify-content:center;align-items:center;z-index:999;
+}
+.caixa-login{
+  background:var(--card);border:1px solid var(--borda);border-radius:20px;padding:40px 30px;width:90%;max-width:400px;text-align:center;
+  box-shadow:0 10px 40px rgba(124,58,237,0.15);
+}
+.caixa-login h1{font-size:26px;font-weight:900;margin-bottom:8px;}
+.caixa-login h1 span{color:var(--primaria);}
+.caixa-login p{color:var(--textoSec);font-size:14px;margin-bottom:30px;}
+.caixa-login input{
+  width:100%;padding:14px 16px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:10px;
+  color:var(--texto);font-size:15px;margin-bottom:16px;outline:none;text-align:center;
+}
+.btn-login{
+  width:100%;padding:14px;background:linear-gradient(90deg,var(--primaria),#3B82F6);border:none;border-radius:10px;
+  color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:12px;transition:all 0.25s ease;
+}
+.btn-login:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
+.btn-visita{
+  width:100%;padding:12px;background:transparent;border:1px solid var(--textoSec);border-radius:10px;
+  color:var(--textoSec);font-size:14px;font-weight:700;cursor:pointer;transition:all 0.25s ease;
+}
+.btn-visita:hover{border-color:var(--primaria);color:var(--primaria);}
+.dica-senha{font-size:11px;color:var(--textoSec);margin-top:16px;}
+
+.visitante-banner{
+  background:linear-gradient(90deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05));
+  color:#FBBF24;padding:10px;text-align:center;font-size:13px;font-weight:700;
+  position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(251,191,36,0.2);
+}
+.btn-sair{
+  position:absolute;right:16px;top:14px;padding:8px 14px;background:rgba(239,68,68,0.1);
+  border:1px solid rgba(239,68,68,0.3);border-radius:8px;color:#FCA5A5;font-size:13px;font-weight:700;cursor:pointer;
+  transition:all 0.2s ease;
+}
+.btn-sair:hover{background:rgba(239,68,68,0.2);}
+
+.header-top{
+  background:linear-gradient(180deg,rgba(18,26,46,0.98),rgba(10,16,31,0.95));
+  padding:20px 16px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--borda);position:sticky;top:0;z-index:99;backdrop-filter:blur(12px);
+}
+.header-top .title{font-size:18px;font-weight:900;display:flex;align-items:center;gap:10px;}
+.header-top .title span{color:var(--primaria);}
+.status-badge{
+  background:rgba(16,185,129,0.1);color:var(--verde);padding:6px 14px;border-radius:50px;
+  font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;border:1px solid rgba(16,185,129,0.2);
+}
+.status-badge::before{content:'';width:8px;height:8px;background:var(--verde);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.container{max-width:1100px;margin:0 auto;padding:20px 14px;}
+
+.section-card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:22px;margin-bottom:24px;}
+.section-title{font-size:15px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--primaria);}
+
+/* TABELA DE VALORES DE FRAGMENTOS */
+.tabela-valores{width:100%;border-collapse:collapse;}
+.tabela-valores th,.tabela-valores td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--borda);}
+.tabela-valores th{color:var(--primaria);font-size:12px;text-transform:uppercase;letter-spacing:0.5px;}
+.tabela-valores td{font-size:14px;}
+.tabela-valores tr:last-child td{border-bottom:none;}
+.qtd-frag{font-weight:700;color:var(--texto);}
+.valor-frag{font-weight:900;color:var(--ouro);}
+
+/* CAIXAS */
+.caixas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;transition:opacity 0.2s;}
+.caixa-item.estavel{opacity:0.85;}
+.caixa-label{font-size:11px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;}
+.caixa-valor{font-size:17px;font-weight:900;}
+.caixa-valor input{
+  width:100%;background:transparent;border:none;font-size:17px;font-weight:900;text-align:center;outline:none;color:inherit;
+}
+.caixa-valor input:disabled{opacity:0.6;cursor:not-allowed;}
+.caixa-valor.ouro{color:var(--ouro);}
+.caixa-valor.verde{color:var(--verde);}
+.caixa-valor.azul{color:#3B82F6;}
+
+/* RANKING */
+.ranking-lista{display:flex;flex-direction:column;gap:8px;}
+.ranking-item{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(0,0,0,0.25);border-radius:10px;
+  transition:all 0.2s ease;
+}
+.ranking-item:hover{background:rgba(255,255,255,0.05);}
+.ranking-posicao{
+  width:32px;height:32px;border-radius:50%;background:rgba(124,58,237,0.2);color:var(--primaria);
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;
+}
+.ranking-posicao.primeiro{background:linear-gradient(135deg,#FBBF24,#F59E0B);color:#000;}
+.ranking-posicao.segundo{background:linear-gradient(135deg,#9CA3AF,#6B7280);color:#000;}
+.ranking-posicao.terceiro{background:linear-gradient(135deg,#CD853F,#8B4513);color:#fff;}
+.ranking-nome{flex:1;font-size:14px;font-weight:700;}
+.ranking-pontos{font-size:14px;font-weight:900;color:var(--ouro);}
+.ranking-bolinhas{display:flex;gap:2px;}
+.mini-bolinha{width:14px;height:14px;border-radius:50%;}
+.mini-bolinha.verde{background:var(--verde);}
+.mini-bolinha.amarela{background:var(--amarelo);}
+.mini-bolinha.vazia{background:rgba(255,255,255,0.1);}
+
+/* BOTÕES */
+.btn-add{
+  width:100%;padding:15px;background:linear-gradient(90deg,var(--primaria),#3B82F6);border:none;border-radius:10px;
+  color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:20px;transition:all 0.25s ease;
+}
+.btn-add:disabled{opacity:0.4;cursor:not-allowed;transform:none !important;}
+.btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
+
+.btn-distribuir{
+  width:100%;padding:16px;background:linear-gradient(90deg,var(--verde),#34D399);border:none;border-radius:12px;
+  color:white;font-size:16px;font-weight:900;cursor:pointer;margin-bottom:20px;transition:all 0.3s ease;
+}
+.btn-distribuir:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(16,185,129,0.35);}
+.btn-distribuir:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+
+.btn-salvar{
+  width:100%;padding:14px;background:linear-gradient(90deg,#8B5CF6,#EC4899);border:none;border-radius:10px;
+  color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:20px;transition:all 0.3s ease;
+}
+.btn-salvar:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(139,92,246,0.3);}
+.btn-salvar.salvo{background:linear-gradient(90deg,var(--verde),#34D399);}
+
+.btn-del{
+  padding:6px 10px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
+  color:#FCA5A5;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s ease;
+}
+.btn-del:disabled{opacity:0.4;cursor:not-allowed;}
+.btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);}
+
+/* PAINEL DE MEMBROS */
+.membros-header{
+  display:grid;grid-template-columns:200px repeat(7,40px) 100px 70px;gap:6px;
+  padding:10px 8px;color:var(--primaria);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
+  border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
+}
+.membros-header .nome-col{text-align:left;}
+
+.membro-row{
+  display:grid;grid-template-columns:200px repeat(7,40px) 100px 70px;gap:6px;
+  padding:10px 8px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
+  align-items:center;transition:all 0.2s ease;border:1px solid transparent;
+}
+.membro-row:hover{background:rgba(255,255,255,0.05);border-color:var(--borda);}
+
+.membro-nome{font-size:13px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:8px;}
+.coroa{font-size:14px;filter:drop-shadow(0 0 3px gold);}
+.valor-cell{text-align:center;font-size:13px;font-weight:800;color:var(--verde);}
+.pontos-cell{text-align:center;font-size:12px;font-weight:700;color:var(--ouro);}
+
+.bolinha{
+  width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;
+  transition:all 0.15s ease;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:bold;
+}
+.bolinha:disabled{cursor:not-allowed;opacity:0.6;}
+.bolinha:hover{transform:scale(1.15);}
+.bolinha.vazia{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);}
+.bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 8px rgba(16,185,129,0.5);}
+.bolinha.amarela{background:var(--amarelo);border-color:#D97706;box-shadow:0 0 8px rgba(245,158,11,0.5);}
+.bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 8px rgba(239,68,68,0.5);}
+
+/* RESULTADO DISTRIBUIÇÃO */
+.resultado-dist{
+  background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:16px;margin-bottom:20px;display:none;
+}
+.resultado-dist.mostrar{display:block;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.res-linha{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.res-linha:last-child{border-bottom:none;}
+.res-nome{font-size:13px;font-weight:700;}
+.res-valor{font-size:14px;font-weight:900;color:var(--verde);}
+.res-total{font-size:16px;font-weight:900;color:var(--ouro);padding-top:8px;}
+.res-sobra{font-size:13px;font-weight:700;color:#3B82F6;margin-top:4px;}
+
+/* MODAL */
+.modal-fundo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);}
+.modal{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:24px;width:90%;max-width:450px;max-height:90vh;overflow-y:auto;}
+.modal h3{color:var(--primaria);font-size:17px;margin-bottom:14px;}
+.modal p{font-size:13px;margin-bottom:16px;color:var(--textoSec);line-height:1.6;}
+.modal input{
+  width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:8px;
+  color:var(--texto);font-size:14px;margin-bottom:12px;outline:none;
+}
+.modal-botoes{display:flex;gap:10px;margin-top:8px;}
+.modal-btn-cancel{flex:1;padding:12px;background:#1E293B;border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
+.modal-btn-save{flex:1;padding:12px;background:var(--verde);border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
+
+/* LINKS COMPARTILHAR */
+.link-box{display:flex;gap:8px;margin-top:8px;}
+.link-box input{flex:1;padding:10px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:6px;color:var(--texto);font-size:12px;outline:none;}
+.link-box button{padding:10px 12px;background:var(--primaria);border:none;border-radius:6px;color:white;font-weight:700;cursor:pointer;font-size:12px;}
+
+/* LEGENDA */
+.legenda{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:16px;}
+.legenda-item{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--textoSec);}
+.leg-bolinha{width:16px;height:16px;border-radius:50%;display:inline-block;}
+.leg-verde{background:var(--verde);}
+.leg-amarelo{background:var(--amarelo);}
+.leg-vermelho{background:var(--vermelho);}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+  .caixas-grid{grid-template-columns:1fr;}
+  .membros-header,.membro-row{grid-template-columns:140px repeat(7,34px) 70px 55px;gap:2px;}
+  .bolinha{width:24px;height:24px;}
+  .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
+}
+</style>
+</head>
+<body>
+
+<!-- 🔑 TELA DE LOGIN -->
+<div class="tela-login" id="telaLogin">
+  <div class="caixa-login">
+    <h1>⚡ <span>LOJA CAOS 77</span></h1>
+    <p>Painel de Controle & Pagamentos</p>
+    <input type="password" id="senhaLogin" placeholder="Digite a senha de ADMIN">
+    <button class="btn-login" onclick="fazerLogin()">🔐 ENTRAR COMO ADMIN</button>
+    <button class="btn-visita" onclick="fazerVisita()">👀 ENTRAR COMO VISITANTE</button>
+    <div class="dica-senha">💡 Senha Admin: <strong>123477</strong></div>
+  </div>
+</div>
+
+<!-- 👀 BANNER VISITANTE -->
+<div id="visitanteBanner" class="visitante-banner" style="display:none;">
+  👀 MODO VISITANTE — Somente visualização
+</div>
+
+<div class="header-top" id="barraTopo" style="display:none;">
+  <div class="title">⚡ <span>LOJA CAOS 77</span></div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="status-badge" id="statusSinc">✅ Salvo</div>
+    <button class="btn-sair" onclick="sair()">🚪 Sair</button>
+  </div>
+</div>
+
+<div class="container" id="conteudoPrincipal" style="display:none;">
+
+<!-- 🔗 LINKS DE COMPARTILHAMENTO (SÓ ADMIN) -->
+<div class="section-card" id="secaoLinks">
+  <div class="section-title">🔗 COMPARTILHAR</div>
+  <div style="margin-bottom:12px;">
+    <p style="font-size:12px;color:var(--textoSec);margin-bottom:6px;">👑 Link de Administrador:</p>
+    <div class="link-box">
+      <input type="text" id="linkAdmin" value="" readonly>
+      <button onclick="copiarLink('admin')">📋 Copiar</button>
+    </div>
+  </div>
+  <div>
+    <p style="font-size:12px;color:var(--textoSec);margin-bottom:6px;">👀 Link de Visitante:</p>
+    <div class="link-box">
+      <input type="text" id="linkVisitante" value="" readonly>
+      <button onclick="copiarLink('visitante')">📋 Copiar</button>
+    </div>
+  </div>
+</div>
+
+<!-- 💎 TABELA DE VALORES DOS FRAGMENTOS -->
+<div class="section-card">
+  <div class="section-title">💎 VALORES DOS FRAGMENTOS</div>
+  <table class="tabela-valores">
+    <thead>
+      <tr>
+        <th>Quantidade</th>
+        <th>Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="qtd-frag">250 fragmentos</td>
+        <td class="valor-frag">550k</td>
+      </tr>
+      <tr>
+        <td class="qtd-frag">1.250 fragmentos</td>
+        <td class="valor-frag">2.500kk</td>
+      </tr>
+      <tr>
+        <td class="qtd-frag">2.500 fragmentos</td>
+        <td class="valor-frag">5.500kk</td>
+      </tr>
+      <tr>
+        <td class="qtd-frag">3.750 fragmentos</td>
+        <td class="valor-frag">8.500kk</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 🏆 RANKING -->
+<div class="section-card">
+  <div class="section-title">🏆 RANKING — MAIS PRODUTIVOS (🟢)</div>
+  <div id="rankingLista" class="ranking-lista">
+    <div style="text-align:center;color:var(--textoSec);padding:20px;">Adicione membros para exibir o ranking</div>
+  </div>
+</div>
+
+<!-- 🏦 CAIXAS (SÓ ADMIN) -->
+<div class="section-card" id="secaoCaixas">
+  <div class="section-title">🏦 CAIXAS DA FACÇÃO</div>
+  <div class="caixas-grid">
+    <div class="caixa-item estavel">
+      <div class="caixa-label">🏦 CAIXA DA FAC (Estável)</div>
+      <div class="caixa-valor ouro"><input type="text" id="caixaFac" value="R$ 0,00" class="ouro" disabled></div>
+    </div>
+    <div class="caixa-item">
+      <div class="caixa-label">🏦 CAIXA DOS LÍDERES</div>
+      <div class="caixa-valor azul"><input type="text" id="caixaLideres" value="R$ 0,00" class="azul" onblur="marcarAlterado();"></div>
+    </div>
+    <div class="caixa-item">
+      <div class="caixa-label">💵 CAIXA DE PAGAMENTOS</div>
+      <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="verde" onblur="marcarAlterado();"></div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;">
+    <p style="font-size:12px;color:var(--textoSec);margin-bottom:8px;">📏 Pontos por bolinha:</p>
+    <div class="legenda">
+      <div class="legenda-item"><span class="leg-bolinha leg-verde"></span> 🟢 = 1,0 ponto</div>
+      <div class="legenda-item"><span class="leg-bolinha leg-amarelo"></span> 🟡 = 0,5 ponto</div>
+      <div class="legenda-item"><span class="leg-bolinha leg-vermelho"></span> 🔴 = 0,0 ponto</div>
+    </div>
+  </div>
+
+  <button class="btn-distribuir" id="btnDistribuir" onclick="abrirModalConfirmar()">🚀 FAZER DISTRIBUIÇÃO SEMANAL</button>
+
+  <div class="resultado-dist" id="resultadoDist">
+    <h4 style="color:var(--verde);font-size:15px;margin-bottom:12px;">✅ RESULTADO DA DISTRIBUIÇÃO</h4>
+    <div id="listaResultado"></div>
+  </div>
+</div>
+
+<!-- 👥 PAINEL DE MEMBROS -->
+<div class="section-card">
+  <div class="section-title">👥 CONTROLE DE MEMBROS — SEMANA</div>
+  
+  <button class="btn-add" id="btnAdicionar" onclick="abrirModalMembro()">➕ ADICIONAR INTEGRANTE</button>
+  <button class="btn-salvar" id="btnSalvar" onclick="salvarDados()">💾 SALVAR ALTERAÇÕES</button>
+
+  <div class="membros-header">
+    <div class="nome-col">NOME</div>
+    <div>D1</div><div>D2</div><div>D3</div><div>D4</div><div>D5</div><div>D6</div><div>D7</div>
+    <div>PTS</div>
+    <div>VALOR</div>
+    <div>✖</div>
+  </div>
+
+  <div id="listaMembros"></div>
+</div>
+
+</div>
+
+<!-- MODAL ADICIONAR INTEGRANTE -->
+<div class="modal-fundo" id="modalMembro">
+  <div class="modal">
+    <h3>➕ Adicionar Integrante</h3>
+    <input type="text" id="nomeNovo" placeholder="Nome do integrante">
+    <label style="display:flex;align-items:center;gap:8px;margin-bottom:10px;color:var(--texto);font-size:14px;">
+      <input type="checkbox" id="ehLider"> 👑 É Líder
+    </label>
+    <div class="modal-botoes">
+      <button class="modal-btn-cancel" onclick="fecharModalMembro()">Cancelar</button>
+      <button class="modal-btn-save" onclick="salvarMembro()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMAR DISTRIBUIÇÃO -->
+<div class="modal-fundo" id="modalConfirmar">
+  <div class="modal">
+    <h3>⚠️ CONFIRMAR DISTRIBUIÇÃO?</h3>
+    <p>O sistema pegará o valor da <strong>Caixa de Pagamentos</strong> e dividirá proporcionalmente entre os membros de acordo com seus pontos acumulados.<br><br>
+    🟢 = 1,0 | 🟡 = 0,5 | 🔴 = 0,0<br><br>
+    ⚠️ <strong>ATENÇÃO:</strong> Os dias serão zerados para começar uma nova semana!</p>
+    <div class="modal-botoes">
+      <button class="modal-btn-cancel" onclick="fecharModalConfirmar()">❌ Cancelar</button>
+      <button class="modal-btn-save" onclick="executarDistribuicao()">✅ CONFIRMAR E DISTRIBUIR</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SENHA_ADMIN = '123477';
+let modoAdmin = false;
+const CHAVE_DADOS = 'loja_caos77_dados';
+
+let membros = [];
+let alterado = false;
+
+// 💰 FORMATAÇÃO DE MOEDA
+function formatarMoeda(valor){
+  return 'R$ ' + parseFloat(valor).toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+}
+
+function parseMoeda(texto){
+  return parseFloat(texto.replace('R$ ','').replace('.','').replace(',','.')) || 0;
+}
+
+// 📊 CALCULAR PONTOS E VALORES
+function calcularPontosEValores(){
+  const caixaPag = parseMoeda(document.getElementById('caixaPagamentos').value);
+  let totalPontos = 0;
+  
+  // Calcula pontos de cada membro
+  membros.forEach(membro => {
+    let pts = 0;
+    Object.values(membro.dias).forEach(cor => {
+      if(cor === 'G') pts += 1.0;
+      else if(cor === 'Y') pts += 0.5;
+    });
+    membro.pontos = pts;
+    totalPontos += pts;
+  });
+  
+  // Calcula valor proporcional se houver pontos
+  if(totalPontos > 0 && caixaPag

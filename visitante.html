@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>👀 LOJA CAOS 77 — Visualização</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:#0a0a0a;color:#fff;padding:20px;min-height:100vh;}
+.container{max-width:900px;margin:0 auto;}
+
+.topo{text-align:center;margin-bottom:30px;}
+.topo h1{font-size:28px;color:#00d4ff;margin-bottom:8px;}
+.topo p{color:#888;font-size:15px;}
+
+/* CAIXAS */
+.caixas{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-bottom:30px;}
+.caixa{background:#1a1a1a;padding:25px;border-radius:12px;text-align:center;border:1px solid #10b98130;}
+.caixa label{font-size:14px;color:#888;margin-bottom:10px;display:block;}
+.caixa .valor{font-size:26px;font-weight:bold;color:#10b981;}
+
+.bloco{background:#1a1a1a;padding:22px;border-radius:12px;margin-bottom:25px;border:1px solid #333;}
+.bloco h2{font-size:17px;margin-bottom:18px;color:#00d4ff;}
+
+table{width:100%;border-collapse:collapse;}
+th,td{padding:15px 14px;text-align:left;border-bottom:1px solid #222;}
+th{font-size:12px;color:#00d4ff;text-transform:uppercase;letter-spacing:0.5px;background:#00d4ff08;}
+td{font-size:16px;color:#ddd;}
+tr:last-child td{border-bottom:none;}
+
+/* MEMBROS */
+.cabeca{display:grid;grid-template-columns:220px 65px repeat(7,48px);gap:4px;margin-bottom:10px;}
+.cabeca div{font-size:11px;text-align:center;color:#00d4ff;padding:6px;text-transform:uppercase;font-weight:bold;}
+.cabeca .nome-col{text-align:left;padding-left:10px;}
+
+.linha{display:grid;grid-template-columns:220px 65px repeat(7,48px);gap:4px;align-items:center;padding:10px 6px;border-bottom:1px solid #222;}
+.nome{font-size:15px;font-weight:600;color:#fff;}
+.meta{font-size:14px;font-weight:bold;color:#ffcc00;text-align:center;}
+.bolinha{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.bolinha.vazia{background:#2a2a2a;}
+.bolinha.vermelha{background:#ef4444;}
+.bolinha.amarela{background:#f59e0b;}
+.bolinha.verde{background:#10b981;}
+
+.atualizacao{text-align:center;margin-top:30px;padding:14px;background:#10b98110;border-radius:8px;color:#10b981;font-size:14px;}
+
+@media(max-width:600px){
+  .caixas{grid-template-columns:1fr;}
+  .cabeca,.linha{grid-template-columns:150px 50px repeat(7,40px);}
+  .bolinha{width:30px;height:30px;font-size:15px;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="topo">
+    <h1>⚡ LOJA CAOS 77</h1>
+    <p>📋 PAINEL DE ACOMPANHAMENTO — Atualizado em tempo real</p>
+  </div>
+
+  <!-- 🏦 DUAS CAIXAS -->
+  <div class="caixas">
+    <div class="caixa">
+      <label>🏦 CAIXA DA FACÇÃO</label>
+      <div class="valor" id="caixaFac">R$ 0,00</div>
+    </div>
+    <div class="caixa">
+      <label>💵 CAIXA DE PAGAMENTO</label>
+      <div class="valor" id="caixaPag">R$ 0,00</div>
+    </div>
+  </div>
+
+  <!-- 💎 TABELA DE VALORES DE FRAGMENTOS -->
+  <div class="bloco">
+    <h2>💎 TABELA DE VALORES — FRAGMENTOS</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>QUANTIDADE</th>
+          <th>VALOR</th>
+        </tr>
+      </thead>
+      <tbody id="valoresCorpo">
+        <tr><td>250 Fragmentos</td><td>R$ 550,00</td></tr>
+        <tr><td>1.250 Fragmentos</td><td>R$ 2.500kk</td></tr>
+        <tr><td>2.500 Fragmentos</td><td>R$ 5.500kk</td></tr>
+        <tr><td>3.750 Fragmentos</td><td>R$ 8.500kk</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 👥 TABELA DE MEMBROS -->
+  <div class="bloco">
+    <h2>👥 MEMBROS — META: 120/dia</h2>
+    <div class="cabeca">
+      <div class="nome-col">NOME DO COLABORADOR</div><div>META</div>
+      <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
+    </div>
+    <div id="nomesCorpo"></div>
+  </div>
+
+  <div class="atualizacao">
+    🔄 Atualize a página para ver as últimas alterações
+  </div>
+</div>
+
+<script>
+const LISTA_MEMBROS = [
+  "Sr Bristow", "Katy Bristow", "Andres Bristow", "Ferrari Bristow",
+  "Vn Bristow", "Patrik Bristow", "Garcia Bristow", "Vt Bristow",
+  "Lula Bristow", "Breck Bristow", "Boladin Xt", "Sr Ghostt",
+  "Laa Diabla", "Ejuan Handi", "Eduarda Faria", "Mateus Faria",
+  "Zé Bagaceira", "Alex Gadernal", "Aquino Menezes", "Connorr",
+  "Dyygeras"
+];
+const emojis = {vazia:'', vermelha:'🔴', amarela:'🟡', verde:'🟢'};
+
+function carregarDados(){
+  const salvo = localStorage.getItem('caos77dados');
+  if(!salvo){
+    LISTA_MEMBROS.forEach(nome=>criarLinha(nome,'120',['vazia','vazia','vazia','vazia','vazia','vazia','vazia']));
+    return;
+  }
+  try{
+    const d = JSON.parse(salvo);
+    
+    document.getElementById('caixaFac').textContent = d.caixaFac||'R$ 0,00';
+    document.getElementById('caixaPag').textContent = d.caixaPag||'R$ 0,00';
+    
+    document.getElementById('valoresCorpo').innerHTML = '';
+    if(d.valores && d.valores.length > 0){
+      d.valores.forEach(v=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${v.qtd||'-'}</td><td>${v.val||'R$ 0,00'}</td>`;
+        document.getElementById('valoresCorpo').appendChild(tr);
+      });
+    }else{
+      document.getElementById('valoresCorpo').innerHTML = `
+        <tr><td>250 Fragmentos</td><td>R$ 550,00</td></tr>
+        <tr><td>1.250 Fragmentos</td><td>R$ 2.500kk</td></tr>
+        <tr><td>2.500 Fragmentos</td><td>R$ 5.500kk</td></tr>
+        <tr><td>3.750 Fragmentos</td><td>R$ 8.500kk</td></tr>
+      `;
+    }
+    
+    document.getElementById('nomesCorpo').innerHTML = '';
+    if(d.membros && d.membros.length > 0){
+      d.membros.forEach(m=>criarLinha(m.nome,m.meta,m.dias));
+    }else{
+      LISTA_MEMBROS.forEach(nome=>criarLinha(nome,'120',['vazia','vazia','vazia','vazia','vazia','vazia','vazia']));
+    }
+  }catch(e){
+    LISTA_MEMBROS.forEach(nome=>criarLinha(nome,'120',['vazia','vazia','vazia','vazia','vazia','vazia','vazia']));
+  }
+}
+
+function criarLinha(nome, meta, dias){
+  const div = document.createElement('div');
+  div.className = 'linha';
+  let bolinhasHTML = '';
+  for(let i=0;i<7;i++){
+    const c = dias[i]||'vazia';
+    bolinhasHTML += `<div class="bolinha ${c}">${emojis[c]}</div>`;
+  }
+  div.innerHTML = `
+    <div class="nome">${nome||'-'}</div>
+    <div class="meta">${meta||'120'}</div>
+    ${bolinhasHTML}
+  `;
+  document.getElementById('nomesCorpo').appendChild(div);
+}
+
+carregarDados();
+</script>
+</body>
+</html>

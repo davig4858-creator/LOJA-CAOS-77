@@ -85,7 +85,7 @@ body{
   width:100%;background:transparent;border:none;color:var(--verde);
   font-size:20px;font-weight:800;text-align:center;outline:none;
 }
-.stat-item input:disabled{opacity:0.7;cursor:not-allowed;}
+.stat-item input:disabled{opacity:0.8;cursor:not-allowed;}
 .stat-item input.blue{color:var(--azul);}
 .stat-item input.red{color:var(--vermelho);}
 
@@ -110,6 +110,7 @@ body{
   padding:12px 24px;color:white;font-weight:700;cursor:pointer;transition:all 0.2s;
 }
 .btn-relatorio:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(123,47,253,0.25);}
+.btn-relatorio:disabled{opacity:0.6;cursor:not-allowed;}
 .relatorio-texto{
   margin-top:15px;padding:15px;background:rgba(0,0,0,0.25);border-radius:8px;
   font-family:monospace;font-size:13px;line-height:1.8;white-space:pre-wrap;display:none;
@@ -118,6 +119,7 @@ body{
   background:var(--azul);border:none;border-radius:6px;padding:8px 14px;color:#000;
   font-weight:700;cursor:pointer;margin-top:10px;
 }
+.btn-copiar:disabled{opacity:0.6;cursor:not-allowed;}
 
 /* LEGENDA E GRUPOS */
 .legend-card{
@@ -130,7 +132,7 @@ body{
   width:100%;padding:14px 18px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
   border-radius:10px;color:var(--texto);font-size:15px;margin-bottom:20px;outline:none;
 }
-.search-bar:disabled{opacity:0.5;cursor:not-allowed;}
+.search-bar:disabled{opacity:0.7;cursor:not-allowed;}
 .search-bar:focus{border-color:var(--azul);}
 .search-bar::placeholder{color:var(--texto-sec);}
 
@@ -165,12 +167,13 @@ body{
 .bolinhas{display:flex;gap:4px;}
 .bolinha{
   width:26px;height:26px;display:flex;align-items:center;justify-content:center;
-  font-size:15px;cursor:pointer;user-select:none;transition:all 0.15s ease;
+  font-size:15px;transition:all 0.15s ease;
   background:rgba(255,255,255,0.05);border-radius:50%;border:1px dashed rgba(255,255,255,0.15);
 }
-.bolinha.no-edit{cursor:not-allowed;opacity:0.8;}
-.bolinha:hover{background:rgba(255,255,255,0.1);border-style:solid;}
-.bolinha:active{transform:scale(0.9);}
+.bolinha.clickable{cursor:pointer;user-select:none;}
+.bolinha.no-edit{cursor:default;opacity:1;}
+.bolinha.clickable:hover{background:rgba(255,255,255,0.1);border-style:solid;}
+.bolinha.clickable:active{transform:scale(0.9);}
 
 .btn-del{
   padding:7px 4px;
@@ -185,8 +188,7 @@ body{
   width:100%;
   white-space:nowrap;
 }
-.btn-del:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
-.btn-del:hover{transform:scale(1.03);}
+.btn-del:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
 
 .secao-card{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;margin-bottom:20px;
@@ -200,10 +202,11 @@ body{
 .titulo-grupo2{color:var(--amarelo);border-bottom:2px solid var(--amarelo);}
 .titulo-grupo3{color:var(--vermelho);border-bottom:2px solid var(--vermelho);}
 
-/* LINKS DE ACESSO */
+/* LINKS DE ACESSO — SÓ ADMIN */
 .links-card{
   background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;margin-top:30px;
 }
+.links-card.hidden{display:none !important;}
 .links-card h2{color:var(--azul);font-size:15px;margin-bottom:15px;text-transform:uppercase;letter-spacing:1px;}
 .link-item{margin-bottom:12px;}
 .link-label{font-size:13px;color:var(--texto-sec);margin-bottom:5px;}
@@ -221,7 +224,7 @@ body{
 }
 
 .modal-overlay{
-  position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);
+  position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0.75);
   display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);
 }
 .modal{
@@ -250,7 +253,7 @@ body{
 <body>
 
 <div id="visitanteBanner" class="visitante-banner" style="display:none;">
-  👀 MODO VISITANTE — Somente leitura. Alterações bloqueadas.
+  👀 MODO VISITANTE — Somente leitura. Apenas o administrador pode alterar os dados.
 </div>
 
 <div class="header-top">
@@ -351,8 +354,8 @@ body{
   </div>
 </div>
 
-<!-- 🔗 LINKS DE ACESSO -->
-<div class="links-card">
+<!-- 🔗 LINKS DE ACESSO — SÓ ADMIN VÊ -->
+<div class="links-card" id="secaoLinks">
   <h2>🔗 LINKS DE ACESSO</h2>
   <div class="link-item">
     <div class="link-label">🔑 ADMINISTRADOR</div>
@@ -502,6 +505,10 @@ function gerarRelatorio(){
 }
 
 function copiarRelatorio(){
+  if(ehModoVisitante){
+    alert('👀 Você está no modo visitante. Não pode copiar.');
+    return;
+  }
   const texto = document.getElementById('relatorio-texto').textContent;
   navigator.clipboard.writeText(texto).then(()=>alert('✅ Relatório copiado!'));
 }
@@ -561,26 +568,24 @@ async function carregarDados(){
       if(data.estoque !== undefined) document.getElementById('estoque').value = data.estoque;
     }
     
-    // Bloquear campos se for visitante
+    // 🔒 BLOQUEIA ELEMENTOS PARA VISITANTE
     if(ehModoVisitante){
+      // Esconde a seção de links completamente
+      document.getElementById('secaoLinks').classList.add('hidden');
+      
+      // Bloqueia campos de edição
       document.getElementById('caixa-fac').disabled = true;
       document.getElementById('caixa-pag').disabled = true;
       document.getElementById('estoque').disabled = true;
       document.getElementById('btn-salvar').disabled = true;
-      document.getElementById('btn-salvar').style.display = 'none';
       document.getElementById('busca').disabled = true;
       document.getElementById('btn-add').disabled = true;
-      document.getElementById('btn-add').style.display = 'none';
-    }
-    
-    // Gerar links
-    const baseURL = window.location.href.split('#')[0].split('?')[0];
-    document.getElementById('link-admin').value = baseURL;
-    document.getElementById('link-visitante').value = baseURL + '?modo=leitura';
-    
-    // Esconder links no modo visitante
-    if(ehModoVisitante){
-      document.querySelector('.links-card').style.display = 'none';
+      document.getElementById('btn-copiar').disabled = true;
+    } else {
+      // Apenas o administrador vê os links
+      const baseURL = window.location.href.split('#')[0].split('?')[0];
+      document.getElementById('link-admin').value = baseURL;
+      document.getElementById('link-visitante').value = baseURL + '?modo=leitura';
     }
     
     renderLista();
@@ -636,8 +641,8 @@ function renderLista(filtro=''){
         <div class="meta-dia">
           <div class="meta-num">120</div>
           <div class="bolinhas">
-            <div class="bolinha ${ehModoVisitante?'no-edit':''}" onclick="trocarBolinha(${i.id}, '${dia}', 0)">${i.dias[dia][0]==='G'?'🟢':i.dias[dia][0]==='Y'?'🟡':i.dias[dia][0]==='R'?'🔴':''}</div>
-            <div class="bolinha ${ehModoVisitante?'no-edit':''}" onclick="trocarBolinha(${i.id}, '${dia}', 1)">${i.dias[dia][1]==='G'?'🟢':i.dias[dia][1]==='Y'?'🟡':i.dias[dia][1]==='R'?'🔴':''}</div>
+            <div class="bolinha ${ehModoVisitante?'no-edit':'clickable'}" ${!ehModoVisitante?`onclick="trocarBolinha(${i.id}, '${dia}', 0)"`:''}>${i.dias[dia][0]==='G'?'🟢':i.dias[dia][0]==='Y'?'🟡':i.dias[dia][0]==='R'?'🔴':''}</div>
+            <div class="bolinha ${ehModoVisitante?'no-edit':'clickable'}" ${!ehModoVisitante?`onclick="trocarBolinha(${i.id}, '${dia}', 1)"`:''}>${i.dias[dia][1]==='G'?'🟢':i.dias[dia][1]==='Y'?'🟡':i.dias[dia][1]==='R'?'🔴':''}</div>
           </div>
         </div>
       `;

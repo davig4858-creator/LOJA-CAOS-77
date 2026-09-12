@@ -121,7 +121,7 @@ body{
 .btn-add:hover{transform:translateY(-2px);}
 
 .dias-header{
-  display:grid;grid-template-columns:150px repeat(6,50px) 90px 110px 75px;gap:4px;
+  display:grid;grid-template-columns:150px 60px repeat(6,50px) 90px 110px 75px;gap:4px;
   padding:12px 8px;color:var(--azul);font-size:9px;font-weight:700;text-transform:uppercase;
   letter-spacing:0.5px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
   text-align:center;
@@ -129,14 +129,15 @@ body{
 .dias-header .nome-col{text-align:left;}
 
 .membro-row{
-  display:grid;grid-template-columns:150px repeat(6,50px) 90px 110px 75px;gap:4px;
+  display:grid;grid-template-columns:150px 60px repeat(6,50px) 90px 110px 75px;gap:4px;
   padding:10px 8px;border-radius:10px;background:var(--bg-card);margin-bottom:8px;
   align-items:center;border:1px solid transparent;transition:all 0.2s ease;
 }
 .membro-row:hover{background:var(--bg-card-hover);border-color:rgba(0,212,255,0.15);}
 
-.membro-nome{font-size:14px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.membro-nome{font-size:12px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
 .coroa{font-size:14px;filter:drop-shadow(0 0 3px gold);}
+.farm-cell{font-size:11px;font-weight:700;color:var(--texto);text-align:center;}
 .pontos-cell{font-size:11px;font-weight:700;color:var(--ouro);text-align:center;}
 .valor-cell{font-size:11px;font-weight:800;color:var(--verde);text-align:center;}
 .dia-cell{display:flex;flex-direction:column;align-items:center;gap:2px;}
@@ -157,6 +158,18 @@ body{
   transition:all 0.2s ease;width:100%;white-space:nowrap;
 }
 .btn-del:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+
+.secao-card{
+  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;margin-bottom:20px;
+}
+.secao-titulo{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.secao-lista{display:flex;flex-wrap:wrap;gap:8px;}
+.secao-item{
+  background:rgba(255,255,255,0.05);padding:6px 12px;border-radius:6px;font-size:14px;font-weight:600;
+}
+.titulo-grupo1{color:var(--verde);border-bottom:2px solid var(--verde);}
+.titulo-grupo2{color:var(--amarelo);border-bottom:2px solid var(--amarelo);}
+.titulo-grupo3{color:var(--vermelho);border-bottom:2px solid var(--vermelho);}
 
 .pagamento-card{
   background:linear-gradient(135deg,rgba(0,255,136,0.05),rgba(0,212,255,0.05));border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:20px;margin-bottom:25px;
@@ -208,9 +221,9 @@ body{
 
 @media(max-width:768px){
   .stats-grid{grid-template-columns:repeat(2,1fr);}
-  .dias-header,.membro-row{grid-template-columns:120px repeat(6,40px) 75px 90px 65px;gap:2px;}
+  .dias-header,.membro-row{grid-template-columns:120px 50px repeat(6,40px) 75px 90px 65px;gap:2px;}
   .bolinha{width:22px;height:22px;font-size:9px;}
-  .membro-nome{font-size:12px;}
+  .membro-nome{font-size:10px;}
 }
 </style>
 </head>
@@ -257,16 +270,16 @@ body{
     </div>
     <div class="stat-item">
       <div class="stat-label">💵 CAIXA DE PAGAMENTOS</div>
-      <div class="stat-value red"><input type="text" id="caixaPagamentos" value="R$ 3.214.944,00" class="red" onblur="marcarAlterado(); atualizarTodosCalculos();"></div>
+      <div class="stat-value red"><input type="text" id="caixaPagamentos" value="R$ 10.000,00" class="red" onblur="marcarAlterado(); atualizarTodosCalculos();"></div>
     </div>
     <div class="stat-item">
       <div class="stat-label">📦 ESTOQUE FRAGMENTOS</div>
-      <div class="stat-value blue"><input type="text" id="estoqueFrag" value="" class="blue" onblur="marcarAlterado()"></div>
+      <div class="stat-value blue"><input type="text" id="estoqueFrag" value="0 frag" class="blue" onblur="marcarAlterado()"></div>
     </div>
   </div>
 </div>
 
-<!-- 💰 CÁLCULO DE PAGAMENTOS -->
+<!-- 💰 CÁLCULO DE PAGAMENTOS — DIVISÃO AUTOMÁTICA -->
 <div class="pagamento-card">
   <h2>💰 PAGAMENTOS — DIVISÃO AUTOMÁTICA</h2>
   <div class="pagamento-header">
@@ -304,13 +317,28 @@ body{
 
   <div class="dias-header">
     <div class="nome-col">NOME</div>
+    <div>FARM</div>
     <div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
-    <div>PTS</div>
+    <div>PONTOS</div>
     <div>RECEBERÁ</div>
     <div>AÇÃO</div>
   </div>
 
   <div id="listaMembros"></div>
+
+  <!-- GRUPOS -->
+  <div class="secao-card">
+    <div class="secao-titulo titulo-grupo1">🟢 PELO MENOS 1 VERDE</div>
+    <div class="secao-lista" id="grupoVerde"></div>
+  </div>
+  <div class="secao-card">
+    <div class="secao-titulo titulo-grupo2">🟡 NENHUM VERDE / TEM AMARELO</div>
+    <div class="secao-lista" id="grupoAmarelo"></div>
+  </div>
+  <div class="secao-card">
+    <div class="secao-titulo titulo-grupo3">🔴 SÓ VERMELHO</div>
+    <div class="secao-lista" id="grupoVermelho"><span style="color:var(--texto-sec)">Nenhum</span></div>
+  </div>
 </div>
 
 <!-- 🔗 LINKS DE ACESSO -->
@@ -333,6 +361,7 @@ body{
   <div class="modal">
     <h3>➕ Adicionar Integrante</h3>
     <input type="text" id="nomeNovo" placeholder="Nome do integrante">
+    <input type="text" id="farmNovo" placeholder="Ex: 0/240" style="margin-bottom:10px;">
     <label style="display:flex;align-items:center;gap:8px;margin-bottom:15px;color:var(--texto);font-size:14px;">
       <input type="checkbox" id="ehLider"> 👑 É Líder
     </label>
@@ -349,218 +378,284 @@ const DATABASE_URL = 'https://loja-caos-77-default-rtdb.firebaseio.com/.json';
 const ehModoVisitante = new URLSearchParams(window.location.search).get('modo') === 'leitura';
 
 let membros = [
-  { id: 1789112658911, nome: 'Sr Bristow', coroa: true, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112674552, nome: 'Katy Bristow', coroa: true, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112697878, nome: 'Andres Bristow', coroa: true, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112711976, nome: 'Ferrari Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112743926, nome: 'Vn Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112760627, nome: 'Patrik Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112771905, nome: 'Garcia Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112795946, nome: 'Vt Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112813039, nome: 'Lula Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112824616, nome: 'Breck Bristow', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112847515, nome: 'Boladin Xt', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112863622, nome: 'Sr Ghostt', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112879484, nome: 'Laa Diabla', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112909392, nome: 'Ejuan Handi', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112927917, nome: 'Eduarda Faria', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112936235, nome: 'Mateus Faria', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789151065765, nome: 'Zé Bagaceira', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789151088144, nome: 'Alex Gadernal', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789152359172, nome: 'Aquino Menezes', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789157297586, nome: 'Connorr Dyygeras', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789157430178, nome: 'Lanterna Preta', coroa: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } }
+  { id: 1789112658911, nome: 'Sr Bristow', ehLider: true, farm: '151/240', dias: { seg:['G',''], ter:['Y',''], qua:['Y',''], qui:['R',''], sex:['G',''], sab:['Y',''] } },
+  { id: 1789112674552, nome: 'Katy Bristow', ehLider: true, farm: '121/240', dias: { seg:['G',''], ter:['G',''], qua:['G',''], qui:['G',''], sex:['G',''], sab:['G',''] } },
+  { id: 1789112697878, nome: 'Andres Bristow', ehLider: true, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112711976, nome: 'Ferrari Bristow', ehLider: false, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112743926, nome: 'Vn Bristow', ehLider: false, farm: '100/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112760627, nome: 'Patrik Bristow', ehLider: false, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112771905, nome: 'Garcia Bristow', ehLider: false, farm: '168/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112795946, nome: 'Vt Bristow', ehLider: false, farm: '50/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112813039, nome: 'Lula Bristow', ehLider: false, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112824616, nome: 'Breck Bristow', ehLider: false, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112847515, nome: 'Boladin Xt', ehLider: false, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112863622, nome: 'Sr Ghostt', ehLider: false, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112879484, nome: 'Laa Diabla', ehLider: false, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112909392, nome: 'Ejuan Handi', ehLider: false, farm: '177/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112927917, nome: 'Eduarda Faria', ehLider: false, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789112936235, nome: 'Mateus Faria', ehLider: false, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789151065765, nome: 'Zé Bagaceira', ehLider: false, farm: '0/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789151088144, nome: 'Alex Gadernal', ehLider: false, farm: '38/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789152359172, nome: 'Aquino Menezes', ehLider: false, farm: '220/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789157297586, nome: 'Connorr Dyygeras', ehLider: false, farm: '123/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
+  { id: 1789157430178, nome: 'Lanterna Preta', ehLider: false, farm: '120/240', dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } }
 ];
 
+let historico = [];
 let alterado = false;
 
-function marcarAlterado(){
-  alterado = true;
-  document.getElementById('btnSalvar').textContent = '☁️ SALVAR NAS NUVENS *';
-  document.getElementById('btnSalvar').classList.remove('salvo');
+window.onload = async function() {
+  await carregarDados();
+  configurarModoVisitante();
+  atualizarLista();
+  atualizarGrupos();
+  configurarLinks();
+  atualizarTodosCalculos();
+};
+
+function parseDinheiro(texto) {
+  if(!texto) return 0;
+  return parseFloat(texto.replace(/[R$\s.]/g, '').replace(',', '.')) || 0;
 }
 
-function calcularPontos(membro){
-  let pts = 0;
-  for(let d in membro.dias){
-    if(membro.dias[d][0] === 'G') pts += 1.0;
-    if(membro.dias[d][0] === 'Y') pts += 0.5;
+function formatarDinheiro(valor) {
+  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+}
+
+function configurarModoVisitante() {
+  if(ehModoVisitante){
+    document.getElementById('visitanteBanner').style.display = 'block';
+    document.getElementById('secaoPrecos').classList.add('hidden');
+    document.getElementById('secaoCaixa').classList.add('hidden');
+    document.getElementById('btnSalvar').style.display = 'none';
+    document.getElementById('secaoLinks').classList.add('hidden');
+    document.getElementById('btnAddMembro').disabled = true;
+    document.getElementById('buscaMembro').disabled = true;
   }
-  return pts;
 }
 
-function atualizarTodosCalculos(){
-  const caixaPag = parseFloat(document.getElementById('caixaPagamentos').value.replace(/[^0-9,]/g, '').replace(',','.')) || 0;
-  let totalPontos = 0;
-  membros.forEach(m => totalPontos += calcularPontos(m));
-  const valorPonto = totalPontos > 0 ? caixaPag / totalPontos : 0;
-  
-  document.getElementById('valorPontoCalculado').textContent = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(valorPonto);
-  document.getElementById('somaTotalPontos').textContent = totalPontos.toFixed(1).replace('.',',');
-  document.getElementById('somaTotalValor').textContent = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(caixaPag);
-  
-  renderizarLista();
-  marcarAlterado();
+async function carregarDados() {
+  try {
+    const res = await fetch(DATABASE_URL);
+    const data = await res.json();
+    if(data && data.integrantes && data.integrantes.length > 0) {
+      membros = data.integrantes.map(i => ({
+        id: i.id || Date.now() + Math.random(),
+        nome: i.nome,
+        ehLider: i.coroa || false,
+        farm: i.farm || '0/240',
+        dias: i.dias || { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
+      }));
+      historico = data.historico || [];
+      if(data.caixa) document.getElementById('caixaFac').value = data.caixa;
+      if(data.caixaPagamentos) document.getElementById('caixaPagamentos').value = data.caixaPagamentos;
+    }
+  } catch(e) {
+    console.log('Usando dados padrão');
+  }
 }
 
-function renderizarLista(){
-  const lista = document.getElementById('listaMembros');
-  const caixaPag = parseFloat(document.getElementById('caixaPagamentos').value.replace(/[^0-9,]/g, '').replace(',','.')) || 0;
-  let totalPontos = 0;
-  membros.forEach(m => totalPontos += calcularPontos(m));
-  const valorPonto = totalPontos > 0 ? caixaPag / totalPontos : 0;
-  
-  lista.innerHTML = '';
-  
-  membros.forEach((item, index) => {
-    const pontos = calcularPontos(item);
-    const receber = pontos * valorPonto;
-    
-    lista.innerHTML += `
-      <div class="membro-row" data-nome="${item.nome.toLowerCase()}">
-        <div class="membro-nome">${item.coroa ? '<span class="coroa">👑</span>' : ''}${item.nome}</div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.seg[0] === 'G' ? 'verde' : item.dias.seg[0] === 'Y' ? 'amarela' : item.dias.seg[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'seg')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.ter[0] === 'G' ? 'verde' : item.dias.ter[0] === 'Y' ? 'amarela' : item.dias.ter[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'ter')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.qua[0] === 'G' ? 'verde' : item.dias.qua[0] === 'Y' ? 'amarela' : item.dias.qua[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'qua')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.qui[0] === 'G' ? 'verde' : item.dias.qui[0] === 'Y' ? 'amarela' : item.dias.qui[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'qui')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.sex[0] === 'G' ? 'verde' : item.dias.sex[0] === 'Y' ? 'amarela' : item.dias.sex[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'sex')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
-        <div class="dia-cell"><span class="bolinha ${item.dias.sab[0] === 'G' ? 'verde' : item.dias.sab[0] === 'Y' ? 'amarela' : item.dias.sab[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'sab')" ${ehModoVisitante ? 'disabled' : ''}></span></div>
-        <div class="pontos-cell">${pontos.toFixed(1).replace('.',',')}</div>
-        <div class="valor-cell">${valorPonto > 0 ? new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(receber) : '—'}</div>
-        <div>${!ehModoVisitante ? `<button class="btn-del" onclick="removerMembro(${index})">🗑️</button>` : ''}</div>
-      </div>
-    `;
-  });
-}
-
-function trocarCor(index, dia){
+async function salvarTudo() {
   if(ehModoVisitante) return;
-  const ordem = ['', 'G', 'Y', 'R'];
-  let atual = membros[index].dias[dia][0];
-  let prox = ordem[(ordem.indexOf(atual) + 1) % ordem.length];
-  membros[index].dias[dia][0] = prox;
-  marcarAlterado();
-  renderizarLista();
-}
-
-function filtrarLista(){
-  const busca = document.getElementById('buscaMembro').value.toLowerCase();
-  document.querySelectorAll('.membro-row').forEach(row => {
-    const nome = row.getAttribute('data-nome');
-    row.style.display = nome.includes(busca) ? '' : 'none';
-  });
-}
-
-function abrirModal(){
-  if(ehModoVisitante) return;
-  document.getElementById('modalAdicionar').style.display = 'flex';
-  document.getElementById('nomeNovo').value = '';
-  document.getElementById('ehLider').checked = false;
-}
-
-function fecharModal(){
-  document.getElementById('modalAdicionar').style.display = 'none';
-}
-
-function salvarMembro(){
-  if(ehModoVisitante) return;
-  const nome = document.getElementById('nomeNovo').value.trim();
-  const ehLider = document.getElementById('ehLider').checked;
-  if(!nome) return alert('Digite o nome!');
-  
-  membros.unshift({
-    id: Date.now(),
-    nome: nome,
-    coroa: ehLider,
-    dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
-  });
-  
-  fecharModal();
-  marcarAlterado();
-  renderizarLista();
-}
-
-function removerMembro(index){
-  if(ehModoVisitante) return;
-  if(!confirm('Remover esse integrante?')) return;
-  membros.splice(index, 1);
-  marcarAlterado();
-  renderizarLista();
-}
-
-async function salvarTudo(){
-  const btn = document.getElementById('btnSalvar');
-  btn.disabled = true;
-  btn.textContent = 'Salvando...';
-  
   const dados = {
+    integrantes: membros.map(m => ({
+      id: m.id,
+      nome: m.nome,
+      coroa: m.ehLider,
+      farm: m.farm,
+      dias: m.dias
+    })),
+    historico,
     caixa: document.getElementById('caixaFac').value,
     caixaPagamentos: document.getElementById('caixaPagamentos').value,
-    estoque: document.getElementById('estoqueFrag').value,
-    integrantes: membros
+    estoque: document.getElementById('estoqueFrag').value
   };
-  
   try {
-    const res = await fetch(DATABASE_URL, {
+    await fetch(DATABASE_URL, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(dados)
     });
-    if(res.ok){
-      alterado = false;
-      btn.textContent = '✅ SALVO NAS NUVENS';
-      btn.classList.add('salvo');
-      setTimeout(()=>{
-        btn.textContent = '☁️ SALVAR NAS NUVENS';
-        btn.classList.remove('salvo');
-      }, 2500);
-    }
+    alterado = false;
+    const btn = document.getElementById('btnSalvar');
+    btn.classList.add('salvo');
+    btn.innerHTML = '✅ SALVO COM SUCESSO!';
+    document.getElementById('statusSinc').innerHTML = 'Sincronizado';
+    document.getElementById('statusSinc').style.background = 'rgba(0,255,136,0.1)';
+    document.getElementById('statusSinc').style.color = 'var(--verde)';
+    setTimeout(() => {
+      btn.classList.remove('salvo');
+      btn.innerHTML = '☁️ SALVAR NAS NUVENS';
+    }, 2500);
   } catch(e) {
-    alert('Erro ao salvar!');
+    alert('❌ Erro ao salvar! Tente novamente.');
   }
-  btn.disabled = false;
 }
 
-async function carregarDados(){
-  try {
-    const res = await fetch(DATABASE_URL);
-    if(res.ok){
-      const dados = await res.json();
-      if(dados && dados.integrantes){
-        document.getElementById('caixaFac').value = dados.caixa || 'R$ 4.500.000,00';
-        document.getElementById('caixaPagamentos').value = dados.caixaPagamentos || 'R$ 3.214.944,00';
-        document.getElementById('estoqueFrag').value = dados.estoque || '';
-        membros = dados.integrantes;
-      }
-    }
-  } catch(e) {}
+function marcarAlterado() {
+  alterado = true;
+  document.getElementById('statusSinc').innerHTML = '⚠️ Não Salvo';
+  document.getElementById('statusSinc').style.background = 'rgba(255,193,7,0.1)';
+  document.getElementById('statusSinc').style.color = '#FFC107';
+}
+
+function getCor(valor) {
+  if(valor === 'G') return 'verde';
+  if(valor === 'Y') return 'amarela';
+  if(valor === 'R') return 'vermelha';
+  return 'vazia';
+}
+
+function calcularPontos(dias) {
+  const valores = Object.values(dias).flat();
+  let pontos = 0;
+  valores.forEach(v => {
+    if(v === 'G') pontos += 1.0;
+    else if(v === 'Y') pontos += 0.5;
+  });
+  return pontos;
+}
+
+function atualizarTodosCalculos() {
+  const caixaPagamentos = parseDinheiro(document.getElementById('caixaPagamentos').value);
   
-  if(ehModoVisitante){
-    document.getElementById('visitanteBanner').style.display = 'block';
-    document.getElementById('btnSalvar').style.display = 'none';
-    document.getElementById('btnAddMembro').style.display = 'none';
-    document.getElementById('secaoLinks').style.display = 'none';
-    document.querySelectorAll('input[type="text"]').forEach(el => el.disabled = true);
-  }
+  // Soma TODOS os pontos
+  let totalPontos = 0;
+  membros.forEach(m => {
+    totalPontos += calcularPontos(m.dias);
+  });
   
+  // Quanto vale 1 ponto
+  const valorPorPonto = totalPontos > 0 ? caixaPagamentos / totalPontos : 0;
+  const totalDistribuir = valorPorPonto * totalPontos;
+  
+  // Atualiza os totais do cabeçalho
+  document.getElementById('valorPontoCalculado').textContent = formatarDinheiro(valorPorPonto);
+  document.getElementById('somaTotalPontos').textContent = totalPontos.toFixed(1);
+  document.getElementById('somaTotalValor').textContent = formatarDinheiro(totalDistribuir);
+  
+  // Atualiza cada linha
+  membros.forEach((m, idx) => {
+    const pontos = calcularPontos(m.dias);
+    const valor = pontos * valorPorPonto;
+    const elemPontos = document.getElementById(`pontos-${idx}`);
+    const elemValor = document.getElementById(`valor-${idx}`);
+    if(elemPontos) elemPontos.textContent = pontos.toFixed(1);
+    if(elemValor) elemValor.textContent = formatarDinheiro(valor);
+  });
+}
+
+function atualizarLista() {
+  const container = document.getElementById('listaMembros');
+  container.innerHTML = '';
+  const diasSemana = ['seg','ter','qua','qui','sex','sab'];
+  const caixaPagamentos = parseDinheiro(document.getElementById('caixaPagamentos').value);
+  let totalPontos = 0;
+  membros.forEach(m => { totalPontos += calcularPontos(m.dias); });
+  const valorPorPonto = totalPontos > 0 ? caixaPagamentos / totalPontos : 0;
+  
+  membros.forEach((membro, idx) => {
+    const pontos = calcularPontos(membro.dias);
+    const valorReceber = pontos * valorPorPonto;
+    const row = document.createElement('div');
+    row.className = 'membro-row';
+    row.innerHTML = `
+      <div class="membro-nome">${membro.ehLider ? '<span class="coroa">👑</span>' : ''}${membro.nome}</div>
+      <div class="farm-cell">${membro.farm}</div>
+      ${diasSemana.map(dia => `
+        <div class="dia-cell">
+          <button class="bolinha ${getCor(membro.dias[dia][0])}" onclick="trocarCor(${idx},'${dia}',0)" ${ehModoVisitante ? 'disabled' : ''}>${membro.dias[dia][0] || ''}</button>
+        </div>
+      `).join('')}
+      <div class="pontos-cell" id="pontos-${idx}">${pontos.toFixed(1)}</div>
+      <div class="valor-cell" id="valor-${idx}">${formatarDinheiro(valorReceber)}</div>
+      <div><button class="btn-del" onclick="removerMembro(${idx})" ${ehModoVisitante ? 'disabled' : ''}>EXCLUIR</button></div>
+    `;
+    container.appendChild(row);
+  });
+  atualizarGrupos();
   atualizarTodosCalculos();
-  gerarLinks();
 }
 
-function gerarLinks(){
+function trocarCor(idx, dia, posicao) {
+  if(ehModoVisitante) return;
+  const valores = ['', 'G', 'Y', 'R'];
+  const atual = membros[idx].dias[dia][posicao];
+  const i = valores.indexOf(atual);
+  membros[idx].dias[dia][posicao] = valores[(i + 1) % valores.length];
+  marcarAlterado();
+  atualizarLista();
+}
+
+function filtrarLista() {
+  const termo = document.getElementById('buscaMembro').value.toLowerCase();
+  const linhas = document.querySelectorAll('.membro-row');
+  membros.forEach((membro, i) => {
+    const nome = membro.nome.toLowerCase();
+    linhas[i].style.display = nome.includes(termo) ? 'grid' : 'none';
+  });
+}
+
+function abrirModal() {
+  document.getElementById('modalAdicionar').style.display = 'flex';
+  document.getElementById('nomeNovo').value = '';
+  document.getElementById('farmNovo').value = '0/240';
+  document.getElementById('ehLider').checked = false;
+}
+
+function fecharModal() {
+  document.getElementById('modalAdicionar').style.display = 'none';
+}
+
+function salvarMembro() {
+  const nome = document.getElementById('nomeNovo').value.trim();
+  const farm = document.getElementById('farmNovo').value.trim() || '0/240';
+  if(!nome) { alert('Digite o nome!'); return; }
+  membros.push({
+    id: Date.now(),
+    nome,
+    ehLider: document.getElementById('ehLider').checked,
+    farm,
+    dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
+  });
+  fecharModal();
+  marcarAlterado();
+  atualizarLista();
+}
+
+function removerMembro(idx) {
+  if(!confirm(`Excluir ${membros[idx].nome}?`)) return;
+  membros.splice(idx, 1);
+  marcarAlterado();
+  atualizarLista();
+}
+
+function atualizarGrupos() {
+  const gVerde = [], gAmarelo = [];
+  membros.forEach(m => {
+    const todosValores = Object.values(m.dias).flat();
+    const temVerde = todosValores.includes('G');
+    const temAmarelo = todosValores.includes('Y');
+    
+    if(temVerde) gVerde.push(`${m.nome} (${calcularPontos(m.dias).toFixed(1)}pts)`);
+    else if(temAmarelo) gAmarelo.push(`${m.nome} (${calcularPontos(m.dias).toFixed(1)}pts)`);
+  });
+  
+  document.getElementById('grupoVerde').innerHTML = gVerde.length ? gVerde.map(n=>`<div class="secao-item">${n}</div>`).join('') : '<span style="color:var(--texto-sec)">Nenhum</span>';
+  document.getElementById('grupoAmarelo').innerHTML = gAmarelo.length ? gAmarelo.map(n=>`<div class="secao-item">${n}</div>`).join('') : '<span style="color:var(--texto-sec)">Nenhum</span>';
+  document.getElementById('grupoVermelho').innerHTML = '<span style="color:var(--texto-sec)">Nenhum</span>';
+}
+
+function configurarLinks() {
   const base = window.location.href.split('?')[0];
   document.getElementById('linkAdmin').value = base;
   document.getElementById('linkVisitante').value = base + '?modo=leitura';
 }
 
-function copiarLink(id){
+function copiarLink(id) {
   const el = document.getElementById(id);
-  el.select();
-  document.execCommand('copy');
-  alert('Link copiado! ✅');
+  navigator.clipboard.writeText(el.value).then(()=>alert('✅ Link copiado!'));
 }
-
-carregarDados();
 </script>
 
 </body>

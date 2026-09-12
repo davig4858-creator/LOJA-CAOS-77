@@ -117,7 +117,7 @@ td input{margin:0;}
     <button class="btn-add" onclick="adicionarPreco()">➕ ADICIONAR</button>
   </div>
 
-  <!-- NOMES E METAS -->
+  <!-- COLABORADORES -->
   <div class="bloco">
     <h2>👥 COLABORADORES — META: 120</h2>
     <div class="cabeca">
@@ -125,9 +125,7 @@ td input{margin:0;}
       <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
       <div>✖</div>
     </div>
-    <div id="nomesCorpo">
-      <!-- NOMES SERÃO INSERIDOS AUTOMATICAMENTE -->
-    </div>
+    <div id="nomesCorpo"></div>
     <button class="btn-add" onclick="adicionarLinha()">➕ ADICIONAR</button>
   </div>
 </div>
@@ -138,8 +136,8 @@ let ADMIN = false, idPreco = 2, idLinha = 1;
 const cores = ['', 'verde', 'amarela', 'vermelha'];
 const emojis = {verde:'🟢', amarela:'🟡', vermelha:'🔴'};
 
-// LISTA DE NOMES PRONTOS
-const NOMES_FIXOS = [
+// ✅ TODOS OS NOMES PRONTOS
+const LISTA_NOMES = [
   "Sr Bristow",
   "Katy Bristow",
   "Andres Bristow",
@@ -180,6 +178,7 @@ function entrarVisitante(){
 }
 function sair(){
   localStorage.removeItem('caos77');
+  localStorage.removeItem('caos77dados'); // ← limpa para carregar nomes padrão
   location.reload();
 }
 document.getElementById('senha').addEventListener('keypress',e=>e.key==='Enter'&&entrarAdmin());
@@ -204,20 +203,41 @@ function iniciar(){
   const todos = document.querySelectorAll('input, button');
   todos.forEach(el=>{if(!ADMIN && el.type!=='password' && !el.classList.contains('btn-sair')) el.disabled = true;});
   
-  carregarOuIniciar();
+  carregarOuInserirNomes();
 }
 
-// INICIAR COM NOMES OU CARREGAR SALVO
-function carregarOuIniciar(){
+// CARREGAR OU INSERIR NOMES NA PRIMEIRA VEZ
+function carregarOuInserirNomes(){
   const salvo = localStorage.getItem('caos77dados');
   if(salvo){
     carregarDados();
   }else{
-    // Carrega nomes padrão na primeira vez
-    NOMES_FIXOS.forEach(nome => {
-      adicionarLinhaComNome(nome);
+    // Insere todos os nomes automaticamente
+    LISTA_NOMES.forEach(nome => {
+      criarLinha(nome, '120', ['','','','','','','']);
     });
+    salvar();
   }
+}
+
+// CRIAR LINHA
+function criarLinha(nome, meta, dias){
+  const div = document.createElement('div');
+  div.className = 'linha';
+  div.dataset.id = idLinha;
+  let bolinhasHTML = '';
+  for(let i=0;i<7;i++){
+    const c = dias[i] || '';
+    bolinhasHTML += `<button class="bolinha ${c}" data-cor="${c}" onclick="trocar(this)">${emojis[c]||''}</button>`;
+  }
+  div.innerHTML = `
+    <input type="text" class="nome" value="${nome}">
+    <input type="text" class="meta" value="${meta}">
+    ${bolinhasHTML}
+    <button class="btn-del" onclick="removerLinha(${idLinha})">✖</button>
+  `;
+  document.getElementById('nomesCorpo').appendChild(div);
+  idLinha++;
 }
 
 // PREÇOS
@@ -231,32 +251,13 @@ function adicionarPreco(){
 }
 function removerPreco(id){document.querySelector(`tr[data-id="${id}"]`)?.remove();salvar();}
 
-// LINHAS
-function adicionarLinhaComNome(nome){
-  const div = document.createElement('div');
-  div.className = 'linha';
-  div.dataset.id = idLinha;
-  div.innerHTML = `
-    <input type="text" class="nome" value="${nome}">
-    <input type="text" class="meta" value="120">
-    <button class="bolinha" onclick="trocar(this)"></button>
-    <button class="bolinha" onclick="trocar(this)"></button>
-    <button class="bolinha" onclick="trocar(this)"></button>
-    <button class="bolinha" onclick="trocar(this)"></button>
-    <button class="bolinha" onclick="trocar(this)"></button>
-    <button class="bolinha" onclick="trocar(this)"></button>
-    <button class="bolinha" onclick="trocar(this)"></button>
-    <button class="btn-del" onclick="removerLinha(${idLinha})">✖</button>
-  `;
-  document.getElementById('nomesCorpo').appendChild(div);
-  idLinha++;
-}
-
+// ADICIONAR LINHA VAZIA
 function adicionarLinha(){
-  adicionarLinhaComNome('');
+  criarLinha('', '120', ['','','','','','','']);
   salvar();
 }
 
+// TROCAR COR
 function trocar(btn){
   let i = cores.indexOf(btn.dataset.cor || '');
   i = (i + 1) % cores.length;
@@ -267,7 +268,7 @@ function trocar(btn){
 }
 function removerLinha(id){document.querySelector(`.linha[data-id="${id}"]`)?.remove();salvar();}
 
-// SALVAR/CARREGAR
+// SALVAR
 function salvar(){
   if(!ADMIN) return;
   const dados = {
@@ -287,6 +288,7 @@ function salvar(){
   localStorage.setItem('caos77dados', JSON.stringify(dados));
 }
 
+// CARREGAR
 function carregarDados(){
   try{
     const d = JSON.parse(localStorage.getItem('caos77dados'));
@@ -305,14 +307,7 @@ function carregarDados(){
     
     document.getElementById('nomesCorpo').innerHTML = '';
     (d.nomes||[]).forEach(m=>{
-      const div = document.createElement('div');
-      div.className = 'linha';
-      let dias = '';
-      for(let c of m.d||['','','','','','','']){
-        dias += `<button class="bolinha ${c}" data-cor="${c}" onclick="trocar(this)">${emojis[c]||''}</button>`;
-      }
-      div.innerHTML = `<input type="text" class="nome" value="${m.n}"><input type="text" class="meta" value="${m.m}">${dias}<button class="btn-del" onclick="this.parentElement.remove()">✖</button>`;
-      document.getElementById('nomesCorpo').appendChild(div);
+      criarLinha(m.n, m.m, m.d);
     });
   }catch(e){}
 }

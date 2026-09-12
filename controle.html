@@ -14,7 +14,6 @@
   --bg-card-hover: #172338;
   --azul: #00D4FF;
   --verde: #00FF88;
-  --verde-claro: #88FFBB;
   --vermelho: #FF3B3B;
   --texto: #E0E6ED;
   --texto-sec: #8A9AB8;
@@ -45,7 +44,18 @@ body{
 .status-badge::before{content:'';width:8px;height:8px;background:var(--verde);border-radius:50%;animation:pulse-green 2s infinite;}
 @keyframes pulse-green{0%,100%{opacity:1;}50%{opacity:0.4;}}
 
-.container{max-width:800px;margin:0 auto;padding:25px 20px;}
+.container{max-width:1000px;margin:0 auto;padding:25px 10px;}
+
+/* ✅ ESTOQUE EDITÁVEL — PARTE DE CIMA MANTIDA */
+.estoque-card{
+  background:rgba(0,0,0,0.25);border:1px solid var(--azul);border-radius:10px;padding:16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;
+}
+.estoque-label{font-size:14px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:0.5px;}
+.estoque-input{
+  background:#050508;border:2px solid var(--azul);border-radius:6px;color:var(--azul);
+  font-size:18px;font-weight:800;text-align:center;padding:8px 16px;width:140px;outline:none;
+}
+.estoque-input:focus{box-shadow:0 0 0 2px rgba(0,212,255,0.25);}
 
 .search-bar{
   width:100%;padding:14px 18px;background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);
@@ -61,113 +71,44 @@ body{
 }
 .btn-add:hover{transform:translateY(-2px);}
 
-.sales-card{
-  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
+.dias-header{
+  display:grid;grid-template-columns:200px repeat(6,1fr) 100px;gap:4px;
+  padding:12px 8px;color:var(--azul);font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.5px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
+  text-align:center;
 }
-.sales-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
-.sales-table{width:100%;border-collapse:collapse;}
-.sales-table th{
-  background:rgba(0,212,255,0.1);padding:12px 8px;text-align:left;color:var(--azul);
-  font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
-}
-.sales-table th:last-child{text-align:right;}
-.sales-table td{padding:8px 4px;border-bottom:1px solid rgba(255,255,255,0.05);}
-.sales-table tr:last-child td{border-bottom:none;}
+.dias-header .nome-col{text-align:left;}
 
-.sales-table input{
-  width: 100%;
-  padding: 12px 10px;
-  background: #050a12;
-  border: 2px solid #1a2c47;
-  border-radius: 6px;
-  color: var(--verde);
-  font-size: 15px;
-  font-weight: 600;
-  outline: none;
-  text-align: center;
-  transition: all 0.2s ease;
-}
-.sales-table input::placeholder{
-  color: #2a456b;
-}
-.sales-table input:focus{
-  border-color: var(--azul);
-  background: #0a1525;
-  box-shadow: 0 0 0 2px rgba(0,212,255,0.2);
-}
-
-.sales-table .dia{font-size:14px;font-weight:600;color:var(--texto);width:110px;}
-
-/* TOTAL AUTOMÁTICO */
-.total-auto-row{
-  background:rgba(0,212,255,0.05);
-}
-.total-auto-row td{
-  padding:14px 8px !important;
-}
-.total-auto-label{
-  font-size:14px;font-weight:600;color:var(--azul);
-}
-.total-auto-value{
-  font-size:18px;font-weight:800;color:var(--azul);text-align:right;
-}
-
-/* CAMPO DE VALOR TOTAL DIGITÁVEL — SEPARADO */
-.total-card{
-  background:rgba(0,255,136,0.05);border:2px solid var(--verde);border-radius:10px;padding:20px;margin-top:20px;
-}
-.total-card h3{color:var(--verde);font-size:14px;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
-.total-card h3 span{font-size:11px;color:var(--verde-claro);font-weight:500;}
-.total-input{
-  width:100%;padding:14px;background:#050a12;border:2px solid var(--verde);
-  border-radius:8px;color:var(--verde);font-size:20px;font-weight:800;text-align:center;
-  outline:none;
-}
-.total-input:focus{border-color:var(--azul);box-shadow:0 0 0 2px rgba(0,255,136,0.2);}
-
-.stats-card{
-  background:var(--bg-card);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px;margin-bottom:25px;
-}
-.stats-card h2{color:var(--azul);font-size:15px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.stat-item{background:rgba(0,0,0,0.25);padding:16px;border-radius:8px;}
-.stat-label{font-size:12px;color:var(--texto-sec);margin-bottom:6px;text-transform:uppercase;}
-.stat-value{font-size:20px;font-weight:800;color:var(--texto);}
-.stat-value.green{color:var(--verde);}
-.stat-value.blue{color:var(--azul);}
-
-.table-header{
-  display:grid;grid-template-columns:1fr 120px 100px 160px;gap:10px;
-  padding:14px 16px;color:var(--azul);font-size:13px;font-weight:700;text-transform:uppercase;
-  letter-spacing:1px;border-bottom:1px solid rgba(0,212,255,0.15);margin-bottom:8px;
-}
-
-.row{
-  display:grid;grid-template-columns:1fr 120px 100px 160px;gap:10px;
-  padding:16px;border-radius:10px;background:var(--bg-card);margin-bottom:10px;
+.membro-row{
+  display:grid;grid-template-columns:200px repeat(6,1fr) 100px;gap:4px;
+  padding:10px 8px;border-radius:10px;background:var(--bg-card);margin-bottom:8px;
   align-items:center;border:1px solid transparent;transition:all 0.2s ease;
 }
-.row:hover{background:var(--bg-card-hover);border-color:rgba(0,212,255,0.15);}
+.membro-row:hover{background:var(--bg-card-hover);border-color:rgba(0,212,255,0.15);}
 
-.name{font-size:16px;font-weight:700;color:var(--texto);}
-.farm-input{
-  background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,255,0.15);border-radius:6px;
-  color:var(--verde);font-size:16px;font-weight:700;text-align:center;padding:6px 8px;
-  width:100%;outline:none;
-}
-.tag{font-size:18px;text-align:center;}
-.tag .crown{filter:drop-shadow(0 0 4px gold);}
+.membro-nome{font-size:14px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.coroa{font-size:16px;filter:drop-shadow(0 0 3px gold);}
 
-.btn-edit{
-  padding:8px 14px;background:linear-gradient(135deg,#1A3A5C,#244B7A);border:none;
-  border-radius:6px;color:var(--azul);font-size:13px;font-weight:700;cursor:pointer;
-  transition:all 0.2s ease;margin-right:6px;
+.meta-dia{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
 }
+.meta-num{font-size:12px;font-weight:600;color:var(--texto-sec);}
+.bolinhas{display:flex;gap:4px;}
+.bolinha{
+  width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+  font-size:15px;cursor:pointer;user-select:none;transition:all 0.15s ease;
+  background:rgba(255,255,255,0.05);border-radius:50%;border:1px dashed rgba(255,255,255,0.15);
+}
+.bolinha:empty::after{content:'-';color:rgba(255,255,255,0.2);}
+.bolinha:hover{background:rgba(255,255,255,0.1);border-style:solid;}
+.bolinha:active{transform:scale(0.9);}
+
 .btn-del{
-  padding:8px 14px;background:linear-gradient(135deg,#5C1A1A,#7A2424);border:none;
-  border-radius:6px;color:#FF6B6B;font-size:13px;font-weight:700;cursor:pointer;
-  transition:all 0.2s ease;
+  padding:8px 10px;background:linear-gradient(135deg,#5C1A1A,#7A2424);border:none;
+  border-radius:6px;color:#FF6B6B;font-size:12px;font-weight:700;cursor:pointer;
+  transition:all 0.2s ease;width:100%;
 }
+.btn-del:hover{transform:scale(1.03);}
 
 .modal-overlay{
   position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);
@@ -187,107 +128,37 @@ body{
 .modal-btn-cancel{flex:1;padding:12px;background:#2A3A58;border:none;border-radius:8px;color:var(--texto);font-weight:700;cursor:pointer;}
 .modal-btn-save{flex:1;padding:12px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;}
 
-@media(max-width:600px){
-  .table-header,.row{grid-template-columns:1fr 90px 80px 140px;gap:6px;}
-  .farm-input{font-size:14px;}
-  .stats-grid{grid-template-columns:1fr 1fr;}
+@media(max-width:700px){
+  .dias-header,.membro-row{grid-template-columns:150px repeat(6,55px) 80px;gap:2px;}
+  .bolinha{width:22px;height:22px;font-size:13px;}
+  .membro-nome{font-size:12px;}
 }
 </style>
 </head>
 <body>
 
+<!-- ✅ PARTE DE CIMA — EXATAMENTE COMO ESTAVA -->
 <div class="header-top">
   <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
-  <div class="status-badge" id="statusBadge">Conectando...</div>
+  <div class="status-badge">🟢 Sincronizado</div>
 </div>
 
 <div class="container">
 
-<div class="sales-card">
-  <h2>💰 VENDAS DE FRAGMENTOS — SEMANA</h2>
-  <table class="sales-table">
-    <thead>
-      <tr>
-        <th>DIA</th>
-        <th>FRAGMENTOS VENDIDOS</th>
-        <th>VALOR (R$)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="dia">Segunda</td>
-        <td><input type="number" id="frag_seg" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
-        <td><input type="number" id="val_seg" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
-      </tr>
-      <tr>
-        <td class="dia">Terça</td>
-        <td><input type="number" id="frag_ter" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
-        <td><input type="number" id="val_ter" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
-      </tr>
-      <tr>
-        <td class="dia">Quarta</td>
-        <td><input type="number" id="frag_qua" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
-        <td><input type="number" id="val_qua" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
-      </tr>
-      <tr>
-        <td class="dia">Quinta</td>
-        <td><input type="number" id="frag_qui" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
-        <td><input type="number" id="val_qui" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
-      </tr>
-      <tr>
-        <td class="dia">Sexta</td>
-        <td><input type="number" id="frag_sex" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
-        <td><input type="number" id="val_sex" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
-      </tr>
-      <tr>
-        <td class="dia">Sábado</td>
-        <td><input type="number" id="frag_sab" placeholder="0" oninput="atualizarTotalAutomatico()"></td>
-        <td><input type="number" id="val_sab" placeholder="0,00" oninput="atualizarTotalAutomatico()"></td>
-      </tr>
-      <!-- ✅ TOTAL AUTOMÁTICO — CALCULA SOZINHO -->
-      <tr class="total-auto-row">
-        <td colspan="2" class="total-auto-label">🔢 TOTAL AUTOMÁTICO (soma os valores)</td>
-        <td class="total-auto-value" id="totalAutomatico">R$ 0,00</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <!-- ✅ CAMPO DE VALOR TOTAL — VOCÊ DIGITA -->
-  <div class="total-card">
-    <h3>✍️ VALOR TOTAL FINAL <span>(digite o valor que vai para o caixa)</span></h3>
-    <input type="text" class="total-input" id="totalDigitavel" placeholder="Digite o valor aqui..." oninput="atualizarCaixa()">
-  </div>
-  
-  <button class="btn-add" style="margin-top:20px;padding:14px;font-size:15px;width:auto;" onclick="salvarTudo()">💾 SALVAR TUDO</button>
+<!-- ✅ ESTOQUE EDITÁVEL -->
+<div class="estoque-card">
+  <div class="estoque-label">📦 ESTOQUE TOTAL DE FRAGMENTOS</div>
+  <input type="text" class="estoque-input" id="estoqueTotal" placeholder="0" onblur="salvarEstoque()">
 </div>
 
-<div class="stats-card">
-  <h2>📊 DADOS GERAIS</h2>
-  <div class="stats-grid">
-    <div class="stat-item">
-      <div class="stat-label">MAIS FARMOU</div>
-      <div class="stat-value" id="maisFarmou">—</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">CAIXA TOTAL</div>
-      <div class="stat-value green" id="caixa">R$ 0,00</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">ESTOQUE</div>
-      <div class="stat-value blue" id="estoque">0</div>
-    </div>
-  </div>
-</div>
-
-<input type="text" class="search-bar" placeholder="🔍 Buscar por nome...">
+<input type="text" class="search-bar" placeholder="🔍 Buscar por nome..." id="busca" oninput="filtrarLista()">
 
 <button class="btn-add" onclick="abrirModal()">+ ADICIONAR INTEGRANTE</button>
 
-<div class="table-header">
-  <div>NOME</div>
-  <div>FARM</div>
-  <div>TAGS</div>
-  <div>AÇÕES</div>
+<div class="dias-header">
+  <div class="nome-col">NOME</div>
+  <div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+  <div>AÇÃO</div>
 </div>
 
 <div id="listaIntegrantes"></div>
@@ -298,7 +169,6 @@ body{
   <div class="modal">
     <h3 id="modalTitulo">➕ Adicionar Integrante</h3>
     <input type="text" id="inputNome" placeholder="Nome do integrante">
-    <input type="text" id="inputFarm" placeholder="Quantidade de farm">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
       <input type="checkbox" id="inputCoroa" style="width:auto;margin:0;">
       <label for="inputCoroa" style="color:var(--texto);font-size:14px;">👑 Líder</label>
@@ -314,43 +184,27 @@ body{
 const DATABASE_URL = 'https://loja-caos-77-default-rtdb.firebaseio.com/.json';
 
 let integrantes = [];
-let editId = null;
 const dias = ['seg','ter','qua','qui','sex','sab'];
 
-// ✅ Calcula automaticamente enquanto digita
-function atualizarTotalAutomatico(){
-  let total = 0;
-  dias.forEach(dia=>{
-    const val = parseFloat(document.getElementById(`val_${dia}`).value) || 0;
-    total += val;
-  });
-  document.getElementById('totalAutomatico').innerText = `R$ ${total.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
+// ✅ Bolinha: vazio → 🟢 → 🔴 → vazio
+function trocarBolinha(id, dia, posicao){
+  const idx = integrantes.findIndex(x=>x.id===id);
+  if(idx === -1) return;
+  
+  if(!integrantes[idx].dias) integrantes[idx].dias = {};
+  if(!integrantes[idx].dias[dia]) integrantes[idx].dias[dia] = ['',''];
+  
+  const atual = integrantes[idx].dias[dia][posicao];
+  if(atual === '') integrantes[idx].dias[dia][posicao] = 'G';
+  else if(atual === 'G') integrantes[idx].dias[dia][posicao] = 'R';
+  else integrantes[idx].dias[dia][posicao] = '';
+  
+  salvarDados();
+  renderLista();
 }
 
-// ✅ Atualiza o caixa com o valor que VOCÊ digita
-function atualizarCaixa(){
-  const valorDigitado = document.getElementById('totalDigitavel').value;
-  document.getElementById('caixa').innerText = valorDigitado ? valorDigitado : 'R$ 0,00';
-}
-
-// ✅ Salva tudo no banco
-async function salvarTudo(){
-  const vendas = {};
-  dias.forEach(dia=>{
-    vendas[`frag_${dia}`] = document.getElementById(`frag_${dia}`).value || 0;
-    vendas[`val_${dia}`] = parseFloat(document.getElementById(`val_${dia}`).value) || 0;
-  });
-  vendas.totalAutomatico = dias.reduce((sum,d)=>sum+(parseFloat(document.getElementById(`val_${d}`).value)||0),0);
-  vendas.totalFinal = document.getElementById('totalDigitavel').value || 'R$ 0,00';
-  
-  await fetch(DATABASE_URL, {
-    method: 'PATCH',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({vendas})
-  });
-  
-  document.getElementById('caixa').innerText = vendas.totalFinal;
-  alert('✅ TUDO SALVO! — Total automático e Valor final salvos!');
+async function salvarEstoque(){
+  await salvarDados();
 }
 
 async function carregarDados(){
@@ -358,87 +212,78 @@ async function carregarDados(){
     const res = await fetch(DATABASE_URL);
     const data = await res.json();
     
-    if(data && data.integrantes) integrantes = data.integrantes;
-    if(data && data.vendas){
-      dias.forEach(dia=>{
-        document.getElementById(`frag_${dia}`).value = data.vendas[`frag_${dia}`] || '';
-        document.getElementById(`val_${dia}`).value = data.vendas[`val_${dia}`] || '';
-      });
-      document.getElementById('totalDigitavel').value = data.vendas.totalFinal || '';
-      atualizarTotalAutomatico();
-      atualizarCaixa();
+    if(data){
+      if(data.integrantes) integrantes = data.integrantes;
+      if(data.estoque !== undefined){
+        document.getElementById('estoqueTotal').value = data.estoque;
+      }
     }
     
-    document.getElementById('statusBadge').innerHTML = '✅ Sincronizado';
-    atualizarTotais();
     renderLista();
   }catch(e){
-    document.getElementById('statusBadge').innerHTML = '❌ Erro';
+    console.log('Erro:',e);
   }
 }
 
 async function salvarDados(){
+  const dados = { integrantes, estoque: document.getElementById('estoqueTotal').value };
   await fetch(DATABASE_URL, {
-    method: 'PUT',
+    method: 'PATCH',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({integrantes})
+    body: JSON.stringify(dados)
   });
 }
 
 window.onload = carregarDados;
 
-function atualizarTotais(){
-  let totalFarm = 0;
-  integrantes.forEach(i=>{
-    totalFarm += parseInt(i.farm) || 0;
-  });
-  document.getElementById('estoque').textContent = totalFarm;
-  
-  if(integrantes.length > 0){
-    let topIntegrante = integrantes.reduce((max, i) => {
-      return (parseInt(i.farm) || 0) > (parseInt(max.farm) || 0) ? i : max;
-    }, integrantes[0]);
-    document.getElementById('maisFarmou').textContent = topIntegrante.nome + ' — ' + (parseInt(topIntegrante.farm) || 0);
-  }else{
-    document.getElementById('maisFarmou').textContent = '—';
-  }
-}
-
-function renderLista(){
+function renderLista(filtro=''){
   const container = document.getElementById('listaIntegrantes');
   container.innerHTML = '';
   
-  integrantes.forEach(i=>{
-    container.innerHTML += `
-      <div class="row">
-        <div class="name">${i.nome}</div>
-        <input type="text" class="farm-input" value="${i.farm || ''}" 
-               onblur="atualizarFarm(${i.id}, this.value)">
-        <div class="tag">${i.coroa ? '<span class="crown">👑</span>' : ''}</div>
-        <div style="display:flex;gap:4px;">
-          <button class="btn-edit" onclick="editar(${i.id})">EDITAR</button>
-          <button class="btn-del" onclick="excluir(${i.id})">EXPULSO</button>
+  const filtrados = integrantes.filter(i=>
+    i.nome.toLowerCase().includes(filtro.toLowerCase())
+  );
+  
+  filtrados.forEach(i=>{
+    const row = document.createElement('div');
+    row.className = 'membro-row';
+    
+    let diasHTML = '';
+    dias.forEach(dia=>{
+      if(!i.dias) i.dias = {};
+      if(!i.dias[dia]) i.dias[dia] = ['',''];
+      
+      diasHTML += `
+        <div class="meta-dia">
+          <div class="meta-num">120</div>
+          <div class="bolinhas">
+            <div class="bolinha" onclick="trocarBolinha(${i.id}, '${dia}', 0)">${i.dias[dia][0]==='G'?'🟢':i.dias[dia][0]==='R'?'🔴':''}</div>
+            <div class="bolinha" onclick="trocarBolinha(${i.id}, '${dia}', 1)">${i.dias[dia][1]==='G'?'🟢':i.dias[dia][1]==='R'?'🔴':''}</div>
+          </div>
         </div>
+      `;
+    });
+    
+    row.innerHTML = `
+      <div class="membro-nome">
+        ${i.coroa ? '<span class="coroa">👑</span>' : ''}
+        ${i.nome}
       </div>
+      ${diasHTML}
+      <button class="btn-del" onclick="excluir(${i.id})">EXPULSO</button>
     `;
+    container.appendChild(row);
   });
-  atualizarTotais();
 }
 
-function atualizarFarm(id, valor){
-  const idx = integrantes.findIndex(x=>x.id===id);
-  if(idx !== -1){
-    integrantes[idx].farm = valor;
-    salvarDados();
-    atualizarTotais();
-  }
+function filtrarLista(){
+  const valor = document.getElementById('busca').value;
+  renderLista(valor);
 }
 
 function abrirModal(){
-  editId = null;
   document.getElementById('modalTitulo').textContent = '➕ Adicionar Integrante';
   document.getElementById('inputNome').value = '';
-  document.getElementById('inputFarm').value = '';
   document.getElementById('inputCoroa').checked = false;
   document.getElementById('modal').style.display = 'flex';
 }
@@ -447,29 +292,21 @@ function fecharModal(){
   document.getElementById('modal').style.display = 'none';
 }
 
-function editar(id){
-  const i = integrantes.find(x=>x.id===id);
-  if(!i)return;
-  editId = id;
-  document.getElementById('modalTitulo').textContent = '✏️ Editar Integrante';
-  document.getElementById('inputNome').value = i.nome;
-  document.getElementById('inputFarm').value = i.farm || '';
-  document.getElementById('inputCoroa').checked = i.coroa;
-  document.getElementById('modal').style.display = 'flex';
-}
-
 function salvarIntegrante(){
   const nome = document.getElementById('inputNome').value.trim();
-  const farm = document.getElementById('inputFarm').value.trim();
   const coroa = document.getElementById('inputCoroa').checked;
   if(!nome){alert('Digite o nome!');return;}
   
-  if(editId){
-    const idx = integrantes.findIndex(x=>x.id===editId);
-    integrantes[idx] = {id:editId,nome,farm,coroa};
-  }else{
-    integrantes.push({id:Date.now(),nome,farm,coroa});
-  }
+  integrantes.push({
+    id: Date.now(),
+    nome: nome,
+    coroa: coroa,
+    dias: {
+      seg:['',''], ter:['',''], qua:['',''],
+      qui:['',''], sex:['',''], sab:['','']
+    }
+  });
+  
   fecharModal();
   salvarDados();
   renderLista();

@@ -43,10 +43,11 @@ td input{margin:0;}
 .btn-del{padding:5px 8px;background:#ff444420;border:none;border-radius:4px;color:#ff6666;cursor:pointer;}
 
 /* NOMES E METAS */
-.cabeca{display:grid;grid-template-columns:160px 50px repeat(7,40px) 40px;gap:4px;margin-bottom:6px;}
+.cabeca{display:grid;grid-template-columns:180px 50px repeat(7,40px) 40px;gap:4px;margin-bottom:6px;}
 .cabeca div{font-size:10px;text-align:center;color:#00d4ff;}
-.linha{display:grid;grid-template-columns:160px 50px repeat(7,40px) 40px;gap:4px;align-items:center;padding:4px 0;border-bottom:1px solid #222;}
-.nome{background:transparent;border:none;color:#fff;font-size:14px;outline:none;}
+.cabeca .nome-col{text-align:left;padding-left:8px;}
+.linha{display:grid;grid-template-columns:180px 50px repeat(7,40px) 40px;gap:4px;align-items:center;padding:4px 0;border-bottom:1px solid #222;}
+.nome{background:transparent;border:none;color:#fff;font-size:14px;outline:none;width:100%;}
 .meta{width:100%;background:#222;border:1px solid #444;border-radius:4px;color:#ffcc00;text-align:center;padding:4px;}
 .bolinha{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;background:#222;font-size:14px;}
 .bolinha.verde{background:#10b981;}
@@ -55,7 +56,7 @@ td input{margin:0;}
 
 @media(max-width:600px){
   .caixas{grid-template-columns:1fr;}
-  .cabeca,.linha{grid-template-columns:120px 45px repeat(7,32px) 35px;}
+  .cabeca,.linha{grid-template-columns:140px 45px repeat(7,32px) 35px;}
   .bolinha{width:26px;height:26px;font-size:11px;}
 }
 </style>
@@ -120,11 +121,13 @@ td input{margin:0;}
   <div class="bloco">
     <h2>👥 COLABORADORES — META: 120</h2>
     <div class="cabeca">
-      <div>NOME</div><div>META</div>
+      <div class="nome-col">NOME</div><div>META</div>
       <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
       <div>✖</div>
     </div>
-    <div id="nomesCorpo"></div>
+    <div id="nomesCorpo">
+      <!-- NOMES SERÃO INSERIDOS AUTOMATICAMENTE -->
+    </div>
     <button class="btn-add" onclick="adicionarLinha()">➕ ADICIONAR</button>
   </div>
 </div>
@@ -134,6 +137,32 @@ const SENHA = '123477';
 let ADMIN = false, idPreco = 2, idLinha = 1;
 const cores = ['', 'verde', 'amarela', 'vermelha'];
 const emojis = {verde:'🟢', amarela:'🟡', vermelha:'🔴'};
+
+// LISTA DE NOMES PRONTOS
+const NOMES_FIXOS = [
+  "Sr Bristow",
+  "Katy Bristow",
+  "Andres Bristow",
+  "Ferrari Bristow",
+  "Vn Bristow",
+  "Patrik Bristow",
+  "Garcia Bristow",
+  "Vt Bristow",
+  "Lula Bristow",
+  "Breck Bristow",
+  "Boladin Xt",
+  "Sr Ghostt",
+  "Laa Diabla",
+  "Ejuan Handi",
+  "Eduarda Faria",
+  "Mateus Faria",
+  "Zé Bagaceira",
+  "Alex Gadernal",
+  "Aquino Menezes",
+  "Connorr",
+  "Dyygeras",
+  "Lanterna Preta"
+];
 
 // LOGIN
 function entrarAdmin(){
@@ -175,8 +204,20 @@ function iniciar(){
   const todos = document.querySelectorAll('input, button');
   todos.forEach(el=>{if(!ADMIN && el.type!=='password' && !el.classList.contains('btn-sair')) el.disabled = true;});
   
-  carregar();
-  adicionarLinha(); adicionarLinha();
+  carregarOuIniciar();
+}
+
+// INICIAR COM NOMES OU CARREGAR SALVO
+function carregarOuIniciar(){
+  const salvo = localStorage.getItem('caos77dados');
+  if(salvo){
+    carregarDados();
+  }else{
+    // Carrega nomes padrão na primeira vez
+    NOMES_FIXOS.forEach(nome => {
+      adicionarLinhaComNome(nome);
+    });
+  }
 }
 
 // PREÇOS
@@ -191,12 +232,12 @@ function adicionarPreco(){
 function removerPreco(id){document.querySelector(`tr[data-id="${id}"]`)?.remove();salvar();}
 
 // LINHAS
-function adicionarLinha(){
+function adicionarLinhaComNome(nome){
   const div = document.createElement('div');
   div.className = 'linha';
   div.dataset.id = idLinha;
   div.innerHTML = `
-    <input type="text" class="nome" placeholder="Nome">
+    <input type="text" class="nome" value="${nome}">
     <input type="text" class="meta" value="120">
     <button class="bolinha" onclick="trocar(this)"></button>
     <button class="bolinha" onclick="trocar(this)"></button>
@@ -209,8 +250,13 @@ function adicionarLinha(){
   `;
   document.getElementById('nomesCorpo').appendChild(div);
   idLinha++;
+}
+
+function adicionarLinha(){
+  adicionarLinhaComNome('');
   salvar();
 }
+
 function trocar(btn){
   let i = cores.indexOf(btn.dataset.cor || '');
   i = (i + 1) % cores.length;
@@ -240,11 +286,10 @@ function salvar(){
   };
   localStorage.setItem('caos77dados', JSON.stringify(dados));
 }
-function carregar(){
-  const s = localStorage.getItem('caos77dados');
-  if(!s) return;
+
+function carregarDados(){
   try{
-    const d = JSON.parse(s);
+    const d = JSON.parse(localStorage.getItem('caos77dados'));
     if(ADMIN){
       document.getElementById('caixaFac').value = d.fac || 'R$ 0,00';
       document.getElementById('caixaLider').value = d.lider || 'R$ 0,00';

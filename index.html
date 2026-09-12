@@ -156,14 +156,14 @@ body{
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
 
 .dias-header{
-  display:grid;grid-template-columns:200px repeat(6,50px) 70px;gap:4px;
+  display:grid;grid-template-columns:200px repeat(6,50px) 60px;gap:4px;
   padding:10px 8px;color:var(--primaria);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
 .dias-header .nome-col{text-align:left;}
 
 .membro-row{
-  display:grid;grid-template-columns:200px repeat(6,50px) 70px;gap:4px;
+  display:grid;grid-template-columns:200px repeat(6,50px) 60px;gap:4px;
   padding:10px 8px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
   align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
@@ -185,8 +185,8 @@ body{
 .bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 8px rgba(239,68,68,0.4);color:#fff;}
 
 .btn-del{
-  padding:6px 8px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
-  color:#FCA5A5;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s ease;
+  padding:6px 4px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
+  color:#FCA5A5;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s ease;width:100%;
 }
 .btn-del:disabled{opacity:0.4;cursor:not-allowed;}
 .btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);}
@@ -206,7 +206,7 @@ body{
 .modal-fundo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);}
 .modal{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:24px;width:90%;max-width:420px;}
 .modal h3{color:var(--primaria);font-size:17px;margin-bottom:18px;}
-.modal input, .modal select{
+.modal input{
   width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:8px;
   color:var(--texto);font-size:14px;margin-bottom:12px;outline:none;
 }
@@ -218,7 +218,7 @@ body{
   .stats-row{grid-template-columns:repeat(1,1fr);}
   .caixas-grid{grid-template-columns:repeat(1,1fr);}
   .grupos-grid{grid-template-columns:1fr;}
-  .dias-header,.membro-row{grid-template-columns:160px repeat(6,40px) 55px;gap:2px;}
+  .dias-header,.membro-row{grid-template-columns:160px repeat(6,40px) 50px;gap:2px;}
   .bolinha{width:22px;height:22px;}
   .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
 }
@@ -369,11 +369,52 @@ const SENHA_ADMIN = '123477';
 let modoAdmin = false;
 const CHAVE_NUVEM = 'loja_caos77_dados';
 
+// 🏅 LISTA DE INTEGRANTES JÁ CADASTRADOS
+const NOMES_INICIAIS = [
+  { nome: 'Sr Bristow', lider: true },
+  { nome: 'Katy Bristow', lider: false },
+  { nome: 'Andres Bristow', lider: false },
+  { nome: 'Ferrari Bristow', lider: false },
+  { nome: 'Vn Bristow', lider: false },
+  { nome: 'Patrik Bristow', lider: false },
+  { nome: 'Garcia Bristow', lider: false },
+  { nome: 'Vt Bristow', lider: false },
+  { nome: 'Lula Bristow', lider: false },
+  { nome: 'Breck Bristow', lider: false },
+  { nome: 'Boladin Xt', lider: false },
+  { nome: 'Sr Ghostt', lider: false },
+  { nome: 'Laa Diabla', lider: false },
+  { nome: 'Ejuan Handi', lider: false },
+  { nome: 'Eduarda Faria', lider: false },
+  { nome: 'Mateus Faria', lider: false },
+  { nome: 'Zé Bagaceira', lider: false },
+  { nome: 'Alex Gadernal', lider: false },
+  { nome: 'Aquino Menezes', lider: false },
+  { nome: 'Connorr', lider: false },
+  { nome: 'Dyygeras', lider: false },
+  { nome: 'Lanterna Preta', lider: false }
+];
+
 let membros = [];
 let alterado = false;
 
+// 📋 INICIALIZAR COM NOMES
+function inicializarNomes(){
+  const salvos = localStorage.getItem(CHAVE_NUVEM);
+  if(!salvos){
+    // Se não tem dados salvos, carrega a lista inicial
+    membros = NOMES_INICIAIS.map(m => ({
+      id: Date.now() + Math.random(),
+      nome: m.nome,
+      coroa: m.lider,
+      dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
+    }));
+    salvarNuvem(true); // salva inicial sem confirmação
+  }
+}
+
 // ☁️ SALVAR E CARREGAR
-function salvarNuvem(){
+function salvarNuvem(inicial = false){
   const dados = {
     membros: membros,
     caixaFac: document.getElementById('caixaFac').value,
@@ -382,19 +423,20 @@ function salvarNuvem(){
   };
   localStorage.setItem(CHAVE_NUVEM, JSON.stringify(dados));
   
-  const btn = document.getElementById('btnSalvarNuvem');
-  btn.classList.add('salvo');
-  btn.innerHTML = '✅ SALVO!';
-  setTimeout(() => {
-    btn.innerHTML = '☁️ SALVAR TUDO';
-    btn.classList.remove('salvo');
-  }, 2000);
+  if(!inicial){
+    const btn = document.getElementById('btnSalvarNuvem');
+    btn.classList.add('salvo');
+    btn.innerHTML = '✅ SALVO!';
+    setTimeout(() => {
+      btn.innerHTML = '☁️ SALVAR TUDO';
+      btn.classList.remove('salvo');
+    }, 2000);
+    alert('✅ DADOS SALVOS! ☁️');
+  }
   
   alterado = false;
   document.getElementById('statusSinc').innerHTML = '✅ Salvo';
   document.getElementById('statusSinc').style.color = 'var(--verde)';
-  
-  alert('✅ DADOS SALVOS! ☁️');
 }
 
 function carregarNuvem(){
@@ -409,9 +451,6 @@ function carregarNuvem(){
       return true;
     }catch(e){console.log('Erro ao carregar');}
   }
-  membros = [];
-  document.getElementById('caixaFac').value = 'R$ 0,00';
-  document.getElementById('caixaPagamentos').value = 'R$ 0,00';
   return false;
 }
 
@@ -450,6 +489,7 @@ function abrirPainel(){
   document.getElementById('barraTopo').style.display = 'flex';
   document.getElementById('conteudoPrincipal').style.display = 'block';
   
+  inicializarNomes();
   carregarNuvem();
   configurarLinks();
   
@@ -523,8 +563,8 @@ function atualizarGrupos(){
     const temVerde = cores.includes('G');
     const temAmarelo = cores.includes('Y');
     if(temVerde) verde.push(`<span class="grupo-item">${membro.nome}</span>`);
-    else if(temAmarelo) amarelo.push(`<span class="grupo-item">${membro.nome}</span>`);
-    else vermelho.push(`<span class="grupo-item">${membro.nome}</span>`”;
+    else if(temamarelo) amarelo.push(`<span class="grupo-item">${membro.nome}</span>`);
+    else vermelho.push(`<span class="grupo-item">${membro.nome}</span>`);
   });
   
   document.getElementById('grupoVerde').innerHTML = verde.length ? verde.join('') : '<span style="color:var(--textoSec);font-size:12px;">Nenhum</span>';

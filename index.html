@@ -3,169 +3,605 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOJA CAOS 77 — Painel de Controle</title>
+<title>⚡ LOJA CAOS 77 — PAINEL MASTER</title>
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI', Arial, sans-serif;
-}
-body{
-  background:#0a0a0a;
-  min-height:100vh;
-}
-input{
-  width:100%;padding:16px 18px;border:1px solid #333;border-radius:12px;
-  background:rgba(30,30,30,0.8);color:#fff;font-size:15px;font-weight:500;
-  outline:none;transition:all 0.3s ease;
-}
-input:focus{border-color:#00D4FF;box-shadow:0 0 3px rgba(0,212,255,0.2);background:rgba(40,40,40,0.9);}
-input::placeholder{color:#666;}
-button{
-  width:100%;padding:16px;background:linear-gradient(135deg,#00B8E6,#00D4FF);
-  color:#000;border:none;border-radius:12px;font-weight:800;font-size:16px;
-  cursor:pointer;transition:all 0.3s ease;margin-top:10px;
-  box-shadow:0 4px 20px rgba(0,212,255,0.2);letter-spacing:1px;
-}
-button:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,0.3);}
-button:active{transform:translateY(0);}
-.erro{
-  color:#FF3B3B;margin-top:20px;display:none;font-size:14px;
-  background:rgba(255,59,59,0.1);padding:10px;border-radius:8px;border:1px solid rgba(255,59,59,0.2);
-}
-.links{margin-top:30px;padding-top:25px;border-top:1px solid rgba(255,255,255,0.05);}
-.links a{
-  color:#00D4FF;text-decoration:none;font-size:14px;font-weight:600;
-  transition:color 0.2s ease;
-}
-.links a:hover{color:#fff;text-decoration:underline;}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
 
-/* === NOVA TELA DE LOGIN === */
-.tela-login{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:linear-gradient(135deg,#0A0F1A 0%,#121a2b 50%,#0F1726 100%);
-  display:flex;justify-content:center;align-items:center;z-index:999;
-  overflow:hidden;
+:root{
+  --bg: #0A101F;
+  --card: #121A2E;
+  --primaria: #7C3AED;
+  --azul: #3B82F6;
+  --verde: #10B981;
+  --ouro: #FBBF24;
+  --amarelo: #F59E0B;
+  --vermelho: #EF4444;
+  --texto: #F1F5F9;
+  --textoSec: #94A3B8;
+  --borda: rgba(124,58,237,0.2);
 }
-.tela-login::before,
-.tela-login::after{
-  content:'';position:absolute;border-radius:50%;filter:blur(80px);opacity:0.4;
-  animation:flutuar 8s ease-in-out infinite alternate;
+
+body{
+  background:var(--bg);
+  min-height:100vh;color:var(--texto);
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(124,58,237,0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(59,130,246,0.04) 0%, transparent 50%);
+  padding-bottom:40px;
 }
-.tela-login::before{
-  width:400px;height:400px;background:rgba(0,212,255,0.15);top:5%;left:5%;
+
+.visitante-banner{
+  background:linear-gradient(90deg,rgba(245,158,11,0.15),rgba(245,158,11,0.05));
+  color:#FBBF24;padding:10px;text-align:center;font-size:13px;font-weight:700;
+  position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(251,191,36,0.2);
 }
-.tela-login::after{
-  width:350px;height:350px;background:rgba(255,59,59,0.12);bottom:5%;right:5%;
-  animation-delay:-4s;
+
+.header-top{
+  background:linear-gradient(180deg,rgba(18,26,46,0.98),rgba(10,16,31,0.95));
+  padding:20px 16px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--borda);position:sticky;top:0;z-index:99;backdrop-filter:blur(12px);
 }
-@keyframes flutuar{
-  0%{transform:translate(0,0) scale(1);}
-  100%{transform:translate(30px,-30px) scale(1.15);}
+.header-top .title{font-size:18px;font-weight:900;display:flex;align-items:center;gap:10px;}
+.header-top .title span{color:var(--azul);}
+.status-badge{
+  background:rgba(16,185,129,0.1);color:var(--verde);padding:6px 14px;border-radius:50px;
+  font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;border:1px solid rgba(16,185,129,0.2);
 }
-.caixa-login{
-  background:#0F1726;border:1px solid rgba(0,212,255,0.18);
-  border-radius:20px;padding:50px 40px;width:90%;max-width:420px;
-  box-shadow:0 0 60px rgba(0,212,255,0.08),inset 0 1px 0 rgba(255,255,255,0.05);
-  text-align:center;position:relative;z-index:10;
-  backdrop-filter:blur(10px);animation:aparecer 0.6s ease-out;
+.status-badge::before{content:'';width:8px;height:8px;background:var(--verde);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.container{max-width:1100px;margin:0 auto;padding:20px 14px;}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.stat-card{
+  background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:18px 16px;
+  transition:all 0.3s ease;
 }
-@keyframes aparecer{
-  from{opacity:0;transform:translateY(20px) scale(0.95);}
-  to{opacity:1;transform:translateY(0) scale(1);}
+.stat-card:hover{transform:translateY(-3px);border-color:rgba(124,58,237,0.4);}
+.stat-label{font-size:12px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.stat-value{font-size:22px;font-weight:900;}
+.stat-value.purple{color:var(--primaria);}
+.stat-value.gold{color:var(--ouro);}
+.stat-value.cyan{color:var(--azul);}
+.stat-value.green{color:var(--verde);}
+
+.meta-card{
+  background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(59,130,246,0.05));
+  border:1px solid var(--borda);border-radius:16px;padding:20px;margin-bottom:24px;
 }
-.logo-caos{
-  width:80px;height:80px;margin:0 auto 25px;
-  background:linear-gradient(135deg,#00D4FF,#FF3B3B);
-  border-radius:16px;display:flex;align-items:center;justify-content:center;
-  font-size:36px;font-weight:800;color:#000;
-  box-shadow:0 0 30px rgba(0,212,255,0.3);
-  animation:brilho 3s ease-in-out infinite alternate;
+.meta-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.meta-bar{height:10px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;}
+.meta-fill{height:100%;background:linear-gradient(90deg,var(--primaria),var(--azul));border-radius:10px;transition:width 0.5s ease;}
+
+.ranking-card{
+  background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:20px;margin-bottom:24px;
 }
-@keyframes brilho{
-  0%{box-shadow:0 0 20px rgba(0,212,255,0.25);}
-  100%{box-shadow:0 0 35px rgba(255,59,59,0.2),0 0 60px rgba(0,212,255,0.15);}
+.ranking-title{font-size:14px;font-weight:800;color:var(--ouro);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.ranking-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;margin-bottom:6px;background:rgba(255,255,255,0.03);}
+.ranking-item:nth-child(1){background:rgba(251,191,36,0.08);border-left:3px solid var(--ouro);}
+.ranking-item:nth-child(2){background:rgba(148,163,184,0.05);border-left:3px solid #94A3B8;}
+.ranking-item:nth-child(3){background:rgba(180,83,9,0.08);border-left:3px solid #B45309;}
+.ranking-pos{font-size:16px;font-weight:900;width:24px;text-align:center;}
+.ranking-nome{flex:1;font-size:14px;font-weight:700;}
+.ranking-farm{font-size:13px;color:var(--textoSec);font-weight:600;}
+
+.section-card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:22px;margin-bottom:24px;}
+.section-title{font-size:15px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--primaria);}
+
+.precos-table{width:100%;border-collapse:collapse;}
+.precos-table th{background:rgba(124,58,237,0.1);padding:14px;text-align:left;color:var(--primaria);font-size:13px;font-weight:800;border-radius:8px 8px 0 0;}
+.precos-table td{padding:14px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:15px;font-weight:600;}
+.qtd-frag{color:var(--texto);}
+.valor-frag{color:var(--verde);font-weight:900;}
+
+.caixas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;}
+.caixa-label{font-size:11px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;}
+.caixa-valor{font-size:17px;font-weight:900;}
+.caixa-valor input{
+  width:100%;background:transparent;border:none;font-size:17px;font-weight:900;text-align:center;outline:none;color:inherit;
 }
-.caixa-login h1{
-  font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:2px;
-  background:linear-gradient(90deg,#00D4FF,#fff,#FF3B3B);
-  background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  animation:textoBrilho 4s linear infinite;
+.caixa-valor.azul{color:var(--azul);}
+.caixa-valor.ouro{color:var(--ouro);}
+.caixa-valor.verde{color:var(--verde);}
+
+.legend-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--textoSec);}
+.legend-dot{width:14px;height:14px;border-radius:50%;}
+.dot-green{background:var(--verde);}
+.dot-yellow{background:var(--amarelo);}
+.dot-red{background:var(--vermelho);}
+
+.search-bar{
+  width:100%;padding:14px 18px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:10px;
+  color:var(--texto);font-size:14px;margin-bottom:16px;outline:none;
 }
-@keyframes textoBrilho{to{background-position:200% center;}}
-.caixa-login .subtitulo{font-size:14px;color:#8A9AB8;margin-bottom:40px;letter-spacing:1px;}
-.caixa-login input{
-  width:100%;padding:16px 20px;background:rgba(0,0,0,0.35);
-  border:1px solid rgba(0,212,255,0.12);border-radius:12px;
-  color:#E0E6ED;font-size:15px;margin-bottom:16px;outline:none;
-  transition:all 0.3s ease;letter-spacing:0.5px;
+.search-bar:focus{border-color:var(--primaria);}
+
+.btn-add{
+  width:100%;padding:15px;background:linear-gradient(90deg,var(--primaria),var(--azul));border:none;border-radius:10px;
+  color:white;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:20px;transition:all 0.25s ease;
 }
-.caixa-login input:focus{
-  border-color:#00D4FF;box-shadow:0 0 0 4px rgba(0,212,255,0.08),0 0 20px rgba(0,212,255,0.08);
-  background:rgba(0,0,0,0.45);
+.btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
+
+.dias-header{
+  display:grid;grid-template-columns:160px 70px repeat(6,48px) 80px 110px 70px;gap:4px;
+  padding:10px 8px;color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
+  border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
-.btn-entrar{
-  width:100%;padding:16px;background:linear-gradient(90deg,#00B8E6,#00D4FF);
-  border:none;border-radius:12px;color:#000;font-size:16px;font-weight:800;
-  cursor:pointer;transition:all 0.3s ease;margin-top:8px;letter-spacing:1px;
-  box-shadow:0 4px 15px rgba(0,212,255,0.2);
+.dias-header .nome-col{text-align:left;}
+
+.membro-row{
+  display:grid;grid-template-columns:160px 70px repeat(6,48px) 80px 110px 70px;gap:4px;
+  padding:10px 8px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
+  align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
-.btn-entrar:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,212,255,0.3);}
-.erro-login{
-  color:#FF3B3B;font-size:13px;margin-top:15px;display:none;
-  animation:tremer 0.4s ease;
+.membro-row:hover{background:rgba(255,255,255,0.05);border-color:var(--borda);}
+
+.membro-nome{font-size:12px;font-weight:800;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.coroa{font-size:14px;filter:drop-shadow(0 0 4px gold);}
+.farm-cell{font-size:11px;font-weight:700;color:var(--textoSec);text-align:center;}
+.pontos-cell{font-size:11px;font-weight:800;color:var(--ouro);text-align:center;}
+.valor-cell{font-size:11px;font-weight:900;color:var(--verde);text-align:center;}
+.dia-cell{display:flex;justify-content:center;}
+.bolinha{
+  width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;
+  transition:all 0.15s ease;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:bold;
 }
-@keyframes tremer{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
-.senha-dica{font-size:12px;color:#8A9AB8;margin-top:25px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);}
-.senha-dica strong{color:#00D4FF;}
+.bolinha:hover{transform:scale(1.15);}
+.bolinha.vazia{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);}
+.bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 8px rgba(16,185,129,0.4);color:#000;}
+.bolinha.amarela{background:var(--amarelo);border-color:#D97706;box-shadow:0 0 8px rgba(245,158,11,0.4);color:#000;}
+.bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 8px rgba(239,68,68,0.4);color:#fff;}
+
+.btn-del{
+  padding:6px 4px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
+  color:#FCA5A5;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s ease;width:100%;
+}
+.btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);}
+
+.grupos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
+.grupo-card{border-radius:12px;padding:14px;}
+.grupo-card.verde{background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.2);}
+.grupo-card.amarelo{background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.2);}
+.grupo-card.vermelho{background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);}
+.grupo-titulo{font-size:13px;font-weight:800;margin-bottom:10px;}
+.grupo-card.verde .grupo-titulo{color:var(--verde);}
+.grupo-card.amarelo .grupo-titulo{color:var(--amarelo);}
+.grupo-card.vermelho .grupo-titulo{color:var(--vermelho);}
+.grupo-lista{display:flex;flex-wrap:wrap;gap:6px;}
+.grupo-item{background:rgba(255,255,255,0.05);padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600;}
+
+.vendas-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.btn-venda{padding:10px 16px;background:linear-gradient(90deg,var(--verde),#34D399);border:none;border-radius:8px;color:#000;font-weight:800;cursor:pointer;font-size:13px;}
+.linha-venda{display:grid;grid-template-columns:1fr 100px 140px 80px;gap:10px;padding:10px;background:rgba(0,0,0,0.2);border-radius:8px;margin-bottom:6px;align-items:center;font-size:13px;}
+.linha-venda.total{background:rgba(16,185,129,0.1);font-weight:800;border:1px solid rgba(16,185,129,0.2);}
+
+.pagamento-resumo{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+.pag-item{background:rgba(0,0,0,0.25);border-radius:10px;padding:14px;text-align:center;}
+.pag-label{font-size:11px;color:var(--textoSec);margin-bottom:6px;font-weight:600;}
+.pag-valor{font-size:16px;font-weight:900;}
+
+.btn-salvar{
+  width:100%;padding:16px;background:linear-gradient(90deg,var(--primaria),var(--azul));border:none;border-radius:12px;
+  color:white;font-size:16px;font-weight:800;cursor:pointer;margin-bottom:24px;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn-salvar:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,58,237,0.3);}
+.btn-salvar.salvo{background:linear-gradient(90deg,var(--verde),#34D399);}
+
+.links-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.link-box{background:rgba(0,0,0,0.3);border-radius:10px;padding:14px;}
+.link-label{font-size:12px;color:var(--textoSec);margin-bottom:8px;font-weight:600;}
+.link-input-group{display:flex;gap:6px;}
+.link-input-group input{flex:1;padding:8px 10px;background:rgba(255,255,255,0.05);border:1px solid var(--borda);border-radius:6px;color:var(--texto);font-size:12px;outline:none;}
+.link-input-group button{padding:8px 12px;background:var(--primaria);border:none;border-radius:6px;color:white;font-weight:700;cursor:pointer;font-size:12px;}
+
+.modal-fundo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);}
+.modal{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:24px;width:90%;max-width:420px;}
+.modal h3{color:var(--primaria);font-size:17px;margin-bottom:18px;}
+.modal input, .modal select{
+  width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:8px;
+  color:var(--texto);font-size:14px;margin-bottom:12px;outline:none;
+}
+.modal-botoes{display:flex;gap:10px;margin-top:8px;}
+.modal-btn-cancel{flex:1;padding:12px;background:#1E293B;border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
+.modal-btn-save{flex:1;padding:12px;background:var(--primaria);border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
+
+.somente-admin{display:block;}
+
+@media(max-width:768px){
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .caixas-grid{grid-template-columns:repeat(2,1fr);}
+  .pagamento-resumo{grid-template-columns:1fr;}
+  .grupos-grid{grid-template-columns:1fr;}
+  .dias-header,.membro-row{grid-template-columns:120px 50px repeat(6,38px) 65px 90px 55px;gap:2px;}
+  .bolinha{width:22px;height:22px;}
+  .linha-venda{grid-template-columns:1fr 80px 100px 60px;font-size:11px;}
+}
 </style>
 </head>
 <body>
 
-<!-- 🔐 NOVA TELA DE LOGIN — LOJA CAOS 77 -->
-<div class="tela-login" id="telaLogin">
-  <div class="caixa-login">
-    <div class="logo-caos">⚡</div>
-    <h1>LOJA CAOS 77</h1>
-    <p class="subtitulo">PAINEL DE CONTROLE • GESTÃO DA FACÇÃO</p>
+<div id="visitanteBanner" class="visitante-banner" style="display:none;">
+  👀 MODO VISITANTE — Somente leitura
+</div>
 
-    <input type="password" id="senha" placeholder="🔑 Digite sua senha de acesso">
+<div class="header-top">
+  <div class="title">⚡ <span>LOJA CAOS 77</span></div>
+  <div class="status-badge" id="statusSinc">Sincronizado</div>
+</div>
 
-    <button class="btn-entrar" onclick="fazerLogin()">ACESSAR PAINEL</button>
+<div class="container">
 
-    <div class="erro-login" id="erro">❌ Usuário ou senha inválidos</div>
+<!-- 📊 ESTATÍSTICAS -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-label">👥 INTEGRANTES</div>
+    <div class="stat-value purple" id="totalMembros">0</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">🏆 TOP FARMADOR</div>
+    <div class="stat-value gold" id="topFarmador">-</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">📦 TOTAL FRAGMENTOS</div>
+    <div class="stat-value cyan" id="totalFrag">0</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">💰 CAIXA TOTAL</div>
+    <div class="stat-value green" id="totalGeral">R$ 0</div>
+  </div>
+</div>
 
-    <div class="senha-dica">💡 Senha de acesso: <strong>123477</strong></div>
+<!-- 🎯 META SEMANAL -->
+<div class="meta-card">
+  <div class="meta-header">
+    <div><strong>🎯 META SEMANAL DE FARM</strong></div>
+    <div style="font-weight:700;color:var(--primaria);" id="metaTexto">0 / 5.000</div>
+  </div>
+  <div class="meta-bar"><div class="meta-fill" id="metaBar" style="width:0%"></div></div>
+</div>
 
-    <div class="links">
-      <a href="painel.html">👁️ Acesso de Visitante (sem login)</a>
+<!-- 🏆 RANKING -->
+<div class="ranking-card">
+  <div class="ranking-title">🏆 RANKING — MAIS FARMARAM NA SEMANA</div>
+  <div id="listaRanking"></div>
+</div>
+
+<!-- 💰 TABELA DE PREÇOS -->
+<div class="section-card">
+  <div class="section-title">💰 TABELA DE PREÇOS — FRAGMENTOS</div>
+  <table class="precos-table">
+    <thead><tr><th>QUANTIDADE</th><th>VALOR DE VENDA</th></tr></thead>
+    <tbody>
+      <tr><td class="qtd-frag">250 Fragmentos</td><td class="valor-frag">R$ 550.000</td></tr>
+      <tr><td class="qtd-frag">1.250 Fragmentos</td><td class="valor-frag">R$ 2.750.000</td></tr>
+      <tr><td class="qtd-frag">2.500 Fragmentos</td><td class="valor-frag">R$ 5.500.000</td></tr>
+      <tr><td class="qtd-frag">3.750 Fragmentos</td><td class="valor-frag">R$ 8.500.000</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 📦 CAIXAS & ESTOQUE -->
+<div class="section-card">
+  <div class="section-title">📦 CAIXAS & ESTOQUE</div>
+  <div class="caixas-grid">
+    <div class="caixa-item somente-admin">
+      <div class="caixa-label">🏦 CAIXA DA FAC</div>
+      <div class="caixa-valor azul"><input type="text" id="caixaFac" value="R$ 4.500.000,00" class="azul" onblur="marcarAlterado();atualizarStats();"></div>
+    </div>
+    <div class="caixa-item somente-admin">
+      <div class="caixa-label">👑 CAIXA LÍDERES</div>
+      <div class="caixa-valor ouro"><input type="text" id="caixaLideres" value="R$ 0,00" class="ouro" onblur="marcarAlterado();"></div>
+    </div>
+    <div class="caixa-item">
+      <div class="caixa-label">💵 CAIXA PAGAMENTOS</div>
+      <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 3.214.944,00" class="verde" onblur="marcarAlterado();atualizarTodosCalculos();"></div>
+    </div>
+    <div class="caixa-item">
+      <div class="caixa-label">📦 ESTOQUE FRAG</div>
+      <div class="caixa-valor azul"><input type="text" id="estoqueFrag" value="" class="azul" onblur="marcarAlterado();atualizarStats();"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 📊 VENDAS -->
+<div class="section-card">
+  <div class="vendas-header">
+    <div class="section-title" style="margin:0;">📊 HISTÓRICO DE VENDAS</div>
+    <button class="btn-venda somente-admin" onclick="abrirModalVenda()">➕ REGISTRAR VENDA</button>
+  </div>
+  <div id="listaVendas"></div>
+</div>
+
+<!-- 💰 PAGAMENTOS -->
+<div class="section-card">
+  <div class="section-title">💰 PAGAMENTOS — DIVISÃO AUTOMÁTICA</div>
+  <div class="pagamento-resumo">
+    <div class="pag-item">
+      <div class="pag-label">💵 VALOR POR PONTO</div>
+      <div class="pag-valor verde" id="valorPonto">R$ 0,00</div>
+    </div>
+    <div class="pag-item">
+      <div class="pag-label">📊 TOTAL DE PONTOS</div>
+      <div class="pag-valor azul" id="totalPontos">0,0</div>
+    </div>
+    <div class="pag-item">
+      <div class="pag-label">💸 TOTAL A PAGAR</div>
+      <div class="pag-valor ouro" id="totalPagar">R$ 0,00</div>
+    </div>
+  </div>
+  <div style="font-size:12px;color:var(--textoSec);padding:10px;background:rgba(0,0,0,0.25);border-radius:8px;">
+    📌 🟢 = 1,0pt | 🟡 = 0,5pt | 🔴 = 0pt
+  </div>
+</div>
+
+<button class="btn-salvar somente-admin" id="btnSalvar" onclick="salvarTudo()">☁️ SALVAR NAS NUVENS</button>
+
+<!-- 📋 CONTROLE DE FARMADORES -->
+<div class="section-card">
+  <div class="section-title">📋 CONTROLE DE FARMADORES</div>
+  
+  <div class="legend-row">
+    <div class="legend-item"><div class="legend-dot dot-green"></div> Completo (1,0pt)</div>
+    <div class="legend-item"><div class="legend-dot dot-yellow"></div> Incompleto (0,5pt)</div>
+    <div class="legend-item"><div class="legend-dot dot-red"></div> Não Fez (0pt)</div>
+  </div>
+
+  <input type="text" class="search-bar" id="buscaMembro" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
+
+  <button class="btn-add somente-admin" onclick="abrirModalMembro()">➕ ADICIONAR INTEGRANTE</button>
+
+  <div class="dias-header">
+    <div class="nome-col">NOME</div>
+    <div>FARM</div>
+    <div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div>
+    <div>PTS</div>
+    <div>RECEBERÁ</div>
+    <div class="somente-admin">✖</div>
+  </div>
+
+  <div id="listaMembros"></div>
+
+  <!-- GRUPOS -->
+  <div class="grupos-grid">
+    <div class="grupo-card verde">
+      <div class="grupo-titulo">🟢 PELO MENOS 1 VERDE</div>
+      <div class="grupo-lista" id="grupoVerde"><span style="color:var(--textoSec);font-size:12px;">Nenhum</span></div>
+    </div>
+    <div class="grupo-card amarelo">
+      <div class="grupo-titulo">🟡 SEM VERDE / TEM AMARELO</div>
+      <div class="grupo-lista" id="grupoAmarelo"><span style="color:var(--textoSec);font-size:12px;">Nenhum</span></div>
+    </div>
+    <div class="grupo-card vermelho">
+      <div class="grupo-titulo">🔴 SÓ VERMELHO</div>
+      <div class="grupo-lista" id="grupoVermelho"><span style="color:var(--textoSec);font-size:12px;">Nenhum</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 🔗 LINKS -->
+<div class="section-card somente-admin">
+  <div class="section-title">🔗 LINKS DE ACESSO</div>
+  <div class="links-grid">
+    <div class="link-box">
+      <div class="link-label">🔑 ADMINISTRADOR</div>
+      <div class="link-input-group"><input type="text" id="linkAdmin" readonly><button onclick="copiarLink('linkAdmin')">📋</button></div>
+    </div>
+    <div class="link-box">
+      <div class="link-label">👀 VISITANTE</div>
+      <div class="link-input-group"><input type="text" id="linkVisitante" readonly><button onclick="copiarLink('linkVisitante')">📋</button></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- MODAL ADICIONAR INTEGRANTE -->
+<div class="modal-fundo" id="modalMembro">
+  <div class="modal">
+    <h3>➕ Adicionar Integrante</h3>
+    <input type="text" id="nomeNovo" placeholder="Nome do integrante">
+    <input type="text" id="farmNovo" placeholder="Ex: 0/240" style="margin-bottom:10px;">
+    <label style="display:flex;align-items:center;gap:8px;margin-bottom:15px;color:var(--texto);font-size:14px;">
+      <input type="checkbox" id="ehLider"> 👑 É Líder
+    </label>
+    <div class="modal-botoes">
+      <button class="modal-btn-cancel" onclick="fecharModalMembro()">Cancelar</button>
+      <button class="modal-btn-save" onclick="salvarMembro()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL VENDA -->
+<div class="modal-fundo" id="modalVenda">
+  <div class="modal">
+    <h3>💰 Registrar Venda de Fragmentos</h3>
+    <input type="text" id="vendaQtd" placeholder="Quantidade de fragmentos">
+    <input type="text" id="vendaValor" placeholder="Valor da venda (R$)">
+    <input type="text" id="vendaComprador" placeholder="Comprador / Facção" style="margin-bottom:10px;">
+    <div class="modal-botoes">
+      <button class="modal-btn-cancel" onclick="fecharModalVenda()">Cancelar</button>
+      <button class="modal-btn-save" onclick="salvarVenda()">Registrar</button>
     </div>
   </div>
 </div>
 
 <script>
-function fazerLogin(){
-  const senhaDigitada = document.getElementById('senha').value;
-  const senhaCorreta = '123477';
-  
-  if(senhaDigitada === senhaCorreta){
-    window.location.href = 'painel.html';
-  }else{
-    const erro = document.getElementById('erro');
-    erro.style.display = 'block';
-    document.getElementById('senha').value = '';
-    setTimeout(() => {
-      erro.style.display = 'none';
-    }, 3500);
-  }
+const META_SEMANAL = 5000;
+
+const ehModoVisitante = new URLSearchParams(window.location.search).get('modo') === 'leitura';
+
+// 👥 TODOS OS INTEGRANTES — da imagem + 3 novos + 10 extras pra você ver como fica!
+let membros = [
+  { id:1, nome:'Sr Bristow', coroa:true, farm:'151/240', dias:{seg:['G',''],ter:['',''],qua:['Y',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:2, nome:'Katy Bristow', coroa:true, farm:'121/240', dias:{seg:['',''],ter:['G',''],qua:['',''],qui:['',''],sex:['Y',''],sab:['','']} },
+  { id:3, nome:'Andres Bristow', coroa:true, farm:'0/240', dias:{seg:['',''],ter:['',''],qua:['',''],qui:['G',''],sex:['',''],sab:['','']} },
+  { id:4, nome:'Ferrari Bristow', coroa:false, farm:'220/240', dias:{seg:['G',''],ter:['G',''],qua:['G',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:5, nome:'Vn Bristow', coroa:false, farm:'100/240', dias:{seg:['',''],ter:['',''],qua:['Y',''],qui:['G',''],sex:['',''],sab:['','']} },
+  { id:6, nome:'Patrik Bristow', coroa:false, farm:'185/240', dias:{seg:['G',''],ter:['',''],qua:['',''],qui:['',''],sex:['G',''],sab:['','']} },
+  { id:7, nome:'Garcia Bristow', coroa:false, farm:'168/240', dias:{seg:['',''],ter:['G',''],qua:['',''],qui:['',''],sex:['',''],sab:['Y','']} },
+  { id:8, nome:'Vt Bristow', coroa:false, farm:'50/240', dias:{seg:['',''],ter:['',''],qua:['',''],qui:['Y',''],sex:['',''],sab:['','']} },
+  { id:9, nome:'Lula Bristow', coroa:false, farm:'95/240', dias:{seg:['Y',''],ter:['',''],qua:['G',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:10, nome:'Breck Bristow', coroa:false, farm:'30/240', dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['Y',''],sab:['','']} },
+  { id:11, nome:'Boladin Xt', coroa:false, farm:'240/240', dias:{seg:['G',''],ter:['G',''],qua:['G',''],qui:['G',''],sex:['G',''],sab:['G','']} },
+  { id:12, nome:'Sr Ghostt', coroa:false, farm:'145/240', dias:{seg:['',''],ter:['G',''],qua:['',''],qui:['Y',''],sex:['',''],sab:['','']} },
+  { id:13, nome:'Laa Diabla', coroa:false, farm:'78/240', dias:{seg:['Y',''],ter:['',''],qua:['',''],qui:['',''],sex:['',''],sab:['G','']} },
+  { id:14, nome:'Ejuan Handi', coroa:false, farm:'177/240', dias:{seg:['G',''],ter:['',''],qua:['G',''],qui:['',''],sex:['Y',''],sab:['','']} },
+  { id:15, nome:'Eduarda Faria', coroa:false, farm:'60/240', dias:{seg:['',''],ter:['Y',''],qua:['',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:16, nome:'Mateus Faria', coroa:false, farm:'190/240', dias:{seg:['G',''],ter:['',''],qua:['',''],qui:['G',''],sex:['',''],sab:['Y','']} },
+  { id:17, nome:'Zé Bagaceira', coroa:false, farm:'110/240', dias:{seg:['',''],ter:['G',''],qua:['Y',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:18, nome:'Alex Gadernal', coroa:false, farm:'38/240', dias:{seg:['',''],ter:['',''],qua:['',''],qui:['',''],sex:['Y',''],sab:['','']} },
+  { id:19, nome:'Aquino Menezes', coroa:false, farm:'130/240', dias:{seg:['G',''],ter:['',''],qua:['',''],qui:['',''],sex:['G',''],sab:['','']} },
+  { id:20, nome:'Connorr Dyygeras', coroa:false, farm:'205/240', dias:{seg:['',''],ter:['G',''],qua:['G',''],qui:['',''],sex:['',''],sab:['G','']} },
+  { id:21, nome:'Lanterna Preta', coroa:false, farm:'88/240', dias:{seg:['Y',''],ter:['',''],qua:['',''],qui:['G',''],sex:['',''],sab:['','']} },
+  { id:22, nome:'Jorge Capeta', coroa:false, farm:'230/240', dias:{seg:['G',''],ter:['G',''],qua:['G',''],qui:['G',''],sex:['G',''],sab:['','']} },
+  { id:23, nome:'Maria Pistolinha', coroa:false, farm:'160/240', dias:{seg:['',''],ter:['Y',''],qua:['',''],qui:['G',''],sex:['',''],sab:['Y','']} },
+  { id:24, nome:'Pedro Pimenta', coroa:false, farm:'45/240', dias:{seg:['',''],ter:['',''],qua:['Y',''],qui:['',''],sex:['',''],sab:['','']} },
+  { id:25, nome:'Ana Bala', coroa:false, farm:'210/240', dias:{seg:['G',''],ter:['',''],qua:['G',''],qui:['',''],sex:['G',''],sab:['','']} },
+  { id:26, nome:'Carlos Canhão', coroa:false, farm:'125/240', dias:{seg:['',''],ter:['G',''],qua:['',''],qui:['Y',''],sex:['',''],sab:['G','']} },
+  { id:27, nome:'Luiza Laranja', coroa:false, farm:'70/240', dias:{seg:['Y',''],ter:['',''],qua:['',''],qui:['',''],sex:['Y',''],sab:['','']} },
+  { id:28, nome:'Rafael Rambo', coroa:false, farm:'195/240', dias:{seg:['G',''],ter:['G',''],qua:['',''],qui:['G',''],sex:['',''],sab:['Y','']} },
+  { id:29, nome:'Beatriz Bala', coroa:false, farm:'55/240', dias:{seg:['',''],ter:['Y',''],qua:['',''],qui:['',''],sex:['',''],sab:['G','']} },
+  { id:30, nome:'Bruno Bruto', coroa:false, farm:'140/240', dias:{seg:['G',''],ter:['',''],qua:['Y',''],qui:['',''],sex:['G',''],sab:['','']} },
+  { id:31, nome:'Carla Carteira', coroa:false, farm:'175/240', dias:{seg:['',''],ter:['G',''],qua:['',''],qui:['G',''],sex:['Y',''],sab:['','']} }
+];
+
+let vendas = [];
+let alterado = false;
+
+function marcarAlterado(){
+  alterado = true;
+  document.getElementById('statusSinc').innerHTML = '⚠️ Não salvo';
+  document.getElementById('statusSinc').style.background = 'rgba(245,158,11,0.1)';
+  document.getElementById('statusSinc').style.color = '#FBBF24';
+  document.getElementById('btnSalvar').classList.remove('salvo');
 }
 
-// Enter para logar
-document.getElementById('senha').addEventListener('keypress', function(e){
-  if(e.key === 'Enter') fazerLogin();
-});
-</script>
+function marcarSalvo(){
+  alterado = false;
+  document.getElementById('statusSinc').innerHTML = '✅ Sincronizado';
+  document.getElementById('statusSinc').style.background = 'rgba(16,185,129,0.1)';
+  document.getElementById('statusSinc').style.color = 'var(--verde)';
+  document.getElementById('btnSalvar').classList.add('salvo');
+}
 
-</body>
-</html>
+function parseDinheiro(valor){
+  if(!valor) return 0;
+  return parseFloat(valor.replace(/R\$ /g,'').replace(/\./g,'').replace(',','.')) || 0;
+}
+
+function formatarDinheiro(valor){
+  return 'R$ ' + valor.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+}
+
+function parseFarm(str){
+  if(!str) return 0;
+  const num = str.split('/')[0];
+  return parseInt(num) || 0;
+}
+
+function calcularPontos(dias){
+  let pts = 0;
+  for(let d in dias){
+    if(dias[d][0] === 'G') pts += 1.0;
+    else if(dias[d][0] === 'Y') pts += 0.5;
+  }
+  return pts;
+}
+
+function atualizarStats(){
+  document.getElementById('totalMembros').textContent = membros.length;
+  
+  const totalFrag = membros.reduce((s,m) => s + parseFarm(m.farm), 0);
+  document.getElementById('totalFrag').textContent = totalFrag.toLocaleString('pt-BR');
+  
+  const caixaFac = parseDinheiro(document.getElementById('caixaFac').value);
+  const caixaLideres = parseDinheiro(document.getElementById('caixaLideres').value);
+  document.getElementById('totalGeral').textContent = formatarDinheiro(caixaFac + caixaLideres);
+  
+  const pct = Math.min(100, (totalFrag / META_SEMANAL) * 100);
+  document.getElementById('metaBar').style.width = pct + '%';
+  document.getElementById('metaTexto').textContent = `${totalFrag.toLocaleString('pt-BR')} / ${META_SEMANAL.toLocaleString('pt-BR')}`;
+  
+  const ordenado = [...membros].sort((a,b) => parseFarm(b.farm) - parseFarm(a.farm)).slice(0,5);
+  const listaRank = document.getElementById('listaRanking');
+  listaRank.innerHTML = '';
+  ordenado.forEach((m,i) => {
+    listaRank.innerHTML += `
+      <div class="ranking-item">
+        <div class="ranking-pos">${i+1}º</div>
+        <div class="ranking-nome">${m.nome} ${m.coroa?'👑':''}</div>
+        <div class="ranking-farm">${parseFarm(m.farm)} frag</div>
+      </div>
+    `;
+  });
+  document.getElementById('topFarmador').textContent = ordenado.length ? ordenado[0].nome.split(' ')[0] : '-';
+}
+
+function atualizarTodosCalculos(){
+  const valorCaixa = parseDinheiro(document.getElementById('caixaPagamentos').value);
+  let totalPontos = 0;
+  membros.forEach(m => { totalPontos += calcularPontos(m.dias); });
+  
+  const valorPorPonto = totalPontos > 0 ? valorCaixa / totalPontos : 0;
+  document.getElementById('valorPonto').textContent = formatarDinheiro(valorPorPonto);
+  document.getElementById('totalPontos').textContent = totalPontos.toFixed(1);
+  document.getElementById('totalPagar').textContent = formatarDinheiro(valorCaixa);
+  
+  renderizarLista();
+  atualizarGrupos();
+  atualizarStats();
+}
+
+function atualizarGrupos(){
+  let verde = [], amarelo = [], vermelho = [];
+  membros.forEach(membro => {
+    const cores = Object.values(membro.dias).map(d => d[0]);
+    const temVerde = cores.includes('G');
+    const temAmarelo = cores.includes('Y');
+    const todosVermelho = cores.every(c => c === 'R');
+    
+    if(temVerde) verde.push(`<span class="grupo-item">${membro.nome}</span>`);
+    else if(temAmarelo) amarelo.push(`<span class="grupo-item">${membro.nome}</span>`);
+    else if(todosVermelho) vermelho.push(`<span class="grupo-item">${membro.nome}</span>`);
+  });
+  
+  document.getElementById('grupoVerde').innerHTML = verde.length ? verde.join('') : '<span style="color:var(--textoSec);font-size:12px;">Nenhum</span>';
+  document.getElementById('grupoAmarelo').innerHTML = amarelo.length ? amarelo.join('') : '<span style="color:var(--textoSec);font-size:12px;">Nenhum</span>';
+  document.getElementById('grupoVermelho').innerHTML = vermelho.length ? vermelho.join('') : '<span style="color:var(--textoSec);font-size:12px;">Nenhum</span>';
+}
+
+function alternarCorBolinha(membro, diaIndex){
+  if(ehModoVisitante) return;
+  const ordem = ['', 'G', 'Y', 'R'];
+  const dia = ['seg','ter','qua','qui','sex','sab'][diaIndex];
+  let atual = membro.dias[dia][0];
+  let prox = ordem[(ordem.indexOf(atual) + 1) % ordem.length];
+  membro.dias[dia][0] = prox;
+  marcarAlterado();
+  atualizarTodosCalculos();
+}
+
+function renderizarLista(){
+  const lista = document.getElementById('listaMembros');
+  lista.innerHTML = '';
+  
+  const valorCaixa = parseDinheiro(document.getElementById('caixaPagamentos').value);
+  let totalPontosGeral = 0;
+  membros.forEach(m => { totalPontosGeral += calcularPontos(m.dias); });
+  
+  membros.forEach((membro, idx) => {
+    const pontos = calcularPontos(membro.dias);
+    const valorPonto = totalPontosGeral > 0 ? valorCaixa / totalPontosGeral : 0;
+    const receber = pontos * valorPonto;
+    
+    lista.innerHTML += `
+      <div class="membro-row" data-nome="${membro.nome.toLowerCase()}">
+        <div class="membro-nome">
+          ${membro.coroa ? '<span class="coroa">👑</span>' : ''}${membro.nome}
+        </div>
+        <div class="farm-cell">${membro.farm}</div>
+        ${

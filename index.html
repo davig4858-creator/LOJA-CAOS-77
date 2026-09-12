@@ -104,6 +104,7 @@ body{
 .stat-value.green{color:var(--verde);}
 .stat-value.blue{color:var(--azul);}
 .stat-value.red{color:var(--vermelho);}
+.stat-value.laranja{color:var(--amarelo);font-size:15px;}
 
 .section-card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:22px;margin-bottom:24px;}
 .section-title{font-size:15px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--primaria);}
@@ -137,6 +138,7 @@ body{
 .caixa-valor.verde{color:var(--verde);}
 .caixa-valor.roxo{color:var(--primaria);}
 .caixa-valor.vermelho{color:var(--vermelho);}
+.caixa-valor.small{font-size:14px;}
 
 .legend-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--textoSec);}
@@ -168,8 +170,14 @@ body{
 .btn-add:disabled{opacity:0.4;cursor:not-allowed;transform:none !important;}
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
 
+.btn-pagar-tudo{
+  width:100%;padding:12px;background:linear-gradient(90deg,var(--verde),#34D399);border:none;border-radius:10px;
+  color:white;font-size:14px;font-weight:800;cursor:pointer;margin-bottom:20px;transition:all 0.25s ease;
+}
+.btn-pagar-tudo:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(16,185,129,0.3);}
+
 .dias-header{
-  display:grid;grid-template-columns:165px 50px 60px repeat(6,45px) 45px;gap:4px;
+  display:grid;grid-template-columns:165px 50px 70px repeat(6,45px) 50px;gap:4px;
   padding:10px 8px;color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
@@ -177,21 +185,17 @@ body{
 .dias-header .qtd-col{text-align:center;}
 
 .membro-row{
-  display:grid;grid-template-columns:165px 50px 60px repeat(6,45px) 45px;gap:4px;
+  display:grid;grid-template-columns:165px 50px 70px repeat(6,45px) 50px;gap:4px;
   padding:10px 6px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
   align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
+.membro-row.pago{opacity:0.6;background:rgba(16,185,129,0.05);}
 .membro-row:hover{background:rgba(255,255,255,0.05);border-color:var(--borda);}
 
 .membro-nome{font-size:13px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:8px;}
 .coroa{font-size:14px;filter:drop-shadow(0 0 3px gold);}
 .qtd-farm-cell,.valor-cell{text-align:center;}
-.qtd-farm-input{
-  width:50px;padding:4px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:6px;
-  color:var(--texto);font-size:13px;font-weight:800;text-align:center;outline:none;
-}
-.qtd-farm-input:disabled{opacity:0.5;cursor:not-allowed;}
-.valor-exibido{font-size:11px;font-weight:700;color:var(--textoSec);}
+.valor-cell.pago-texto{color:var(--verde);font-size:10px;font-weight:700;}
 .dia-cell{display:flex;justify-content:center;}
 .bolinha{
   width:26px;height:26px;border-radius:50%;border:3px solid transparent;cursor:pointer;
@@ -204,6 +208,14 @@ body{
 .bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 8px rgba(16,185,129,0.5);color:#000;}
 .bolinha.amarela{background:var(--amarelo);border-color:#D97706;box-shadow:0 0 8px rgba(245,158,11,0.5);color:#000;}
 .bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 8px rgba(239,68,68,0.5);color:#fff;}
+
+.btn-pagar{
+  padding:6px 2px;background:linear-gradient(135deg,#064E3B,#047857);border:none;border-radius:6px;
+  color:#6EE7B7;font-size:9px;font-weight:700;cursor:pointer;transition:all 0.2s ease;width:100%;
+}
+.btn-pagar:disabled{opacity:0.4;cursor:not-allowed;}
+.btn-pagar:hover{background:linear-gradient(135deg,#047857,#059669);}
+.btn-pagar.pago-btn{background:linear-gradient(135deg,#374151,#4B5563);color:#9CA3AF;}
 
 .btn-del{
   padding:6px 2px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
@@ -227,19 +239,20 @@ body{
 .modal-fundo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:200;backdrop-filter:blur(6px);}
 .modal{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:24px;width:90%;max-width:420px;}
 .modal h3{color:var(--primaria);font-size:17px;margin-bottom:18px;}
+.modal p{font-size:14px;margin-bottom:16px;color:var(--textoSec);}
 .modal input, .modal select{
   width:100%;padding:12px 14px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:8px;
   color:var(--texto);font-size:14px;margin-bottom:12px;outline:none;
 }
 .modal-botoes{display:flex;gap:10px;margin-top:8px;}
 .modal-btn-cancel{flex:1;padding:12px;background:#1E293B;border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
-.modal-btn-save{flex:1;padding:12px;background:var(--primaria);border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
+.modal-btn-save{flex:1;padding:12px;background:var(--verde);border:none;border-radius:8px;color:white;font-weight:700;cursor:pointer;}
 
 @media(max-width:768px){
   .stats-row{grid-template-columns:repeat(2,1fr);}
   .caixas-grid{grid-template-columns:repeat(2,1fr);}
   .grupos-grid{grid-template-columns:1fr;}
-  .dias-header,.membro-row{grid-template-columns:125px 40px 50px repeat(6,38px) 40px;gap:2px;}
+  .dias-header,.membro-row{grid-template-columns:125px 40px 55px repeat(6,38px) 45px;gap:2px;}
   .bolinha{width:24px;height:24px;}
   .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
 }
@@ -311,12 +324,12 @@ body{
     <div class="stat-value gold" id="diasAmarelo">0</div>
   </div>
   <div class="stat-card">
-    <div class="stat-label">🔴 NÃO FEITOS</div>
-    <div class="stat-value red" id="diasVermelho">0</div>
+    <div class="stat-label">💰 TOTAL A PAGAR</div>
+    <div class="stat-value laranja" id="totalAPagar">R$ 0,00</div>
   </div>
   <div class="stat-card">
-    <div class="stat-label">💰 VALOR TOTAL</div>
-    <div class="stat-value blue" id="valorTotal">R$ 0,00</div>
+    <div class="stat-label">💵 CAIXA DISPONÍVEL</div>
+    <div class="stat-value blue" id="caixaDisponivel">R$ 0,00</div>
   </div>
 </div>
 
@@ -326,7 +339,7 @@ body{
   <div class="caixas-grid">
     <div class="caixa-item" id="caixaFacContainer">
       <div class="caixa-label">🏦 CAIXA DA FAC</div>
-      <div class="caixa-valor ouro"><input type="text" id="caixaFac" value="R$ 0,00" class="ouro" onblur="marcarAlterado();"></div>
+      <div class="caixa-valor ouro"><input type="text" id="caixaFac" value="R$ 0,00" class="ouro" onblur="marcarAlterado();atualizarCaixaDisponivel();"></div>
     </div>
     <div class="caixa-item">
       <div class="caixa-label">💎 VALOR DIA COMPLETO</div>
@@ -338,7 +351,7 @@ body{
     </div>
     <div class="caixa-item">
       <div class="caixa-label">💵 CAIXA DE PAGAMENTOS</div>
-      <div class="caixa-valor azul"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="azul" onblur="marcarAlterado();"></div>
+      <div class="caixa-valor azul small"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="azul" onblur="marcarAlterado();atualizarCaixaDisponivel();"></div>
     </div>
   </div>
   <p style="font-size:11px;color:var(--textoSec);margin-top:8px;">🟢 Verde = Dia completo / 🟡 Amarelo = Parcial / 🔴 Vermelho = Não fez</p>
@@ -346,13 +359,15 @@ body{
 
 <!-- 📋 CONTROLE DE INTEGRANTES -->
 <div class="section-card">
-  <div class="section-title">📋 CONTROLE DE INTEGRANTES</div>
+  <div class="section-title">📋 CONTROLE DE INTEGRANTES — SEMANA</div>
   
   <div class="legend-row">
     <div class="legend-item"><div class="legend-dot dot-green"></div> Feito = <span id="legVerde">R$10</span></div>
     <div class="legend-item"><div class="legend-dot dot-yellow"></div> Parcial = <span id="legAmarelo">R$5</span></div>
     <div class="legend-item"><div class="legend-dot dot-red"></div> Não Feito = R$0</div>
   </div>
+
+  <button class="btn-pagar-tudo" id="btnPagarTudo" onclick="abrirModalPagarTudo()">💳 PAGAR TODOS E REINICIAR SEMANA</button>
 
   <input type="text" class="search-bar" id="buscaMembro" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
 
@@ -361,9 +376,9 @@ body{
   <div class="dias-header">
     <div class="nome-col">STATUS / NOME</div>
     <div class="qtd-col">🟢</div>
-    <div class="qtd-col">💰</div>
+    <div class="qtd-col">💰 SEMANA</div>
     <div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div>
-    <div>✖</div>
+    <div>PAGAR</div>
   </div>
 
   <div id="listaMembros"></div>
@@ -398,6 +413,18 @@ body{
     <div class="modal-botoes">
       <button class="modal-btn-cancel" onclick="fecharModalMembro()">Cancelar</button>
       <button class="modal-btn-save" onclick="salvarMembro()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PAGAR TODOS -->
+<div class="modal-fundo" id="modalPagarTudo">
+  <div class="modal">
+    <h3>💳 Pagar Todos & Reiniciar Semana</h3>
+    <p>Será descontado do Caixa de Pagamentos o valor total de todos os integrantes. Os dias serão zerados para uma nova semana.</p>
+    <div class="modal-botoes">
+      <button class="modal-btn-cancel" onclick="fecharModalPagarTudo()">Cancelar</button>
+      <button class="modal-btn-save" onclick="confirmarPagarTudo()">✅ CONFIRMAR</button>
     </div>
   </div>
 </div>
@@ -444,7 +471,9 @@ function inicializarNomes(){
       id: Date.now() + Math.random(),
       nome: m.nome,
       coroa: m.lider,
-      dias: { seg:'', ter:'', qua:'', qui:'', sex:'', sab:'' }
+      dias: { seg:'', ter:'', qua:'', qui:'', sex:'', sab:'' },
+      valorSemana: 0,
+      pago: false
     }));
     salvarNuvem(true);
   }
@@ -452,14 +481,31 @@ function inicializarNomes(){
 
 // 🎯 PEGAR COR PRINCIPAL DO MEMBRO
 function getCorMembro(membro){
+  if(membro.pago) return 'vazio';
   const cores = Object.values(membro.dias);
-  if(cores.includes('G')) return 'verde';     // Se fez pelo menos 1 dia completo → VERDE
-  if(cores.includes('Y')) return 'amarelo';  // Se só fez parciais → AMARELO
-  if(cores.includes('R')) return 'vermelho';  // Se marcou não fez → VERMELHO
-  return 'vazio';                              // Sem nada marcado
+  if(cores.includes('G')) return 'verde';
+  if(cores.includes('Y')) return 'amarelo';
+  if(cores.includes('R')) return 'vermelho';
+  return 'vazio';
 }
 
-// ➕ CONTAR E CALCULAR PELAS BOLINHAS
+// 💰 FORMATAR MOEDA
+function formatarMoeda(valor){
+  return 'R$ ' + parseFloat(valor).toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+}
+
+function parseMoeda(texto){
+  return parseFloat(texto.replace('R$ ','').replace('.','').replace(',','.')) || 0;
+}
+
+// 💵 ATUALIZA CAIXA DISPONÍVEL
+function atualizarCaixaDisponivel(){
+  const caixaFac = parseMoeda(document.getElementById('caixaFac').value);
+  const caixaPag = parseMoeda(document.getElementById('caixaPagamentos').value);
+  document.getElementById('caixaDisponivel').textContent = formatarMoeda(caixaPag);
+}
+
+// ➕ CONTAR E CALCULAR PELAS BOLINHAS — COM VALOR DA SEMANA
 function calcularTudo(){
   const valorDiaCompleto = parseFloat(document.getElementById('valorDiaCompleto').value) || 10;
   const valorParcial = parseFloat(document.getElementById('valorParcial').value) || 5;
@@ -472,6 +518,14 @@ function calcularTudo(){
   let valorTotalGeral = 0;
   
   membros.forEach(membro => {
+    // Se já foi pago, não conta
+    if(membro.pago){
+      membro.valorSemana = 0;
+      membro.diasFeitos = 0;
+      membro.corStatus = 'vazio';
+      return;
+    }
+    
     let diasVerdeMembro = 0;
     let valorMembro = 0;
     
@@ -489,7 +543,7 @@ function calcularTudo(){
     });
     
     membro.diasFeitos = diasVerdeMembro;
-    membro.valor = valorMembro;
+    membro.valorSemana = valorMembro;
     membro.corStatus = getCorMembro(membro);
     valorTotalGeral += valorMembro;
   });
@@ -498,14 +552,85 @@ function calcularTudo(){
   document.getElementById('diasVerde').textContent = totalVerde;
   document.getElementById('diasAmarelo').textContent = totalAmarelo;
   document.getElementById('diasVermelho').textContent = totalVermelho;
-  document.getElementById('valorTotal').textContent = formatarMoeda(valorTotalGeral);
+  document.getElementById('totalAPagar').textContent = formatarMoeda(valorTotalGeral);
   
+  atualizarCaixaDisponivel();
   renderizarLista();
   atualizarGrupos();
 }
 
-function formatarMoeda(valor){
-  return 'R$ ' + valor.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+// 💳 PAGAR UM INTEGRANTE
+function pagarMembro(idx){
+  if(!modoAdmin) return;
+  const membro = membros[idx];
+  if(membro.pago || membro.valorSemana === 0){
+    alert('⚠️ Nada a pagar ou já foi pago!');
+    return;
+  }
+  
+  if(confirm(`💳 Pagar ${membro.nome} — ${formatarMoeda(membro.valorSemana)}?\n\nSerá descontado do Caixa de Pagamentos.`)){
+    const caixaPag = parseMoeda(document.getElementById('caixaPagamentos').value);
+    if(caixaPag < membro.valorSemana){
+      alert('❌ Dinheiro insuficiente no Caixa de Pagamentos!');
+      return;
+    }
+    
+    // Desconta do caixa
+    const novoSaldo = caixaPag - membro.valorSemana;
+    document.getElementById('caixaPagamentos').value = formatarMoeda(novoSaldo);
+    
+    // Marca como pago e zera os dias
+    membro.pago = true;
+    membro.dias = { seg:'', ter:'', qua:'', qui:'', sex:'', sab:'' };
+    
+    marcarAlterado();
+    calcularTudo();
+    alert(`✅ ${membro.nome} foi pago!\nValor: ${formatarMoeda(membro.valorSemana)}`);
+  }
+}
+
+// 💳 PAGAR TODOS
+function abrirModalPagarTudo(){
+  if(!modoAdmin) return;
+  document.getElementById('modalPagarTudo').style.display = 'flex';
+}
+
+function fecharModalPagarTudo(){
+  document.getElementById('modalPagarTudo').style.display = 'none';
+}
+
+function confirmarPagarTudo(){
+  if(!modoAdmin) return;
+  fecharModalPagarTudo();
+  
+  const total = membros.reduce((sum, m) => sum + (m.pago ? 0 : m.valorSemana), 0);
+  if(total === 0){
+    alert('⚠️ Nenhum valor a pagar!');
+    return;
+  }
+  
+  const caixaPag = parseMoeda(document.getElementById('caixaPagamentos').value);
+  if(caixaPag < total){
+    alert(`❌ Dinheiro insuficiente!\nCaixa: ${formatarMoeda(caixaPag)}\nTotal a pagar: ${formatarMoeda(total)}`);
+    return;
+  }
+  
+  if(confirm(`💳 PAGAR TODOS!\nTotal: ${formatarMoeda(total)}\n\nOs dias serão zerados para uma nova semana.`)){
+    // Desconta do caixa
+    document.getElementById('caixaPagamentos').value = formatarMoeda(caixaPag - total);
+    
+    // Reseta todos os dias e marca como pago
+    membros.forEach(m => {
+      if(!m.pago && m.valorSemana > 0){
+        m.pago = true;
+        m.dias = { seg:'', ter:'', qua:'', qui:'', sex:'', sab:'' };
+      }
+    });
+    
+    marcarAlterado();
+    calcularTudo();
+    alert('✅ TODOS FORAM PAGOS!\nSemana reiniciada com sucesso! 🎉');
+  }
 }
 
 // ☁️ SALVAR E CARREGAR
@@ -599,7 +724,8 @@ function abrirPainel(){
     document.getElementById('buscaMembro').disabled = true;
     document.getElementById('btnSalvarNuvem').style.display = 'none';
     document.getElementById('secaoLinks').style.display = 'none';
-    document.querySelectorAll('input, button, .bolinha, .btn-del').forEach(el => {
+    document.getElementById('btnPagarTudo').style.display = 'none';
+    document.querySelectorAll('input, button, .bolinha, .btn-del, .btn-pagar').forEach(el => {
       if(el.id !== 'buscaMembro') el.disabled = true;
     });
   }else{
@@ -609,7 +735,8 @@ function abrirPainel(){
     document.getElementById('buscaMembro').disabled = false;
     document.getElementById('btnSalvarNuvem').style.display = 'flex';
     document.getElementById('secaoLinks').style.display = 'block';
-    document.querySelectorAll('input, button, .bolinha, .btn-del').forEach(el => {
+    document.getElementById('btnPagarTudo').style.display = 'block';
+    document.querySelectorAll('input, button, .bolinha, .btn-del, .btn-pagar').forEach(el => {
       el.disabled = false;
     });
   }
@@ -642,9 +769,9 @@ function atualizarStats(){
   document.getElementById('totalMembros').textContent = membros.length;
 }
 
-// 🎯 CLICA NA BOLINHA → MUDA COR E CALCULA AUTOMÁTICO
+// 🎯 CLICA NA BOLINHA → MUDA COR E CALCULA VALOR DA SEMANA
 function alternarCorBolinha(membro, diaIndex){
-  if(!modoAdmin) return;
+  if(!modoAdmin || membro.pago) return;
   const ordem = ['', 'G', 'Y', 'R'];
   const diaChave = ['seg','ter','qua','qui','sex','sab'][diaIndex];
   let atual = membro.dias[diaChave];
@@ -652,101 +779,15 @@ function alternarCorBolinha(membro, diaIndex){
   membro.dias[diaChave] = prox;
   
   marcarAlterado();
-  calcularTudo(); // ✅ CALCULA AUTOMÁTICO NA HORA!
+  calcularTudo(); // ✅ RECALCULA VALOR DA SEMANA AUTOMÁTICO!
 }
 
 function atualizarGrupos(){
   let verde = [], amarelo = [], vermelho = [];
   membros.forEach(membro => {
+    if(membro.pago) return;
     const cores = Object.values(membro.dias);
     const temVerde = cores.includes('G');
     const temAmarelo = cores.includes('Y');
-    if(temVerde) verde.push(`<span class="grupo-item">${membro.nome} (${membro.diasFeitos}dias)</span>`);
-    else if(temAmarelo) amarelo.push(`<span class="grupo-item">${membro.nome}</span>`);
-    else vermelho.push(`<span class="grupo-item">${membro.nome}</span>`);
-  });
-  
-  document.getElementById('grupoVerde').innerHTML = verde.length ? verde.join('') : '<span style="color:var(--textoSec);font-size:11px;">Nenhum</span>';
-  document.getElementById('grupoAmarelo').innerHTML = amarelo.length ? amarelo.join('') : '<span style="color:var(--textoSec);font-size:11px;">Nenhum</span>';
-  document.getElementById('grupoVermelho').innerHTML = vermelho.length ? vermelho.join('') : '<span style="color:var(--textoSec);font-size:11px;">Nenhum</span>';
-}
-
-function renderizarLista(){
-  atualizarStats();
-  const lista = document.getElementById('listaMembros');
-  lista.innerHTML = '';
-  
-  membros.forEach((membro, idx) => {
-    const corStatus = membro.corStatus || 'vazio';
-    lista.innerHTML += `
-      <div class="membro-row" data-nome="${membro.nome.toLowerCase()}">
-        <div class="membro-nome">
-          <div class="status-indicador ${corStatus}"></div>
-          ${membro.coroa ? '<span class="coroa">👑</span>' : ''}${membro.nome}
-        </div>
-        <div class="qtd-farm-cell" style="font-weight:bold;color:var(--verde);">${membro.diasFeitos || 0}</div>
-        <div class="valor-cell" style="font-size:11px;color:var(--ouro);font-weight:bold;">${formatarMoeda(membro.valor || 0)}</div>
-        ${['seg','ter','qua','qui','sex','sab'].map((d,i) => {
-          let c = membro.dias[d];
-          let cls = c === 'G' ? 'verde' : c === 'Y' ? 'amarela' : c === 'R' ? 'vermelha' : 'vazia';
-          return `<div class="dia-cell"><button class="bolinha ${cls}" onclick="alternarCorBolinha(membros[${idx}],${i})" ${!modoAdmin?'disabled':''}>${c==='G'?'✓':c==='Y'?'◐':c==='R'?'✗':''}</button></div>`;
-        }).join('')}
-        <div><button class="btn-del" onclick="removerMembro(${idx})" ${!modoAdmin?'disabled':''}>🗑️</button></div>
-      </div>
-    `;
-  });
-}
-
-function filtrarLista(){
-  const busca = document.getElementById('buscaMembro').value.toLowerCase();
-  document.querySelectorAll('.membro-row').forEach(row => {
-    row.style.display = row.dataset.nome.includes(busca) ? 'grid' : 'none';
-  });
-  atualizarGrupos();
-}
-
-function abrirModalMembro(){
-  if(!modoAdmin) return;
-  document.getElementById('modalMembro').style.display = 'flex';
-  document.getElementById('nomeNovo').value = '';
-  document.getElementById('ehLider').checked = false;
-}
-
-function fecharModalMembro(){
-  document.getElementById('modalMembro').style.display = 'none';
-}
-
-function salvarMembro(){
-  if(!modoAdmin) return;
-  const nome = document.getElementById('nomeNovo').value.trim();
-  const ehLider = document.getElementById('ehLider').checked;
-  
-  if(!nome){
-    alert('⚠️ Digite o nome!');
-    return;
-  }
-  
-  membros.unshift({
-    id: Date.now(),
-    nome: nome,
-    coroa: ehLider,
-    dias: { seg:'', ter:'', qua:'', qui:'', sex:'', sab:'' }
-  });
-  
-  fecharModalMembro();
-  marcarAlterado();
-  calcularTudo();
-  alert('✅ Adicionado! Não esqueça de SALVAR! ☁️');
-}
-
-function removerMembro(idx){
-  if(!modoAdmin) return;
-  if(!confirm(`❌ Remover ${membros[idx].nome}?`)) return;
-  membros.splice(idx, 1);
-  marcarAlterado();
-  calcularTudo();
-}
-</script>
-
-</body>
-</html>
+    if(temVerde) verde.push(`<span class="grupo-item">${membro.nome} (${membro.diasFeitos}dias) — ${formatarMoeda(membro.valorSemana)}</span>`);
+    else if(temAmarelo) amarelo.push(`<span class="grupo-item">

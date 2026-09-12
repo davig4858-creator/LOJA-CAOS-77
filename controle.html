@@ -281,39 +281,44 @@ body{
   <button class="btn-copiar" id="btn-copiar" onclick="copiarRelatorio()" style="display:none;">📋 COPIAR RELATÓRIO</button>
 </div>
 
-<!-- 🟢 LEGENDA -->
-<div class="legend-card">
-  <div class="legend-item">🟢 COMPLETO</div>
-  <div class="legend-item">🟡 INCOMPLETO</div>
-  <div class="legend-item">🔴 NÃO COMPLETO</div>
-</div>
+<!-- 👥 PAINEL DE FUNCIONÁRIOS -->
+<div class="card">
+  <h2>👥 CONTROLE DE FARMADORES</h2>
+  
+  <!-- 🟢 LEGENDA -->
+  <div class="legend-card" style="margin-bottom:15px;">
+    <div class="legend-item">🟢 COMPLETO</div>
+    <div class="legend-item">🟡 INCOMPLETO</div>
+    <div class="legend-item">🔴 NÃO COMPLETO</div>
+  </div>
 
-<input type="text" class="search-bar" placeholder="🔍 Buscar por nome..." id="busca" oninput="filtrarLista()">
+  <input type="text" class="search-bar" placeholder="🔍 Buscar por nome..." id="busca" oninput="filtrarLista()">
 
-<button class="btn-add" onclick="abrirModal()">+ ADICIONAR INTEGRANTE</button>
+  <button class="btn-add" onclick="abrirModal()">+ ADICIONAR INTEGRANTE</button>
 
-<div class="dias-header">
-  <div class="nome-col">NOME</div>
-  <div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
-  <div>AÇÃO</div>
-</div>
+  <div class="dias-header">
+    <div class="nome-col">NOME</div>
+    <div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+    <div>AÇÃO</div>
+  </div>
 
-<div id="listaIntegrantes"></div>
+  <div id="listaIntegrantes"></div>
 
-<!-- 📋 GRUPOS -->
-<div class="secao-card">
-  <div class="secao-titulo titulo-grupo1">🟢🔴🟡 — PELO MENOS 1 VERDE</div>
-  <div class="secao-lista" id="grupo1"></div>
-</div>
+  <!-- 📋 GRUPOS -->
+  <div class="secao-card" style="margin-top:20px;">
+    <div class="secao-titulo titulo-grupo1">🟢🔴🟡 — PELO MENOS 1 VERDE</div>
+    <div class="secao-lista" id="grupo1"></div>
+  </div>
 
-<div class="secao-card">
-  <div class="secao-titulo titulo-grupo2">🟡🔴 — NENHUM VERDE / TEM AMARELO</div>
-  <div class="secao-lista" id="grupo2"></div>
-</div>
+  <div class="secao-card">
+    <div class="secao-titulo titulo-grupo2">🟡🔴 — NENHUM VERDE / TEM AMARELO</div>
+    <div class="secao-lista" id="grupo2"></div>
+  </div>
 
-<div class="secao-card">
-  <div class="secao-titulo titulo-grupo3">🔴🔴 — SÓ VERMELHO</div>
-  <div class="secao-lista" id="grupo3"></div>
+  <div class="secao-card">
+    <div class="secao-titulo titulo-grupo3">🔴🔴 — SÓ VERMELHO</div>
+    <div class="secao-lista" id="grupo3"></div>
+  </div>
 </div>
 
 <!-- 🔗 LINKS DE ACESSO -->
@@ -545,9 +550,9 @@ function atualizarGrupos(){
   const grupo2 = integrantes.filter(i=>classificarIntegrante(i)===2);
   const grupo3 = integrantes.filter(i=>classificarIntegrante(i)===3);
   
-  document.getElementById('grupo1').innerHTML = grupo1.length?grupo1.map(i=>`<span class="secao-item">${i.coroa?'👑 ':''}${i.nome}</span>`).join(''):'<span style="color:var(--texto-sec);font-size:14px;">Nenhum</span>";
-  document.getElementById('grupo2').innerHTML = grupo2.length?grupo2.map(i=>`<span class="secao-item">${i.coroa?'👑 ':''}${i.nome}</span>`).join(''):'<span style="color:var(--texto-sec);font-size:14px;">Nenhum</span>";
-  document.getElementById('grupo3').innerHTML = grupo3.length?grupo3.map(i=>`<span class="secao-item">${i.coroa?'👑 ':''}${i.nome}</span>`).join(''):'<span style="color:var(--texto-sec);font-size:14px;">Nenhum</span>";
+  document.getElementById('grupo1').innerHTML = grupo1.length?grupo1.map(i=>`<span class="secao-item">${i.coroa?'👑 ':''}${i.nome}</span>`).join(''):'<span style="color:var(--texto-sec);font-size:14px;">Nenhum</span>';
+  document.getElementById('grupo2').innerHTML = grupo2.length?grupo2.map(i=>`<span class="secao-item">${i.coroa?'👑 ':''}${i.nome}</span>`).join(''):'<span style="color:var(--texto-sec);font-size:14px;">Nenhum</span>';
+  document.getElementById('grupo3').innerHTML = grupo3.length?grupo3.map(i=>`<span class="secao-item">${i.coroa?'👑 ':''}${i.nome}</span>`).join(''):'<span style="color:var(--texto-sec);font-size:14px;">Nenhum</span>';
 }
 
 window.onload = carregarDados;

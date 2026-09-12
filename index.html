@@ -472,7 +472,6 @@ function parseMoeda(texto){
 
 // 💵 ATUALIZA CAIXA DISPONÍVEL
 function atualizarCaixaDisponivel(){
-  const caixaFac = parseMoeda(document.getElementById('caixaFac').value);
   const caixaPag = parseMoeda(document.getElementById('caixaPagamentos').value);
   document.getElementById('caixaDisponivel').textContent = formatarMoeda(caixaPag);
 }
@@ -489,15 +488,13 @@ function calcularPontos(){
   document.getElementById('regraAmarelo').textContent = pAmarelo + ' ponto';
   
   let totalPontos = 0;
-  let totalVerde = 0, totalAmarelo = 0, totalVermelho = 0;
-  let valorTotalGeral = 0;
+  let totalVerde = 0, totalAmarelo = 0;
   
   membros.forEach(membro => {
     let pts = 0;
     Object.values(membro.dias).forEach(cor => {
       if(cor === 'G'){ pts += pVerde; totalVerde++; }
       else if(cor === 'Y'){ pts += pAmarelo; totalAmarelo++; }
-      else if(cor === 'R'){ totalVermelho++; }
     });
     membro.pontos = pts;
     membro.valorReceber = 0;
@@ -509,7 +506,6 @@ function calcularPontos(){
   document.getElementById('diasVerde').textContent = totalVerde;
   document.getElementById('diasAmarelo').textContent = totalAmarelo;
   document.getElementById('totalMembros').textContent = membros.length;
-  document.getElementById('totalAPagar').textContent = formatarMoeda(valorTotalGeral);
   
   atualizarCaixaDisponivel();
   renderizarLista();
@@ -789,4 +785,5 @@ function renderizarLista(){
         <div class="valor-cell">${membro.valorReceber > 0 ? formatarMoeda(membro.valorReceber) : '—'}</div>
         ${['seg','ter','qua','qui','sex','sab'].map((d,i) => {
           let c = membro.dias[d];
-          let cls = c === 'G' ? 'verde' : c === 'Y'
+          let cls = c === 'G' ? 'verde' : c === 'Y' ? 'amarela' : c === 'R' ? 'vermelha' : 'vazia';
+          return `<div class="dia-cell"><button class="bolinha ${cls}" onclick="(function(){alternarCorBolinha(membros

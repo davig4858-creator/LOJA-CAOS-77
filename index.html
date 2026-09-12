@@ -3,440 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚡ LOJA CAOS 77 — CONTROLE TOTAL</title>
+<title>LOJA CAOS 77</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:#0a0a0a;color:#fff;padding:20px;min-height:100vh;}
+.container{max-width:900px;margin:0 auto;}
 
-:root{
-  --bg: #050508; --card: #171A2C; --borda: rgba(0,212,255,0.2);
-  --primaria: #00D4FF; --verde: #10B981; --ouro: #FBBF24;
-  --azul: #3B82F6; --amarelo: #F59E0B; --vermelho: #EF4444;
-  --texto: #F8FAFC; --textoSec: #94A3B8;
-}
+/* LOGIN */
+.login{position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0a0a;display:flex;justify-content:center;align-items:center;z-index:999;}
+.caixa-login{background:#1a1a1a;padding:40px;border-radius:16px;width:90%;max-width:360px;text-align:center;border:1px solid #333;}
+.caixa-login h1{font-size:24px;color:#00d4ff;margin-bottom:20px;}
+input{width:100%;padding:12px;background:#222;border:1px solid #444;border-radius:8px;color:#fff;font-size:15px;margin-bottom:12px;outline:none;}
+.btn-admin{width:100%;padding:12px;background:#00d4ff;border:none;border-radius:8px;color:#000;font-weight:bold;cursor:pointer;margin-bottom:8px;}
+.btn-visita{width:100%;padding:12px;background:transparent;border:1px solid #666;border-radius:8px;color:#aaa;cursor:pointer;}
+.erro{color:#ff4444;margin-top:10px;display:none;}
 
-body{background:var(--bg);min-height:100vh;color:var(--texto);padding:16px;}
-.container{max-width:1100px;margin:0 auto;}
+/* CONTEÚDO */
+.topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.topo h1{font-size:22px;color:#00d4ff;}
+.badge{padding:6px 12px;border-radius:20px;font-size:12px;background:#00d4ff20;color:#00d4ff;}
+.btn-sair{padding:8px 14px;background:#ff444420;border:none;border-radius:6px;color:#ff6666;cursor:pointer;}
 
-/* ===== LOGIN ===== */
-.tela-login{position:fixed;inset:0;background:linear-gradient(135deg,#0A0F1A,#121a2b);display:flex;justify-content:center;align-items:center;z-index:999;}
-.caixa-login{background:var(--card);border:1px solid var(--borda);border-radius:20px;padding:40px;width:90%;max-width:400px;text-align:center;}
-.caixa-login h1{font-size:28px;color:var(--primaria);margin-bottom:8px;}
-.caixa-login p{color:var(--textoSec);margin-bottom:30px;}
-input{width:100%;padding:14px;background:#0F1726;border:1px solid var(--borda);border-radius:10px;color:white;font-size:15px;margin-bottom:16px;outline:none;}
-.btn-admin{width:100%;padding:14px;background:linear-gradient(90deg,#00B8E6,#00D4FF);border:none;border-radius:10px;color:#000;font-weight:800;cursor:pointer;margin-bottom:10px;}
-.btn-visita{width:100%;padding:14px;background:transparent;border:1px solid var(--textoSec);border-radius:10px;color:var(--textoSec);cursor:pointer;}
-.btn-visita:hover{border-color:var(--primaria);color:var(--primaria);}
-.dica{margin-top:20px;font-size:12px;color:var(--textoSec);}
-.erro{color:var(--vermelho);margin-top:10px;display:none;}
-
-/* ===== CABEÇALHO ===== */
-.topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:10px;}
-.topo h1{font-size:22px;color:var(--primaria);}
-.badge{padding:6px 12px;border-radius:50px;font-size:12px;font-weight:700;}
-.badge.admin{background:rgba(0,212,255,0.15);color:var(--primaria);}
-.badge.visitante{background:rgba(16,185,129,0.1);color:var(--verde);}
-.btn-sair{padding:8px 14px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;color:#FCA5A5;cursor:pointer;}
-
-/* ===== CAIXAS ===== */
-.caixas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
-.caixas.uma-so{grid-template-columns:1fr;}
-.caixa{background:var(--card);border:1px solid var(--borda);border-radius:14px;padding:20px;text-align:center;transition:all 0.2s;}
+/* CAIXAS */
+.caixas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.caixas.uma{grid-template-columns:1fr;}
+.caixa{background:#1a1a1a;padding:16px;border-radius:12px;text-align:center;border:1px solid #333;}
 .caixa.escondida{display:none;}
-.caixa label{font-size:12px;color:var(--textoSec);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:0.5px;}
-.caixa input{width:100%;background:#0F1726;border:1px solid var(--borda);border-radius:8px;color:var(--texto);font-size:20px;font-weight:900;text-align:center;padding:8px;outline:none;}
-.caixa input:disabled{opacity:0.6;cursor:default;}
-.c-fac{color:var(--ouro);} .c-lider{color:var(--azul);} .c-pag{color:var(--verde);}
+.caixa label{font-size:12px;color:#888;margin-bottom:6px;display:block;}
+.caixa input{font-size:18px;font-weight:bold;text-align:center;}
 
-/* ===== BLOCO ===== */
-.bloco{background:var(--card);border:1px solid var(--borda);border-radius:14px;padding:20px;margin-bottom:24px;}
-.bloco h2{font-size:15px;font-weight:800;margin-bottom:16px;color:var(--primaria);display:flex;align-items:center;gap:8px;}
-
-/* ===== TABELA PREÇOS ===== */
+/* TABELAS */
+.bloco{background:#1a1a1a;padding:16px;border-radius:12px;margin-bottom:20px;border:1px solid #333;}
+.bloco h2{font-size:15px;margin-bottom:12px;color:#00d4ff;}
 table{width:100%;border-collapse:collapse;}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid rgba(0,212,255,0.08);}
-th{background:rgba(0,212,255,0.05);font-size:11px;font-weight:800;text-transform:uppercase;color:var(--primaria);}
-td input{width:100%;background:#0F1726;border:1px solid transparent;border-radius:6px;color:var(--texto);padding:7px 10px;font-size:14px;outline:none;}
-td input:disabled{opacity:0.6;}
-.btn-add{padding:9px 16px;background:var(--primaria);border:none;border-radius:8px;color:#000;font-weight:700;cursor:pointer;margin-top:12px;}
-.btn-add:disabled{opacity:0.4;cursor:not-allowed;}
-.btn-del{padding:5px 9px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;color:#FCA5A5;cursor:pointer;font-size:11px;font-weight:700;}
-.btn-del:disabled{opacity:0.3;cursor:not-allowed;}
+th,td{padding:10px;text-align:left;border-bottom:1px solid #333;}
+th{font-size:12px;color:#00d4ff;}
+td input{margin:0;}
+.btn-add{padding:8px 14px;background:#00d4ff;border:none;border-radius:6px;color:#000;font-weight:bold;cursor:pointer;margin-top:10px;}
+.btn-del{padding:5px 8px;background:#ff444420;border:none;border-radius:4px;color:#ff6666;cursor:pointer;}
 
-/* ===== TABELA NOMES ===== */
-.dias-cabeca{display:grid;grid-template-columns:180px 60px repeat(7,50px) 45px;gap:4px;margin-bottom:6px;}
-.dias-cabeca div{font-size:10px;font-weight:800;text-align:center;color:var(--primaria);padding:6px;text-transform:uppercase;}
-.dias-cabeca .col-nome{text-align:left;padding-left:8px;}
+/* NOMES E METAS */
+.cabeca{display:grid;grid-template-columns:160px 50px repeat(7,40px) 40px;gap:4px;margin-bottom:6px;}
+.cabeca div{font-size:10px;text-align:center;color:#00d4ff;}
+.linha{display:grid;grid-template-columns:160px 50px repeat(7,40px) 40px;gap:4px;align-items:center;padding:4px 0;border-bottom:1px solid #222;}
+.nome{background:transparent;border:none;color:#fff;font-size:14px;outline:none;}
+.meta{width:100%;background:#222;border:1px solid #444;border-radius:4px;color:#ffcc00;text-align:center;padding:4px;}
+.bolinha{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;background:#222;font-size:14px;}
+.bolinha.verde{background:#10b981;}
+.bolinha.amarela{background:#f59e0b;}
+.bolinha.vermelha{background:#ef4444;}
 
-.linha{display:grid;grid-template-columns:180px 60px repeat(7,50px) 45px;gap:4px;align-items:center;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,0.03);}
-.nome-cel{background:transparent;border:none;color:var(--texto);font-size:14px;font-weight:700;padding:6px 8px;outline:none;width:100%;}
-.nome-cel:disabled{opacity:0.6;}
-.meta-cel{width:100%;background:#0F1726;border:1px solid var(--borda);border-radius:6px;color:var(--ouro);font-size:13px;font-weight:800;text-align:center;padding:5px;outline:none;}
-.meta-cel:disabled{opacity:0.6;}
-.bolinha{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,0.05);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
-.bolinha:disabled{cursor:default;opacity:0.5;}
-.bolinha:hover{transform:scale(1.1);}
-.bolinha.verde{background:var(--verde);box-shadow:0 0 8px rgba(16,185,129,0.3);}
-.bolinha.amarela{background:var(--amarelo);box-shadow:0 0 8px rgba(245,158,11,0.3);}
-.bolinha.vermelha{background:var(--vermelho);box-shadow:0 0 8px rgba(239,68,68,0.3);}
-
-.btn-add-linha{padding:10px 18px;background:var(--verde);border:none;border-radius:8px;color:white;font-weight:800;cursor:pointer;margin-top:12px;}
-.btn-add-linha:disabled{opacity:0.4;cursor:not-allowed;}
-
-/* ===== RELATÓRIO ===== */
-.relatorio{background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.15);border-radius:14px;padding:20px;margin-top:24px;display:none;}
-.relatorio.mostrar{display:block;}
-.resumo-linhas{margin-top:12px;}
-.res-linha{display:flex;justify-content:space-between;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.03);font-size:14px;}
-.res-linha.total{font-weight:900;color:var(--ouro);border-bottom:none;padding-top:10px;margin-top:6px;}
-
-@media(max-width:768px){
+@media(max-width:600px){
   .caixas{grid-template-columns:1fr;}
-  .dias-cabeca,.linha{grid-template-columns:130px 48px repeat(7,38px) 40px;}
-  .bolinha{width:30px;height:30px;font-size:13px;}
+  .cabeca,.linha{grid-template-columns:120px 45px repeat(7,32px) 35px;}
+  .bolinha{width:26px;height:26px;font-size:11px;}
 }
 </style>
 </head>
 <body>
 
-<!-- ===== TELA DE LOGIN ===== -->
-<div class="tela-login" id="telaLogin">
+<!-- LOGIN -->
+<div class="login" id="telaLogin">
   <div class="caixa-login">
     <h1>⚡ LOJA CAOS 77</h1>
-    <p>Controle de Produção & Finanças</p>
-    <input type="password" id="senha" placeholder="🔑 Senha de Administrador">
+    <input type="password" id="senha" placeholder="Senha de Admin">
     <button class="btn-admin" onclick="entrarAdmin()">🔐 ENTRAR COMO ADMIN</button>
     <button class="btn-visita" onclick="entrarVisitante()">👀 ENTRAR COMO VISITANTE</button>
-    <div class="erro" id="erro">❌ Senha incorreta!</div>
-    <div class="dica">💡 Admin: <strong>123477</strong> | Visitante: sem senha</div>
+    <div class="erro" id="erro">Senha incorreta!</div>
+    <p style="margin-top:15px;font-size:12px;color:#666;">Admin: 123477</p>
   </div>
 </div>
 
-<!-- ===== CONTEÚDO PRINCIPAL ===== -->
-<div id="conteudo" style="display:none;">
+<!-- CONTEÚDO -->
+<div class="container" id="conteudo" style="display:none;">
   <div class="topo">
-    <h1>⚡ CONTROLE TOTAL</h1>
-    <div style="display:flex;align-items:center;gap:10px;">
-      <span class="badge" id="tipoAcesso">👤 Visitante</span>
-      <button class="btn-sair" onclick="sair()">🚪 Sair</button>
+    <h1>⚡ CONTROLE</h1>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span class="badge" id="tipo">Visitante</span>
+      <button class="btn-sair" onclick="sair()">Sair</button>
     </div>
   </div>
 
-  <!-- ===== 3 CAIXAS ===== -->
+  <!-- CAIXAS -->
   <div class="caixas" id="gridCaixas">
-    <div class="caixa c-fac escondida" id="blocoFac">
+    <div class="caixa escondida" id="facBloco">
       <label>🏦 CAIXA DA FACÇÃO</label>
       <input type="text" id="caixaFac" value="R$ 0,00">
     </div>
-    <div class="caixa c-lider escondida" id="blocoLider">
+    <div class="caixa escondida" id="liderBloco">
       <label>👑 CAIXA DO LÍDER</label>
       <input type="text" id="caixaLider" value="R$ 0,00">
     </div>
-    <div class="caixa c-pag" id="blocoPag">
+    <div class="caixa" id="pagBloco">
       <label>💵 CAIXA DE PAGAMENTO</label>
       <input type="text" id="caixaPag" value="R$ 0,00">
     </div>
   </div>
 
-  <!-- ===== TABELA DE PREÇOS ===== -->
+  <!-- TABELA DE PREÇOS -->
   <div class="bloco">
-    <h2>📊 TABELA DE PREÇOS — FRAGMENTOS/PRODUTOS</h2>
+    <h2>📊 TABELA DE PREÇOS</h2>
     <table>
-      <thead><tr><th style="width:65%">ITEM</th><th style="width:25%">VALOR UNITÁRIO</th><th></th></tr></thead>
-      <tbody id="corpoPrecos">
+      <thead><tr><th>ITEM</th><th>VALOR</th><th></th></tr></thead>
+      <tbody id="precosCorpo">
         <tr data-id="1">
-          <td><input type="text" class="nome-item" value="Fragmento de Cristal"></td>
-          <td><input type="text" class="valor-item" value="R$ 1,50"></td>
-          <td><button class="btn-del" onclick="removerPreco(1)">🗑️</button></td>
+          <td><input type="text" value="Fragmento de Cristal"></td>
+          <td><input type="text" value="R$ 1,50"></td>
+          <td><button class="btn-del" onclick="removerPreco(1)">✖</button></td>
         </tr>
       </tbody>
     </table>
-    <button class="btn-add" id="btnAddPreco" onclick="adicionarPreco()">➕ ADICIONAR ITEM</button>
+    <button class="btn-add" onclick="adicionarPreco()">➕ ADICIONAR</button>
   </div>
 
-  <!-- ===== TABELA DE NOMES ===== -->
+  <!-- NOMES E METAS -->
   <div class="bloco">
-    <h2>👥 COLABORADORES — META: 120/dia</h2>
-    <div class="dias-cabeca">
-      <div class="col-nome">NOME DO COLABORADOR</div>
-      <div>META</div>
-      <div>D1</div><div>D2</div><div>D3</div><div>D4</div><div>D5</div><div>D6</div><div>D7</div>
+    <h2>👥 COLABORADORES — META: 120</h2>
+    <div class="cabeca">
+      <div>NOME</div><div>META</div>
+      <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
       <div>✖</div>
     </div>
-    <div id="corpoNomes"></div>
-    <button class="btn-add-linha" id="btnAddLinha" onclick="adicionarLinha()">➕ ADICIONAR COLABORADOR</button>
-  </div>
-
-  <!-- ===== RELATÓRIO ===== -->
-  <div class="relatorio" id="relatorio">
-    <h2>📋 RELATÓRIO DE PAGAMENTOS</h2>
-    <div class="resumo-linhas" id="resumo"></div>
+    <div id="nomesCorpo"></div>
+    <button class="btn-add" onclick="adicionarLinha()">➕ ADICIONAR</button>
   </div>
 </div>
 
 <script>
-const SENHA_ADMIN = '123477';
-const META_PADRAO = 120;
-const DESC_AMARELO = 0.05;
-const DESC_VERMELHO = 0.20;
-
-let ADMIN = false;
-let idPreco = 2, idLinha = 1;
-const estados = ['', 'verde', 'amarela', 'vermelha'];
+const SENHA = '123477';
+let ADMIN = false, idPreco = 2, idLinha = 1;
+const cores = ['', 'verde', 'amarela', 'vermelha'];
 const emojis = {verde:'🟢', amarela:'🟡', vermelha:'🔴'};
 
-// ===== LOGIN =====
+// LOGIN
 function entrarAdmin(){
-  if(document.getElementById('senha').value === SENHA_ADMIN){
-    localStorage.setItem('caos77_acesso', 'admin');
-    inicializar();
+  if(document.getElementById('senha').value === SENHA){
+    localStorage.setItem('caos77', 'admin');
+    iniciar();
   }else{
     document.getElementById('erro').style.display = 'block';
-    setTimeout(()=>document.getElementById('erro').style.display='none',3000);
+    setTimeout(()=>document.getElementById('erro').style.display='none',2500);
   }
 }
 function entrarVisitante(){
-  localStorage.setItem('caos77_acesso', 'visitante');
-  inicializar();
+  localStorage.setItem('caos77', 'visitante');
+  iniciar();
 }
 function sair(){
-  localStorage.removeItem('caos77_acesso');
+  localStorage.removeItem('caos77');
   location.reload();
 }
-document.getElementById('senha').addEventListener('keypress',e=>{if(e.key==='Enter')entrarAdmin();});
+document.getElementById('senha').addEventListener('keypress',e=>e.key==='Enter'&&entrarAdmin());
 
-// ===== INICIALIZAR =====
-function inicializar(){
-  const acesso = localStorage.getItem('caos77_acesso');
-  if(!acesso) return;
+// INICIAR
+function iniciar(){
+  const tipo = localStorage.getItem('caos77');
+  if(!tipo) return;
+  ADMIN = tipo === 'admin';
   
-  ADMIN = acesso === 'admin';
   document.getElementById('telaLogin').style.display = 'none';
   document.getElementById('conteudo').style.display = 'block';
+  document.getElementById('tipo').textContent = ADMIN ? '👑 ADMIN' : '👀 VISITANTE';
   
-  // Badge e permissões
-  const badge = document.getElementById('tipoAcesso');
   if(ADMIN){
-    badge.textContent = '👑 ADMINISTRADOR';
-    badge.className = 'badge admin';
-    document.getElementById('blocoFac').classList.remove('escondida');
-    document.getElementById('blocoLider').classList.remove('escondida');
+    document.getElementById('facBloco').classList.remove('escondida');
+    document.getElementById('liderBloco').classList.remove('escondida');
   }else{
-    badge.textContent = '👀 VISITANTE';
-    badge.className = 'badge visitante';
-    document.getElementById('gridCaixas').classList.add('uma-so');
+    document.getElementById('gridCaixas').classList.add('uma');
   }
   
-  // Bloquear/desbloquear todos os inputs
-  const todos = document.querySelectorAll('input, button.btn-add, button.btn-add-linha, button.btn-del, button.bolinha');
-  todos.forEach(el => el.disabled = !ADMIN);
+  const todos = document.querySelectorAll('input, button');
+  todos.forEach(el=>{if(!ADMIN && el.type!=='password' && !el.classList.contains('btn-sair')) el.disabled = true;});
   
-  carregarDados();
-  if(document.getElementById('corpoNomes').children.length === 0){
-    adicionarLinha(); adicionarLinha();
-  }
-  calcular();
+  carregar();
+  adicionarLinha(); adicionarLinha();
 }
 
-// ===== PREÇOS =====
+// PREÇOS
 function adicionarPreco(){
-  if(!ADMIN) return;
   const tr = document.createElement('tr');
-  tr.setAttribute('data-id', idPreco);
-  tr.innerHTML = `
-    <td><input type="text" class="nome-item" placeholder="Nome do item"></td>
-    <td><input type="text" class="valor-item" placeholder="R$ 0,00"></td>
-    <td><button class="btn-del" onclick="removerPreco(${idPreco})">🗑️</button></td>
-  `;
-  document.getElementById('corpoPrecos').appendChild(tr);
+  tr.dataset.id = idPreco;
+  tr.innerHTML = '<td><input type="text" placeholder="Item"></td><td><input type="text" placeholder="R$ 0,00"></td><td><button class="btn-del" onclick="removerPreco('+idPreco+')">✖</button></td>';
+  document.getElementById('precosCorpo').appendChild(tr);
   idPreco++;
-  salvarDados();
+  salvar();
 }
-function removerPreco(id){
-  if(!ADMIN) return;
-  document.querySelector(`tr[data-id="${id}"]`)?.remove();
-  salvarDados();
-}
+function removerPreco(id){document.querySelector(`tr[data-id="${id}"]`)?.remove();salvar();}
 
-// ===== COLABORADORES =====
+// LINHAS
 function adicionarLinha(){
   const div = document.createElement('div');
   div.className = 'linha';
-  div.setAttribute('data-id', idLinha);
+  div.dataset.id = idLinha;
   div.innerHTML = `
-    <input type="text" class="nome-cel" placeholder="Nome" ${!ADMIN?'disabled':''}>
-    <input type="text" class="meta-cel" value="${META_PADRAO}" ${!ADMIN?'disabled':''}>
-    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
-    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
-    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
-    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
-    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
-    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
-    <button class="bolinha" data-cor="" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}></button>
-    <button class="btn-del" onclick="removerLinha(${idLinha})" ${!ADMIN?'disabled':''}>🗑️</button>
+    <input type="text" class="nome" placeholder="Nome">
+    <input type="text" class="meta" value="120">
+    <button class="bolinha" onclick="trocar(this)"></button>
+    <button class="bolinha" onclick="trocar(this)"></button>
+    <button class="bolinha" onclick="trocar(this)"></button>
+    <button class="bolinha" onclick="trocar(this)"></button>
+    <button class="bolinha" onclick="trocar(this)"></button>
+    <button class="bolinha" onclick="trocar(this)"></button>
+    <button class="bolinha" onclick="trocar(this)"></button>
+    <button class="btn-del" onclick="removerLinha(${idLinha})">✖</button>
   `;
-  document.getElementById('corpoNomes').appendChild(div);
+  document.getElementById('nomesCorpo').appendChild(div);
   idLinha++;
-  salvarDados();
-  calcular();
+  salvar();
 }
-function trocarCor(btn){
+function trocar(btn){
+  let i = cores.indexOf(btn.dataset.cor || '');
+  i = (i + 1) % cores.length;
+  btn.dataset.cor = cores[i];
+  btn.className = 'bolinha ' + cores[i];
+  btn.textContent = emojis[cores[i]] || '';
+  salvar();
+}
+function removerLinha(id){document.querySelector(`.linha[data-id="${id}"]`)?.remove();salvar();}
+
+// SALVAR/CARREGAR
+function salvar(){
   if(!ADMIN) return;
-  const atual = btn.getAttribute('data-cor');
-  const idx = estados.indexOf(atual);
-  const prox = (idx + 1) % estados.length;
-  const nova = estados[prox];
-  btn.setAttribute('data-cor', nova);
-  btn.className = 'bolinha ' + nova;
-  btn.textContent = emojis[nova] || '';
-  salvarDados();
-  calcular();
-}
-function removerLinha(id){
-  if(!ADMIN) return;
-  document.querySelector(`.linha[data-id="${id}"]`)?.remove();
-  salvarDados();
-  calcular();
-}
-
-// ===== CÁLCULO =====
-function parseDinheiro(t){return parseFloat(t.replace('R$ ','').replace(',','.'))||0;}
-function formatarDinheiro(v){return 'R$ '+parseFloat(v).toFixed(2).replace('.',',');}
-
-function calcular(){
-  const valorPagamento = parseDinheiro(document.getElementById('caixaPag').value);
-  const linhas = document.querySelectorAll('#corpoNomes .linha');
-  const ativos = [];
-  
-  linhas.forEach(linha=>{
-    const nome = linha.querySelector('.nome-cel').value.trim();
-    if(!nome) return;
-    const meta = parseInt(linha.querySelector('.meta-cel').value) || META_PADRAO;
-    const bolinhas = linha.querySelectorAll('.bolinha');
-    let amarelos = 0, vermelhos = 0;
-    bolinhas.forEach(b=>{
-      const c = b.getAttribute('data-cor');
-      if(c==='amarela') amarelos++;
-      if(c==='vermelha') vermelhos++;
-    });
-    const temDias = [...bolinhas].some(b=>b.getAttribute('data-cor')!=='');
-    if(temDias){
-      ativos.push({nome,meta,amarelos,vermelhos});
-    }
-  });
-
-  const qtd = ativos.length;
-  if(qtd === 0 || valorPagamento === 0){
-    document.getElementById('relatorio').classList.remove('mostrar');
-    return;
-  }
-
-  const valorBase = valorPagamento / qtd;
-  let totalDistribuido = 0;
-  let html = '';
-  
-  ativos.sort((a,b)=>(b.amarelos + b.vermelhos) - (a.amarelos + a.vermelhos) || a.nome.localeCompare(b.nome)).forEach(p=>{
-    const desc = (p.amarelos * DESC_AMARELO) + (p.vermelhos * DESC_VERMELHO);
-    const valorFinal = valorBase * (1 - Math.min(desc,1));
-    totalDistribuido += valorFinal;
-    html += `
-    <div class="res-linha">
-      <span>${p.nome} • 🟡×${p.amarelos} • 🔴×${p.vermelhos}</span>
-      <span style="color:var(--verde);font-weight:700;">${formatarDinheiro(valorFinal)}</span>
-    </div>`;
-  });
-  
-  html += `<div class="res-linha total">
-    <span>💰 TOTAL DISTRIBUÍDO</span>
-    <span>${formatarDinheiro(totalDistribuido)}</span>
-  </div>`;
-  
-  document.getElementById('resumo').innerHTML = html;
-  document.getElementById('relatorio').classList.add('mostrar');
-}
-
-// ===== SALVAR/CARREGAR =====
-function salvarDados(){
-  if(!ADMIN) return;
-  const precos = [];
-  document.querySelectorAll('#corpoPrecos tr').forEach(tr=>{
-    const n = tr.querySelector('.nome-item')?.value;
-    const v = tr.querySelector('.valor-item')?.value;
-    if(n) precos.push({nome:n,valor:v});
-  });
-  const membros = [];
-  document.querySelectorAll('#corpoNomes .linha').forEach(div=>{
-    const bolinhas = div.querySelectorAll('.bolinha');
-    const dias = [];
-    bolinhas.forEach(b=>dias.push(b.getAttribute('data-cor')||''));
-    membros.push({
-      nome: div.querySelector('.nome-cel')?.value||'',
-      meta: div.querySelector('.meta-cel')?.value||META_PADRAO,
-      dias: dias
-    });
-  });
   const dados = {
-    caixaFac: document.getElementById('caixaFac').value,
-    caixaLider: document.getElementById('caixaLider').value,
-    caixaPag: document.getElementById('caixaPag').value,
-    precos, membros, idPreco, idLinha
+    fac: document.getElementById('caixaFac').value,
+    lider: document.getElementById('caixaLider').value,
+    pag: document.getElementById('caixaPag').value,
+    precos: [...document.querySelectorAll('#precosCorpo tr')].map(tr=>({
+      n: tr.querySelector('td:first-child input').value,
+      v: tr.querySelector('td:nth-child(2) input').value
+    })),
+    nomes: [...document.querySelectorAll('#nomesCorpo .linha')].map(div=>({
+      n: div.querySelector('.nome').value,
+      m: div.querySelector('.meta').value,
+      d: [...div.querySelectorAll('.bolinha')].map(b=>b.dataset.cor||'')
+    }))
   };
-  localStorage.setItem('caos77_completo', JSON.stringify(dados));
+  localStorage.setItem('caos77dados', JSON.stringify(dados));
 }
-
-function carregarDados(){
-  const salvo = localStorage.getItem('caos77_completo');
-  if(!salvo) return;
+function carregar(){
+  const s = localStorage.getItem('caos77dados');
+  if(!s) return;
   try{
-    const d = JSON.parse(salvo);
+    const d = JSON.parse(s);
     if(ADMIN){
-      document.getElementById('caixaFac').value = d.caixaFac || 'R$ 0,00';
-      document.getElementById('caixaLider').value = d.caixaLider || 'R$ 0,00';
+      document.getElementById('caixaFac').value = d.fac || 'R$ 0,00';
+      document.getElementById('caixaLider').value = d.lider || 'R$ 0,00';
     }
-    document.getElementById('caixaPag').value = d.caixaPag || 'R$ 0,00';
-    idPreco = d.idPreco || 2;
-    idLinha = d.idLinha || 1;
+    document.getElementById('caixaPag').value = d.pag || 'R$ 0,00';
     
-    // Preços
-    document.getElementById('corpoPrecos').innerHTML = '';
+    document.getElementById('precosCorpo').innerHTML = '';
     (d.precos||[]).forEach(p=>{
       const tr = document.createElement('tr');
-      tr.setAttribute('data-id', idPreco++);
-      tr.innerHTML = `
-        <td><input type="text" class="nome-item" value="${p.nome}" ${!ADMIN?'disabled':''}></td>
-        <td><input type="text" class="valor-item" value="${p.valor}" ${!ADMIN?'disabled':''}></td>
-        <td><button class="btn-del" onclick="removerPreco(${idPreco-1})" ${!ADMIN?'disabled':''}>🗑️</button></td>
-      `;
-      document.getElementById('corpoPrecos').appendChild(tr);
+      tr.innerHTML = `<td><input type="text" value="${p.n}"></td><td><input type="text" value="${p.v}"></td><td><button class="btn-del" onclick="this.parentElement.parentElement.remove()">✖</button></td>`;
+      document.getElementById('precosCorpo').appendChild(tr);
     });
     
-    // Membros
-    document.getElementById('corpoNomes').innerHTML = '';
-    (d.membros||[]).forEach(m=>{
+    document.getElementById('nomesCorpo').innerHTML = '';
+    (d.nomes||[]).forEach(m=>{
       const div = document.createElement('div');
       div.className = 'linha';
-      div.setAttribute('data-id', idLinha++);
-      let diasHTML = '';
-      for(let i=0;i<7;i++){
-        const c = m.dias?.[i] || '';
-        diasHTML += `<button class="bolinha ${c}" data-cor="${c}" onclick="trocarCor(this)" ${!ADMIN?'disabled':''}>${emojis[c]||''}</button>`;
+      let dias = '';
+      for(let c of m.d||['','','','','','','']){
+        dias += `<button class="bolinha ${c}" data-cor="${c}" onclick="trocar(this)">${emojis[c]||''}</button>`;
       }
-      div.innerHTML = `
-        <input type="text" class="nome-cel" value="${m.nome}" ${!ADMIN?'disabled':''}>
-        <input type="text" class="meta-cel" value="${m.meta||META_PADRAO}" ${!ADMIN?'disabled':''}>
-        ${diasHTML}
-        <button class="btn-del" onclick="removerLinha(${idLinha-1})" ${!ADMIN?'disabled':''}>🗑️</button>
-      `;
-      document.getElementById('corpoNomes').appendChild(div);
+      div.innerHTML = `<input type="text" class="nome" value="${m.n}"><input type="text" class="meta" value="${m.m}">${dias}<button class="btn-del" onclick="this.parentElement.remove()">✖</button>`;
+      document.getElementById('nomesCorpo').appendChild(div);
     });
-  }catch(e){console.log('Erro:',e);}
+  }catch(e){}
 }
 
-// Atualiza relatório quando valor de pagamento muda
-document.getElementById('caixaPag').addEventListener('input', calcular);
-
-// Verifica se já está logado
-if(localStorage.getItem('caos77_acesso')) inicializar();
+if(localStorage.getItem('caos77')) iniciar();
 </script>
 
 </body>

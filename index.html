@@ -19,10 +19,15 @@ input{width:100%;padding:12px;background:#222;border:1px solid #444;border-radiu
 .erro{color:#ff4444;margin-top:10px;display:none;}
 
 /* CONTEÚDO */
-.topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
 .topo h1{font-size:22px;color:#00d4ff;}
 .badge{padding:6px 12px;border-radius:20px;font-size:12px;background:#00d4ff20;color:#00d4ff;}
 .btn-sair{padding:8px 14px;background:#ff444420;border:none;border-radius:6px;color:#ff6666;cursor:pointer;}
+.salvar-grupo{display:flex;gap:8px;}
+.btn-salvar{padding:10px 20px;background:linear-gradient(90deg,#10b981,#34d399);border:none;border-radius:8px;color:#000;font-weight:bold;cursor:pointer;font-size:14px;transition:transform 0.2s;}
+.btn-salvar:hover{transform:scale(1.05);}
+.btn-salvar:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+.sucesso{color:#10b981;font-size:13px;display:none;align-items:center;gap:5px;}
 
 /* CAIXAS */
 .caixas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
@@ -34,13 +39,15 @@ input{width:100%;padding:12px;background:#222;border:1px solid #444;border-radiu
 
 /* TABELAS */
 .bloco{background:#1a1a1a;padding:16px;border-radius:12px;margin-bottom:20px;border:1px solid #333;}
-.bloco h2{font-size:15px;margin-bottom:12px;color:#00d4ff;}
+.bloco h2{font-size:15px;margin-bottom:12px;color:#00d4ff;display:flex;justify-content:space-between;align-items:center;}
 table{width:100%;border-collapse:collapse;}
 th,td{padding:10px;text-align:left;border-bottom:1px solid #333;}
 th{font-size:12px;color:#00d4ff;}
 td input{margin:0;}
 .btn-add{padding:8px 14px;background:#00d4ff;border:none;border-radius:6px;color:#000;font-weight:bold;cursor:pointer;margin-top:10px;}
+.btn-add:disabled{opacity:0.4;cursor:not-allowed;}
 .btn-del{padding:5px 8px;background:#ff444420;border:none;border-radius:4px;color:#ff6666;cursor:pointer;}
+.btn-del:disabled{opacity:0.4;cursor:not-allowed;}
 
 /* NOMES E METAS */
 .cabeca{display:grid;grid-template-columns:180px 50px repeat(7,40px) 40px;gap:4px;margin-bottom:6px;}
@@ -50,6 +57,7 @@ td input{margin:0;}
 .nome{background:transparent;border:none;color:#fff;font-size:14px;outline:none;width:100%;}
 .meta{width:100%;background:#222;border:1px solid #444;border-radius:4px;color:#ffcc00;text-align:center;padding:4px;}
 .bolinha{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;background:#222;font-size:14px;}
+.bolinha:disabled{cursor:not-allowed;opacity:0.5;}
 .bolinha.verde{background:#10b981;}
 .bolinha.amarela{background:#f59e0b;}
 .bolinha.vermelha{background:#ef4444;}
@@ -79,8 +87,12 @@ td input{margin:0;}
 <div class="container" id="conteudo" style="display:none;">
   <div class="topo">
     <h1>⚡ CONTROLE</h1>
-    <div style="display:flex;gap:10px;align-items:center;">
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
       <span class="badge" id="tipo">Visitante</span>
+      <div class="salvar-grupo">
+        <button class="btn-salvar" id="btnSalvar" onclick="salvarManual()">💾 SALVAR</button>
+        <span class="sucesso" id="msgSalvo">✅ Salvo!</span>
+      </div>
       <button class="btn-sair" onclick="sair()">Sair</button>
     </div>
   </div>
@@ -114,7 +126,7 @@ td input{margin:0;}
         </tr>
       </tbody>
     </table>
-    <button class="btn-add" onclick="adicionarPreco()">➕ ADICIONAR</button>
+    <button class="btn-add" id="btnAddPreco" onclick="adicionarPreco()">➕ ADICIONAR ITEM</button>
   </div>
 
   <!-- COLABORADORES -->
@@ -126,7 +138,7 @@ td input{margin:0;}
       <div>✖</div>
     </div>
     <div id="nomesCorpo"></div>
-    <button class="btn-add" onclick="adicionarLinha()">➕ ADICIONAR</button>
+    <button class="btn-add" id="btnAddLinha" onclick="adicionarLinha()">➕ ADICIONAR COLABORADOR</button>
   </div>
 </div>
 
@@ -178,7 +190,7 @@ function entrarVisitante(){
 }
 function sair(){
   localStorage.removeItem('caos77');
-  localStorage.removeItem('caos77dados'); // ← limpa para carregar nomes padrão
+  localStorage.removeItem('caos77dados');
   location.reload();
 }
 document.getElementById('senha').addEventListener('keypress',e=>e.key==='Enter'&&entrarAdmin());
@@ -200,8 +212,15 @@ function iniciar(){
     document.getElementById('gridCaixas').classList.add('uma');
   }
   
-  const todos = document.querySelectorAll('input, button');
-  todos.forEach(el=>{if(!ADMIN && el.type!=='password' && !el.classList.contains('btn-sair')) el.disabled = true;});
+  // Bloquear botões de admin para visitantes
+  document.getElementById('btnSalvar').disabled = !ADMIN;
+  document.getElementById('btnAddPreco').disabled = !ADMIN;
+  document.getElementById('btnAddLinha').disabled = !ADMIN;
+  
+  const todosBotoes = document.querySelectorAll('.btn-del, .bolinha, input');
+  todosBotoes.forEach(el=>{
+    if(!ADMIN && el.type!=='password' && !el.classList.contains('btn-sair')) el.disabled = true;
+  });
   
   carregarOuInserirNomes();
 }
@@ -212,11 +231,10 @@ function carregarOuInserirNomes(){
   if(salvo){
     carregarDados();
   }else{
-    // Insere todos os nomes automaticamente
     LISTA_NOMES.forEach(nome => {
       criarLinha(nome, '120', ['','','','','','','']);
     });
-    salvar();
+    salvarManual();
   }
 }
 
@@ -228,13 +246,13 @@ function criarLinha(nome, meta, dias){
   let bolinhasHTML = '';
   for(let i=0;i<7;i++){
     const c = dias[i] || '';
-    bolinhasHTML += `<button class="bolinha ${c}" data-cor="${c}" onclick="trocar(this)">${emojis[c]||''}</button>`;
+    bolinhasHTML += `<button class="bolinha ${c}" data-cor="${c}" onclick="trocar(this)" ${!ADMIN?'disabled':''}>${emojis[c]||''}</button>`;
   }
   div.innerHTML = `
-    <input type="text" class="nome" value="${nome}">
-    <input type="text" class="meta" value="${meta}">
+    <input type="text" class="nome" value="${nome}" ${!ADMIN?'disabled':''}>
+    <input type="text" class="meta" value="${meta}" ${!ADMIN?'disabled':''}>
     ${bolinhasHTML}
-    <button class="btn-del" onclick="removerLinha(${idLinha})">✖</button>
+    <button class="btn-del" onclick="removerLinha(${idLinha})" ${!ADMIN?'disabled':''}>✖</button>
   `;
   document.getElementById('nomesCorpo').appendChild(div);
   idLinha++;
@@ -244,17 +262,15 @@ function criarLinha(nome, meta, dias){
 function adicionarPreco(){
   const tr = document.createElement('tr');
   tr.dataset.id = idPreco;
-  tr.innerHTML = '<td><input type="text" placeholder="Item"></td><td><input type="text" placeholder="R$ 0,00"></td><td><button class="btn-del" onclick="removerPreco('+idPreco+')">✖</button></td>';
+  tr.innerHTML = `<td><input type="text" placeholder="Item" ${!ADMIN?'disabled':''}></td><td><input type="text" placeholder="R$ 0,00" ${!ADMIN?'disabled':''}></td><td><button class="btn-del" onclick="removerPreco(${idPreco})" ${!ADMIN?'disabled':''}>✖</button></td>`;
   document.getElementById('precosCorpo').appendChild(tr);
   idPreco++;
-  salvar();
 }
-function removerPreco(id){document.querySelector(`tr[data-id="${id}"]`)?.remove();salvar();}
+function removerPreco(id){document.querySelector(`tr[data-id="${id}"]`)?.remove();}
 
 // ADICIONAR LINHA VAZIA
 function adicionarLinha(){
   criarLinha('', '120', ['','','','','','','']);
-  salvar();
 }
 
 // TROCAR COR
@@ -264,12 +280,11 @@ function trocar(btn){
   btn.dataset.cor = cores[i];
   btn.className = 'bolinha ' + cores[i];
   btn.textContent = emojis[cores[i]] || '';
-  salvar();
 }
-function removerLinha(id){document.querySelector(`.linha[data-id="${id}"]`)?.remove();salvar();}
+function removerLinha(id){document.querySelector(`.linha[data-id="${id}"]`)?.remove();}
 
-// SALVAR
-function salvar(){
+// 💾 SALVAR MANUAL — BOTÃO
+function salvarManual(){
   if(!ADMIN) return;
   const dados = {
     fac: document.getElementById('caixaFac').value,
@@ -286,6 +301,11 @@ function salvar(){
     }))
   };
   localStorage.setItem('caos77dados', JSON.stringify(dados));
+  
+  // Mostra mensagem de salvo
+  const msg = document.getElementById('msgSalvo');
+  msg.style.display = 'flex';
+  setTimeout(()=>msg.style.display='none', 2000);
 }
 
 // CARREGAR
@@ -301,7 +321,7 @@ function carregarDados(){
     document.getElementById('precosCorpo').innerHTML = '';
     (d.precos||[]).forEach(p=>{
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td><input type="text" value="${p.n}"></td><td><input type="text" value="${p.v}"></td><td><button class="btn-del" onclick="this.parentElement.parentElement.remove()">✖</button></td>`;
+      tr.innerHTML = `<td><input type="text" value="${p.n}" ${!ADMIN?'disabled':''}></td><td><input type="text" value="${p.v}" ${!ADMIN?'disabled':''}></td><td><button class="btn-del" onclick="this.parentElement.parentElement.remove()" ${!ADMIN?'disabled':''}>✖</button></td>`;
       document.getElementById('precosCorpo').appendChild(tr);
     });
     

@@ -91,7 +91,7 @@ body{
 
 .container{max-width:1100px;margin:0 auto;padding:20px 14px;}
 
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px;}
 .stat-card{
   background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:16px 14px;
   transition:all 0.3s ease;
@@ -103,6 +103,7 @@ body{
 .stat-value.gold{color:var(--ouro);}
 .stat-value.green{color:var(--verde);}
 .stat-value.blue{color:var(--azul);}
+.stat-value.red{color:var(--vermelho);}
 
 .section-card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:22px;margin-bottom:24px;}
 .section-title{font-size:15px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--primaria);}
@@ -122,7 +123,7 @@ body{
 .btn-salvar-nuvem:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(139,92,246,0.3);}
 .btn-salvar-nuvem.salvo{background:linear-gradient(90deg,var(--verde),#34D399);}
 
-.caixas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.caixas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
 .caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;transition:opacity 0.2s;}
 .caixa-item.oculto{display:none !important;}
 .caixa-label{font-size:11px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;}
@@ -135,10 +136,11 @@ body{
 .caixa-valor.ouro{color:var(--ouro);}
 .caixa-valor.verde{color:var(--verde);}
 .caixa-valor.roxo{color:var(--primaria);}
+.caixa-valor.vermelho{color:var(--vermelho);}
 
 .legend-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--textoSec);}
-.legend-dot{width:14px;height:14px;border-radius:50%;}
+.legend-dot{width:14px;height:14px;border-radius:50%;display:inline-block;}
 .dot-green{background:var(--verde);}
 .dot-yellow{background:var(--amarelo);}
 .dot-red{background:var(--vermelho);}
@@ -158,7 +160,7 @@ body{
 .btn-add:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,0.3);}
 
 .dias-header{
-  display:grid;grid-template-columns:170px 70px repeat(6,45px) 50px;gap:4px;
+  display:grid;grid-template-columns:160px 60px 60px repeat(6,45px) 45px;gap:4px;
   padding:10px 8px;color:var(--primaria);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--borda);margin-bottom:6px;text-align:center;
 }
@@ -166,36 +168,37 @@ body{
 .dias-header .qtd-col{text-align:center;}
 
 .membro-row{
-  display:grid;grid-template-columns:170px 70px repeat(6,45px) 50px;gap:4px;
-  padding:8px 6px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:4px;
+  display:grid;grid-template-columns:160px 60px 60px repeat(6,45px) 45px;gap:4px;
+  padding:10px 6px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:6px;
   align-items:center;transition:all 0.2s ease;border:1px solid transparent;
 }
 .membro-row:hover{background:rgba(255,255,255,0.05);border-color:var(--borda);}
 
-.membro-nome{font-size:14px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
+.membro-nome{font-size:13px;font-weight:700;color:var(--texto);display:flex;align-items:center;gap:6px;}
 .coroa{font-size:14px;filter:drop-shadow(0 0 3px gold);}
-.qtd-farm-cell{text-align:center;}
+.qtd-farm-cell,.valor-cell{text-align:center;}
 .qtd-farm-input{
   width:50px;padding:4px;background:rgba(0,0,0,0.3);border:1px solid var(--borda);border-radius:6px;
   color:var(--texto);font-size:13px;font-weight:800;text-align:center;outline:none;
 }
 .qtd-farm-input:disabled{opacity:0.5;cursor:not-allowed;}
+.valor-exibido{font-size:11px;font-weight:700;color:var(--textoSec);}
 .dia-cell{display:flex;justify-content:center;}
 .bolinha{
-  width:24px;height:24px;border-radius:50%;border:2px solid transparent;cursor:pointer;
+  width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;
   transition:all 0.15s ease;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;
-  font-size:10px;font-weight:bold;
+  font-size:14px;font-weight:bold;color:transparent;
 }
 .bolinha:disabled{cursor:not-allowed;opacity:0.6;}
-.bolinha:hover{transform:scale(1.15);}
+.bolinha:hover{transform:scale(1.2);}
 .bolinha.vazia{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);}
-.bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 6px rgba(16,185,129,0.4);color:#000;}
-.bolinha.amarela{background:var(--amarelo);border-color:#D97706;box-shadow:0 0 6px rgba(245,158,11,0.4);color:#000;}
-.bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 6px rgba(239,68,68,0.4);color:#fff;}
+.bolinha.verde{background:var(--verde);border-color:#059669;box-shadow:0 0 8px rgba(16,185,129,0.5);color:#000;}
+.bolinha.amarela{background:var(--amarelo);border-color:#D97706;box-shadow:0 0 8px rgba(245,158,11,0.5);color:#000;}
+.bolinha.vermelha{background:var(--vermelho);border-color:#DC2626;box-shadow:0 0 8px rgba(239,68,68,0.5);color:#fff;}
 
 .btn-del{
-  padding:5px 2px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
-  color:#FCA5A5;font-size:9px;font-weight:700;cursor:pointer;transition:all 0.2s ease;width:100%;
+  padding:6px 2px;background:linear-gradient(135deg,#450A0A,#7F1D1D);border:none;border-radius:6px;
+  color:#FCA5A5;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s ease;width:100%;
 }
 .btn-del:disabled{opacity:0.4;cursor:not-allowed;}
 .btn-del:hover{background:linear-gradient(135deg,#7F1D1D,#991B1B);}
@@ -225,10 +228,10 @@ body{
 
 @media(max-width:768px){
   .stats-row{grid-template-columns:repeat(2,1fr);}
-  .caixas-grid{grid-template-columns:repeat(1,1fr);}
+  .caixas-grid{grid-template-columns:repeat(2,1fr);}
   .grupos-grid{grid-template-columns:1fr;}
-  .dias-header,.membro-row{grid-template-columns:130px 55px repeat(6,35px) 40px;gap:2px;}
-  .bolinha{width:20px;height:20px;}
+  .dias-header,.membro-row{grid-template-columns:110px 45px 50px repeat(6,38px) 40px;gap:2px;}
+  .bolinha{width:24px;height:24px;}
   .btn-sair{position:relative;right:0;top:0;margin-bottom:12px;}
 }
 </style>
@@ -284,23 +287,27 @@ body{
 <!-- ☁️ SALVAR -->
 <button class="btn-salvar-nuvem" id="btnSalvarNuvem" onclick="salvarNuvem()">☁️ SALVAR TUDO</button>
 
-<!-- 📊 ESTATÍSTICAS COM CÁLCULO AUTOMÁTICO -->
+<!-- 📊 ESTATÍSTICAS GERAIS -->
 <div class="stats-row">
   <div class="stat-card">
     <div class="stat-label">👥 INTEGRANTES</div>
     <div class="stat-value purple" id="totalMembros">0</div>
   </div>
   <div class="stat-card">
-    <div class="stat-label">💎 TOTAL FRAGMENTOS</div>
-    <div class="stat-value blue" id="totalFragmentos">0</div>
+    <div class="stat-label">🟢 DIAS FEITOS</div>
+    <div class="stat-value green" id="diasVerde">0</div>
   </div>
   <div class="stat-card">
-    <div class="stat-label">🏦 CAIXA DA FAC</div>
-    <div class="stat-value gold" id="caixaFacDisplay">R$ 0,00</div>
+    <div class="stat-label">🟡 PARCIAIS</div>
+    <div class="stat-value gold" id="diasAmarelo">0</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">🔴 NÃO FEITOS</div>
+    <div class="stat-value red" id="diasVermelho">0</div>
   </div>
   <div class="stat-card">
     <div class="stat-label">💰 VALOR TOTAL</div>
-    <div class="stat-value green" id="valorTotal">R$ 0,00</div>
+    <div class="stat-value blue" id="valorTotal">R$ 0,00</div>
   </div>
 </div>
 
@@ -313,14 +320,19 @@ body{
       <div class="caixa-valor ouro"><input type="text" id="caixaFac" value="R$ 0,00" class="ouro" onblur="marcarAlterado();"></div>
     </div>
     <div class="caixa-item">
-      <div class="caixa-label">💎 VALOR POR FRAGMENTO</div>
-      <div class="caixa-valor roxo"><input type="number" id="valorPorFrag" value="1" min="0" class="roxo" oninput="marcarAlterado();calcularTudo();"></div>
+      <div class="caixa-label">💎 VALOR DIA COMPLETO</div>
+      <div class="caixa-valor verde"><input type="number" id="valorDiaCompleto" value="10" min="0" class="verde" oninput="marcarAlterado();calcularTudo();"></div>
+    </div>
+    <div class="caixa-item">
+      <div class="caixa-label">🟡 VALOR PARCIAL</div>
+      <div class="caixa-valor ouro"><input type="number" id="valorParcial" value="5" min="0" class="ouro" oninput="marcarAlterado();calcularTudo();"></div>
     </div>
     <div class="caixa-item">
       <div class="caixa-label">💵 CAIXA DE PAGAMENTOS</div>
-      <div class="caixa-valor verde"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="verde" onblur="marcarAlterado();"></div>
+      <div class="caixa-valor azul"><input type="text" id="caixaPagamentos" value="R$ 0,00" class="azul" onblur="marcarAlterado();"></div>
     </div>
   </div>
+  <p style="font-size:11px;color:var(--textoSec);margin-top:8px;">🟢 Verde = Dia completo / 🟡 Amarelo = Parcial / 🔴 Vermelho = Não fez</p>
 </div>
 
 <!-- 📋 CONTROLE DE INTEGRANTES -->
@@ -328,9 +340,9 @@ body{
   <div class="section-title">📋 CONTROLE DE INTEGRANTES</div>
   
   <div class="legend-row">
-    <div class="legend-item"><div class="legend-dot dot-green"></div> Feito</div>
-    <div class="legend-item"><div class="legend-dot dot-yellow"></div> Parcial</div>
-    <div class="legend-item"><div class="legend-dot dot-red"></div> Não Feito</div>
+    <div class="legend-item"><div class="legend-dot dot-green"></div> Feito = <span id="legVerde">R$10</span></div>
+    <div class="legend-item"><div class="legend-dot dot-yellow"></div> Parcial = <span id="legAmarelo">R$5</span></div>
+    <div class="legend-item"><div class="legend-dot dot-red"></div> Não Feito = R$0</div>
   </div>
 
   <input type="text" class="search-bar" id="buscaMembro" placeholder="🔍 Buscar por nome..." oninput="filtrarLista()">
@@ -339,7 +351,8 @@ body{
 
   <div class="dias-header">
     <div class="nome-col">NOME</div>
-    <div class="qtd-col">💎 QTD</div>
+    <div class="qtd-col">🟢</div>
+    <div class="qtd-col">💰</div>
     <div>S</div><div>T</div><div>Q</div><div>Q</div><div>S</div><div>S</div>
     <div>✖</div>
   </div>
@@ -385,30 +398,30 @@ const SENHA_ADMIN = '123477';
 let modoAdmin = false;
 const CHAVE_NUVEM = 'loja_caos77_dados';
 
-// 🏅 LISTA DE INTEGRANTES COMPLETA
+// 🏅 LISTA DE INTEGRANTES
 const NOMES_INICIAIS = [
-  { nome: 'Sr Bristow', lider: true, farm: 0 },
-  { nome: 'Katy Bristow', lider: false, farm: 0 },
-  { nome: 'Andres Bristow', lider: false, farm: 0 },
-  { nome: 'Ferrari Bristow', lider: false, farm: 0 },
-  { nome: 'Vn Bristow', lider: false, farm: 0 },
-  { nome: 'Patrik Bristow', lider: false, farm: 0 },
-  { nome: 'Garcia Bristow', lider: false, farm: 0 },
-  { nome: 'Vt Bristow', lider: false, farm: 0 },
-  { nome: 'Lula Bristow', lider: false, farm: 0 },
-  { nome: 'Breck Bristow', lider: false, farm: 0 },
-  { nome: 'Boladin Xt', lider: false, farm: 0 },
-  { nome: 'Sr Ghostt', lider: false, farm: 0 },
-  { nome: 'Laa Diabla', lider: false, farm: 0 },
-  { nome: 'Ejuan Handi', lider: false, farm: 0 },
-  { nome: 'Eduarda Faria', lider: false, farm: 0 },
-  { nome: 'Mateus Faria', lider: false, farm: 0 },
-  { nome: 'Zé Bagaceira', lider: false, farm: 0 },
-  { nome: 'Alex Gadernal', lider: false, farm: 0 },
-  { nome: 'Aquino Menezes', lider: false, farm: 0 },
-  { nome: 'Connorr', lider: false, farm: 0 },
-  { nome: 'Dyygeras', lider: false, farm: 0 },
-  { nome: 'Lanterna Preta', lider: false, farm: 0 }
+  { nome: 'Sr Bristow', lider: true },
+  { nome: 'Katy Bristow', lider: false },
+  { nome: 'Andres Bristow', lider: false },
+  { nome: 'Ferrari Bristow', lider: false },
+  { nome: 'Vn Bristow', lider: false },
+  { nome: 'Patrik Bristow', lider: false },
+  { nome: 'Garcia Bristow', lider: false },
+  { nome: 'Vt Bristow', lider: false },
+  { nome: 'Lula Bristow', lider: false },
+  { nome: 'Breck Bristow', lider: false },
+  { nome: 'Boladin Xt', lider: false },
+  { nome: 'Sr Ghostt', lider: false },
+  { nome: 'Laa Diabla', lider: false },
+  { nome: 'Ejuan Handi', lider: false },
+  { nome: 'Eduarda Faria', lider: false },
+  { nome: 'Mateus Faria', lider: false },
+  { nome: 'Zé Bagaceira', lider: false },
+  { nome: 'Alex Gadernal', lider: false },
+  { nome: 'Aquino Menezes', lider: false },
+  { nome: 'Connorr', lider: false },
+  { nome: 'Dyygeras', lider: false },
+  { nome: 'Lanterna Preta', lider: false }
 ];
 
 let membros = [];
@@ -422,27 +435,54 @@ function inicializarNomes(){
       id: Date.now() + Math.random(),
       nome: m.nome,
       coroa: m.lider,
-      farm: m.farm,
-      dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
+      dias: { seg:'', ter:'', qua:'', qui:'', sex:'', sab:'' }
     }));
     salvarNuvem(true);
   }
 }
 
-// ➕ CÁLCULO AUTOMÁTICO
+// ➕ CONTAR E CALCULAR PELAS BOLINHAS
 function calcularTudo(){
-  const valorPorFrag = parseFloat(document.getElementById('valorPorFrag').value) || 0;
+  const valorDiaCompleto = parseFloat(document.getElementById('valorDiaCompleto').value) || 10;
+  const valorParcial = parseFloat(document.getElementById('valorParcial').value) || 5;
   
-  // Soma todos os fragmentos
-  let totalFrags = 0;
-  membros.forEach(m => totalFrags += Number(m.farm) || 0);
+  // Atualiza legenda
+  document.getElementById('legVerde').textContent = 'R$' + valorDiaCompleto;
+  document.getElementById('legAmarelo').textContent = 'R$' + valorParcial;
   
-  // Calcula valor total
-  const valorTotal = totalFrags * valorPorFrag;
+  let totalVerde = 0, totalAmarelo = 0, totalVermelho = 0;
+  let valorTotalGeral = 0;
   
-  // Atualiza na tela
-  document.getElementById('totalFragmentos').textContent = totalFrags.toLocaleString('pt-BR');
-  document.getElementById('valorTotal').textContent = formatarMoeda(valorTotal);
+  membros.forEach(membro => {
+    let diasVerdeMembro = 0;
+    let valorMembro = 0;
+    
+    Object.values(membro.dias).forEach(cor => {
+      if(cor === 'G'){
+        totalVerde++;
+        diasVerdeMembro++;
+        valorMembro += valorDiaCompleto;
+      }else if(cor === 'Y'){
+        totalAmarelo++;
+        valorMembro += valorParcial;
+      }else if(cor === 'R'){
+        totalVermelho++;
+      }
+    });
+    
+    membro.diasFeitos = diasVerdeMembro;
+    membro.valor = valorMembro;
+    valorTotalGeral += valorMembro;
+  });
+  
+  // Atualiza estatísticas
+  document.getElementById('diasVerde').textContent = totalVerde;
+  document.getElementById('diasAmarelo').textContent = totalAmarelo;
+  document.getElementById('diasVermelho').textContent = totalVermelho;
+  document.getElementById('valorTotal').textContent = formatarMoeda(valorTotalGeral);
+  
+  renderizarLista();
+  atualizarGrupos();
 }
 
 function formatarMoeda(valor){
@@ -455,7 +495,8 @@ function salvarNuvem(inicial = false){
     membros: membros,
     caixaFac: document.getElementById('caixaFac').value,
     caixaPagamentos: document.getElementById('caixaPagamentos').value,
-    valorPorFrag: document.getElementById('valorPorFrag').value,
+    valorDiaCompleto: document.getElementById('valorDiaCompleto').value,
+    valorParcial: document.getElementById('valorParcial').value,
     ultimaAtualizacao: new Date().toLocaleString('pt-BR')
   };
   localStorage.setItem(CHAVE_NUVEM, JSON.stringify(dados));
@@ -484,7 +525,8 @@ function carregarNuvem(){
       membros = dados.membros || [];
       document.getElementById('caixaFac').value = dados.caixaFac || 'R$ 0,00';
       document.getElementById('caixaPagamentos').value = dados.caixaPagamentos || 'R$ 0,00';
-      document.getElementById('valorPorFrag').value = dados.valorPorFrag || 1;
+      document.getElementById('valorDiaCompleto').value = dados.valorDiaCompleto || 10;
+      document.getElementById('valorParcial').value = dados.valorParcial || 5;
       calcularTudo();
       return true;
     }catch(e){console.log('Erro ao carregar');}
@@ -580,27 +622,28 @@ function marcarAlterado(){
 function atualizarStats(){
   document.getElementById('totalMembros').textContent = membros.length;
   document.getElementById('caixaFacDisplay').textContent = document.getElementById('caixaFac').value;
-  calcularTudo();
 }
 
+// 🎯 CLICA NA BOLINHA → MUDA COR E CALCULA AUTOMÁTICO
 function alternarCorBolinha(membro, diaIndex){
   if(!modoAdmin) return;
   const ordem = ['', 'G', 'Y', 'R'];
-  const dia = ['seg','ter','qua','qui','sex','sab'][diaIndex];
-  let atual = membro.dias[dia][0];
+  const diaChave = ['seg','ter','qua','qui','sex','sab'][diaIndex];
+  let atual = membro.dias[diaChave];
   let prox = ordem[(ordem.indexOf(atual) + 1) % ordem.length];
-  membro.dias[dia][0] = prox;
+  membro.dias[diaChave] = prox;
+  
   marcarAlterado();
-  atualizarGrupos();
+  calcularTudo(); // ✅ CALCULA AUTOMÁTICO NA HORA!
 }
 
 function atualizarGrupos(){
   let verde = [], amarelo = [], vermelho = [];
   membros.forEach(membro => {
-    const cores = Object.values(membro.dias).map(d => d[0]);
+    const cores = Object.values(membro.dias);
     const temVerde = cores.includes('G');
     const temAmarelo = cores.includes('Y');
-    if(temVerde) verde.push(`<span class="grupo-item">${membro.nome}</span>`);
+    if(temVerde) verde.push(`<span class="grupo-item">${membro.nome} (${membro.diasFeitos}dias)</span>`);
     else if(temAmarelo) amarelo.push(`<span class="grupo-item">${membro.nome}</span>`);
     else vermelho.push(`<span class="grupo-item">${membro.nome}</span>`);
   });
@@ -611,6 +654,7 @@ function atualizarGrupos(){
 }
 
 function renderizarLista(){
+  atualizarStats();
   const lista = document.getElementById('listaMembros');
   lista.innerHTML = '';
   
@@ -620,23 +664,17 @@ function renderizarLista(){
         <div class="membro-nome">
           ${membro.coroa ? '<span class="coroa">👑</span>' : ''}${membro.nome}
         </div>
-        <div class="qtd-farm-cell">
-          <input type="number" class="qtd-farm-input" 
-                 value="${membro.farm}" 
-                 min="0" 
-                 onchange="membros[${idx}].farm = Number(this.value); marcarAlterado(); calcularTudo();"
-                 ${!modoAdmin?'disabled':''}>
-        </div>
+        <div class="qtd-farm-cell" style="font-weight:bold;color:var(--verde);">${membro.diasFeitos || 0}</div>
+        <div class="valor-cell" style="font-size:11px;color:var(--ouro);font-weight:bold;">${formatarMoeda(membro.valor || 0)}</div>
         ${['seg','ter','qua','qui','sex','sab'].map((d,i) => {
-          let c = membro.dias[d][0];
+          let c = membro.dias[d];
           let cls = c === 'G' ? 'verde' : c === 'Y' ? 'amarela' : c === 'R' ? 'vermelha' : 'vazia';
-          return `<div class="dia-cell"><button class="bolinha ${cls}" onclick="alternarCorBolinha(membros[${idx}],${i})" ${!modoAdmin?'disabled':''}>${c?'●':''}</button></div>`;
+          return `<div class="dia-cell"><button class="bolinha ${cls}" onclick="alternarCorBolinha(membros[${idx}],${i})" ${!modoAdmin?'disabled':''}>${c==='G'?'✓':c==='Y'?'◐':c==='R'?'✗':''}</button></div>`;
         }).join('')}
         <div><button class="btn-del" onclick="removerMembro(${idx})" ${!modoAdmin?'disabled':''}>🗑️</button></div>
       </div>
     `;
   });
-  atualizarStats();
 }
 
 function filtrarLista(){
@@ -672,14 +710,12 @@ function salvarMembro(){
     id: Date.now(),
     nome: nome,
     coroa: ehLider,
-    farm: 0,
-    dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
+    dias: { seg:'', ter:'', qua:'', qui:'', sex:'', sab:'' }
   });
   
   fecharModalMembro();
   marcarAlterado();
-  renderizarLista();
-  atualizarGrupos();
+  calcularTudo();
   alert('✅ Adicionado! Não esqueça de SALVAR! ☁️');
 }
 
@@ -688,8 +724,7 @@ function removerMembro(idx){
   if(!confirm(`❌ Remover ${membros[idx].nome}?`)) return;
   membros.splice(idx, 1);
   marcarAlterado();
-  renderizarLista();
-  atualizarGrupos();
+  calcularTudo();
 }
 </script>
 

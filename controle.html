@@ -224,7 +224,7 @@ body{
   <div class="title">⚡ PAINEL DE CONTROLE <span>LOJA CAOS 77</span></div>
   <div style="display:flex;align-items:center;gap:12px;">
     <div class="status-badge" id="statusSinc">Sincronizado</div>
-    <button class="btn-sair" onclick="sairDoSistema()">🚪 Sair</button>
+    <button class="btn-sair" onclick="window.location.href='index.html'">🚪 Sair</button>
   </div>
 </div>
 
@@ -260,11 +260,11 @@ body{
     </div>
     <div class="stat-item">
       <div class="stat-label">💵 CAIXA DE PAGAMENTOS</div>
-      <div class="stat-value red"><input type="text" id="caixaPagamentos" value="R$ 10.000,00" class="red" onblur="marcarAlterado(); atualizarTodosCalculos();"></div>
+      <div class="stat-value red"><input type="text" id="caixaPagamentos" value="R$ 3.214.944,00" class="red" onblur="marcarAlterado(); atualizarTodosCalculos();"></div>
     </div>
     <div class="stat-item">
       <div class="stat-label">📦 ESTOQUE FRAGMENTOS</div>
-      <div class="stat-value blue"><input type="text" id="estoqueFrag" value="0 frag" class="blue" onblur="marcarAlterado()"></div>
+      <div class="stat-value blue"><input type="text" id="estoqueFrag" value="" class="blue" onblur="marcarAlterado()"></div>
     </div>
   </div>
 </div>
@@ -351,29 +351,7 @@ const DATABASE_URL = 'https://loja-caos-77-default-rtdb.firebaseio.com/.json';
 
 const ehModoVisitante = new URLSearchParams(window.location.search).get('modo') === 'leitura';
 
-let membros = [
-  { id: 1789112658911, nome: 'Sr Bristow', ehLider: true, dias: { seg:['G',''], ter:['Y',''], qua:['Y',''], qui:['R',''], sex:['G',''], sab:['Y',''] } },
-  { id: 1789112674552, nome: 'Katy Bristow', ehLider: true, dias: { seg:['G',''], ter:['G',''], qua:['G',''], qui:['G',''], sex:['G',''], sab:['G',''] } },
-  { id: 1789112697878, nome: 'Andres Bristow', ehLider: true, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112711976, nome: 'Ferrari Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112743926, nome: 'Vn Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112760627, nome: 'Patrik Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112771905, nome: 'Garcia Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112795946, nome: 'Vt Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112813039, nome: 'Lula Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112824616, nome: 'Breck Bristow', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112847515, nome: 'Boladin Xt', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112863622, nome: 'Sr Ghostt', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112879484, nome: 'Laa Diabla', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112909392, nome: 'Ejuan Handi', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112927917, nome: 'Eduarda Faria', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789112936235, nome: 'Mateus Faria', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789151065765, nome: 'Zé Bagaceira', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789151088144, nome: 'Alex Gadernal', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789152359172, nome: 'Aquino Menezes', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789157297586, nome: 'Connorr Dyygeras', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } },
-  { id: 1789157430178, nome: 'Lanterna Preta', ehLider: false, dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] } }
-];
+let membros = [];
 
 let alterado = false;
 
@@ -393,7 +371,7 @@ function calcularPontos(membro){
 }
 
 function atualizarTodosCalculos(){
-  const caixaPag = parseFloat(document.getElementById('caixaPagamentos').value.replace(/[^0-9,]/g, '').replace(',','.'));
+  const caixaPag = parseFloat(document.getElementById('caixaPagamentos').value.replace(/[^0-9,]/g, '').replace(',','.')) || 0;
   let totalPontos = 0;
   membros.forEach(m => totalPontos += calcularPontos(m));
   const valorPonto = totalPontos > 0 ? caixaPag / totalPontos : 0;
@@ -421,7 +399,7 @@ function renderizarLista(){
     
     lista.innerHTML += `
       <div class="membro-row" data-nome="${item.nome.toLowerCase()}">
-        <div class="membro-nome">${item.ehLider ? '<span class="coroa">👑</span>' : ''}${item.nome}</div>
+        <div class="membro-nome">${item.coroa ? '<span class="coroa">👑</span>' : ''}${item.nome}</div>
         <div class="dia-cell"><span class="bolinha ${item.dias.seg[0] === 'G' ? 'verde' : item.dias.seg[0] === 'Y' ? 'amarela' : item.dias.seg[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'seg', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.seg[1] || ''}</span></div>
         <div class="dia-cell"><span class="bolinha ${item.dias.ter[0] === 'G' ? 'verde' : item.dias.ter[0] === 'Y' ? 'amarela' : item.dias.ter[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'ter', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.ter[1] || ''}</span></div>
         <div class="dia-cell"><span class="bolinha ${item.dias.qua[0] === 'G' ? 'verde' : item.dias.qua[0] === 'Y' ? 'amarela' : item.dias.qua[0] === 'R' ? 'vermelha' : 'vazia'}" onclick="trocarCor(${index}, 'qua', 0)" ${ehModoVisitante ? 'disabled' : ''}>${item.dias.qua[1] || ''}</span></div>
@@ -474,7 +452,7 @@ function salvarMembro(){
   membros.unshift({
     id: Date.now(),
     nome: nome,
-    ehLider: ehLider,
+    coroa: ehLider,
     dias: { seg:['',''], ter:['',''], qua:['',''], qui:['',''], sex:['',''], sab:['',''] }
   });
   
@@ -497,11 +475,10 @@ async function salvarTudo(){
   btn.textContent = 'Salvando...';
   
   const dados = {
-    caixaFac: document.getElementById('caixaFac').value,
-    caixaLideres: document.getElementById('caixaLideres').value,
+    caixa: document.getElementById('caixaFac').value,
     caixaPagamentos: document.getElementById('caixaPagamentos').value,
-    estoqueFrag: document.getElementById('estoqueFrag').value,
-    membros: membros
+    estoque: document.getElementById('estoqueFrag').value,
+    integrantes: membros
   };
   
   try {
@@ -530,12 +507,11 @@ async function carregarDados(){
     const res = await fetch(DATABASE_URL);
     if(res.ok){
       const dados = await res.json();
-      if(dados && dados.membros){
-        document.getElementById('caixaFac').value = dados.caixaFac || 'R$ 4.500.000,00';
-        document.getElementById('caixaLideres').value = dados.caixaLideres || 'R$ 0,00';
-        document.getElementById('caixaPagamentos').value = dados.caixaPagamentos || 'R$ 10.000,00';
-        document.getElementById('estoqueFrag').value = dados.estoqueFrag || '0 frag';
-        membros = dados.membros;
+      if(dados && dados.integrantes){
+        document.getElementById('caixaFac').value = dados.caixa || 'R$ 4.500.000,00';
+        document.getElementById('caixaPagamentos').value = dados.caixaPagamentos || 'R$ 3.214.944,00';
+        document.getElementById('estoqueFrag').value = dados.estoque || '';
+        membros = dados.integrantes;
       }
     }
   } catch(e) {}

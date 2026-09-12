@@ -99,13 +99,17 @@ body{
 
 .caixas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
 .caixa-item{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:center;transition:opacity 0.2s;}
-.caixa-item.estavel{opacity:0.85;}
+.caixa-item.estavel{opacity:1;}
 .caixa-label{font-size:11px;color:var(--textoSec);margin-bottom:8px;font-weight:600;text-transform:uppercase;}
 .caixa-valor{font-size:17px;font-weight:900;}
 .caixa-valor input{
   width:100%;background:transparent;border:none;font-size:17px;font-weight:900;text-align:center;outline:none;color:inherit;
+  padding:4px;
+  border-radius:4px;
+  transition:background 0.2s;
 }
 .caixa-valor input:disabled{opacity:0.6;cursor:not-allowed;}
+.caixa-valor input:focus{background:rgba(255,255,255,0.05);}
 .caixa-valor.ouro{color:var(--ouro);}
 .caixa-valor.verde{color:var(--verde);}
 .caixa-valor.azul{color:#3B82F6;}
@@ -319,8 +323,8 @@ body{
   <div class="section-title">🏦 CAIXAS DA FACÇÃO</div>
   <div class="caixas-grid">
     <div class="caixa-item estavel">
-      <div class="caixa-label">🏦 CAIXA DA FAC (Estável)</div>
-      <div class="caixa-valor ouro"><input type="text" id="caixaFac" value="R$ 0,00" class="ouro" disabled></div>
+      <div class="caixa-label">🏦 CAIXA DA FACÇÃO</div>
+      <div class="caixa-valor ouro"><input type="text" id="caixaFac" value="R$ 0,00" class="ouro" onblur="marcarAlterado();"></div>
     </div>
     <div class="caixa-item">
       <div class="caixa-label">🏦 CAIXA DOS LÍDERES</div>

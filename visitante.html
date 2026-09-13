@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ LOJA CAOS 77 — ACOMPANHAMENTO</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+:root{
+  --preto-escuro: #000000;
+  --preto-card: #050508;
+  --azul-neon: #00D4FF;
+  --azul-brilho: rgba(0,212,255,0.15);
+  --verde: #00FF88;
+  --amarelo: #FFCC00;
+  --vermelho: #FF3B3B;
+  --cinza: #1a1a2e;
+  --texto: #E0E0E0;
+}
+
+body{
+  background: linear-gradient(135deg, #000000 0%, #050508 50%, #000000 100%);
+  min-height:100vh;
+  color:var(--texto);
+  padding:20px;
+}
+
+.container{max-width:950px;margin:0 auto;}
+
+.topo{
+  text-align:center;margin-bottom:30px;
+  padding-bottom:20px;border-bottom:1px solid #111;
+}
+.topo h1{font-size:32px;color:var(--azul-neon);margin-bottom:8px;font-weight:800;letter-spacing:2px;}
+.topo p{color:#666;font-size:14px;margin-bottom:10px;}
+.atualizado{color:var(--verde);font-size:13px;font-weight:600;}
+
+.botao-atualizar{text-align:center;margin-bottom:30px;}
+.btn-refresh{
+  padding:14px 30px;background:linear-gradient(90deg,var(--azul-brilho),rgba(0,212,255,0.05));
+  border:1px solid var(--azul-neon);border-radius:10px;color:var(--azul-neon);cursor:pointer;
+  font-size:15px;font-weight:600;transition:all 0.3s;
+}
+.btn-refresh:hover{background:rgba(0,212,255,0.2);box-shadow:0 0 20px var(--azul-brilho);transform:translateY(-2px);}
+
+/* CAIXAS — SEM CAIXA DA FACÇÃO! */
+.caixas{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:30px;max-width:450px;margin-left:auto;margin-right:auto;}
+.caixa{
+  background:var(--preto-card);padding:30px 25px;border-radius:16px;text-align:center;
+  border:1px solid #111;transition:all 0.3s;position:relative;overflow:hidden;
+}
+.caixa::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--verde),transparent);opacity:0;transition:opacity 0.3s;
+}
+.caixa:hover{border-color:var(--verde);box-shadow:0 0 25px rgba(0,255,136,0.1);transform:translateY(-3px);}
+.caixa:hover::before{opacity:1;}
+.caixa label{font-size:14px;color:#888;margin-bottom:12px;display:block;font-weight:500;}
+.caixa .valor{font-size:28px;font-weight:800;color:var(--verde);}
+
+.bloco{
+  background:var(--preto-card);padding:25px;border-radius:16px;margin-bottom:25px;
+  border:1px solid #111;
+}
+.bloco h2{font-size:18px;margin-bottom:20px;color:var(--azul-neon);}
+
+table{width:100%;border-collapse:collapse;}
+th,td{padding:15px 12px;text-align:left;border-bottom:1px solid #111;}
+th{font-size:12px;color:var(--azul-neon);text-transform:uppercase;letter-spacing:1px;background:rgba(0,212,255,0.03);font-weight:700;}
+td{font-size:15px;color:#ddd;}
+
+.cabeca{
+  display:grid;grid-template-columns:230px 80px repeat(7,50px);gap:6px;margin-bottom:12px;
+  padding-bottom:10px;border-bottom:1px solid #111;
+}
+.cabeca div{font-size:11px;text-align:center;color:var(--azul-neon);padding:8px 4px;text-transform:uppercase;font-weight:700;letter-spacing:0.5px;}
+.cabeca .nome-col{text-align:left;padding-left:12px;}
+
+.linha{
+  display:grid;grid-template-columns:230px 80px repeat(7,50px);gap:6px;align-items:center;
+  padding:12px 8px;border-bottom:1px solid #0f0f1a;border-radius:6px;
+}
+.nome{font-size:15px;font-weight:600;color:#fff;}
+.meta{font-size:15px;font-weight:700;color:var(--amarelo);text-align:center;}
+
+/* BOLINHAS BRILHANTES */
+.bolinha{
+  width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+}
+.bolinha.vazia{background:#1a1a2e;border:2px solid #2a2a4a;}
+.bolinha.vermelha{background:radial-gradient(circle at 30% 30%,#FF6B6B,var(--vermelho));box-shadow:0 0 12px var(--vermelho);}
+.bolinha.amarela{background:radial-gradient(circle at 30% 30%,#FFE066,var(--amarelo));box-shadow:0 0 12px var(--amarelo);}
+.bolinha.verde{background:radial-gradient(circle at 30% 30%,#66FFB2,var(--verde));box-shadow:0 0 12px var(--verde);}
+
+.aviso{text-align:center;padding:20px;color:#666;font-size:13px;}
+.carregando{text-align:center;padding:40px;color:#666;}
+
+@media(max-width:768px){
+  .cabeca,.linha{grid-template-columns:160px 60px repeat(7,42px);gap:4px;}
+  .bolinha{width:34px;height:34px;font-size:17px;}
+  .nome{font-size:13px;}
+  .meta{font-size:13px;}
+}
+@media(max-width:480px){
+  .cabeca,.linha{grid-template-columns:130px 50px repeat(7,36px);gap:3px;}
+  .bolinha{width:30px;height:30px;font-size:15px;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="topo">
+    <h1>⚡ LOJA CAOS 77</h1>
+    <p>📋 ACOMPANHAMENTO DE FARM — EM TEMPO REAL</p>
+    <p class="atualizado" id="ultimaAtualizacao">🔄 Carregando...</p>
+  </div>
+
+  <div class="botao-atualizar">
+    <button class="btn-refresh" onclick="carregarDados()">🔄 CLIQUE PARA ATUALIZAR</button>
+  </div>
+
+  <!-- 🏦 SÓ CAIXA DE PAGAMENTO — SEM CAIXA DA FACÇÃO! -->
+  <div class="caixas">
+    <div class="caixa">
+      <label>💵 CAIXA DE PAGAMENTO</label>
+      <div class="valor" id="caixaPag">R$ 0,00</div>
+    </div>
+  </div>
+
+  <!-- 💎 TABELA DE VALORES -->
+  <div class="bloco">
+    <h2>💎 TABELA DE VALORES — FRAGMENTOS</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>QUANTIDADE</th>
+          <th>VALOR</th>
+        </tr>
+      </thead>
+      <tbody id="valoresCorpo">
+        <tr><td colspan="2" class="carregando">🔄 Carregando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 👥 MEMBROS -->
+  <div class="bloco">
+    <h2>👥 CONTROLE DE FARM — META: 240/dia</h2>
+    <div class="cabeca">
+      <div class="nome-col">COLABORADOR</div>
+      <div>META</div>
+      <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
+    </div>
+    <div id="nomesCorpo">
+      <div class="carregando">🔄 Carregando dados...</div>
+    </div>
+  </div>
+
+  <div class="aviso">
+    ⚠️ Clique em "🔄 CLIQUE PARA ATUALIZAR" para ver as últimas alterações
+  </div>
+</div>
+
+<script>
+const BASE_URL = 'https://davig4858-creator.github.io/LOJA-CAOS-77/';
+const emojis = {vazia:'', vermelha:'🔴', amarela:'🟡', verde:'🟢'};
+
+async function carregarDados(){
+  try{
+    const res = await fetch(BASE_URL + 'dados.json?t=' + Date.now());
+    if(!res.ok) throw new Error('Arquivo não encontrado');
+    const dados = await res.json();
+    
+    // Atualiza tudo
+    document.getElementById('caixaPag').textContent = dados.caixaPag || 'R$ 0,00';
+    document.getElementById('ultimaAtualizacao').textContent = '🕐 Última atualização: ' + (dados.ultimaAtualizacao || '---');
+    
+    // Tabela de valores
+    const valBody = document.getElementById('valoresCorpo');
+    valBody.innerHTML = '';
+    dados.valores.forEach(v=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${v.qtd}</td><td>${v.val}</td>`;
+      valBody.appendChild(tr);
+    });
+    
+    // Membros
+    const nomesBody = document.getElementById('nomesCorpo');
+    nomesBody.innerHTML = '';
+    dados.membros.forEach(m=>{
+      const div = document.createElement('div');
+      div.className = 'linha';
+      let bhtml = '';
+      for(let i=0;i<7;i++){
+        const e = m.dias[i] || 'vazia';
+        bhtml += `<div class="bolinha ${e}">${emojis[e]}</div>`;
+      }
+      div.innerHTML = `
+        <div class="nome">${m.nome}</div>
+        <div class="meta">${m.meta}</div>
+        ${bhtml}
+      `;
+      nomesBody.appendChild(div);
+    });
+  }catch(e){
+    document.getElementById('nomesCorpo').innerHTML = `<div class="carregando" style="color:#ff6666;">❌ Erro ao carregar. Tente novamente.</div>`;
+    console.error(e);
+  }
+}
+
+// Carrega ao abrir
+carregarDados();
+</script>
+</body>
+</html>

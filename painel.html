@@ -42,7 +42,7 @@ header h1{font-size:24px;background:linear-gradient(90deg,var(--azul),var(--verd
 .btn{border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;}
 .btn-salvar{background:linear-gradient(90deg,var(--verde),#00c56c);color:black;}
 .btn-link{background:linear-gradient(90deg,var(--azul),#009ed6);color:white;}
-.btn-sair{background:var(--vermelho);color:white;padding:10px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;margin-bottom:15px;}
+.btn-sair{background:var(--vermelho);color:white;padding:10px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;margin-bottom:15px;float:right;}
 
 .card{background:var(--bg-card);border-radius:14px;padding:22px;margin-bottom:20px;border:1px solid rgba(255,255,255,0.05);}
 .card h2{font-size:15px;margin-bottom:15px;color:#94A3B8;}
@@ -77,13 +77,13 @@ td input{width:100%;background:rgba(30,30,30,0.6);border:1px solid #374151;color
   </div>
 </div>
 
-<div class="sucesso" id="aviso">✅ SALVO E ATUALIZADO!</div>
+<div class="sucesso" id="aviso">✅ SALVO!</div>
 
 <div id="conteudo" class="oculto">
   <div class="container">
     <header><h1>⚡ LOJA CAOS 77 — PAINEL DE CONTROLE</h1></header>
     
-    <button class="btn-sair" style="float:right;" onclick="sair()">🚪 SAIR</button>
+    <button class="btn-sair" onclick="sair()">🚪 SAIR</button>
     <div style="clear:both;"></div>
     
     <div class="botoes">
@@ -177,8 +177,8 @@ let dados = {
   ultimaAtualizacao: ''
 };
 
-const LINK_ATUAL = window.location.href.replace('painel.html','');
-const LINK_VISITANTE = LINK_ATUAL + 'painel.html#visitante';
+const LINK_ATUAL = window.location.href;
+const LINK_VISITANTE = LINK_ATUAL + '#visitante';
 document.getElementById('linkVisitante').textContent = LINK_VISITANTE;
 
 function entrar(){
@@ -256,7 +256,7 @@ function copiarLink(){
   const aviso = document.getElementById('aviso');
   aviso.textContent = '🔗 LINK COPIADO!';
   aviso.classList.add('mostrar');
-  setTimeout(()=>{aviso.classList.remove('mostrar');aviso.textContent='✅ SALVO E ATUALIZADO!';},2500);
+  setTimeout(()=>{aviso.classList.remove('mostrar');aviso.textContent='✅ SALVO!';},2500);
 }
 
 // MODO VISITANTE
@@ -264,15 +264,14 @@ if(window.location.hash === '#visitante'){
   setTimeout(()=>{
     document.getElementById('telaSenha').classList.add('oculto');
     document.getElementById('conteudo').classList.remove('oculto');
-    document.querySelector('.botoes').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#94A3B8;padding:15px;">🔄 Atualizado em tempo real — clique em atualizar página para ver mudanças</div>';
+    document.querySelector('.botoes').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#94A3B8;padding:15px;">👀 Modo visualização — clique em atualizar página para ver mudanças</div>';
     document.querySelector('.btn-sair').style.display = 'none';
     carregar();
     
-    // Bloquear edição
     setTimeout(()=>{
       document.querySelectorAll('input, .bolinha').forEach(el=>{
         el.style.pointerEvents = 'none';
-        el.style.opacity = el.classList.contains('bolinha') ? '1' : '0.7';
+        if(!el.classList.contains('bolinha')) el.style.opacity = '0.7';
       });
     }, 100);
   }, 100);

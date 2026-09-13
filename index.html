@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ LOJA CAOS 77 — Painel de Controle</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
+body{
+  background:linear-gradient(135deg,#050A18 0%,#0F1729 50%,#050A18 100%);
+  min-height:100vh;display:flex;justify-content:center;align-items:center;
+  color:#fff;padding:20px;
+}
+.container{text-align:center;max-width:520px;width:100%;}
+.logo{font-size:42px;font-weight:800;color:#00D4FF;margin-bottom:5px;text-shadow:0 0 30px rgba(0,212,255,0.4);}
+.sub{color:#6B7280;margin-bottom:45px;font-size:15px;letter-spacing:1px;}
+.card{
+  background:#0F1729;padding:50px 35px;border-radius:20px;
+  border:1px solid #1E293B;box-shadow:0 0 60px rgba(0,212,255,0.08);margin-bottom:20px;
+}
+.btn{
+  display:block;padding:18px 30px;margin:15px auto;border-radius:12px;
+  text-decoration:none;font-weight:700;font-size:16px;transition:all 0.3s;max-width:320px;border:none;cursor:pointer;
+}
+.btn-admin{background:linear-gradient(90deg,#00D4FF,#0088CC);color:#000;}
+.btn-admin:hover{transform:translateY(-3px);box-shadow:0 0 25px #00D4FF;}
+.btn-visita{background:transparent;border:2px solid #00FF88;color:#00FF88;}
+.btn-visita:hover{background:rgba(0,255,136,0.08);transform:translateY(-3px);}
+.senha{margin-top:30px;font-size:13px;color:#4B5563;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">⚡ LOJA CAOS 77</div>
+  <p class="sub">PAINEL DE CONTROLE — SELECIONE UMA OPÇÃO</p>
+  
+  <div class="card">
+    <button class="btn btn-admin" onclick="window.location.href='admin.html'">🔐 ÁREA ADMINISTRADOR</button>
+    <button class="btn btn-visita" onclick="window.location.href='visitante.html'">👀 ÁREA DE ACOMPANHAMENTO</button>
+  </div>
+  
+  <p class="senha">🔑 Senha do Administrador: 123477</p>
+</div>
+</body>
+</html>

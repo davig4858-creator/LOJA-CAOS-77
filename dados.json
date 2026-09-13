@@ -1,35 +1,311 @@
 {
   "caixaFac": "R$ 4.500.000,00",
-  "caixaPag": "R$ 15.094.522,00",
+  "caixaPag": "R$ 15.194.522,00",
   "valores": [
-    {"qtd": "250 Fragmentos", "valor": "R$ 550,00"},
-    {"qtd": "1.250 Fragmentos", "valor": "R$ 2.500kk"},
-    {"qtd": "2.500 Fragmentos", "valor": "R$ 5.500kk"},
-    {"qtd": "3.750 Fragmentos", "valor": "R$ 8.500kk"}
+    {
+      "qtd": "250 Fragmentos",
+      "valor": "R$ 550,00"
+    },
+    {
+      "qtd": "1.250 Fragmentos",
+      "valor": "R$ 2.500kk"
+    },
+    {
+      "qtd": "2.500 Fragmentos",
+      "valor": "R$ 5.500kk"
+    },
+    {
+      "qtd": "3.750 Fragmentos",
+      "valor": "R$ 8.500kk"
+    }
   ],
   "membros": [
-    {"nome": "Sr Bristow", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Katy Bristow", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Andres Bristow", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Ferrari Bristow", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Vn Bristow", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Patrik Bristow", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Garcia Bristow", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Vt Bristow", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Lula Bristow", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Breck Bristow", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Boladin Xt", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Sr Ghostt", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Laa Diabla", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Ejuan Handi", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Eduarda Faria", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Mateus Faria", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Zé Bagaceira", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Alex Gadernal", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Aquino Menezes", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Connorr", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Dyygeras", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]},
-    {"nome": "Lanterna Preta", "meta": "240", "dias": ["vazia","vazia","vazia","vazia","vazia","vazia","vazia"]}
+    {
+      "nome": "Sr Bristow",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Katy Bristow",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Andres Bristow",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Ferrari Bristow",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Vn Bristow",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Patrik Bristow",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Garcia Bristow",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Vt Bristow",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Lula Bristow",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Breck Bristow",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Boladin Xt",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Sr Ghostt",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Laa Diabla",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Ejuan Handi",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Eduarda Faria",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Mateus Faria",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Zé Bagaceira",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Alex Gadernal",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Aquino Menezes",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Connorr",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Dyygeras",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    },
+    {
+      "nome": "Lanterna Preta",
+      "meta": "240",
+      "dias": [
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia",
+        "vazia"
+      ]
+    }
   ],
-  "ultimaAtualizacao": "13/09/2026 17:50"
+  "ultimaAtualizacao": "13/09/2026, 18:17:22"
 }

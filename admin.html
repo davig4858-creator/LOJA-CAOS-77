@@ -32,7 +32,6 @@ body{
 
 .container{max-width:950px;margin:0 auto;}
 
-/* LOGIN */
 .login{
   position:fixed;top:0;left:0;width:100%;height:100%;
   background:radial-gradient(circle at center, #050508 0%, #000 100%);
@@ -43,22 +42,24 @@ body{
   border:2px solid var(--azul-neon);box-shadow:0 0 40px var(--azul-brilho), inset 0 0 20px rgba(0,212,255,0.05);
 }
 .caixa-login h1{font-size:32px;color:var(--azul-neon);margin-bottom:8px;font-weight:800;letter-spacing:2px;}
-.caixa-login p.sub{color:#666;margin-bottom:35px;font-size:14px;}
-.input-box{position:relative;margin-bottom:25px;}
+.caixa-login p.sub{color:#666;margin-bottom:25px;font-size:14px;}
+.input-box{position:relative;margin-bottom:15px;}
 .input-box input{
-  width:100%;padding:16px 20px;background:var(--cinza);border:1px solid #2a2a4a;border-radius:10px;
-  color:#fff;font-size:16px;outline:none;transition:all 0.3s;
+  width:100%;padding:14px 18px;background:var(--cinza);border:1px solid #2a2a4a;border-radius:10px;
+  color:#fff;font-size:15px;outline:none;transition:all 0.3s;
 }
 .input-box input:focus{border-color:var(--azul-neon);box-shadow:0 0 15px rgba(0,212,255,0.3);}
 .btn-login{
-  width:100%;padding:16px;background:linear-gradient(90deg,var(--azul-neon),var(--azul-escuro));
-  border:none;border-radius:10px;color:#000;font-weight:700;cursor:pointer;font-size:17px;
+  width:100%;padding:14px;background:linear-gradient(90deg,var(--azul-neon),var(--azul-escuro));
+  border:none;border-radius:10px;color:#000;font-weight:700;cursor:pointer;font-size:16px;
   transition:all 0.3s;letter-spacing:1px;
 }
 .btn-login:hover{transform:translateY(-2px);box-shadow:0 0 25px var(--azul-neon);}
-.erro{color:var(--vermelho);margin-top:15px;display:none;font-size:14px;}
+.erro{color:var(--vermelho);margin-top:12px;display:none;font-size:14px;}
+.config-token{margin-top:20px;padding-top:20px;border-top:1px solid #222;}
+.config-token p{font-size:12px;color:#666;margin-bottom:10px;}
+.config-token button{background:transparent;border:none;color:var(--azul-neon);text-decoration:underline;cursor:pointer;font-size:12px;}
 
-/* TOPO */
 .topo{
   display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;
   flex-wrap:wrap;gap:15px;padding-bottom:20px;border-bottom:1px solid #111;
@@ -75,13 +76,20 @@ body{
 }
 .btn-sair:hover{background:rgba(255,59,59,0.2);}
 
-.grupo-botoes{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
-.btn-salvar{
-  padding:14px 28px;background:linear-gradient(90deg,#00FF88,#00CC6E);
+.grupo-botoes{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.btn-salvar-nuvem{
+  padding:14px 24px;background:linear-gradient(90deg,#00CCFF,#00FFD1);
   border:none;border-radius:10px;color:#000;font-weight:700;cursor:pointer;font-size:15px;
+  transition:all 0.3s;display:flex;align-items:center;gap:8px;
+}
+.btn-salvar-nuvem:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(0,204,255,0.4);}
+.btn-salvar-nuvem:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.btn-salvar-arquivo{
+  padding:14px 24px;background:linear-gradient(90deg,#666,#444);
+  border:none;border-radius:10px;color:#fff;font-weight:600;cursor:pointer;font-size:14px;
   transition:all 0.3s;
 }
-.btn-salvar:hover{transform:translateY(-2px);box-shadow:0 0 20px var(--verde);}
+.btn-salvar-arquivo:hover{background:linear-gradient(90deg,#777,#555);}
 .link-visitante{
   padding:14px 22px;background:linear-gradient(90deg,var(--azul-brilho),rgba(0,212,255,0.05));
   border:1px solid var(--azul-neon);border-radius:10px;color:var(--azul-neon);cursor:pointer;font-size:14px;font-weight:600;
@@ -92,9 +100,11 @@ body{
   color:var(--verde);font-size:14px;font-weight:600;display:none;align-items:center;gap:6px;
   animation:pulse 0.5s ease-in-out;
 }
+.msg-erro{
+  color:var(--vermelho);font-size:13px;display:none;
+}
 @keyframes pulse{0%{opacity:1;}50%{opacity:0.5;}100%{opacity:1;}}
 
-/* CAIXAS */
 .caixas{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:30px;}
 .caixa{
   background:var(--preto-card);padding:30px 25px;border-radius:16px;text-align:center;
@@ -113,7 +123,6 @@ body{
 }
 #caixaPag{color:var(--verde);}
 
-/* BLOCOS */
 .bloco{
   background:var(--preto-card);padding:25px;border-radius:16px;margin-bottom:25px;
   border:1px solid #111;transition:all 0.3s;
@@ -123,7 +132,6 @@ body{
 .legenda{font-size:13px;color:#666;font-weight:normal;display:flex;gap:15px;}
 .legenda span{display:flex;align-items:center;gap:4px;}
 
-/* TABELA VALORES */
 table{width:100%;border-collapse:collapse;}
 th,td{padding:15px 12px;text-align:left;border-bottom:1px solid #111;}
 th{font-size:12px;color:var(--azul-neon);text-transform:uppercase;letter-spacing:1px;background:rgba(0,212,255,0.03);font-weight:700;}
@@ -133,7 +141,6 @@ td input{
 }
 td input:focus{background:rgba(0,212,255,0.05);}
 
-/* MEMBROS */
 .cabeca{
   display:grid;grid-template-columns:230px 80px repeat(7,50px);gap:6px;margin-bottom:12px;
   padding-bottom:10px;border-bottom:1px solid #111;
@@ -158,7 +165,6 @@ td input:focus{background:rgba(0,212,255,0.05);}
 }
 .meta:focus{border-color:var(--amarelo);box-shadow:0 0 8px rgba(255,204,0,0.2);}
 
-/* BOLINHAS — BRILHANTES! ✨ */
 .bolinha{
   width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
   font-size:20px;display:flex;align-items:center;justify-content:center;
@@ -180,13 +186,13 @@ td input:focus{background:rgba(0,212,255,0.05);}
 .bolinha.verde{background:radial-gradient(circle at 30% 30%,#66FFB2,var(--verde));box-shadow:0 0 12px var(--verde), inset 0 0 10px rgba(255,255,255,0.3);border:none;}
 .bolinha.verde::after{box-shadow:0 0 20px var(--verde);}
 
-/* RESPONSIVO */
 @media(max-width:768px){
   .caixas{grid-template-columns:1fr;}
   .cabeca,.linha{grid-template-columns:160px 60px repeat(7,42px);gap:4px;}
   .bolinha{width:34px;height:34px;font-size:17px;}
   .nome{font-size:13px;}
   .meta{font-size:13px;}
+  .grupo-botoes{flex-direction:column;align-items:stretch;}
 }
 @media(max-width:480px){
   .cabeca,.linha{grid-template-columns:130px 50px repeat(7,36px);gap:3px;}
@@ -206,6 +212,14 @@ td input:focus{background:rgba(0,212,255,0.05);}
     </div>
     <button class="btn-login" onclick="entrarAdmin()">🔐 ENTRAR NO PAINEL</button>
     <div class="erro" id="erro">❌ Senha incorreta! Tente novamente.</div>
+    
+    <div class="config-token">
+      <p>🔧 Configurar Salvar nas Nuvens:</p>
+      <div class="input-box">
+        <input type="password" id="githubToken" placeholder="Token do GitHub (opcional)">
+      </div>
+      <button onclick="salvarToken()">💾 Salvar Token</button>
+    </div>
   </div>
 </div>
 
@@ -216,12 +230,17 @@ td input:focus{background:rgba(0,212,255,0.05);}
     <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
       <span class="badge">👑 ADMINISTRADOR</span>
       <div class="grupo-botoes">
-        <button class="btn-salvar" onclick="salvarDados()">💾 SALVAR ALTERAÇÕES</button>
-        <span class="msg-salvo" id="msgSalvo">✅ SALVO COM SUCESSO!</span>
+        <button class="btn-salvar-nuvem" id="btnSalvarNuvem" onclick="salvarNasNuvens()">☁️ SALVAR NAS NUVENS</button>
+        <button class="btn-salvar-arquivo" onclick="salvarComoArquivo()">💾 BAIXAR ARQUIVO</button>
         <button class="link-visitante" onclick="copiarLinkVisitante()">🔗 LINK DE VISITANTE</button>
       </div>
       <button class="btn-sair" onclick="sair()">🚪 SAIR</button>
     </div>
+  </div>
+  
+  <div style="margin-bottom:15px;display:flex;gap:15px;align-items:center;">
+    <span class="msg-salvo" id="msgSalvo">✅ SALVO NAS NUVENS COM SUCESSO!</span>
+    <span class="msg-erro" id="msgErro">❌ Erro ao salvar. Verifique seu token.</span>
   </div>
 
   <!-- 🏦 CAIXAS -->
@@ -270,15 +289,31 @@ td input:focus{background:rgba(0,212,255,0.05);}
 
 <script>
 const SENHA = '123477';
-const BASE_URL = 'https://davig4858-creator.github.io/LOJA-CAOS-77/';
+const USUARIO = 'davig4858-creator';
+const REPOSITORIO = 'LOJA-CAOS-77';
+const ARQUIVO = 'dados.json';
+const BASE_URL = `https://${USUARIO}.github.io/${REPOSITORIO}/`;
+
 let dadosCompletos = null;
+let githubToken = localStorage.getItem('githubToken') || '';
 const estados = ['vazia', 'vermelha', 'amarela', 'verde'];
 const emojisBolinha = {vazia:'', vermelha:'🔴', amarela:'🟡', verde:'🟢'};
+
+// Salvar token
+function salvarToken(){
+  const token = document.getElementById('githubToken').value.trim();
+  if(token){
+    localStorage.setItem('githubToken', token);
+    githubToken = token;
+    alert('✅ Token salvo! Agora você pode salvar direto nas nuvens! ☁️');
+  }
+}
 
 // LOGIN
 function entrarAdmin(){
   if(document.getElementById('senha').value === SENHA){
     localStorage.setItem('caos77admin', 'logado');
+    document.getElementById('githubToken").value = githubToken;
     iniciarPainel();
   }else{
     document.getElementById('erro').style.display = 'block';
@@ -291,6 +326,107 @@ function sair(){
 }
 document.getElementById('senha').addEventListener('keypress', e=>e.key==='Enter'&&entrarAdmin());
 
+// PEGAR SHA DO ARQUIVO ATUAL (necessário para atualizar no GitHub)
+async function getFileSha(){
+  if(!githubToken) return null;
+  try{
+    const res = await fetch(`https://api.github.com/repos/${USUARIO}/${REPOSITORIO}/contents/${ARQUIVO}`, {
+      headers: {'Authorization': `token ${githubToken}`}
+    });
+    if(res.ok){
+      const data = await res.json();
+      return data.sha;
+    }
+  }catch(e){
+    console.error('Erro ao buscar SHA:', e);
+  }
+  return null;
+}
+
+// SALVAR DIRETO NO GITHUB — ☁️ SALVAR NAS NUVENS
+async function salvarNasNuvens(){
+  if(!githubToken){
+    alert('⚠️ Você precisa configurar seu Token do GitHub primeiro!\n\n1. Faça login no GitHub\n2. Vá em: Settings → Developer settings → Personal access tokens → Tokens (classic)\n3. Gere um token com permissão "repo"\n4. Cole ele no campo da tela de login e clique "Salvar Token"');
+    return;
+  }
+  
+  const btn = document.getElementById('btnSalvarNuvem');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ SALVANDO...';
+  
+  try{
+    // Coleta os dados
+    coletarDadosDaTela();
+    
+    const conteudo = btoa(unescape(encodeURIComponent(JSON.stringify(dadosCompletos, null, 2))));
+    const sha = await getFileSha();
+    
+    const res = await fetch(`https://api.github.com/repos/${USUARIO}/${REPOSITORIO}/contents/${ARQUIVO}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${githubToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: `☁️ Atualizado via Painel — ${new Date().toLocaleString('pt-BR')}`,
+        content: conteudo,
+        sha: sha
+      })
+    });
+    
+    if(res.ok){
+      document.getElementById('msgSalvo').style.display = 'flex';
+      document.getElementById('msgErro').style.display = 'none';
+      setTimeout(()=>document.getElementById('msgSalvo').style.display='none', 4000);
+    }else{
+      const erro = await res.json();
+      throw new Error(erro.message || 'Erro desconhecido');
+    }
+  }catch(e){
+    console.error('Erro:', e);
+    document.getElementById('msgErro').textContent = '❌ Erro: ' + e.message;
+    document.getElementById('msgErro').style.display = 'block';
+    setTimeout(()=>document.getElementById('msgErro').style.display='none', 5000);
+  }
+  
+  btn.disabled = false;
+  btn.innerHTML = '☁️ SALVAR NAS NUVENS';
+}
+
+// SALVAR COMO ARQUIVO (método antigo)
+function salvarComoArquivo(){
+  coletarDadosDaTela();
+  const blob = new Blob([JSON.stringify(dadosCompletos, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'dados.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  alert('✅ Arquivo baixado com sucesso!\n👉 Suba manualmente no GitHub se precisar.');
+}
+
+// COLETAR DADOS DA TELA
+function coletarDadosDaTela(){
+  dadosCompletos.caixaFac = document.getElementById('caixaFac').value;
+  dadosCompletos.caixaPag = document.getElementById('caixaPag').value;
+  
+  dadosCompletos.valores = [...document.querySelectorAll('#valoresCorpo tr')].map(tr=>({
+    qtd: tr.querySelector('td:first-child input').value,
+    val: tr.querySelector('td:nth-child(2) input').value
+  }));
+  
+  dadosCompletos.membros = [...document.querySelectorAll('#nomesCorpo .linha')].map(div=>({
+    nome: div.querySelector('.nome').value,
+    meta: div.querySelector('.meta').value,
+    dias: [...div.querySelectorAll('.bolinha')].map(b=>b.dataset.estado)
+  }));
+  
+  dadosCompletos.ultimaAtualizacao = new Date().toLocaleString('pt-BR');
+}
+
 // CARREGAR DADOS
 async function carregarDados(){
   try{
@@ -299,7 +435,6 @@ async function carregarDados(){
     preencherTela();
   }catch(e){
     console.error('Erro ao carregar:', e);
-    // Carrega padrão se não achar
     dadosCompletos = {
       caixaFac: 'R$ 4.500.000,00',
       caixaPag: 'R$ 7.700.000,00',
@@ -365,7 +500,8 @@ function preencherTela(){
       <input type="text" class="meta" value="${m.meta}">
       ${botoes}
     `;
-    nomesBody.appendChild(div);
+    nomesBody.appendChild(div
+);
   });
 }
 
@@ -375,43 +511,6 @@ function trocarBolinha(btn){
   btn.dataset.estado = proximo;
   btn.className = 'bolinha ' + proximo;
   btn.textContent = emojisBolinha[proximo];
-}
-
-async function salvarDados(){
-  // Coleta todos os dados da tela
-  dadosCompletos.caixaFac = document.getElementById('caixaFac').value;
-  dadosCompletos.caixaPag = document.getElementById('caixaPag').value;
-  
-  dadosCompletos.valores = [...document.querySelectorAll('#valoresCorpo tr')].map(tr=>({
-    qtd: tr.querySelector('td:first-child input').value,
-    val: tr.querySelector('td:nth-child(2) input').value
-  }));
-  
-  dadosCompletos.membros = [...document.querySelectorAll('#nomesCorpo .linha')].map(div=>({
-    nome: div.querySelector('.nome').value,
-    meta: div.querySelector('.meta').value,
-    dias: [...div.querySelectorAll('.bolinha')].map(b=>b.dataset.estado)
-  }));
-  
-  dadosCompletos.ultimaAtualizacao = new Date().toLocaleString('pt-BR');
-  
-  // Baixa o arquivo atualizado
-  const blob = new Blob([JSON.stringify(dadosCompletos, null, 2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'dados.json';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  
-  // Mostra mensagem
-  const msg = document.getElementById('msgSalvo');
-  msg.style.display = 'flex';
-  setTimeout(()=>msg.style.display='none', 3000);
-  
-  alert('✅ DADOS SALVOS COM SUCESSO!\n\n👉 O arquivo dados.json foi baixado.\n👉 Envie ele para o seu GitHub substituindo o antigo.\n👉 O painel de visitante atualiza automaticamente!');
 }
 
 function copiarLinkVisitante(){

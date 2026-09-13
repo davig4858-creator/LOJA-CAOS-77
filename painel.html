@@ -14,6 +14,7 @@
   --azul: #00D4FF;
   --verde: #00FF88;
   --vermelho: #FF5252;
+  --amarelo: #FFD700;
   --texto: #E5E7EB;
 }
 
@@ -24,10 +25,10 @@ body{
   padding:20px;
 }
 
-.container{max-width:900px;margin:0 auto;}
+.container{max-width:950px;margin:0 auto;}
 
 header{text-align:center;margin-bottom:25px;}
-header h1{font-size:24px;background:linear-gradient(90deg,var(--azul),var(--verde));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+header h1{font-size:22px;background:linear-gradient(90deg,var(--azul),var(--verde));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
 .senha-tela{
   position:fixed;top:0;left:0;right:0;bottom:0;
@@ -57,14 +58,25 @@ th{text-align:left;padding:10px;color:#94A3B8;font-size:13px;border-bottom:1px s
 td{padding:8px;border-bottom:1px solid rgba(255,255,255,0.05);}
 td input{width:100%;background:rgba(30,30,30,0.6);border:1px solid #374151;color:white;padding:6px 8px;border-radius:4px;font-size:14px;}
 
-.linha-membro{display:flex;align-items:center;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,0.05);flex-wrap:wrap;gap:4px;}
-.nome-membro{flex:1;min-width:150px;font-size:14px;}
-.meta-membro{color:#94A3B8;font-size:13px;width:50px;text-align:center;}
-.bolinha{cursor:pointer;font-size:20px;user-select:none;}
+.linha-membro{display:flex;align-items:center;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,0.05);flex-wrap:nowrap;gap:4px;}
+.nome-membro{flex:2;min-width:140px;font-size:14px;}
+.meta-membro{color:#94A3B8;font-size:14px;width:60px;text-align:center;font-weight:600;}
+.bolinha{width:32px;height:32px;border-radius:6px;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;background:#1f2937;transition:all 0.15s;}
+.bolinha.vazia{background:#1f2937;}
+.bolinha.vermelho{background:var(--vermelho);}
+.bolinha.amarelo{background:var(--amarelo);color:#000;}
+.bolinha.verde{background:var(--verde);color:#000;}
 
 .oculto{display:none !important;}
 .sucesso{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--verde);color:black;padding:12px 24px;border-radius:8px;font-weight:600;z-index:100;opacity:0;transition:opacity 0.3s;}
 .sucesso.mostrar{opacity:1;}
+
+.legenda{display:flex;gap:15px;font-size:12px;color:#94A3B8;margin-bottom:12px;flex-wrap:wrap;}
+.legenda span{display:flex;align-items:center;gap:4px;}
+.legenda span::before{content:'';width:14px;height:14px;border-radius:3px;}
+.legenda span:nth-child(1)::before{background:var(--vermelho);}
+.legenda span:nth-child(2)::before{background:var(--amarelo);}
+.legenda span:nth-child(3)::before{background:var(--verde);}
 </style>
 </head>
 <body>
@@ -112,12 +124,14 @@ td input{width:100%;background:rgba(30,30,30,0.6);border:1px solid #374151;color
     
     <div class="card">
       <h2>👥 CONTROLE DE FARM — COLABORADORES</h2>
-      <div style="display:flex;gap:10px;font-size:12px;color:#94A3B8;margin-bottom:12px;">
-        <span>🔴 Não cumprida</span><span>🟡 Parcial</span><span>🟢 Cumprida</span>
+      <div class="legenda">
+        <span>Não cumprida</span>
+        <span>Parcial</span>
+        <span>Cumprida</span>
       </div>
-      <div style="display:flex;padding:8px 4px 10px 4px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:12px;color:#94A3B8;">
-        <div style="flex:1;min-width:150px;">COLABORADOR</div>
-        <div style="width:50px;text-align:center;">META</div>
+      <div style="display:flex;padding:8px 4px 10px 4px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:12px;color:#94A3B8;font-weight:600;">
+        <div style="flex:2;">COLABORADOR</div>
+        <div style="width:60px;text-align:center;">META</div>
         <div style="width:32px;text-align:center;">1</div>
         <div style="width:32px;text-align:center;">2</div>
         <div style="width:32px;text-align:center;">3</div>
@@ -137,8 +151,7 @@ td input{width:100%;background:rgba(30,30,30,0.6);border:1px solid #374151;color
 
 <script>
 const SENHA = '123477';
-const emojis = {vazia:'', vermelha:'🔴', amarela:'🟡', verde:'🟢'};
-const ordem = ['vazia','vermelha','amarela','verde'];
+const ESTADOS = ['vazia', 'vermelho', 'amarelo', 'verde'];
 const CHAVE = 'lojaCaos77Dados';
 
 let dados = {
@@ -177,7 +190,7 @@ let dados = {
   ultimaAtualizacao: ''
 };
 
-const LINK_ATUAL = window.location.href;
+const LINK_ATUAL = window.location.href.split('#')[0];
 const LINK_VISITANTE = LINK_ATUAL + '#visitante';
 document.getElementById('linkVisitante').textContent = LINK_VISITANTE;
 
@@ -233,21 +246,27 @@ function renderMembros(){
   dados.membros.forEach((m,idx)=>{
     const linha = document.createElement('div');
     linha.className = 'linha-membro';
-    let b = '';
-    for(let i=0;i<7;i++) b += `<div class="bolinha" onclick="trocar(${idx},${i})">${emojis[m.dias[i]]}</div>`;
+    
+    let diasHTML = '';
+    for(let d=0;d<7;d++){
+      const estado = m.dias[d];
+      const emoji = estado === 'verde' ? '🟢' : estado === 'amarelo' ? '🟡' : estado === 'vermelho' ? '🔴' : '';
+      diasHTML += `<button class="bolinha ${estado}" onclick="mudarBolinha(${idx},${d})" data-dia="${d}" data-estado="${estado}">${emoji}</button>`;
+    }
+    
     linha.innerHTML = `
       <div class="nome-membro">${m.nome}</div>
-      <div class="meta-membro"><input style="width:40px;text-align:center;" value="${m.meta}" oninput="dados.membros[${idx}].meta=this.value"></div>
-      ${b}
+      <input class="meta-membro" style="width:60px;text-align:center;padding:4px;border-radius:4px;border:none;background:transparent;color:inherit;" value="${m.meta}" oninput="dados.membros[${idx}].meta=this.value">
+      ${diasHTML}
     `;
     corpo.appendChild(linha);
   });
 }
 
-function trocar(idx, dia){
-  const a = dados.membros[idx].dias[dia];
-  const p = ordem.indexOf(a);
-  dados.membros[idx].dias[dia] = ordem[(p+1)%ordem.length];
+function mudarBolinha(idx, dia){
+  const atual = dados.membros[idx].dias[dia];
+  const proximoIdx = (ESTADOS.indexOf(atual) + 1) % ESTADOS.length;
+  dados.membros[idx].dias[dia] = ESTADOS[proximoIdx];
   renderMembros();
 }
 
@@ -264,14 +283,18 @@ if(window.location.hash === '#visitante'){
   setTimeout(()=>{
     document.getElementById('telaSenha').classList.add('oculto');
     document.getElementById('conteudo').classList.remove('oculto');
-    document.querySelector('.botoes').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#94A3B8;padding:15px;">👀 Modo visualização — clique em atualizar página para ver mudanças</div>';
+    document.querySelector('.botoes').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#94A3B8;padding:15px;">👀 Modo visualização — atualize a página para ver mudanças</div>';
     document.querySelector('.btn-sair').style.display = 'none';
     carregar();
     
     setTimeout(()=>{
-      document.querySelectorAll('input, .bolinha').forEach(el=>{
+      document.querySelectorAll('input').forEach(el=>{
         el.style.pointerEvents = 'none';
-        if(!el.classList.contains('bolinha')) el.style.opacity = '0.7';
+        el.style.opacity = '0.7';
+      });
+      document.querySelectorAll('.bolinha').forEach(el=>{
+        el.style.cursor = 'default';
+        el.style.pointerEvents = 'none';
       });
     }, 100);
   }, 100);

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ LOJA CAOS 77 — Acompanhamento</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+:root{
+  --bg: #050A18;
+  --card: #0F1729;
+  --borda: #1E293B;
+  --azul: #00D4FF;
+  --verde: #00FF88;
+  --amarelo: #FFCC00;
+  --vermelho: #FF3B3B;
+  --texto: #E2E8F0;
+  --cinza: #64748B;
+}
+
+body{background:var(--bg);min-height:100vh;color:var(--texto);padding:20px;}
+.container{max-width:1000px;margin:0 auto;}
+
+.topo{text-align:center;margin-bottom:25px;}
+.topo h1{font-size:24px;color:var(--azul);margin-bottom:5px;}
+.atualizado{color:var(--verde);font-size:13px;}
+
+.btn-atualizar{text-align:center;margin-bottom:25px;}
+button{padding:12px 24px;background:rgba(0,212,255,0.08);border:1px solid var(--azul);color:var(--azul);border-radius:8px;cursor:pointer;font-weight:600;font-size:15px;}
+button:hover{background:rgba(0,212,255,0.15);}
+
+.caixa-pag{
+  background:var(--card);padding:25px;border-radius:16px;border:1px solid var(--borda);
+  text-align:center;max-width:380px;margin:0 auto 25px;
+}
+.caixa-pag label{font-size:13px;color:var(--cinza);margin-bottom:10px;display:block;}
+.caixa-pag .valor{font-size:28px;font-weight:800;color:var(--verde);}
+
+.bloco{background:var(--card);padding:25px;border-radius:16px;border:1px solid var(--borda);margin-bottom:25px;}
+.bloco-titulo{font-size:16px;color:var(--azul);margin-bottom:18px;font-weight:700;}
+
+.tabela-valores{width:100%;border-collapse:collapse;}
+.tabela-valores th,.tabela-valores td{padding:14px 12px;text-align:left;border-bottom:1px solid var(--borda);}
+.tabela-valores th{font-size:12px;color:var(--cinza);text-transform:uppercase;}
+
+.cabeca-membros{
+  display:grid;grid-template-columns:240px 90px repeat(7,50px);gap:6px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--borda);
+}
+.cabeca-membros div{font-size:11px;text-align:center;color:var(--cinza);text-transform:uppercase;font-weight:700;}
+.cabeca-membros .col-nome{text-align:left;padding-left:10px;}
+
+.linha-membro{
+  display:grid;grid-template-columns:240px 90px repeat(7,50px);gap:6px;align-items:center;
+  padding:10px 6px;border-bottom:1px solid rgba(30,41,59,0.5);
+}
+.nome-membro{font-size:14px;font-weight:600;}
+.meta-membro{font-size:15px;font-weight:700;color:var(--amarelo);text-align:center;}
+.bolinha{width:40px;height:40px;border-radius:50%;font-size:18px;display:flex;align-items:center;justify-content:center;}
+.bolinha.vazia{background:#1E293B;border:1px solid #334155;}
+.bolinha.vermelha{background:radial-gradient(circle at 30% 30%,#FF6B6B,var(--vermelho));box-shadow:0 0 10px var(--vermelho);}
+.bolinha.amarela{background:radial-gradient(circle at 30% 30%,#FFE066,var(--amarelo));box-shadow:0 0 10px var(--amarelo);}
+.bolinha.verde{background:radial-gradient(circle at 30% 30%,#66FFB2,var(--verde));box-shadow:0 0 10px var(--verde);}
+
+.aviso{text-align:center;color:var(--cinza);font-size:12px;margin-top:20px;}
+.carregando{text-align:center;padding:40px;color:var(--cinza);}
+
+@media(max-width:900px){
+  .cabeca-membros,.linha-membro{grid-template-columns:160px 70px repeat(7,42px);gap:4px;}
+  .bolinha{width:34px;height:34px;font-size:16px;}
+}
+@media(max-width:600px){
+  .cabeca-membros,.linha-membro{grid-template-columns:130px 55px repeat(7,36px);gap:3px;}
+  .bolinha{width:30px;height:30px;font-size:14px;}
+  .nome-membro{font-size:12px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="topo">
+    <h1>⚡ LOJA CAOS 77 — ACOMPANHAMENTO</h1>
+    <p class="atualizado" id="ultima">🔄 Clique em atualizar para ver os dados mais recentes</p>
+  </div>
+
+  <div class="btn-atualizar">
+    <button onclick="carregarDados()">🔄 ATUALIZAR DADOS</button>
+  </div>
+
+  <!-- ⚠️ CAIXA DA FACÇÃO NÃO APARECE AQUI → SÓ NO ADMIN -->
+  <div class="caixa-pag">
+    <label>💵 CAIXA DE PAGAMENTO</label>
+    <div class="valor" id="mostraCaixaPag">R$ 0,00</div>
+  </div>
+
+  <div class="bloco">
+    <div class="bloco-titulo">💎 TABELA DE VALORES — FRAGMENTOS</div>
+    <table class="tabela-valores">
+      <thead><tr><th>QUANTIDADE</th><th>VALOR</th></tr></thead>
+      <tbody id="corpoValores"><tr><td colspan="2" class="carregando">Carregando...</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <div class="bloco-titulo">👥 CONTROLE DE FARM — META: 240/dia</div>
+    <div class="cabeca-membros">
+      <div class="col-nome">COLABORADOR</div>
+      <div>META/DIA</div>
+      <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
+    </div>
+    <div id="corpoMembros"><div class="carregando">Carregando...</div></div>
+  </div>
+
+  <p class="aviso">ℹ️ Atualizado automaticamente — última verificação: <span id="horaAtual"></span></p>
+</div>
+
+<script>
+const BASE_URL = 'https://davig4858-creator.github.io/LOJA-CAOS-77/';
+const emojis = {vazia:'', vermelha:'🔴', amarela:'🟡', verde:'🟢'};
+
+async function carregarDados(){
+  try{
+    const res = await fetch(BASE_URL + 'dados.json?t=" + Date.now());
+    const d = await res.json();
+    
+    document.getElementById('mostraCaixaPag').textContent = d.caixaPag;
+    document.getElementById('ultima').textContent = '🕐 Última atualização: ' + d.ultimaAtualizacao;
+    document.getElementById('horaAtual').textContent = new Date().toLocaleTimeString('pt-BR');
+    
+    // Tabela Valores
+    const vBody = document.getElementById('corpoValores');
+    vBody.innerHTML = '';
+    d.valores.forEach(v=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${v.qtd}</td><td>${v.valor}</td>`;
+      vBody.appendChild(tr);
+    });
+    
+    // Membros
+    const mBody = document.getElementById('corpoMembros');
+    mBody.innerHTML = '';
+    d.membros.forEach(m=>{
+      const linha = document.createElement('div');
+      linha.className = 'linha-membro';
+      let botoes = '';
+      for(let i=0;i<7;i++){
+        const e = m.dias[i] || 'vazia';
+        botoes += `<div class="bolinha ${e}">${emojis[e]}</div>`;
+      }
+      linha.innerHTML = `
+        <div class="nome-membro">${m.nome}</div>
+        <div class="meta-membro">${m.meta}</div>
+        ${botoes}
+      `;
+      mBody.appendChild(linha);
+    });
+  }catch(e){
+    document.getElementById('corpoMembros').innerHTML = '<div style="color:#FF3B3B;padding:30px;text-align:center;">❌ Erro ao carregar. Verifique se o arquivo dados.json existe no repositório.</div>';
+  }
+}
+
+carregarDados();

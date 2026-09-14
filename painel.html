@@ -100,17 +100,22 @@ td input{width:100%;background:#1e1e1e;border:1px solid #333;color:white;padding
     <div class="caixas">
       <div class="caixa">
         <label>🏦 CAIXA DA FACÇÃO</label>
-        <input type="text" id="caixaFac">
+        <input type="text" id="caixaFac" value="R$ 5.000.000,00">
       </div>
       <div class="caixa">
         <label>💵 CAIXA DE PAGAMENTO</label>
-        <input type="text" id="caixaPag">
+        <input type="text" id="caixaPag" value="R$ 18.214.502,00">
       </div>
     </div>
     
     <div class="card">
       <h2>💎 TABELA DE VALORES — FRAGMENTOS</h2>
-      <table><thead><tr><th>Quantidade</th><th>Valor</th></tr></thead><tbody id="corpoValores"></tbody></table>
+      <table><thead><tr><th>Quantidade</th><th>Valor</th></tr></thead><tbody id="corpoValores">
+        <tr><td><input value="250 Fragmentos" oninput="dados.valores[0].qtd=this.value"></td><td><input value="R$ 550,00" oninput="dados.valores[0].valor=this.value"></td></tr>
+        <tr><td><input value="1.250 Fragmentos" oninput="dados.valores[1].qtd=this.value"></td><td><input value="R$ 3.600k" oninput="dados.valores[1].valor=this.value"></td></tr>
+        <tr><td><input value="2.500 Fragmentos" oninput="dados.valores[2].qtd=this.value"></td><td><input value="R$ 7.000k" oninput="dados.valores[2].valor=this.value"></td></tr>
+        <tr><td><input value="3.750 Fragmentos" oninput="dados.valores[3].qtd=this.value"></td><td><input value="R$ 10.550k" oninput="dados.valores[3].valor=this.value"></td></tr>
+      </tbody></table>
     </div>
     
     <div class="card">
@@ -207,7 +212,6 @@ function carregar(){
   if(s) dados = JSON.parse(s);
   document.getElementById('caixaFac').value = dados.caixaFac;
   document.getElementById('caixaPag').value = dados.caixaPag;
-  renderValores();
   renderMembros();
 }
 function salvar(){
@@ -217,15 +221,6 @@ function salvar(){
   const a = document.getElementById('aviso');
   a.classList.add('mostrar');
   setTimeout(()=>a.classList.remove('mostrar'),2500);
-}
-function renderValores(){
-  const c = document.getElementById('corpoValores');
-  c.innerHTML = '';
-  dados.valores.forEach((v,i)=>{
-    const r = document.createElement('tr');
-    r.innerHTML = `<td><input value="${v.qtd}" oninput="dados.valores[${i}].qtd=this.value"></td><td><input value="${v.valor}" oninput="dados.valores[${i}].valor=this.value"></td>`;
-    c.appendChild(r);
-  });
 }
 function renderMembros(){
   const c = document.getElementById('corpoMembros');
@@ -260,15 +255,26 @@ function mudar(idx,f,d){
 }
 function adicionarMembro(){
   dados.membros.push({nome:'Novo Membro',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']});
-  renderMembros();salvar();
-  const a=document.getElementById('aviso');a.textContent='✅ MEMBRO ADICIONADO!';a.classList.add('mostrar');setTimeout(()=>{a.classList.remove('mostrar');a.textContent='✅ SALVO!';},2500);
+  renderMembros();
+  salvar();
+  const a=document.getElementById('aviso');
+  a.textContent='✅ MEMBRO ADICIONADO!';
+  a.classList.add('mostrar');
+  setTimeout(()=>{a.classList.remove('mostrar');a.textContent='✅ SALVO!';},2500);
 }
 function remover(idx){
-  if(confirm('Remover este membro?')){dados.membros.splice(idx,1);renderMembros();salvar();}
+  if(confirm('Remover este membro?')){
+    dados.membros.splice(idx,1);
+    renderMembros();
+    salvar();
+  }
 }
 function copiarLink(){
   navigator.clipboard.writeText(LINK_VISITANTE);
-  const a=document.getElementById('aviso');a.textContent='🔗 LINK COPIADO!';a.classList.add('mostrar');setTimeout(()=>{a.classList.remove('mostrar');a.textContent='✅ SALVO!';},2500);
+  const a=document.getElementById('aviso');
+  a.textContent='🔗 LINK COPIADO!';
+  a.classList.add('mostrar');
+  setTimeout(()=>{a.classList.remove('mostrar');a.textContent='✅ SALVO!';},2500);
 }
 if(window.location.hash==='#visitante'){
   setTimeout(()=>{
@@ -278,7 +284,12 @@ if(window.location.hash==='#visitante'){
     document.querySelector('.btn-sair').style.display='none';
     document.querySelector('.btn-add').style.display='none';
     carregar();
-    setTimeout(()=>{document.querySelectorAll('input,button').forEach(e=>{e.style.pointerEvents='none';if(!e.classList.contains('bolinha'))e.style.opacity='0.7';});},100);
+    setTimeout(()=>{
+      document.querySelectorAll('input,button').forEach(e=>{
+        e.style.pointerEvents='none';
+        if(!e.classList.contains('bolinha')) e.style.opacity='0.7';
+      });
+    },100);
   },100);
 }
 document.getElementById('senhaInput').addEventListener('keypress',e=>e.key==='Enter'&&entrar());

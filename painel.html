@@ -39,7 +39,7 @@ th{text-align:left;padding:8px;color:#94A3B8;font-size:12px;border-bottom:1px so
 td{padding:6px;border-bottom:1px solid #222;}
 td input{width:100%;background:#1e1e1e;border:1px solid #333;color:white;padding:5px 6px;border-radius:4px;font-size:13px;}
 
-.linha-cab{display:flex;padding:6px 4px 10px 4px;border-bottom:1px solid #222;font-size:11px;color:#94A3B8;font-weight:bold;}
+.linha-cab{display:flex;padding:6px 4px 10px 4px;border-bottom:1px solid #222;font-size:11px;color:#94A3B8;font-weight:bold;flex-wrap:nowrap;}
 .c-nome{width:160px;flex-shrink:0;}
 .c-meta{width:55px;text-align:center;flex-shrink:0;}
 .c-dia{width:36px;text-align:center;flex-shrink:0;}
@@ -55,7 +55,7 @@ td input{width:100%;background:#1e1e1e;border:1px solid #333;color:white;padding
 .nome-membro input{width:100%;background:#1e1e1e;border:1px solid transparent;color:white;padding:5px 6px;border-radius:4px;font-size:13px;}
 .meta-membro{width:55px;text-align:center;flex-shrink:0;}
 .meta-membro input{width:100%;background:#1e1e1e;border:1px solid transparent;color:white;padding:5px 2px;border-radius:4px;font-size:13px;text-align:center;}
-.bolinha{width:34px;height:34px;border-radius:6px;border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;background:#2a2a2a;flex-shrink:0;}
+.bolinha{width:34px;height:34px;border-radius:6px;border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;background:#2a2a2a;flex-shrink:0;transition:all .15s;}
 .b-vazia{background:#2a2a2a;}
 .b-verm{background:var(--verm);}
 .b-amar{background:var(--amar);color:black;}
@@ -151,13 +151,13 @@ const ESTADOS = ['vazia','verm','amar','verd'];
 const CHAVE = 'lojaCaos77Dados';
 
 let dados = {
-  caixaFac: 'R$ 4.500.000,00',
-  caixaPag: 'R$ 15.094.522,00',
+  caixaFac: 'R$ 5.000.000,00',
+  caixaPag: 'R$ 18.214.502,00',
   valores: [
     {qtd:'250 Fragmentos',valor:'R$ 550,00'},
-    {qtd:'1.250 Fragmentos',valor:'R$ 2.500kk'},
-    {qtd:'2.500 Fragmentos',valor:'R$ 5.500kk'},
-    {qtd:'3.750 Fragmentos',valor:'R$ 8.500kk'}
+    {qtd:'1.250 Fragmentos',valor:'R$ 3.600k'},
+    {qtd:'2.500 Fragmentos',valor:'R$ 7.000k'},
+    {qtd:'3.750 Fragmentos',valor:'R$ 10.550k'}
   ],
   membros: [
     {nome:'Sr Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
@@ -180,7 +180,7 @@ let dados = {
     {nome:'Alex Gadernal',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
     {nome:'Aquino Menezes',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
     {nome:'Connorr Dyygeras',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome:'Loo Diablo',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Lanterna Preta',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
     {nome:'Lewandowski Silva',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
     {nome:'Sr Luizsr',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']}
   ]
@@ -274,7 +274,7 @@ if(window.location.hash==='#visitante'){
   setTimeout(()=>{
     document.getElementById('telaSenha').classList.add('oculto');
     document.getElementById('conteudo').classList.remove('oculto');
-    document.querySelector('.botoes').innerHTML='<div style="padding:15px;text-align:center;color:#94A3B8;">👀 Modo visualização</div>';
+    document.querySelector('.botoes').innerHTML='<div style="padding:15px;text-align:center;color:#94A3B8;">👀 Modo visualização — atualize a página para ver mudanças</div>';
     document.querySelector('.btn-sair').style.display='none';
     document.querySelector('.btn-add').style.display='none';
     carregar();

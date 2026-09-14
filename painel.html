@@ -26,7 +26,7 @@ header h1{font-size:20px;color:var(--azul);}
 .btn-del{background:var(--verm);color:white;padding:4px 8px;border-radius:4px;border:none;font-size:11px;cursor:pointer;}
 .btn-sair{background:var(--verm);color:white;padding:10px 16px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;margin-bottom:15px;float:right;}
 
-.card{background:var(--card);border-radius:14px;padding:18px;margin-bottom:15px;border:1px solid #222;}
+.card{background:var(--card);border-radius:14px;padding:18px;margin-bottom:15px;border:1px solid #222;overflow-x:auto;}
 .card h2{font-size:14px;margin-bottom:12px;color:#94A3B8;}
 
 .caixas{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:15px;}
@@ -39,23 +39,24 @@ th{text-align:left;padding:8px;color:#94A3B8;font-size:12px;border-bottom:1px so
 td{padding:6px;border-bottom:1px solid #222;}
 td input{width:100%;background:#1e1e1e;border:1px solid #333;color:white;padding:5px 6px;border-radius:4px;font-size:13px;}
 
-.linha-cab{display:flex;padding:6px 4px 10px 4px;border-bottom:1px solid #222;font-size:11px;color:#94A3B8;font-weight:bold;flex-wrap:nowrap;}
-.c-nome{width:160px;flex-shrink:0;}
-.c-meta{width:55px;text-align:center;flex-shrink:0;}
-.c-dia{width:36px;text-align:center;flex-shrink:0;}
-.c-acao{width:50px;text-align:center;flex-shrink:0;}
+/* === TABELA DE DIAS — 2 BOLINHAS POR DIA === */
+.tabela-dias{width:100%;min-width:700px;}
+.cab-dias{display:flex;align-items:center;padding:6px 4px;border-bottom:1px solid #333;}
+.cab-nome{width:150px;flex-shrink:0;font-weight:bold;font-size:12px;}
+.cab-meta{width:50px;text-align:center;flex-shrink:0;font-weight:bold;font-size:12px;}
+.cab-dia-col{width:56px;text-align:center;flex-shrink:0;font-size:11px;color:#94A3B8;}
 
-.bloco-membro{padding:8px 4px;border-bottom:1px solid #222;}
-.linha-f1,.linha-f2{display:flex;align-items:center;flex-wrap:nowrap;}
-.linha-f1{margin-bottom:4px;}
-.linha-f2{padding-left:215px;}
-.espaco-f2{width:215px;flex-shrink:0;}
+.linha-membro{padding:8px 4px;border-bottom:1px solid #222;}
+.linha-topo{display:flex;align-items:center;margin-bottom:2px;}
+.linha-baixo{display:flex;align-items:center;}
 
-.nome-membro{width:160px;flex-shrink:0;font-size:13px;}
-.nome-membro input{width:100%;background:#1e1e1e;border:1px solid transparent;color:white;padding:5px 6px;border-radius:4px;font-size:13px;}
-.meta-membro{width:55px;text-align:center;flex-shrink:0;}
-.meta-membro input{width:100%;background:#1e1e1e;border:1px solid transparent;color:white;padding:5px 2px;border-radius:4px;font-size:13px;text-align:center;}
-.bolinha{width:34px;height:34px;border-radius:6px;border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;background:#2a2a2a;flex-shrink:0;transition:all .15s;}
+.nome-col{width:150px;flex-shrink:0;font-size:13px;}
+.nome-col input{width:100%;background:#1e1e1e;border:1px solid transparent;color:white;padding:4px 6px;border-radius:4px;font-size:13px;}
+.meta-col{width:50px;text-align:center;flex-shrink:0;}
+.meta-col input{width:100%;background:#1e1e1e;border:1px solid transparent;color:white;padding:4px 2px;border-radius:4px;font-size:13px;text-align:center;}
+
+.dia-col{width:56px;display:flex;justify-content:center;flex-shrink:0;}
+.bolinha{width:26px;height:26px;border-radius:5px;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;background:#2a2a2a;transition:all .15s;}
 .b-vazia{background:#2a2a2a;}
 .b-verm{background:var(--verm);}
 .b-amar{background:var(--amar);color:black;}
@@ -110,11 +111,11 @@ td input{width:100%;background:#1e1e1e;border:1px solid #333;color:white;padding
     
     <div class="card">
       <h2>💎 TABELA DE VALORES — FRAGMENTOS</h2>
-      <table><thead><tr><th>Quantidade</th><th>Valor</th></tr></thead><tbody id="corpoValores">
-        <tr><td><input value="250 Fragmentos" oninput="dados.valores[0].qtd=this.value"></td><td><input value="R$ 550,00" oninput="dados.valores[0].valor=this.value"></td></tr>
-        <tr><td><input value="1.250 Fragmentos" oninput="dados.valores[1].qtd=this.value"></td><td><input value="R$ 3.600k" oninput="dados.valores[1].valor=this.value"></td></tr>
-        <tr><td><input value="2.500 Fragmentos" oninput="dados.valores[2].qtd=this.value"></td><td><input value="R$ 7.000k" oninput="dados.valores[2].valor=this.value"></td></tr>
-        <tr><td><input value="3.750 Fragmentos" oninput="dados.valores[3].qtd=this.value"></td><td><input value="R$ 10.550k" oninput="dados.valores[3].valor=this.value"></td></tr>
+      <table><thead><tr><th>Quantidade</th><th>Valor</th></tr></thead><tbody>
+        <tr><td><input value="250 Fragmentos"></td><td><input value="R$ 550,00"></td></tr>
+        <tr><td><input value="1.250 Fragmentos"></td><td><input value="R$ 3.600k"></td></tr>
+        <tr><td><input value="2.500 Fragmentos"></td><td><input value="R$ 7.000k"></td></tr>
+        <tr><td><input value="3.750 Fragmentos"></td><td><input value="R$ 10.550k"></td></tr>
       </tbody></table>
     </div>
     
@@ -128,20 +129,23 @@ td input{width:100%;background:#1e1e1e;border:1px solid #333;color:white;padding
         <span>🟢 Cumprida</span>
       </div>
       
-      <div class="linha-cab">
-        <div class="c-nome">COLABORADOR</div>
-        <div class="c-meta">META</div>
-        <div class="c-dia">1</div><div class="c-dia">2</div><div class="c-dia">3</div>
-        <div class="c-dia">4</div><div class="c-dia">5</div><div class="c-dia">6</div><div class="c-dia">7</div>
-        <div class="c-acao"></div>
+      <!-- CABEÇALHO COM OS 7 DIAS DA SEMANA -->
+      <div class="tabela-dias">
+        <div class="cab-dias">
+          <div class="cab-nome">COLABORADOR</div>
+          <div class="cab-meta">META</div>
+          <div class="cab-dia-col">2ª<br>Feira</div>
+          <div class="cab-dia-col">3ª<br>Feira</div>
+          <div class="cab-dia-col">4ª<br>Feira</div>
+          <div class="cab-dia-col">5ª<br>Feira</div>
+          <div class="cab-dia-col">6ª<br>Feira</div>
+          <div class="cab-dia-col">Sáb</div>
+          <div class="cab-dia-col">Dom</div>
+          <div class="cab-dia-col" style="width:40px;"></div>
+        </div>
+        
+        <div id="corpoMembros"></div>
       </div>
-      <div class="linha-cab" style="border:none;padding-top:0;">
-        <div class="espaco-f2"></div>
-        <div class="c-dia">1</div><div class="c-dia">2</div><div class="c-dia">3</div>
-        <div class="c-dia">4</div><div class="c-dia">5</div><div class="c-dia">6</div><div class="c-dia">7</div>
-      </div>
-      
-      <div id="corpoMembros"></div>
     </div>
     
     <div class="card" style="text-align:center;font-size:13px;color:#94A3B8;">
@@ -158,12 +162,6 @@ const CHAVE = 'lojaCaos77Dados';
 let dados = {
   caixaFac: 'R$ 5.000.000,00',
   caixaPag: 'R$ 18.214.502,00',
-  valores: [
-    {qtd:'250 Fragmentos',valor:'R$ 550,00'},
-    {qtd:'1.250 Fragmentos',valor:'R$ 3.600k'},
-    {qtd:'2.500 Fragmentos',valor:'R$ 7.000k'},
-    {qtd:'3.750 Fragmentos',valor:'R$ 10.550k'}
-  ],
   membros: [
     {nome:'Sr Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
     {nome:'Katy Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
@@ -227,34 +225,54 @@ function renderMembros(){
   c.innerHTML = '';
   dados.membros.forEach((m,idx)=>{
     const b = document.createElement('div');
-    b.className = 'bloco-membro';
-    let d1='',d2='';
+    b.className = 'linha-membro';
+    
+    // LINHA DE CIMA — primeira bolinha de cada dia
+    let topo = '';
     for(let i=0;i<7;i++){
-      const e1=m.dias1[i],e2=m.dias2[i];
-      const em1=e1=='verd'?'🟢':e1=='amar'?'🟡':e1=='verm'?'🔴':'';
-      const em2=e2=='verd'?'🟢':e2=='amar'?'🟡':e2=='verm'?'🔴':'';
-      d1+=`<button class="bolinha b-${e1}" onclick="mudar(${idx},1,${i})">${em1}</button>`;
-      d2+=`<button class="bolinha b-${e2}" onclick="mudar(${idx},2,${i})">${em2}</button>`;
+      const e=m.dias1[i];
+      const em=e=='verd'?'🟢':e=='amar'?'🟡':e=='verm'?'🔴':'';
+      topo += `<div class="dia-col"><button class="bolinha b-${e}" onclick="mudar(${idx},1,${i})">${em}</button></div>`;
     }
+    
+    // LINHA DE BAIXO — segunda bolinha de cada dia
+    let baixo = '';
+    for(let i=0;i<7;i++){
+      const e=m.dias2[i];
+      const em=e=='verd'?'🟢':e=='amar'?'🟡':e=='verm'?'🔴':'';
+      baixo += `<div class="dia-col"><button class="bolinha b-${e}" onclick="mudar(${idx},2,${i})">${em}</button></div>`;
+    }
+    
     b.innerHTML = `
-      <div class="linha-f1">
-        <div class="nome-membro"><input value="${m.nome}" oninput="dados.membros[${idx}].nome=this.value"></div>
-        <div class="meta-membro"><input value="${m.meta}" oninput="dados.membros[${idx}].meta=this.value"></div>
-        ${d1}<button class="btn-del" onclick="remover(${idx})">🗑️</button>
+      <div class="linha-topo">
+        <div class="nome-col"><input value="${m.nome}" oninput="dados.membros[${idx}].nome=this.value"></div>
+        <div class="meta-col"><input value="${m.meta}" oninput="dados.membros[${idx}].meta=this.value"></div>
+        ${topo}
+        <div class="dia-col" style="width:40px;"></div>
       </div>
-      <div class="linha-f2"><div class="espaco-f2"></div>${d2}</div>
+      <div class="linha-baixo">
+        <div class="nome-col"></div>
+        <div class="meta-col"></div>
+        ${baixo}
+        <div class="dia-col" style="width:40px;"><button class="btn-del" onclick="remover(${idx})">🗑️</button></div>
+      </div>
     `;
     c.appendChild(b);
   });
 }
-function mudar(idx,f,d){
-  const alvo = f==1?dados.membros[idx].dias1:dados.membros[idx].dias2;
+function mudar(idx,linha,d){
+  const alvo = linha===1 ? dados.membros[idx].dias1 : dados.membros[idx].dias2;
   const a = ESTADOS.indexOf(alvo[d]);
   alvo[d] = ESTADOS[(a+1)%4];
   renderMembros();
 }
 function adicionarMembro(){
-  dados.membros.push({nome:'Novo Membro',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']});
+  dados.membros.push({
+    nome:'Novo Membro',
+    meta:'240',
+    dias1:Array(7).fill('vazia'),
+    dias2:Array(7).fill('vazia')
+  });
   renderMembros();
   salvar();
   const a=document.getElementById('aviso');

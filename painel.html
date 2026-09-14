@@ -43,10 +43,12 @@ header h1{font-size:22px;background:linear-gradient(90deg,var(--azul),var(--verd
 .btn{border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;}
 .btn-salvar{background:linear-gradient(90deg,var(--verde),#00c56c);color:black;}
 .btn-link{background:linear-gradient(90deg,var(--azul),#009ed6);color:white;}
+.btn-adicionar{background:linear-gradient(90deg,#8B5CF6,#6D28D9);color:white;padding:10px 16px;border-radius:8px;border:none;font-weight:600;cursor:pointer;margin-bottom:15px;}
+.btn-remover{background:var(--vermelho);color:white;padding:4px 8px;border-radius:4px;border:none;font-size:11px;cursor:pointer;margin-left:8px;}
 .btn-sair{background:var(--vermelho);color:white;padding:10px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;margin-bottom:15px;float:right;}
 
 .card{background:var(--bg-card);border-radius:14px;padding:22px;margin-bottom:20px;border:1px solid rgba(255,255,255,0.05);}
-.card h2{font-size:15px;margin-bottom:15px;color:#94A3B8;}
+.card h2{font-size:15px;margin-bottom:15px;color:#94A3B8;display:flex;justify-content:space-between;align-items:center;}
 
 .caixas{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:20px;}
 .caixa{background:rgba(0,0,0,0.25);padding:15px;border-radius:10px;text-align:center;}
@@ -60,7 +62,9 @@ td input{width:100%;background:rgba(30,30,30,0.6);border:1px solid #374151;color
 
 .linha-membro{display:flex;align-items:center;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,0.05);flex-wrap:nowrap;gap:4px;}
 .nome-membro{flex:2;min-width:140px;font-size:14px;}
+.nome-membro input{width:100%;background:rgba(30,30,30,0.6);border:1px solid transparent;color:white;padding:4px 6px;border-radius:4px;font-size:14px;}
 .meta-membro{color:#94A3B8;font-size:14px;width:60px;text-align:center;font-weight:600;}
+.meta-membro input{width:100%;background:rgba(30,30,30,0.6);border:1px solid transparent;color:white;padding:4px 2px;border-radius:4px;font-size:14px;text-align:center;}
 .bolinha{width:32px;height:32px;border-radius:6px;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;background:#1f2937;transition:all 0.15s;}
 .bolinha.vazia{background:#1f2937;}
 .bolinha.vermelho{background:var(--vermelho);}
@@ -123,7 +127,9 @@ td input{width:100%;background:rgba(30,30,30,0.6);border:1px solid #374151;color
     </div>
     
     <div class="card">
-      <h2>👥 CONTROLE DE FARM — COLABORADORES</h2>
+      <h2>👥 CONTROLE DE FARM — COLABORADORES
+        <button class="btn-adicionar" onclick="adicionarMembro()">➕ ADICIONAR MEMBRO</button>
+      </h2>
       <div class="legenda">
         <span>Não cumprida</span>
         <span>Parcial</span>
@@ -139,6 +145,7 @@ td input{width:100%;background:rgba(30,30,30,0.6);border:1px solid #374151;color
         <div style="width:32px;text-align:center;">5</div>
         <div style="width:32px;text-align:center;">6</div>
         <div style="width:32px;text-align:center;">7</div>
+        <div style="width:50px;"></div>
       </div>
       <div id="corpoMembros"></div>
     </div>
@@ -251,13 +258,14 @@ function renderMembros(){
     for(let d=0;d<7;d++){
       const estado = m.dias[d];
       const emoji = estado === 'verde' ? '🟢' : estado === 'amarelo' ? '🟡' : estado === 'vermelho' ? '🔴' : '';
-      diasHTML += `<button class="bolinha ${estado}" onclick="mudarBolinha(${idx},${d})" data-dia="${d}" data-estado="${estado}">${emoji}</button>`;
+      diasHTML += `<button class="bolinha ${estado}" onclick="mudarBolinha(${idx},${d})">${emoji}</button>`;
     }
     
     linha.innerHTML = `
-      <div class="nome-membro">${m.nome}</div>
-      <input class="meta-membro" style="width:60px;text-align:center;padding:4px;border-radius:4px;border:none;background:transparent;color:inherit;" value="${m.meta}" oninput="dados.membros[${idx}].meta=this.value">
+      <div class="nome-membro"><input value="${m.nome}" oninput="dados.membros[${idx}].nome=this.value"></div>
+      <div class="meta-membro"><input value="${m.meta}" oninput="dados.membros[${idx}].meta=this.value"></div>
       ${diasHTML}
+      <button class="btn-remover" onclick="removerMembro(${idx})">🗑️</button>
     `;
     corpo.appendChild(linha);
   });
@@ -268,6 +276,24 @@ function mudarBolinha(idx, dia){
   const proximoIdx = (ESTADOS.indexOf(atual) + 1) % ESTADOS.length;
   dados.membros[idx].dias[dia] = ESTADOS[proximoIdx];
   renderMembros();
+}
+
+function adicionarMembro(){
+  dados.membros.push({
+    nome: 'Novo Membro',
+    meta: '240',
+    dias: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']
+  });
+  renderMembros();
+  salvar();
+}
+
+function removerMembro(idx){
+  if(confirm('Tem certeza que deseja remover este membro?')){
+    dados.membros.splice(idx, 1);
+    renderMembros();
+    salvar();
+  }
 }
 
 function copiarLink(){
@@ -285,16 +311,13 @@ if(window.location.hash === '#visitante'){
     document.getElementById('conteudo').classList.remove('oculto');
     document.querySelector('.botoes').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#94A3B8;padding:15px;">👀 Modo visualização — atualize a página para ver mudanças</div>';
     document.querySelector('.btn-sair').style.display = 'none';
+    document.querySelector('.btn-adicionar').style.display = 'none';
     carregar();
     
     setTimeout(()=>{
-      document.querySelectorAll('input').forEach(el=>{
+      document.querySelectorAll('input, button').forEach(el=>{
         el.style.pointerEvents = 'none';
-        el.style.opacity = '0.7';
-      });
-      document.querySelectorAll('.bolinha').forEach(el=>{
-        el.style.cursor = 'default';
-        el.style.pointerEvents = 'none';
+        if(el.tagName !== 'BUTTON' || !el.classList.contains('bolinha')) el.style.opacity = '0.7';
       });
     }, 100);
   }, 100);

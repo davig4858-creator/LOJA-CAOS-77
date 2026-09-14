@@ -5,89 +5,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LOJA CAOS 77 — Painel</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-
-:root{
-  --bg-dark: #0A0F1A;
-  --bg-card: #0F1726;
-  --azul: #00D4FF;
-  --verde: #00FF88;
-  --vermelho: #FF5252;
-  --amarelo: #FFD700;
-  --roxo: #8B5CF6;
-  --texto: #E5E7EB;
-}
-
-body{
-  background:var(--bg-dark);
-  min-height:100vh;
-  color:var(--texto);
-  padding:15px;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+:root{--bg:#0A0F1A;--card:#0F1726;--azul:#00D4FF;--verde:#00FF88;--verm:#FF5252;--amar:#FFD700;--roxo:#8B5CF6;--txt:#E5E7EB;}
+body{background:var(--bg);color:var(--txt);padding:15px;min-height:100vh;}
 .container{max-width:100%;margin:0 auto;}
-
 header{text-align:center;margin-bottom:20px;}
-header h1{font-size:20px;background:linear-gradient(90deg,var(--azul),var(--verde));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+header h1{font-size:20px;color:var(--azul);}
 
-.senha-tela{
-  position:fixed;top:0;left:0;right:0;bottom:0;
-  background:var(--bg-dark);display:flex;align-items:center;justify-content:center;z-index:999;
-}
-.senha-box{background:var(--bg-card);padding:40px 30px;border-radius:16px;width:90%;max-width:360px;text-align:center;}
-.senha-box h2{margin-bottom:24px;color:var(--azul);}
-.senha-box input{width:100%;padding:14px;border-radius:8px;border:1px solid #374151;background:rgba(30,30,30,0.6);color:white;font-size:16px;margin-bottom:16px;text-align:center;}
-.senha-box button{width:100%;padding:14px;border-radius:8px;border:none;background:linear-gradient(90deg,var(--azul),#009ed6);color:white;font-size:16px;font-weight:600;cursor:pointer;}
+.senha-tela{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;}
+.senha-box{background:var(--card);padding:40px 30px;border-radius:16px;width:90%;max-width:360px;text-align:center;}
+.senha-box h2{margin-bottom:20px;color:var(--azul);}
+.senha-box input{width:100%;padding:14px;border-radius:8px;border:1px solid #374151;background:#1e1e1e;color:white;font-size:16px;margin-bottom:16px;text-align:center;}
+.senha-box button{width:100%;padding:14px;border-radius:8px;border:none;background:var(--azul);color:white;font-size:16px;font-weight:bold;cursor:pointer;}
 
 .botoes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:15px;}
-.btn{border:none;padding:12px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;}
-.btn-salvar{background:linear-gradient(90deg,var(--verde),#00c56c);color:black;}
-.btn-link{background:linear-gradient(90deg,var(--azul),#009ed6);color:white;}
-.btn-adicionar{background:linear-gradient(90deg,var(--roxo),#6D28D9);color:white;padding:10px 16px;border-radius:8px;border:none;font-weight:600;cursor:pointer;margin-bottom:15px;font-size:14px;}
-.btn-remover{background:var(--vermelho);color:white;padding:4px 8px;border-radius:4px;border:none;font-size:11px;cursor:pointer;}
-.btn-sair{background:var(--vermelho);color:white;padding:10px 16px;border:none;border-radius:8px;font-weight:600;cursor:pointer;margin-bottom:15px;float:right;}
+.btn{border:none;padding:12px;border-radius:10px;font-size:14px;font-weight:bold;cursor:pointer;}
+.btn-salvar{background:var(--verde);color:black;}
+.btn-link{background:var(--azul);color:white;}
+.btn-add{background:var(--roxo);color:white;padding:10px 16px;border-radius:8px;border:none;font-weight:bold;cursor:pointer;margin-bottom:15px;font-size:14px;}
+.btn-del{background:var(--verm);color:white;padding:4px 8px;border-radius:4px;border:none;font-size:11px;cursor:pointer;}
+.btn-sair{background:var(--verm);color:white;padding:10px 16px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;margin-bottom:15px;float:right;}
 
-.card{background:var(--bg-card);border-radius:14px;padding:18px;margin-bottom:15px;border:1px solid rgba(255,255,255,0.05);}
+.card{background:var(--card);border-radius:14px;padding:18px;margin-bottom:15px;border:1px solid #222;}
 .card h2{font-size:14px;margin-bottom:12px;color:#94A3B8;}
 
 .caixas{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:15px;}
-.caixa{background:rgba(0,0,0,0.25);padding:12px;border-radius:10px;text-align:center;}
-.caixa label{font-size:11px;color:#94A3B8;display:block;margin-bottom:6px;}
-.caixa input{width:100%;background:rgba(30,30,30,0.6);border:1px solid #374151;color:white;padding:8px;border-radius:6px;font-size:16px;font-weight:700;text-align:center;}
+.caixa{background:#1a1a1a;padding:12px;border-radius:10px;text-align:center;}
+.caixa label{font-size:11px;color:#94A3B8;margin-bottom:6px;display:block;}
+.caixa input{width:100%;background:#1e1e1e;border:1px solid #333;color:white;padding:8px;border-radius:6px;font-size:16px;font-weight:bold;text-align:center;}
 
-.linha-cabecalho{display:flex;align-items:center;padding:8px 4px 10px 4px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:11px;color:#94A3B8;font-weight:600;}
-.col-nome{width:180px;flex-shrink:0;}
-.col-meta{width:60px;text-align:center;flex-shrink:0;}
-.col-fac{width:38px;text-align:center;flex-shrink:0;}
-.col-acao{width:50px;text-align:center;flex-shrink:0;}
+table{width:100%;border-collapse:collapse;margin-bottom:8px;}
+th{text-align:left;padding:8px;color:#94A3B8;font-size:12px;border-bottom:1px solid #222;}
+td{padding:6px;border-bottom:1px solid #222;}
+td input{width:100%;background:#1e1e1e;border:1px solid #333;color:white;padding:5px 6px;border-radius:4px;font-size:13px;}
 
-.bloco-membro{padding:8px 4px;border-bottom:1px solid rgba(255,255,255,0.05);}
-.linha-fac1,.linha-fac2{display:flex;align-items:center;flex-wrap:nowrap;}
-.linha-fac1{margin-bottom:4px;}
-.linha-fac2{padding-left:240px;}
+.linha-cab{display:flex;padding:6px 4px 10px 4px;border-bottom:1px solid #222;font-size:11px;color:#94A3B8;font-weight:bold;}
+.c-nome{width:160px;flex-shrink:0;}
+.c-meta{width:55px;text-align:center;flex-shrink:0;}
+.c-dia{width:36px;text-align:center;flex-shrink:0;}
+.c-acao{width:50px;text-align:center;flex-shrink:0;}
 
-.nome-membro{width:180px;flex-shrink:0;font-size:13px;}
-.nome-membro input{width:100%;background:rgba(30,30,30,0.6);border:1px solid transparent;color:white;padding:5px 6px;border-radius:4px;font-size:13px;}
-.meta-membro{width:60px;text-align:center;flex-shrink:0;}
-.meta-membro input{width:100%;background:rgba(30,30,30,0.6);border:1px solid transparent;color:white;padding:5px 2px;border-radius:4px;font-size:13px;text-align:center;}
-.bolinha{width:34px;height:34px;border-radius:6px;border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;background:#1f2937;transition:all 0.15s;flex-shrink:0;}
-.bolinha.vazia{background:#1f2937;}
-.bolinha.vermelho{background:var(--vermelho);}
-.bolinha.amarelo{background:var(--amarelo);color:#000;}
-.bolinha.verde{background:var(--verde);color:#000;}
-.espaco-fac2{width:240px;flex-shrink:0;}
+.bloco-membro{padding:8px 4px;border-bottom:1px solid #222;}
+.linha-f1,.linha-f2{display:flex;align-items:center;flex-wrap:nowrap;}
+.linha-f1{margin-bottom:4px;}
+.linha-f2{padding-left:215px;}
+.espaco-f2{width:215px;flex-shrink:0;}
+
+.nome-membro{width:160px;flex-shrink:0;font-size:13px;}
+.nome-membro input{width:100%;background:#1e1e1e;border:1px solid transparent;color:white;padding:5px 6px;border-radius:4px;font-size:13px;}
+.meta-membro{width:55px;text-align:center;flex-shrink:0;}
+.meta-membro input{width:100%;background:#1e1e1e;border:1px solid transparent;color:white;padding:5px 2px;border-radius:4px;font-size:13px;text-align:center;}
+.bolinha{width:34px;height:34px;border-radius:6px;border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;background:#2a2a2a;flex-shrink:0;}
+.b-vazia{background:#2a2a2a;}
+.b-verm{background:var(--verm);}
+.b-amar{background:var(--amar);color:black;}
+.b-verd{background:var(--verde);color:black;}
 
 .legenda{display:flex;gap:15px;font-size:12px;color:#94A3B8;margin-bottom:12px;flex-wrap:wrap;}
 .legenda span{display:flex;align-items:center;gap:4px;}
 .legenda span::before{content:'';width:14px;height:14px;border-radius:3px;}
-.legenda span:nth-child(1)::before{background:var(--vermelho);}
-.legenda span:nth-child(2)::before{background:var(--amarelo);}
+.legenda span:nth-child(1)::before{background:var(--verm);}
+.legenda span:nth-child(2)::before{background:var(--amar);}
 .legenda span:nth-child(3)::before{background:var(--verde);}
 
 .oculto{display:none !important;}
-.sucesso{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--verde);color:black;padding:12px 24px;border-radius:8px;font-weight:600;z-index:100;opacity:0;transition:opacity 0.3s;}
-.sucesso.mostrar{opacity:1;}
+.aviso{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--verde);color:black;padding:12px 24px;border-radius:8px;font-weight:bold;z-index:100;opacity:0;transition:opacity .3s;}
+.aviso.mostrar{opacity:1;}
 </style>
 </head>
 <body>
@@ -100,7 +83,7 @@ header h1{font-size:20px;background:linear-gradient(90deg,var(--azul),var(--verd
   </div>
 </div>
 
-<div class="sucesso" id="aviso">✅ SALVO!</div>
+<div class="aviso" id="aviso">✅ SALVO!</div>
 
 <div id="conteudo" class="oculto">
   <div class="container">
@@ -110,8 +93,8 @@ header h1{font-size:20px;background:linear-gradient(90deg,var(--azul),var(--verd
     <div style="clear:both;"></div>
     
     <div class="botoes">
-      <button class="btn btn-salvar" onclick="salvar()">💾 SALVAR ALTERAÇÕES</button>
-      <button class="btn btn-link" onclick="copiarLink()">🔗 COPIAR LINK DE VISITANTE</button>
+      <button class="btn btn-salvar" onclick="salvar()">💾 SALVAR</button>
+      <button class="btn btn-link" onclick="copiarLink()">🔗 LINK VISITANTE</button>
     </div>
     
     <div class="caixas">
@@ -127,16 +110,12 @@ header h1{font-size:20px;background:linear-gradient(90deg,var(--azul),var(--verd
     
     <div class="card">
       <h2>💎 TABELA DE VALORES — FRAGMENTOS</h2>
-      <table>
-        <thead><tr><th>Quantidade</th><th>Valor</th></tr></thead>
-        <tbody id="corpoValores"></tbody>
-      </table>
+      <table><thead><tr><th>Quantidade</th><th>Valor</th></tr></thead><tbody id="corpoValores"></tbody></table>
     </div>
     
     <div class="card">
       <h2>👥 CONTROLE DE FARM — COLABORADORES</h2>
-      
-      <button class="btn-adicionar" onclick="adicionarMembro()">➕ ADICIONAR NOVO MEMBRO</button>
+      <button class="btn-add" onclick="adicionarMembro()">➕ ADICIONAR MEMBRO</button>
       
       <div class="legenda">
         <span>🔴 Não cumprida</span>
@@ -144,27 +123,17 @@ header h1{font-size:20px;background:linear-gradient(90deg,var(--azul),var(--verd
         <span>🟢 Cumprida</span>
       </div>
       
-      <div class="linha-cabecalho">
-        <div class="col-nome">COLABORADOR</div>
-        <div class="col-meta">META</div>
-        <div class="col-fac">1</div>
-        <div class="col-fac">2</div>
-        <div class="col-fac">3</div>
-        <div class="col-fac">4</div>
-        <div class="col-fac">5</div>
-        <div class="col-fac">6</div>
-        <div class="col-fac">7</div>
-        <div class="col-acao"></div>
+      <div class="linha-cab">
+        <div class="c-nome">COLABORADOR</div>
+        <div class="c-meta">META</div>
+        <div class="c-dia">1</div><div class="c-dia">2</div><div class="c-dia">3</div>
+        <div class="c-dia">4</div><div class="c-dia">5</div><div class="c-dia">6</div><div class="c-dia">7</div>
+        <div class="c-acao"></div>
       </div>
-      <div class="linha-cabecalho" style="border-bottom:none;padding-top:0;">
-        <div class="espaco-fac2"></div>
-        <div class="col-fac">1</div>
-        <div class="col-fac">2</div>
-        <div class="col-fac">3</div>
-        <div class="col-fac">4</div>
-        <div class="col-fac">5</div>
-        <div class="col-fac">6</div>
-        <div class="col-fac">7</div>
+      <div class="linha-cab" style="border:none;padding-top:0;">
+        <div class="espaco-f2"></div>
+        <div class="c-dia">1</div><div class="c-dia">2</div><div class="c-dia">3</div>
+        <div class="c-dia">4</div><div class="c-dia">5</div><div class="c-dia">6</div><div class="c-dia">7</div>
       </div>
       
       <div id="corpoMembros"></div>
@@ -178,44 +147,43 @@ header h1{font-size:20px;background:linear-gradient(90deg,var(--azul),var(--verd
 
 <script>
 const SENHA = '123477';
-const ESTADOS = ['vazia', 'vermelho', 'amarelo', 'verde'];
+const ESTADOS = ['vazia','verm','amar','verd'];
 const CHAVE = 'lojaCaos77Dados';
 
 let dados = {
   caixaFac: 'R$ 4.500.000,00',
   caixaPag: 'R$ 15.094.522,00',
   valores: [
-    {qtd: '250 Fragmentos', valor: 'R$ 550,00'},
-    {qtd: '1.250 Fragmentos', valor: 'R$ 2.500kk'},
-    {qtd: '2.500 Fragmentos', valor: 'R$ 5.500kk'},
-    {qtd: '3.750 Fragmentos', valor: 'R$ 8.500kk'}
+    {qtd:'250 Fragmentos',valor:'R$ 550,00'},
+    {qtd:'1.250 Fragmentos',valor:'R$ 2.500kk'},
+    {qtd:'2.500 Fragmentos',valor:'R$ 5.500kk'},
+    {qtd:'3.750 Fragmentos',valor:'R$ 8.500kk'}
   ],
   membros: [
-    {nome: 'Sr Bristow', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Katy Bristow', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Andres Bristow', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Ferrari Bristow', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Vn Bristow', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Patrik Bristow', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Garcia Bristow', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Vt Bristow', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Lula Bristow', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Breck Bristow', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Boladin Xt', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Sr Ghostt', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Laa Diabla', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Ejuan Handi', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Eduarda Faria', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Mateus Faria', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Zé Bagaceira', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Alex Gadernal', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Aquino Menezes', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Connorr Dyygeras', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Loo Diablo', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Lewandowski Silva', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
-    {nome: 'Sr Luizsr', meta: '240', dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'], dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']}
-  ],
-  ultimaAtualizacao: ''
+    {nome:'Sr Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Katy Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Andres Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Ferrari Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Vn Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Patrik Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Garcia Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Vt Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Lula Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Breck Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Boladin Xt',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Sr Ghostt',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Laa Diabla',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Ejuan Handi',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Eduarda Faria',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Mateus Faria',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Zé Bagaceira',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Alex Gadernal',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Aquino Menezes',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Connorr Dyygeras',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Loo Diablo',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Lewandowski Silva',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Sr Luizsr',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']}
+  ]
 };
 
 const LINK_ATUAL = window.location.href.split('#')[0];
@@ -229,140 +197,91 @@ function entrar(){
     carregar();
   }
 }
-
 function sair(){
   document.getElementById('conteudo').classList.add('oculto');
-  document.getElementById('telaSenha").classList.remove('oculto');
+  document.getElementById('telaSenha').classList.remove('oculto');
   document.getElementById('senhaInput').value = '';
 }
-
 function carregar(){
-  const salvo = localStorage.getItem(CHAVE);
-  if(salvo) dados = JSON.parse(salvo);
-  
+  const s = localStorage.getItem(CHAVE);
+  if(s) dados = JSON.parse(s);
   document.getElementById('caixaFac').value = dados.caixaFac;
   document.getElementById('caixaPag').value = dados.caixaPag;
-  
   renderValores();
   renderMembros();
 }
-
 function salvar(){
   dados.caixaFac = document.getElementById('caixaFac').value;
   dados.caixaPag = document.getElementById('caixaPag').value;
-  dados.ultimaAtualizacao = new Date().toLocaleString('pt-BR');
   localStorage.setItem(CHAVE, JSON.stringify(dados));
-  
-  const aviso = document.getElementById('aviso');
-  aviso.classList.add('mostrar');
-  setTimeout(()=>aviso.classList.remove('mostrar'), 2500);
+  const a = document.getElementById('aviso');
+  a.classList.add('mostrar');
+  setTimeout(()=>a.classList.remove('mostrar'),2500);
 }
-
 function renderValores(){
-  const corpo = document.getElementById('corpoValores');
-  corpo.innerHTML = '';
+  const c = document.getElementById('corpoValores');
+  c.innerHTML = '';
   dados.valores.forEach((v,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td><input value="${v.qtd}" oninput="dados.valores[${i}].qtd=this.value"></td><td><input value="${v.valor}" oninput="dados.valores[${i}].valor=this.value"></td>`;
-    corpo.appendChild(tr);
+    const r = document.createElement('tr');
+    r.innerHTML = `<td><input value="${v.qtd}" oninput="dados.valores[${i}].qtd=this.value"></td><td><input value="${v.valor}" oninput="dados.valores[${i}].valor=this.value"></td>`;
+    c.appendChild(r);
   });
 }
-
 function renderMembros(){
-  const corpo = document.getElementById('corpoMembros');
-  corpo.innerHTML = '';
+  const c = document.getElementById('corpoMembros');
+  c.innerHTML = '';
   dados.membros.forEach((m,idx)=>{
-    const bloco = document.createElement('div');
-    bloco.className = 'bloco-membro';
-    
-    let dias1HTML = '';
-    let dias2HTML = '';
-    for(let d=0;d<7;d++){
-      const e1 = m.dias1[d];
-      const e2 = m.dias2[d];
-      const emoji1 = e1 === 'verde' ? '🟢' : e1 === 'amarelo' ? '🟡' : e1 === 'vermelho' ? '🔴' : '';
-      const emoji2 = e2 === 'verde' ? '🟢' : e2 === 'amarelo' ? '🟡' : e2 === 'vermelho' ? '🔴' : '';
-      dias1HTML += `<button class="bolinha ${e1}" onclick="mudarBolinha(${idx},1,${d})">${emoji1}</button>`;
-      dias2HTML += `<button class="bolinha ${e2}" onclick="mudarBolinha(${idx},2,${d})">${emoji2}</button>`;
+    const b = document.createElement('div');
+    b.className = 'bloco-membro';
+    let d1='',d2='';
+    for(let i=0;i<7;i++){
+      const e1=m.dias1[i],e2=m.dias2[i];
+      const em1=e1=='verd'?'🟢':e1=='amar'?'🟡':e1=='verm'?'🔴':'';
+      const em2=e2=='verd'?'🟢':e2=='amar'?'🟡':e2=='verm'?'🔴':'';
+      d1+=`<button class="bolinha b-${e1}" onclick="mudar(${idx},1,${i})">${em1}</button>`;
+      d2+=`<button class="bolinha b-${e2}" onclick="mudar(${idx},2,${i})">${em2}</button>`;
     }
-    
-    bloco.innerHTML = `
-      <div class="linha-fac1">
+    b.innerHTML = `
+      <div class="linha-f1">
         <div class="nome-membro"><input value="${m.nome}" oninput="dados.membros[${idx}].nome=this.value"></div>
         <div class="meta-membro"><input value="${m.meta}" oninput="dados.membros[${idx}].meta=this.value"></div>
-        ${dias1HTML}
-        <button class="btn-remover" onclick="removerMembro(${idx})">🗑️</button>
+        ${d1}<button class="btn-del" onclick="remover(${idx})">🗑️</button>
       </div>
-      <div class="linha-fac2">
-        <div class="espaco-fac2"></div>
-        ${dias2HTML}
-      </div>
+      <div class="linha-f2"><div class="espaco-f2"></div>${d2}</div>
     `;
-    corpo.appendChild(bloco);
+    c.appendChild(b);
   });
 }
-
-function mudarBolinha(idx, fac, dia){
-  const alvo = fac === 1 ? dados.membros[idx].dias1 : dados.membros[idx].dias2;
-  const atual = alvo[dia];
-  const proximoIdx = (ESTADOS.indexOf(atual) + 1) % ESTADOS.length;
-  alvo[dia] = ESTADOS[proximoIdx];
+function mudar(idx,f,d){
+  const alvo = f==1?dados.membros[idx].dias1:dados.membros[idx].dias2;
+  const a = ESTADOS.indexOf(alvo[d]);
+  alvo[d] = ESTADOS[(a+1)%4];
   renderMembros();
 }
-
 function adicionarMembro(){
-  dados.membros.push({
-    nome: 'Novo Membro',
-    meta: '240',
-    dias1: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],
-    dias2: ['vazia','vazia','vazia','vazia','vazia','vazia','vazia']
-  });
-  renderMembros();
-  salvar();
-  
-  const aviso = document.getElementById('aviso');
-  aviso.textContent = '✅ MEMBRO ADICIONADO!';
-  aviso.classList.add('mostrar');
-  setTimeout(()=>{aviso.classList.remove('mostrar');aviso.textContent='✅ SALVO!';},2500);
+  dados.membros.push({nome:'Novo Membro',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']});
+  renderMembros();salvar();
+  const a=document.getElementById('aviso');a.textContent='✅ MEMBRO ADICIONADO!';a.classList.add('mostrar');setTimeout(()=>{a.classList.remove('mostrar');a.textContent='✅ SALVO!';},2500);
 }
-
-function removerMembro(idx){
-  if(confirm('Tem certeza que deseja remover este membro?')){
-    dados.membros.splice(idx, 1);
-    renderMembros();
-    salvar();
-  }
+function remover(idx){
+  if(confirm('Remover este membro?')){dados.membros.splice(idx,1);renderMembros();salvar();}
 }
-
 function copiarLink(){
   navigator.clipboard.writeText(LINK_VISITANTE);
-  const aviso = document.getElementById('aviso');
-  aviso.textContent = '🔗 LINK COPIADO!';
-  aviso.classList.add('mostrar');
-  setTimeout(()=>{aviso.classList.remove('mostrar');aviso.textContent='✅ SALVO!';},2500);
+  const a=document.getElementById('aviso');a.textContent='🔗 LINK COPIADO!';a.classList.add('mostrar');setTimeout(()=>{a.classList.remove('mostrar');a.textContent='✅ SALVO!';},2500);
 }
-
-// MODO VISITANTE
-if(window.location.hash === '#visitante'){
+if(window.location.hash==='#visitante'){
   setTimeout(()=>{
     document.getElementById('telaSenha').classList.add('oculto');
     document.getElementById('conteudo').classList.remove('oculto');
-    document.querySelector('.botoes').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#94A3B8;padding:15px;">👀 Modo visualização — atualize a página para ver mudanças</div>';
-    document.querySelector('.btn-sair').style.display = 'none';
-    document.querySelector('.btn-adicionar').style.display = 'none';
+    document.querySelector('.botoes').innerHTML='<div style="padding:15px;text-align:center;color:#94A3B8;">👀 Modo visualização</div>';
+    document.querySelector('.btn-sair').style.display='none';
+    document.querySelector('.btn-add').style.display='none';
     carregar();
-    
-    setTimeout(()=>{
-      document.querySelectorAll('input, button').forEach(el=>{
-        el.style.pointerEvents = 'none';
-        if(el.tagName !== 'BUTTON' || !el.classList.contains('bolinha')) el.style.opacity = '0.7';
-      });
-    }, 100);
-  }, 100);
+    setTimeout(()=>{document.querySelectorAll('input,button').forEach(e=>{e.style.pointerEvents='none';if(!e.classList.contains('bolinha'))e.style.opacity='0.7';});},100);
+  },100);
 }
-
 document.getElementById('senhaInput').addEventListener('keypress',e=>e.key==='Enter'&&entrar());
 </script>
-
 </body>
 </html>

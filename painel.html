@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOJA CAOS 77 — Painel de Controle</title>
+<title>🔥 LOJA CAOS 77 — Painel de Controle</title>
 <style>
 *{
   margin:0;
@@ -12,87 +12,149 @@
   font-family:'Segoe UI', Arial, sans-serif;
 }
 body{
-  background:#0A0F1A;
+  background:#12121F;
   min-height:100vh;
-  color:#fff;
+  color:#E0E0E0;
   padding:20px;
 }
 .container{
-  max-width:900px;
+  max-width:1000px;
   margin:0 auto;
 }
 h1{
   text-align:center;
   color:#00D4FF;
-  margin-bottom:30px;
-  font-size:28px;
+  margin-bottom:25px;
+  font-size:22px;
 }
 .card{
-  background:#0F1726;
+  background:#1A1A2E;
   padding:20px;
   border-radius:12px;
   margin-bottom:20px;
-  border:1px solid #172338;
+  border:1px solid #2A2A44;
 }
 .card h3{
   margin-bottom:12px;
-  font-size:16px;
+  font-size:15px;
+  color:#CCC;
 }
 input{
-  width:100%;
-  padding:14px 16px;
+  padding:10px 14px;
   border:1px solid #333;
-  border-radius:8px;
-  background:rgba(30,30,30,0.8);
+  border-radius:6px;
+  background:#12121F;
   color:#fff;
-  font-size:15px;
-  font-weight:600;
-}
-#caixaFac { border-left:4px solid #00D4FF; }
-#caixaLideres { border-left:4px solid #FFD700; }
-#caixaPagamentos { border-left:4px solid #00FF88; }
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:10px;
-}
-th, td{
-  padding:10px;
-  text-align:left;
-  border-bottom:1px solid #172338;
-}
-th{
-  color:#00D4FF;
   font-size:14px;
+  width:100%;
 }
-.bolinha{
-  cursor:pointer;
-  font-size:20px;
-  padding:2px 6px;
-  user-select:none;
+.caixa-fac { border-left:4px solid #00D4FF; width:100%; margin-bottom:8px; }
+.caixa-lider { border-left:4px solid #FFD700; width:100%; margin-bottom:8px; }
+.caixa-pag { border-left:4px solid #00FF88; width:100%; }
+
+.tabela-precos{ width:100%; border-collapse:collapse; margin-top:10px; }
+.tabela-precos th, .tabela-precos td{
+  padding:10px;
+  text-align:center;
+  border-bottom:1px solid #2A2A44;
 }
-.bolinha:hover{ transform:scale(1.2); }
-.btn{
-  background:#00D4FF;
-  color:#000;
-  font-weight:700;
-  padding:12px 24px;
+.tabela-precos th{ color:#00D4FF; font-size:14px; }
+.tabela-precos input{
+  width:100%;
+  background:transparent;
+  border:none;
+  text-align:center;
+}
+
+.cabecalho-topo{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+.titulo-controle{
+  font-size:16px;
+  font-weight:600;
+  color:#FFF;
+}
+.btn-roxo{
+  background:#7B1FA2;
+  color:#fff;
+  font-weight:600;
+  padding:10px 20px;
   border-radius:8px;
   border:none;
   cursor:pointer;
-  font-size:15px;
-  margin-top:10px;
-  width:100%;
+  font-size:14px;
 }
-.btn:hover{ background:#00B8E6; }
+.btn-roxo:hover{ background:#8E24AA; }
+
+.legenda{
+  display:flex;
+  gap:20px;
+  margin-bottom:15px;
+  font-size:13px;
+}
+.legenda-item{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.legenda-bolinha{
+  width:14px;
+  height:14px;
+  border-radius:3px;
+  display:inline-block;
+}
+
+.tabela-farm{
+  width:100%;
+  border-collapse:collapse;
+}
+.tabela-farm th, .tabela-farm td{
+  padding:10px 6px;
+  text-align:center;
+  border-bottom:1px solid #2A2A44;
+  font-size:14px;
+}
+.tabela-farm th{
+  color:#AAA;
+  font-size:13px;
+  font-weight:500;
+  text-transform:uppercase;
+}
+.tabela-farm th:nth-child(1){ text-align:left; width:200px; padding-left:10px; }
+.tabela-farm th:nth-child(2){ width:80px; }
+.tabela-farm td:nth-child(1){ text-align:left; padding-left:10px; font-size:15px; color:#FFF; font-weight:500; }
+.tabela-farm td:nth-child(2){ font-weight:500; color:#FFF; }
+
+.quadrado{
+  width:30px;
+  height:30px;
+  border-radius:4px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:bold;
+  background:#252538;
+  border:1px solid #333355;
+}
+.quadrado:hover{ transform:scale(1.08); transition:0.1s; }
+.vazio{ background:#252538; border:1px solid #333355; }
+.vermelho{ background:#E53935; color:#fff; border:none; }
+.amarelo{ background:#FDD835; color:#000; border:none; }
+.verde{ background:#43A047; color:#fff; border:none; }
+
 .visitante-oculto{ display:block; }
 .link-box{
-  background:#172338;
+  background:#12121F;
   padding:12px;
-  border-radius:8px;
+  border-radius:6px;
   margin-top:10px;
-  font-size:13px;
-  color:#aaa;
+  font-size:12px;
+  color:#888;
   word-break:break-all;
 }
 </style>
@@ -100,58 +162,85 @@ th{
 <body>
 
 <div class="container">
-  <h1>🔥 LOJA CAOS 77 — PAINEL DE CONTROLE</h1>
+  <h1>🔥 LOJA CAOS 77 — Painel de Controle</h1>
 
-  <!-- 🏦 CAIXA DA FAC -->
   <div class="card visitante-oculto">
     <h3>🏦 CAIXA DA FAC</h3>
-    <input type="text" id="caixaFac" placeholder="Valor da caixa da fac..." oninput="salvarDados()">
+    <input type="text" id="caixaFac" class="caixa-fac" placeholder="Digite o valor..." oninput="salvarDados()">
   </div>
 
-  <!-- 🏦 CAIXA DOS LÍDERES -->
   <div class="card visitante-oculto">
     <h3>🏦 CAIXA DOS LÍDERES</h3>
-    <input type="text" id="caixaLideres" placeholder="Valor da caixa dos líderes..." oninput="salvarDados()">
+    <input type="text" id="caixaLideres" class="caixa-lider" placeholder="Digite o valor..." oninput="salvarDados()">
   </div>
 
-  <!-- 💰 CAIXA DE PAGAMENTOS -->
   <div class="card">
     <h3>💰 CAIXA DE PAGAMENTOS</h3>
-    <input type="text" id="caixaPagamentos" placeholder="Valor disponível para pagamentos..." oninput="salvarDados()">
+    <input type="text" id="caixaPagamentos" class="caixa-pag" placeholder="Digite o valor..." oninput="salvarDados()">
   </div>
 
-  <!-- 📊 TABELA DE VALORES -->
   <div class="card">
     <h3>📊 TABELA DE VALORES — FRAGMENTOS</h3>
-    <table>
-      <tr><th>Quantidade</th><th>Valor</th></tr>
-      <tr><td>250 fragmentos</td><td>550.000</td></tr>
-      <tr><td>1.250 fragmentos</td><td>2.500kk</td></tr>
-      <tr><td>2.500 fragmentos</td><td>5.500kk</td></tr>
-      <tr><td>3.750 fragmentos</td><td>8.500kk</td></tr>
+    <table class="tabela-precos">
+      <thead>
+        <tr>
+          <th>Quantidade</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" value="250 fragmentos" readonly></td>
+          <td><input type="text" value="550.000" readonly></td>
+        </tr>
+        <tr>
+          <td><input type="text" value="1.250 fragmentos" readonly></td>
+          <td><input type="text" value="2.500kk" readonly></td>
+        </tr>
+        <tr>
+          <td><input type="text" value="2.500 fragmentos" readonly></td>
+          <td><input type="text" value="5.500kk" readonly></td>
+        </tr>
+        <tr>
+          <td><input type="text" value="3.750 fragmentos" readonly></td>
+          <td><input type="text" value="8.500kk" readonly></td>
+        </tr>
+      </tbody>
     </table>
   </div>
 
-  <!-- 👥 CONTROLE DE COLABORADORES -->
   <div class="card">
-    <h3>👥 CONTROLE DE COLABORADORES</h3>
-    <table id="tabelaMembros">
+    <div class="cabecalho-topo">
+      <div class="titulo-controle">📋 CONTROLE DE FARM — COLABORADORES</div>
+      <button class="btn-roxo" onclick="adicionarMembro()">➕ ADICIONAR MEMBRO</button>
+    </div>
+    
+    <div class="legenda">
+      <div class="legenda-item"><span class="legenda-bolinha" style="background:#E53935;"></span> Não cumprida</div>
+      <div class="legenda-item"><span class="legenda-bolinha" style="background:#FDD835;"></span> Parcial</div>
+      <div class="legenda-item"><span class="legenda-bolinha" style="background:#43A047;"></span> Cumprida</div>
+    </div>
+
+    <table class="tabela-farm">
       <thead>
         <tr>
-          <th>Nome</th>
-          <th>Meta (240)</th>
-          <th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th>
+          <th>COLABORADOR</th>
+          <th>META</th>
+          <th>2ª<br>Fera</th>
+          <th>3ª<br>Fera</th>
+          <th>4ª<br>Fera</th>
+          <th>5ª<br>Fera</th>
+          <th>6ª<br>Fera</th>
+          <th>Sáb</th>
+          <th>Dom</th>
         </tr>
       </thead>
       <tbody id="corpoMembros">
-        <!-- Os membros serão carregados aqui -->
+        <!-- Os nomes vão aparecer aqui automaticamente -->
       </tbody>
     </table>
-    <button class="btn" onclick="adicionarMembro()">➕ Adicionar Membro</button>
-    <button class="btn" onclick="salvarDados()">💾 Salvar Alterações</button>
   </div>
 
-  <!-- 🔗 LINKS -->
   <div class="card visitante-oculto">
     <h3>🔗 LINKS DE ACESSO</h3>
     <div class="link-box">
@@ -159,7 +248,7 @@ th{
       <span id="linkAdmin"></span>
     </div>
     <div class="link-box">
-      <strong>Link Visitante (compartilhe):</strong><br>
+      <strong>Link Visitante:</strong><br>
       <span id="linkVisitante"></span>
     </div>
   </div>
@@ -167,20 +256,37 @@ th{
 
 <script>
 const membrosPadrao = [
-  "Sr Bristow", "Katy Bristow", "Andres Bristow", "Ferrari Bristow",
-  "Vn Bristow", "Patrik Bristow", "Garcia Bristow", "Vt Bristow",
-  "Lula Bristow", "Breck Bristow", "Boladin Xt", "Sr Ghostt",
-  "Laa Diabla", "Ejuan Handi", "Eduarda Faria", "Mateus Faria",
-  "Zé Bagaceira", "Alex Gadernal", "Aquino Menezes", "Connorr",
-  "Dyygeras", "Lanterna Preta"
+  "Sr Bristow",
+  "Katy Bristow",
+  "Andres Bristow",
+  "Ferrari Bristow",
+  "Vn Bristow",
+  "Patrik Bristow",
+  "Garcia Bristow",
+  "Vt Bristow",
+  "Lula Bristow",
+  "Breck Bristow",
+  "Boladin Xt",
+  "Sr Ghostt",
+  "Laa Diabla",
+  "Ejuan Handi",
+  "Eduarda Faria",
+  "Mateus Faria",
+  "Zé Bagaceira",
+  "Alex Gadernal",
+  "Aquino Menezes",
+  "Connorr",
+  "Dyygeras",
+  "Lanterna Preta"
 ];
 
-let bolinhas = ['🔴', '🟡', '🟢'];
-let dados = JSON.parse(localStorage.getItem('dadosPainel')) || {
+const classes = ['vazio', 'vermelho', 'amarelo', 'verde'];
+
+let dados = JSON.parse(localStorage.getItem('dadosPainelCAOS77')) || {
   membros: membrosPadrao.map(nome => ({
     nome: nome,
     meta: 240,
-    dias: ['🔴','🔴','🔴','🔴','🔴','🔴','🔴']
+    dias: [0,0,0,0,0,0,0]
   })),
   caixaFac: '',
   caixaLideres: '',
@@ -190,33 +296,28 @@ let dados = JSON.parse(localStorage.getItem('dadosPainel')) || {
 function renderizarTabela(){
   const corpo = document.getElementById('corpoMembros');
   corpo.innerHTML = '';
+  
   dados.membros.forEach((membro, idx) => {
     const linha = document.createElement('tr');
+    let diasHTML = '';
+    
+    membro.dias.forEach((cor, dia) => {
+      diasHTML += `<td><div class="quadrado ${classes[cor]}" onclick="trocarCor(${idx}, ${dia})"></div></td>`;
+    });
+    
     linha.innerHTML = `
-      <td><input type="text" value="${membro.nome}" onchange="alterarNome(${idx}, this.value)" style="background:transparent;border:none;color:#fff;width:100%;"></td>
-      <td><input type="number" value="${membro.meta}" onchange="alterarMeta(${idx}, this.value)" style="width:60px;padding:4px;"></td>
-      ${membro.dias.map((b, d) => `<td class="bolinha" onclick="trocarBolinha(${idx}, ${d})">${b}</td>`).join('')}
+      <td>${membro.nome}</td>
+      <td>${membro.meta}</td>
+      ${diasHTML}
     `;
     corpo.appendChild(linha);
   });
 }
 
-function trocarBolinha(idxMembro, dia){
-  let atual = dados.membros[idxMembro].dias[dia];
-  let i = bolinhas.indexOf(atual);
-  dados.membros[idxMembro].dias[dia] = bolinhas[(i + 1) % 3];
+function trocarCor(idx, dia){
+  dados.membros[idx].dias[dia] = (dados.membros[idx].dias[dia] + 1) % 4;
   salvarDados();
   renderizarTabela();
-}
-
-function alterarNome(idx, valor){
-  dados.membros[idx].nome = valor;
-  salvarDados();
-}
-
-function alterarMeta(idx, valor){
-  dados.membros[idx].meta = parseInt(valor) || 240;
-  salvarDados();
 }
 
 function adicionarMembro(){
@@ -225,7 +326,7 @@ function adicionarMembro(){
     dados.membros.push({
       nome: nome.trim(),
       meta: 240,
-      dias: ['🔴','🔴','🔴','🔴','🔴','🔴','🔴']
+      dias: [0,0,0,0,0,0,0]
     });
     salvarDados();
     renderizarTabela();
@@ -236,28 +337,30 @@ function salvarDados(){
   dados.caixaFac = document.getElementById('caixaFac').value;
   dados.caixaLideres = document.getElementById('caixaLideres').value;
   dados.caixaPagamentos = document.getElementById('caixaPagamentos').value;
-  localStorage.setItem('dadosPainel', JSON.stringify(dados));
+  localStorage.setItem('dadosPainelCAOS77', JSON.stringify(dados));
 }
 
 function carregarDados(){
-  document.getElementById('caixaFac').value = dados.caixaFac;
-  document.getElementById('caixaLideres').value = dados.caixaLideres;
-  document.getElementById('caixaPagamentos').value = dados.caixaPagamentos;
+  const salvo = localStorage.getItem('dadosPainelCAOS77');
+  if(salvo){
+    dados = JSON.parse(salvo);
+  }
+  document.getElementById('caixaFac').value = dados.caixaFac || '';
+  document.getElementById('caixaLideres').value = dados.caixaLideres || '';
+  document.getElementById('caixaPagamentos').value = dados.caixaPagamentos || '';
   renderizarTabela();
 }
 
 function configurarLinks(){
   const url = window.location.href;
   document.getElementById('linkAdmin').textContent = url;
-  document.getElementById('linkVisitante').textContent = url.replace('painel.html', 'visitante.html') + '?visitante=1';
+  document.getElementById('linkVisitante').textContent = url.split('?')[0] + '?visitante=1';
   
-  // Verifica se é modo visitante
   if(window.location.search.includes('visitante=1')){
     document.querySelectorAll('.visitante-oculto').forEach(el => el.style.display = 'none');
   }
 }
 
-// Inicializar
 carregarDados();
 configurarLinks();
 </script>

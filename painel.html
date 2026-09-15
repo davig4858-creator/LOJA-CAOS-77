@@ -3,344 +3,317 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 LOJA CAOS 77 — Painel de Controle</title>
+<title>LOJA CAOS 77 — Painel</title>
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI', Arial, sans-serif;
-}
-body{
-  background:#1A1B26;
-  min-height:100vh;
-  color:#E0E0E0;
-  padding:20px;
-}
-.container{
-  max-width:950px;
-  margin:0 auto;
-}
-h1{
-  text-align:center;
-  color:#00D4FF;
-  margin-bottom:25px;
-  font-size:22px;
-}
-.card{
-  background:#24283B;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:20px;
-  border:1px solid #33375C;
-}
-.card h3{
-  margin-bottom:12px;
-  font-size:15px;
-  color:#CCC;
-}
-input{
-  padding:10px 14px;
-  border:1px solid #444;
-  border-radius:6px;
-  background:#1A1B26;
-  color:#fff;
-  font-size:14px;
-  width:100%;
-}
-.caixa-fac { border-left:4px solid #00D4FF; width:100%; margin-bottom:8px; }
-.caixa-lider { border-left:4px solid #FFD700; width:100%; margin-bottom:8px; }
-.caixa-pag { border-left:4px solid #00FF88; width:100%; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+:root{--bg:#0A0F1A;--card:#0F1726;--azul:#00D4FF;--verde:#00FF88;--verm:#FF5252;--amar:#FFD700;--roxo:#8B5CF6;--txt:#E5E7EB;}
+body{background:var(--bg);color:var(--txt);padding:15px;min-height:100vh;}
+.container{max-width:100%;margin:0 auto;}
+header{text-align:center;margin-bottom:20px;}
+header h1{font-size:20px;color:var(--azul);}
 
-.tabela-precos{ width:100%; border-collapse:collapse; margin-top:10px; }
-.tabela-precos th, .tabela-precos td{
-  padding:10px;
-  text-align:center;
-  border-bottom:1px solid #33375C;
-}
-.tabela-precos th{ color:#00D4FF; font-size:14px; }
+.senha-tela{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;}
+.senha-box{background:var(--card);padding:40px 30px;border-radius:16px;width:90%;max-width:360px;text-align:center;}
+.senha-box h2{margin-bottom:20px;color:var(--azul);}
+.senha-box input{width:100%;padding:14px;border-radius:8px;border:1px solid #374151;background:#1e1e1e;color:white;font-size:16px;margin-bottom:16px;text-align:center;}
+.senha-box button{width:100%;padding:14px;border-radius:8px;border:none;background:var(--azul);color:white;font-size:16px;font-weight:bold;cursor:pointer;}
 
-.top-bar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:15px;
-}
-.btn-add{
-  background:#9D65C9;
-  color:#fff;
-  font-weight:600;
-  padding:10px 20px;
-  border-radius:8px;
-  border:none;
-  cursor:pointer;
-  font-size:14px;
-}
-.btn-add:hover{ background:#B57EDC; }
+.botoes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:15px;}
+.btn{border:none;padding:12px;border-radius:10px;font-size:14px;font-weight:bold;cursor:pointer;}
+.btn-salvar{background:var(--verde);color:black;}
+.btn-link{background:var(--azul);color:white;}
+.btn-add{background:var(--roxo);color:white;padding:10px 16px;border-radius:8px;border:none;font-weight:bold;cursor:pointer;margin-bottom:15px;font-size:14px;}
+.btn-del{background:var(--verm);color:white;padding:4px 8px;border-radius:4px;border:none;font-size:11px;cursor:pointer;}
+.btn-sair{background:var(--verm);color:white;padding:10px 16px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;margin-bottom:15px;float:right;}
 
-.legenda{
-  display:flex;
-  gap:18px;
-  margin-bottom:20px;
-  font-size:13px;
-}
-.legenda-item{
-  display:flex;
-  align-items:center;
-  gap:5px;
-}
-.legenda-cor{
-  width:14px;
-  height:14px;
-  border-radius:3px;
-  display:inline-block;
-}
+.card{background:var(--card);border-radius:14px;padding:18px;margin-bottom:15px;border:1px solid #222;overflow-x:auto;}
+.card h2{font-size:14px;margin-bottom:12px;color:#94A3B8;}
 
-.linha-membro{
-  padding:12px 10px;
-  border-bottom:1px solid #33375C;
-}
-.nome-membro{
-  font-size:16px;
-  font-weight:600;
-  color:#FFFFFF;
-  margin-bottom:4px;
-  display:block;
-}
-.fileira{
-  display:flex;
-  gap:5px;
-  margin-bottom:4px;
-}
-.fileira-baixa{
-  margin-left:110px;
-}
-.bolinha{
-  width:30px;
-  height:30px;
-  border-radius:4px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  font-size:16px;
-  font-weight:bold;
-  background:#343452;
-  border:1px solid #444466;
-}
-.bolinha:hover{ transform:scale(1.08); transition:0.1s; }
-.vazio{ background:#343452; border:1px solid #444466; }
-.vermelho{ background:#E53935; color:#fff; border:none; }
-.amarelo{ background:#FDD835; color:#000; border:none; }
-.verde{ background:#43A047; color:#fff; border:none; }
+.caixas{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:15px;}
+.caixa{background:#1a1a1a;padding:12px;border-radius:10px;text-align:center;}
+.caixa label{font-size:11px;color:#94A3B8;margin-bottom:6px;display:block;}
+.caixa input{width:100%;background:#1e1e1e;border:1px solid #333;color:white;padding:8px;border-radius:6px;font-size:16px;font-weight:bold;text-align:center;}
 
-.visitante-oculto{ display:block; }
-.link-box{
-  background:#1A1B26;
-  padding:12px;
-  border-radius:6px;
-  margin-top:10px;
-  font-size:12px;
-  color:#888;
-  word-break:break-all;
-}
+table{width:100%;border-collapse:collapse;margin-bottom:8px;}
+th{text-align:left;padding:8px;color:#94A3B8;font-size:12px;border-bottom:1px solid #222;}
+td{padding:6px;border-bottom:1px solid #222;}
+td input{width:100%;background:#1e1e1e;border:1px solid #333;color:white;padding:5px 6px;border-radius:4px;font-size:13px;}
+
+.tabela-dias{width:100%;min-width:700px;}
+.cab-dias{display:flex;align-items:center;padding:6px 4px;border-bottom:1px solid #333;}
+.cab-nome{width:150px;flex-shrink:0;font-weight:bold;font-size:12px;}
+.cab-meta{width:50px;text-align:center;flex-shrink:0;font-weight:bold;font-size:12px;}
+.cab-dia-col{width:56px;text-align:center;flex-shrink:0;font-size:11px;color:#94A3B8;}
+
+.linha-membro{padding:8px 4px;border-bottom:1px solid #222;}
+.linha-topo{display:flex;align-items:center;margin-bottom:2px;}
+.linha-baixo{display:flex;align-items:center;}
+
+.nome-col{width:150px;flex-shrink:0;font-size:13px;}
+.nome-col input{width:100%;background:#1e1e1e;border:1px solid transparent;color:white;padding:4px 6px;border-radius:4px;font-size:13px;}
+.meta-col{width:50px;text-align:center;flex-shrink:0;}
+.meta-col input{width:100%;background:#1e1e1e;border:1px solid transparent;color:white;padding:4px 2px;border-radius:4px;font-size:13px;text-align:center;}
+
+.dia-col{width:56px;display:flex;justify-content:center;flex-shrink:0;}
+.bolinha{width:26px;height:26px;border-radius:5px;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;background:#2a2a2a;transition:all .15s;}
+.b-vazia{background:#2a2a2a;}
+.b-verm{background:var(--verm);}
+.b-amar{background:var(--amar);color:black;}
+.b-verd{background:var(--verde);color:black;}
+
+.legenda{display:flex;gap:15px;font-size:12px;color:#94A3B8;margin-bottom:12px;flex-wrap:wrap;}
+.legenda span{display:flex;align-items:center;gap:4px;}
+.legenda span::before{content:'';width:14px;height:14px;border-radius:3px;}
+.legenda span:nth-child(1)::before{background:var(--verm);}
+.legenda span:nth-child(2)::before{background:var(--amar);}
+.legenda span:nth-child(3)::before{background:var(--verde);}
+
+.oculto{display:none !important;}
+.aviso{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--verde);color:black;padding:12px 24px;border-radius:8px;font-weight:bold;z-index:100;opacity:0;transition:opacity .3s;}
+.aviso.mostrar{opacity:1;}
 </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>🔥 LOJA CAOS 77 — Painel de Controle</h1>
-
-  <div class="card visitante-oculto">
-    <h3>🏦 CAIXA DA FAC</h3>
-    <input type="text" id="caixaFac" class="caixa-fac" placeholder="Valor..." oninput="salvarDados()">
+<div class="senha-tela" id="telaSenha">
+  <div class="senha-box">
+    <h2>⚡ LOJA CAOS 77</h2>
+    <input type="password" id="senhaInput" placeholder="Senha de Admin">
+    <button onclick="entrar()">🔐 ENTRAR</button>
   </div>
+</div>
 
-  <div class="card visitante-oculto">
-    <h3>🏦 CAIXA DOS LÍDERES</h3>
-    <input type="text" id="caixaLideres" class="caixa-lider" placeholder="Valor..." oninput="salvarDados()">
-  </div>
+<div class="aviso" id="aviso">✅ SALVO!</div>
 
-  <div class="card">
-    <h3>💰 CAIXA DE PAGAMENTOS</h3>
-    <input type="text" id="caixaPagamentos" class="caixa-pag" placeholder="Valor..." oninput="salvarDados()">
-  </div>
-
-  <div class="card">
-    <h3>📊 TABELA DE VALORES — FRAGMENTOS</h3>
-    <table class="tabela-precos">
-      <thead>
-        <tr><th>Quantidade</th><th>Valor</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>250 fragmentos</td><td>550.000</td></tr>
-        <tr><td>1.250 fragmentos</td><td>2.500kk</td></tr>
-        <tr><td>2.500 fragmentos</td><td>5.500kk</td></tr>
-        <tr><td>3.750 fragmentos</td><td>8.500kk</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="card">
-    <div class="top-bar">
-      <h3 style="margin:0;">📋 CONTROLE DE FARM — COLABORADORES</h3>
-      <button class="btn-add" onclick="adicionarMembro()">➕ ADICIONAR MEMBRO</button>
+<div id="conteudo" class="oculto">
+  <div class="container">
+    <header><h1>⚡ LOJA CAOS 77 — PAINEL DE CONTROLE</h1></header>
+    
+    <button class="btn-sair" onclick="sair()">🚪 SAIR</button>
+    <div style="clear:both;"></div>
+    
+    <div class="botoes">
+      <button class="btn btn-salvar" onclick="salvar()">💾 SALVAR</button>
+      <button class="btn btn-link" onclick="copiarLink()">🔗 LINK VISITANTE</button>
     </div>
     
-    <div class="legenda">
-      <div class="legenda-item"><span class="legenda-cor" style="background:#E53935;"></span> Não cumprida</div>
-      <div class="legenda-item"><span class="legenda-cor" style="background:#FDD835;"></span> Parcial</div>
-      <div class="legenda-item"><span class="legenda-cor" style="background:#43A047;"></span> Cumprida</div>
+    <div class="caixas">
+      <div class="caixa">
+        <label>🏦 CAIXA DA FACÇÃO</label>
+        <input type="text" id="caixaFac" value="R$ 5.000.000,00">
+      </div>
+      <div class="caixa">
+        <label>👑 CAIXA DOS LÍDERES</label>
+        <input type="text" id="caixaLider" value="R$ 0,00">
+      </div>
+      <div class="caixa">
+        <label>💵 CAIXA DE PAGAMENTO</label>
+        <input type="text" id="caixaPag" value="R$ 18.214.502,00">
+      </div>
     </div>
-
-    <div id="listaMembros">
-      <!-- Os nomes vão aparecer aqui -->
+    
+    <div class="card">
+      <h2>💎 TABELA DE VALORES — FRAGMENTOS</h2>
+      <table><thead><tr><th>Quantidade</th><th>Valor</th></tr></thead><tbody>
+        <tr><td><input value="250 Fragmentos"></td><td><input value="R$ 550,00"></td></tr>
+        <tr><td><input value="1.250 Fragmentos"></td><td><input value="R$ 3.600k"></td></tr>
+        <tr><td><input value="2.500 Fragmentos"></td><td><input value="R$ 7.000k"></td></tr>
+        <tr><td><input value="3.750 Fragmentos"></td><td><input value="R$ 10.550k"></td></tr>
+      </tbody></table>
     </div>
-  </div>
-
-  <div class="card visitante-oculto">
-    <h3>🔗 LINKS DE ACESSO</h3>
-    <div class="link-box">
-      <strong>Link Admin:</strong><br>
-      <span id="linkAdmin"></span>
+    
+    <div class="card">
+      <h2>👥 CONTROLE DE FARM — COLABORADORES</h2>
+      <button class="btn-add" onclick="adicionarMembro()">➕ ADICIONAR MEMBRO</button>
+      
+      <div class="legenda">
+        <span>🔴 Não cumprida</span>
+        <span>🟡 Parcial</span>
+        <span>🟢 Cumprida</span>
+      </div>
+      
+      <div class="tabela-dias">
+        <div class="cab-dias">
+          <div class="cab-nome">COLABORADOR</div>
+          <div class="cab-meta">META</div>
+          <div class="cab-dia-col">2ª<br>Feira</div>
+          <div class="cab-dia-col">3ª<br>Feira</div>
+          <div class="cab-dia-col">4ª<br>Feira</div>
+          <div class="cab-dia-col">5ª<br>Feira</div>
+          <div class="cab-dia-col">6ª<br>Feira</div>
+          <div class="cab-dia-col">Sáb</div>
+          <div class="cab-dia-col">Dom</div>
+          <div class="cab-dia-col" style="width:40px;"></div>
+        </div>
+        
+        <div id="corpoMembros"></div>
+      </div>
     </div>
-    <div class="link-box">
-      <strong>Link Visitante:</strong><br>
-      <span id="linkVisitante"></span>
+    
+    <div class="card" style="text-align:center;font-size:13px;color:#94A3B8;">
+      📱 Link de visitante: <span id="linkVisitante" style="color:var(--azul);word-break:break-all;"></span>
     </div>
   </div>
 </div>
 
 <script>
-const membrosPadrao = [
-  "Sr Bristow",
-  "Katy Bristow",
-  "Andres Bristow",
-  "Ferrari Bristow",
-  "Vn Bristow",
-  "Patrik Bristow",
-  "Garcia Bristow",
-  "Vt Bristow",
-  "Lula Bristow",
-  "Breck Bristow",
-  "Boladin Xt",
-  "Sr Ghostt",
-  "Laa Diabla",
-  "Ejuan Handi",
-  "Eduarda Faria",
-  "Mateus Faria",
-  "Zé Bagaceira",
-  "Alex Gadernal",
-  "Aquino Menezes",
-  "Connorr",
-  "Dyygeras",
-  "Lanterna Preta"
-];
-
-const classes = ['vazio', 'vermelho', 'amarelo', 'verde'];
+const SENHA = '123477';
+const ESTADOS = ['vazia','verm','amar','verd'];
+const CHAVE = 'lojaCaos77Dados';
 
 let dados = {
-  membros: membrosPadrao.map(nome => ({
-    nome: nome,
-    fileiraCima: [0,0,0,0,0,0,0],
-    fileiraBaixo: [0,0,0,0,0,0,0]
-  })),
-  caixaFac: '',
-  caixaLideres: '',
-  caixaPagamentos: ''
+  caixaFac: 'R$ 5.000.000,00',
+  caixaLider: 'R$ 0,00',
+  caixaPag: 'R$ 18.214.502,00',
+  membros: [
+    {nome:'Sr Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Katy Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Andres Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Ferrari Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Vn Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Patrik Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Garcia Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Vt Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Lula Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Breck Bristow',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Boladin Xt',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Sr Ghostt',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Laa Diabla',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Ejuan Handi',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Eduarda Faria',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Mateus Faria',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Zé Bagaceira',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Alex Gadernal',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Aquino Menezes',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Connorr Dyygeras',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Lanterna Preta',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Lewandowski Silva',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']},
+    {nome:'Sr Luizsr',meta:'240',dias1:['vazia','vazia','vazia','vazia','vazia','vazia','vazia'],dias2:['vazia','vazia','vazia','vazia','vazia','vazia','vazia']}
+  ]
 };
 
-function renderizarLista(){
-  const container = document.getElementById('listaMembros');
-  container.innerHTML = '';
-  
-  dados.membros.forEach((membro, idx) => {
-    let cimaHTML = '';
-    let baixoHTML = '';
+const LINK_ATUAL = window.location.href.split('#')[0];
+const LINK_VISITANTE = LINK_ATUAL + '#visitante';
+document.getElementById('linkVisitante').textContent = LINK_VISITANTE;
+
+function entrar(){
+  if(document.getElementById('senhaInput').value === SENHA){
+    document.getElementById('telaSenha').classList.add('oculto');
+    document.getElementById('conteudo').classList.remove('oculto');
+    carregar();
+  }
+}
+function sair(){
+  document.getElementById('conteudo').classList.add('oculto');
+  document.getElementById('telaSenha').classList.remove('oculto');
+  document.getElementById('senhaInput').value = '';
+}
+function carregar(){
+  const s = localStorage.getItem(CHAVE);
+  if(s) dados = JSON.parse(s);
+  document.getElementById('caixaFac').value = dados.caixaFac;
+  document.getElementById('caixaLider').value = dados.caixaLider;
+  document.getElementById('caixaPag').value = dados.caixaPag;
+  renderMembros();
+}
+function salvar(){
+  dados.caixaFac = document.getElementById('caixaFac').value;
+  dados.caixaLider = document.getElementById('caixaLider').value;
+  dados.caixaPag = document.getElementById('caixaPag').value;
+  localStorage.setItem(CHAVE, JSON.stringify(dados));
+  const a = document.getElementById('aviso');
+  a.classList.add('mostrar');
+  setTimeout(()=>a.classList.remove('mostrar'),2500);
+}
+function renderMembros(){
+  const c = document.getElementById('corpoMembros');
+  c.innerHTML = '';
+  dados.membros.forEach((m,idx)=>{
+    const b = document.createElement('div');
+    b.className = 'linha-membro';
     
-    for(let d=0; d<7; d++){
-      cimaHTML += `<div class="bolinha ${classes[membro.fileiraCima[d]]}" onclick="trocarCima(${idx},${d})"></div>`;
-    }
-    for(let d=0; d<7; d++){
-      baixoHTML += `<div class="bolinha ${classes[membro.fileiraBaixo[d]]}" onclick="trocarBaixo(${idx},${d})"></div>`;
+    let topo = '';
+    for(let i=0;i<7;i++){
+      const e=m.dias1[i];
+      const em=e=='verd'?'🟢':e=='amar'?'🟡':e=='verm'?'🔴':'';
+      topo += `<div class="dia-col"><button class="bolinha b-${e}" onclick="mudar(${idx},1,${i})">${em}</button></div>`;
     }
     
-    container.innerHTML += `
-      <div class="linha-membro">
-        <span class="nome-membro">${membro.nome}</span>
-        <div class="fileira">${cimaHTML}</div>
-        <div class="fileira fileira-baixa">${baixoHTML}</div>
+    let baixo = '';
+    for(let i=0;i<7;i++){
+      const e=m.dias2[i];
+      const em=e=='verd'?'🟢':e=='amar'?'🟡':e=='verm'?'🔴':'';
+      baixo += `<div class="dia-col"><button class="bolinha b-${e}" onclick="mudar(${idx},2,${i})">${em}</button></div>`;
+    }
+    
+    b.innerHTML = `
+      <div class="linha-topo">
+        <div class="nome-col"><input value="${m.nome}" oninput="dados.membros[${idx}].nome=this.value"></div>
+        <div class="meta-col"><input value="${m.meta}" oninput="dados.membros[${idx}].meta=this.value"></div>
+        ${topo}
+        <div class="dia-col" style="width:40px;"></div>
+      </div>
+      <div class="linha-baixo">
+        <div class="nome-col"></div>
+        <div class="meta-col"></div>
+        ${baixo}
+        <div class="dia-col" style="width:40px;"><button class="btn-del" onclick="remover(${idx})">🗑️</button></div>
       </div>
     `;
+    c.appendChild(b);
   });
 }
-
-function trocarCima(idx, pos){
-  dados.membros[idx].fileiraCima[pos] = (dados.membros[idx].fileiraCima[pos] + 1) % 4;
-  salvarDados();
-  renderizarLista();
+function mudar(idx,linha,d){
+  const alvo = linha===1 ? dados.membros[idx].dias1 : dados.membros[idx].dias2;
+  const a = ESTADOS.indexOf(alvo[d]);
+  alvo[d] = ESTADOS[(a+1)%4];
+  renderMembros();
 }
-
-function trocarBaixo(idx, pos){
-  dados.membros[idx].fileiraBaixo[pos] = (dados.membros[idx].fileiraBaixo[pos] + 1) % 4;
-  salvarDados();
-  renderizarLista();
-}
-
 function adicionarMembro(){
-  const nome = prompt('Digite o nome do novo membro:');
-  if(nome && nome.trim()){
-    dados.membros.push({
-      nome: nome.trim(),
-      fileiraCima: [0,0,0,0,0,0,0],
-      fileiraBaixo: [0,0,0,0,0,0,0]
-    });
-    salvarDados();
-    renderizarLista();
+  dados.membros.push({
+    nome:'Novo Membro',
+    meta:'240',
+    dias1:Array(7).fill('vazia'),
+    dias2:Array(7).fill('vazia')
+  });
+  renderMembros();
+  salvar();
+  const a=document.getElementById('aviso');
+  a.textContent='✅ MEMBRO ADICIONADO!';
+  a.classList.add('mostrar');
+  setTimeout(()=>{a.classList.remove('mostrar');a.textContent='✅ SALVO!';},2500);
+}
+function remover(idx){
+  if(confirm('Remover este membro?')){
+    dados.membros.splice(idx,1);
+    renderMembros();
+    salvar();
   }
 }
-
-function salvarDados(){
-  dados.caixaFac = document.getElementById('caixaFac').value;
-  dados.caixaLideres = document.getElementById('caixaLideres').value;
-  dados.caixaPagamentos = document.getElementById('caixaPagamentos').value;
-  localStorage.setItem('dadosPainelCAOS77', JSON.stringify(dados));
+function copiarLink(){
+  navigator.clipboard.writeText(LINK_VISITANTE);
+  const a=document.getElementById('aviso');
+  a.textContent='🔗 LINK COPIADO!';
+  a.classList.add('mostrar');
+  setTimeout(()=>{a.classList.remove('mostrar');a.textContent='✅ SALVO!';},2500);
 }
-
-function carregarDados(){
-  const salvo = localStorage.getItem('dadosPainelCAOS77');
-  if(salvo){
-    const parseado = JSON.parse(salvo);
-    dados = {
-      membros: parseado.membros || membrosPadrao.map(nome => ({
-        nome: nome,
-        fileiraCima: [0,0,0,0,0,0,0],
-        fileiraBaixo: [0,0,0,0,0,0,0]
-      })),
-      caixaFac: parseado.caixaFac || '',
-      caixaLideres: parseado.caixaLideres || '',
-      caixaPagamentos: parseado.caixaPagamentos || ''
-    };
-  }
-  document.getElementById('caixaFac').value = dados.caixaFac;
-  document.getElementById('caixaLideres').value = dados.caixaLideres;
-  document.getElementById('caixaPagamentos').value = dados.caixaPagamentos;
-  renderizarLista();
+if(window.location.hash==='#visitante'){
+  setTimeout(()=>{
+    document.getElementById('telaSenha').classList.add('oculto');
+    document.getElementById('conteudo').classList.remove('oculto');
+    document.querySelector('.botoes').innerHTML='<div style="padding:15px;text-align:center;color:#94A3B8;">👀 Modo visualização — atualize a página para ver mudanças</div>';
+    document.querySelector('.btn-sair').style.display='none';
+    document.querySelector('.btn-add').style.display='none';
+    carregar();
+    setTimeout(()=>{
+      document.querySelectorAll('input,button').forEach(e=>{
+        e.style.pointerEvents='none';
+        if(!e.classList.contains('bolinha')) e.style.opacity='0.7';
+      });
+    },100);
+  },100);
 }
-
-function configurarLinks(){
-  const url = window.location.href;
-  document.getElementById('linkAdmin').textContent = url;
-  document.getElementById('linkVisitante').textContent = url.split('?')[0] + '?visitante=1';
-  
-  if(window.location.search.includes('visitante=1')){
-    document.querySelectorAll('.visitante-oculto').forEach(el => el.style.display = 'none');
-  }
-}
-
-carregarDados();
-configurarLinks();
+document.getElementById('senhaInput').addEventListener('keypress',e=>e.key==='Enter'&&entrar());
 </script>
-
 </body>
 </html>

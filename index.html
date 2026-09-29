@@ -57,7 +57,6 @@ body {
 
 .container { max-width: 900px; margin: 0 auto; }
 
-/* === DESTAQUE NO TOPO === */
 .destaque-topo {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -112,12 +111,6 @@ body {
   margin-top: 6px;
   transition: all 0.3s ease;
 }
-.bloco-conta .input-destaque:focus {
-  border-color: var(--azul);
-  box-shadow: 0 0 0 3px rgba(0,212,255,0.2);
-}
-.bloco-sobra .input-destaque { background: rgba(0,0,0,0.2); border-color: rgba(255,215,0,0.2); }
-.bloco-reserva .input-destaque { background: rgba(0,0,0,0.2); border-color: rgba(0,255,148,0.2); }
 .input-destaque:read-only { cursor: default; }
 .input-destaque::placeholder { color: var(--cinza); }
 
@@ -188,11 +181,11 @@ body {
   box-shadow: 0 0 0 2px rgba(0,212,255,0.15);
 }
 .valor-input::placeholder { color: var(--cinza); }
-
 .valor-input.auto { 
   background: rgba(0,255,148,0.06); 
   border-color: rgba(0,255,148,0.2);
   color: var(--verde);
+  font-weight: 800;
 }
 .legenda-auto { 
   font-size: 0.75rem; 
@@ -349,12 +342,11 @@ body {
 
 <div class="cabecalho">
   <h1>🏠 CONTROLE DE GASTOS — CASA</h1>
-  <p>10% para sobra · 90% para reserva</p>
+  <p>10% para sobra · 90% para reserva · Cartões = soma automática das parcelas</p>
 </div>
 
 <div class="container">
 
-  <!-- === DESTAQUE NO TOPO === -->
   <div class="destaque-topo">
     <div class="bloco-destaque bloco-conta">
       <div class="rotulo-destaque" style="color: var(--azul);">🏦 CONTA BANCÁRIA</div>
@@ -370,7 +362,6 @@ body {
     </div>
   </div>
 
-  <!-- === CONTAS FIXAS === -->
   <div class="cartao">
     <div class="titulo-secao">
       <span class="icone" style="background: rgba(255,215,0,0.1);">📋</span>
@@ -403,13 +394,13 @@ body {
     </div>
     <div class="linha-item">
       <div class="nome-conta">
-        <span class="icone" style="background: rgba(255,149,0,0.1);">💳</span> CARTÕES
+        <span class="icone" style="background: rgba(255,149,0,0.1);">💳</span> CARTÕES 
+        <small class="legenda-auto">(soma automática)</small>
       </div>
-      <input type="text" class="valor-input" id="cartoes" placeholder="R$ 0,00" oninput="calcularTudo()">
+      <input type="text" class="valor-input auto" id="cartoesTotal" placeholder="R$ 0,00" readonly style="font-weight: 800; width: 160px;">
     </div>
   </div>
 
-  <!-- === DISTRIBUIÇÃO AUTOMÁTICA === -->
   <div class="cartao">
     <div class="titulo-secao">
       <span class="icone" style="background: rgba(0,212,255,0.1);">📊</span>
@@ -446,7 +437,6 @@ body {
     </div>
   </div>
 
-  <!-- === PARCELAS === -->
   <div class="cartao">
     <div class="titulo-secao">
       <span class="icone" style="background: rgba(255,215,0,0.1);">📝</span>
@@ -457,16 +447,22 @@ body {
         <tr>
           <th style="width: 42%;">Descrição</th>
           <th style="width: 18%;">Parcelas</th>
-          <th style="width: 32%;">Valor</th>
+          <th style="width: 32%;">Valor Mensal</th>
           <th style="width: 8%;"></th>
         </tr>
       </thead>
       <tbody id="corpoTabela"></tbody>
+      <tfoot>
+        <tr style="border-top: 2px solid rgba(0,255,148,0.2);">
+          <td colspan="2" style="text-align: right; font-weight: 700; padding-right: 12px;">TOTAL PARCELAS →</td>
+          <td style="font-weight: 800; color: var(--verde);" id="totalParcelas">R$ 0,00</td>
+          <td></td>
+        </tr>
+      </tfoot>
     </table>
     <button class="btn-adicionar" onclick="adicionarLinha()">➕ Adicionar Compromisso</button>
   </div>
 
-  <!-- === ENTRADAS MENSAL === -->
   <div class="cartao">
     <div class="titulo-secao">
       <span class="icone" style="background: rgba(0,255,148,0.1);">📈</span>
@@ -497,7 +493,6 @@ body {
     </div>
   </div>
 
-  <!-- === TOTAL GERAL === -->
   <div class="cartao total-geral">
     <div class="linha-item" style="border-bottom: none;">
       <div class="nome-conta" style="font-weight: 700; font-size: 1.05rem;">
@@ -525,57 +520,65 @@ function extrairNumero(valor) {
   return parseFloat(valor.replace(/\D/g, '')) / 100 || 0;
 }
 
+function somarParcelas() {
+  let total = 0;
+  document.querySelectorAll('#corpoTabela tr').forEach(tr => {
+    const inputs = tr.querySelectorAll('input');
+    if (inputs.length >= 3) {
+      total += extrairNumero(inputs[2].value);
+    }
+  });
+  return total;
+}
+
 function calcularTudo() {
-  // Somar todos os meses → Conta Bancária
   const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
   let totalRecebido = 0;
   meses.forEach(id => totalRecebido += extrairNumero(document.getElementById(id).value));
 
-  // Contas Fixas
   const luz = extrairNumero(document.getElementById('luz').value);
   const agua = extrairNumero(document.getElementById('agua').value);
   const compras = extrairNumero(document.getElementById('compras').value);
   const internet = extrairNumero(document.getElementById('internet').value);
-  const cartoes = extrairNumero(document.getElementById('cartoes').value);
-  const somaFixas = luz + agua + compras + internet + cartoes;
-
-  // Conta Bancária = total recebido
-  const contaBancaria = totalRecebido;
-  document.getElementById('contaBancaria').value = contaBancaria > 0 
-    ? contaBancaria.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
+  
+  // CARTÕES = SOMA EXCLUSIVA DAS PARCELAS
+  const totalParcelas = somarParcelas();
+  const cartoesTotal = totalParcelas;
+  
+  // Atualiza os valores na tela
+  document.getElementById('totalParcelas').textContent = totalParcelas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  document.getElementById('cartoesTotal').value = cartoesTotal > 0 
+    ? cartoesTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
     : '';
 
-  // Disponível = total - contas fixas
+  const somaFixas = luz + agua + compras + internet + cartoesTotal;
+
+  const contaBancaria = totalRecebido;
   const disponivel = contaBancaria - somaFixas;
 
-  // NOVA DIVISÃO: 10% Sobra / 90% Reserva
   let valorSobra = 0, reserva = 0;
   if (disponivel > 0) {
-    valorSobra = disponivel * 0.10;   // 10%
-    reserva = disponivel * 0.90;       // 90%
+    valorSobra = disponivel * 0.10;
+    reserva = disponivel * 0.90;
   }
 
-  // Atualizar destaques
-  document.getElementById('valorSobrou').value = valorSobra > 0 ? valorSobra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '';
-  document.getElementById('reserva').value = reserva > 0 ? reserva.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '';
+  const formatar = (n) => n > 0 ? n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '';
+  document.getElementById('contaBancaria').value = formatar(contaBancaria);
+  document.getElementById('valorSobrou').value = formatar(valorSobra);
+  document.getElementById('reserva').value = formatar(reserva);
 
-  // Atualizar caixa de distribuição
   document.getElementById('totalRecebido').textContent = contaBancaria.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   document.getElementById('distFixas').textContent = somaFixas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   document.getElementById('distDisponivel').textContent = disponivel.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   document.getElementById('distSobra').textContent = valorSobra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   document.getElementById('distReserva').textContent = reserva.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-  // Saldo final
   const saldo = contaBancaria - (somaFixas + valorSobra + reserva);
   const elSaldo = document.getElementById('distSaldo');
   elSaldo.textContent = saldo === 0 ? '✅ Fechou certinho!' : saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  elSaldo.className = saldo < 0 ? 'negativo' : 'positivo';
+  elSaldo.className = saldo < 0 ? 'valor-dist negativo' : 'valor-dist positivo';
 
-  // Total geral
   document.getElementById('resultadoGeral').textContent = (somaFixas + valorSobra + reserva).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-  // Total acumulado
   document.getElementById('totalMensal').textContent = totalRecebido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
@@ -585,15 +588,19 @@ function adicionarLinha(dados={nome:'',parcelas:'',valor:''}) {
   tr.innerHTML = `
     <td><input type="text" class="nome-col" value="${dados.nome}" placeholder="Descrição"></td>
     <td><input type="text" class="parc-col" value="${dados.parcelas}" placeholder="10x"></td>
-    <td><input type="text" class="valor-col" value="${dados.valor}" placeholder="R$ 0,00" onblur="this.value=formatarValor(this.value)"></td>
+    <td><input type="text" class="valor-col" value="${dados.valor}" placeholder="R$ 0,00" onblur="this.value=formatarValor(this.value); calcularTudo();"></td>
     <td><button class="btn-linha" onclick="apagarLinha(this)">🗑️</button></td>
   `;
   corpo.appendChild(tr);
+  calcularTudo();
 }
-function apagarLinha(btn) { btn.closest('tr').remove(); }
+function apagarLinha(btn) { 
+  btn.closest('tr').remove(); 
+  calcularTudo();
+}
 
 function salvarTudo() {
-  const camposFixos = ['luz','agua','compras','internet','cartoes'];
+  const camposFixos = ['luz','agua','compras','internet'];
   camposFixos.forEach(id => localStorage.setItem(id, document.getElementById(id).value));
   
   const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
@@ -601,19 +608,29 @@ function salvarTudo() {
   
   const linhas = [];
   document.querySelectorAll('#corpoTabela tr').forEach(tr => {
-    linhas.push({
-      nome: tr.querySelector('.nome-col').value,
-      parcelas: tr.querySelector('.parc-col').value,
-      valor: tr.querySelector('.valor-col').value
-    });
+    const inputs = tr.querySelectorAll('input');
+    if (inputs.length >= 3) {
+      linhas.push({ 
+        nome: inputs[0].value, 
+        parcelas: inputs[1].value, 
+        valor: inputs[2].value 
+      });
+    }
   });
   localStorage.setItem('tabelaParcelas', JSON.stringify(linhas));
   
   alert('✅ Dados salvos!');
 }
 
+function limparTudo() {
+  if (confirm('Tem certeza? Isso apaga todos os dados!')) {
+    localStorage.clear();
+    location.reload();
+  }
+}
+
 function carregarTudo() {
-  const camposFixos = ['luz','agua','compras','internet','cartoes'];
+  const camposFixos = ['luz','agua','compras','internet'];
   camposFixos.forEach(id => {
     const v = localStorage.getItem(id);
     if(v) document.getElementById(id).value = v;

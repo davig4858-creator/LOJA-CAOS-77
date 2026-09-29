@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle de Gastos — Casa</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -17,186 +17,258 @@
 :root {
   --bg: #050714;
   --card: #0F152B;
-  --card-hover: #182247;
   --borda: #1E2A5C;
   --azul: #00D4FF;
   --verde: #00FF94;
   --rosa: #FF2E88;
-  --laranja: #FF9500;
-  --roxo: #7B61FF;
   --amarelo: #FFD600;
   --branco: #FFFFFF;
   --cinza: #8892B8;
+  --cinza-escuro: #253054;
+  --vermelho: #FF4444;
 }
 
 body {
   background: linear-gradient(135deg, #050714 0%, #0F152B 100%);
   min-height: 100vh;
   color: var(--branco);
-  padding: 20px;
+  padding: 15px;
 }
 
 .cabecalho {
   text-align: center;
-  padding: 30px 20px;
-  margin-bottom: 30px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
-
 .cabecalho h1 {
-  font-size: 2.2rem;
-  font-weight: 800;
+  font-size: 1.6rem;
+  font-weight: 700;
   background: linear-gradient(90deg, var(--azul), var(--verde));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: 1px;
 }
+.cabecalho p { color: var(--cinza); margin-top: 5px; font-size: 0.9rem; }
 
-.cabecalho p {
-  color: var(--cinza);
-  margin-top: 8px;
-  font-size: 1rem;
-}
-
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-}
+.container { max-width: 850px; margin: 0 auto; }
 
 .cartao {
   background: var(--card);
   border: 1px solid var(--borda);
-  border-radius: 16px;
-  padding: 25px 30px;
-  margin-bottom: 20px;
-  box-shadow: 0 8px 32px rgba(0, 212, 255, 0.08);
-  transition: all 0.3s ease;
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 15px;
 }
 
-.cartao:hover {
-  border-color: var(--azul);
-  box-shadow: 0 12px 40px rgba(0, 212, 255, 0.15);
-  transform: translateY(-2px);
+.titulo-secao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: var(--amarelo);
+}
+.icone {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
 }
 
+/* === LINHA COMPACTA === */
 .linha-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--borda);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(30,42,92,0.5);
+  gap: 12px;
 }
-
-.linha-item:last-child {
-  border-bottom: none;
-}
+.linha-item:last-child { border-bottom: none; }
 
 .nome-conta {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 1.05rem;
-  font-weight: 600;
-}
-
-.icone {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
+  gap: 10px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  flex: 1;
 }
 
 .valor-input {
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0,0,0,0.3);
   border: 1px solid var(--borda);
-  border-radius: 10px;
+  border-radius: 6px;
   color: var(--branco);
-  padding: 10px 15px;
-  font-size: 1rem;
+  padding: 8px 10px;
+  font-size: 0.9rem;
   font-weight: 600;
   text-align: right;
-  width: 180px;
+  width: 130px;
   outline: none;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
-
 .valor-input:focus {
   border-color: var(--azul);
-  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
+  box-shadow: 0 0 0 2px rgba(0,212,255,0.2);
 }
+.valor-input::placeholder { color: var(--cinza); }
 
-.valor-input::placeholder {
-  color: var(--cinza);
-}
-
-.total {
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 255, 148, 0.15));
-  border: 2px solid var(--azul);
-  margin-top: 10px;
-}
-
-.total .nome-conta {
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.valor-total {
-  font-size: 1.3rem;
-  font-weight: 800;
+.valor-input.auto { 
+  background: rgba(0,255,148,0.08); 
+  border-color: rgba(0,255,148,0.25);
   color: var(--verde);
 }
+.legenda-auto { 
+  font-size: 0.7rem; 
+  color: var(--verde); 
+  margin-left: 6px;
+  opacity: 0.8;
+}
+
+/* === DISTRIBUIÇÃO === */
+.caixa-distribuicao {
+  background: rgba(0,212,255,0.04);
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+}
+.linha-dist {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.08);
+  font-size: 0.9rem;
+}
+.linha-dist:last-child { border-bottom: none; }
+.nome-dist { font-weight: 500; }
+.valor-dist { font-weight: 600; }
+.diferenca { font-weight: 700; }
+.positivo { color: var(--verde); }
+.negativo { color: var(--vermelho); }
+
+/* === TABELAS === */
+.tabela-anotacoes, .tabela-meses { 
+  width: 100%; 
+  border-collapse: separate; 
+  border-spacing: 4px; 
+}
+.tabela-anotacoes th, .tabela-meses th {
+  background: var(--cinza-escuro);
+  padding: 10px 8px;
+  text-align: left;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--amarelo);
+  border-radius: 6px;
+}
+.tabela-anotacoes td, .tabela-meses td { padding: 2px; }
+.tabela-anotacoes input, .tabela-meses input {
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  color: var(--branco);
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  outline: none;
+}
+.tabela-anotacoes input:focus, .tabela-meses input:focus { 
+  border-color: var(--amarelo); 
+  box-shadow: 0 0 0 2px rgba(255,214,0,0.1);
+}
+.tabela-anotacoes input::placeholder, .tabela-meses input::placeholder { color: var(--cinza); }
+
+.btn-linha {
+  background: rgba(255,46,136,0.15);
+  border: none;
+  color: var(--rosa);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.btn-adicionar {
+  background: rgba(0,255,148,0.12);
+  border: none;
+  color: var(--verde);
+  padding: 9px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+.tabela-meses .mes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0,0,0,0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+.tabela-meses .nome-mes { font-weight: 500; font-size: 0.9rem; }
+.tabela-meses input {
+  width: 130px;
+  text-align: right;
+}
+
+.total-mensal {
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(0,255,148,0.08), rgba(0,212,255,0.08));
+  border: 1px solid rgba(0,255,148,0.3);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.valor-total-mensal { color: var(--verde); font-weight: 700; }
+
+.total {
+  background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(0,255,148,0.1));
+  border: 2px solid var(--azul);
+}
+.valor-total { font-weight: 700; color: var(--verde); }
 
 .botoes {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   margin-top: 10px;
-  flex-wrap: wrap;
 }
-
 .btn {
   flex: 1;
-  min-width: 140px;
-  padding: 14px 20px;
+  padding: 12px 16px;
   border: none;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
-
 .btn-salvar {
   background: linear-gradient(90deg, var(--verde), #00CC76);
   color: #000;
 }
-
-.btn-salvar:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 255, 148, 0.3);
-}
-
 .btn-limpar {
-  background: rgba(255, 46, 136, 0.15);
+  background: rgba(255,46,136,0.12);
   color: var(--rosa);
-  border: 1px solid rgba(255, 46, 136, 0.3);
-}
-
-.btn-limpar:hover {
-  background: rgba(255, 46, 136, 0.25);
+  border: 1px solid rgba(255,46,136,0.25);
 }
 
 @media(max-width: 600px) {
-  .linha-item {
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
-  }
-  .valor-input {
-    width: 100%;
-    text-align: left;
-  }
+  .linha-item { flex-wrap: wrap; }
+  .valor-input { width: 110px; }
+  .tabela-meses .mes { flex-direction: column; gap: 6px; align-items: flex-start; }
+  .tabela-meses input { width: 100%; }
 }
 </style>
 </head>
@@ -204,106 +276,188 @@ body {
 
 <div class="cabecalho">
   <h1>🏠 CONTROLE DE GASTOS — CASA</h1>
-  <p>Atualize os valores e veja o total automaticamente</p>
+  <p>Digite → distribui sozinho!</p>
 </div>
 
 <div class="container">
+
+  <!-- === VALORES FIXOS === -->
   <div class="cartao">
-    <!-- LUZ -->
-    <div class="linha-item">
-      <div class="nome-conta">
-        <span class="icone" style="background: rgba(255, 214, 0, 0.15);">⚡</span>
-        LUZ
-      </div>
-      <input type="text" class="valor-input" id="luz" placeholder="R$ 0,00" oninput="atualizarTotal()">
+    <div class="titulo-secao">
+      <span class="icone" style="background: rgba(0,212,255,0.15);">💵</span>
+      CONTAS FIXAS
     </div>
 
-    <!-- ÁGUA -->
     <div class="linha-item">
       <div class="nome-conta">
-        <span class="icone" style="background: rgba(0, 212, 255, 0.15);">💧</span>
-        ÁGUA
+        <span class="icone" style="background: rgba(255,214,0,0.15);">⚡</span> LUZ
       </div>
-      <input type="text" class="valor-input" id="agua" placeholder="R$ 0,00" oninput="atualizarTotal()">
+      <input type="text" class="valor-input" id="luz" placeholder="R$ 0,00" oninput="calcularDistribuicao()">
+    </div>
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(0,212,255,0.15);">💧</span> ÁGUA
+      </div>
+      <input type="text" class="valor-input" id="agua" placeholder="R$ 0,00" oninput="calcularDistribuicao()">
+    </div>
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(255,46,136,0.15);">🛒</span> COMPRAS
+      </div>
+      <input type="text" class="valor-input" id="compras" placeholder="R$ 0,00" oninput="calcularDistribuicao()">
+    </div>
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(123,97,255,0.15);">📶</span> INTERNET
+      </div>
+      <input type="text" class="valor-input" id="internet" placeholder="R$ 0,00" oninput="calcularDistribuicao()">
+    </div>
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(255,149,0,0.15);">💳</span> CARTÕES
+      </div>
+      <input type="text" class="valor-input" id="cartoes" placeholder="R$ 0,00" oninput="calcularDistribuicao()">
     </div>
 
-    <!-- COMPRAS -->
+    <div style="border-top: 1px dashed rgba(30,42,92,0.5); margin: 8px 0;"></div>
+
     <div class="linha-item">
       <div class="nome-conta">
-        <span class="icone" style="background: rgba(255, 46, 136, 0.15);">🛒</span>
-        COMPRAS
+        <span class="icone" style="background: rgba(0,212,255,0.2);">🏦</span> CONTA BANCÁRIA
       </div>
-      <input type="text" class="valor-input" id="compras" placeholder="R$ 0,00" oninput="atualizarTotal()">
+      <input type="text" class="valor-input" id="contaBancaria" placeholder="R$ 0,00" oninput="calcularDistribuicao()">
     </div>
 
-    <!-- INTERNET -->
-    <div class="linha-item">
-      <div class="nome-conta">
-        <span class="icone" style="background: rgba(123, 97, 255, 0.15);">📶</span>
-        INTERNET
-      </div>
-      <input type="text" class="valor-input" id="internet" placeholder="R$ 0,00" oninput="atualizarTotal()">
-    </div>
+    <div style="border-top: 1px dashed rgba(30,42,92,0.5); margin: 8px 0;"></div>
 
-    <!-- CARTÕES -->
     <div class="linha-item">
       <div class="nome-conta">
-        <span class="icone" style="background: rgba(255, 149, 0, 0.15);">💳</span>
-        CARTÕES
+        <span class="icone" style="background: rgba(255,92,0,0.15);">🍔</span> LANCHES
+        <span class="legenda-auto">10%</span>
       </div>
-      <input type="text" class="valor-input" id="cartoes" placeholder="R$ 0,00" oninput="atualizarTotal()">
+      <input type="text" class="valor-input auto" id="lanches" placeholder="—" readonly>
     </div>
-
-    <!-- LANCHES -->
     <div class="linha-item">
       <div class="nome-conta">
-        <span class="icone" style="background: rgba(255, 92, 0, 0.15);">🍔</span>
-        LANCHES
+        <span class="icone" style="background: rgba(0,200,200,0.15);">✈️</span> VIAGENS
+        <span class="legenda-auto">30%</span>
       </div>
-      <input type="text" class="valor-input" id="lanches" placeholder="R$ 0,00" oninput="atualizarTotal()">
+      <input type="text" class="valor-input auto" id="viagens" placeholder="—" readonly>
     </div>
-
-    <!-- VIAGENS -->
     <div class="linha-item">
       <div class="nome-conta">
-        <span class="icone" style="background: rgba(0, 200, 200, 0.15);">✈️</span>
-        VIAGENS
+        <span class="icone" style="background: rgba(0,255,148,0.15);">💰</span> RESERVA
+        <span class="legenda-auto">60%</span>
       </div>
-      <input type="text" class="valor-input" id="viagens" placeholder="R$ 0,00" oninput="atualizarTotal()">
-    </div>
-
-    <!-- RESERVA -->
-    <div class="linha-item">
-      <div class="nome-conta">
-        <span class="icone" style="background: rgba(0, 255, 148, 0.15);">💰</span>
-        RESERVA
-      </div>
-      <input type="text" class="valor-input" id="reserva" placeholder="R$ 0,00" oninput="atualizarTotal()">
-    </div>
-
-    <!-- CONTA BANCÁRIA -->
-    <div class="linha-item">
-      <div class="nome-conta">
-        <span class="icone" style="background: rgba(0, 212, 255, 0.15);">🏦</span>
-        CONTA BANCÁRIA
-      </div>
-      <input type="text" class="valor-input" id="contaBancaria" placeholder="R$ 0,00" oninput="atualizarTotal()">
+      <input type="text" class="valor-input auto" id="reserva" placeholder="—" readonly>
     </div>
   </div>
 
+  <!-- === DISTRIBUIÇÃO === -->
+  <div class="cartao">
+    <div class="titulo-secao">
+      <span class="icone" style="background: rgba(0,212,255,0.15);">📊</span>
+      DISTRIBUIÇÃO
+    </div>
+    <div class="caixa-distribuicao">
+      <div class="linha-dist">
+        <span>🏦 Conta Bancária</span>
+        <span id="distConta">R$ 0,00</span>
+      </div>
+      <div class="linha-dist">
+        <span>📋 Contas Fixas</span>
+        <span id="distFixas">R$ 0,00</span>
+      </div>
+      <div class="linha-dist">
+        <span>📦 Disponível</span>
+        <span id="distDisponivel">R$ 0,00</span>
+      </div>
+      <div style="border-bottom: 1px solid var(--borda); margin: 6px 0;"></div>
+      <div class="linha-dist">
+        <span>🍔 Lanches (10%)</span>
+        <span id="distLanches">R$ 0,00</span>
+      </div>
+      <div class="linha-dist">
+        <span>✈️ Viagens (30%)</span>
+        <span id="distViagens">R$ 0,00</span>
+      </div>
+      <div class="linha-dist">
+        <span>💰 Reserva (60%)</span>
+        <span id="distReserva">R$ 0,00</span>
+      </div>
+      <div style="border-bottom: 1px solid var(--borda); margin: 6px 0;"></div>
+      <div class="linha-dist">
+        <span>⚖️ Saldo</span>
+        <span id="distSaldo">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- === PARCELAS === -->
+  <div class="cartao">
+    <div class="titulo-secao">
+      <span class="icone" style="background: rgba(255,214,0,0.15);">📝</span>
+      PARCELAS
+    </div>
+    <table class="tabela-anotacoes">
+      <thead>
+        <tr>
+          <th style="width: 40%;">Nome</th>
+          <th style="width: 20%;">Parcelas</th>
+          <th style="width: 30%;">Valor</th>
+          <th style="width: 10%;"></th>
+        </tr>
+      </thead>
+      <tbody id="corpoTabela"></tbody>
+    </table>
+    <button class="btn-adicionar" onclick="adicionarLinha()">➕ Adicionar</button>
+  </div>
+
+  <!-- === ENTRADAS MENSAL === -->
+  <div class="cartao">
+    <div class="titulo-secao">
+      <span class="icone" style="background: rgba(0,255,148,0.15);">📈</span>
+      ENTRADAS — MÊS
+    </div>
+    <table class="tabela-meses">
+      <thead>
+        <tr><th>Mês</th><th style="text-align: right;">Valor</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mes"><span class="nome-mes">JAN</span><input type="text" id="jan" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">FEV</span><input type="text" id="fev" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">MAR</span><input type="text" id="mar" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">ABR</span><input type="text" id="abr" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">MAI</span><input type="text" id="mai" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">JUN</span><input type="text" id="jun" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">JUL</span><input type="text" id="jul" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">AGO</span><input type="text" id="ago" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">SET</span><input type="text" id="set" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">OUT</span><input type="text" id="out" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">NOV</span><input type="text" id="nov" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+        <tr><td class="mes"><span class="nome-mes">DEZ</span><input type="text" id="dez" placeholder="R$ 0,00" oninput="atualizarTotalMensal()"></td></tr>
+      </tbody>
+    </table>
+    <div class="total-mensal">
+      <span>💰 TOTAL ANO</span>
+      <span class="valor-total-mensal" id="totalMensal">R$ 0,00</span>
+    </div>
+  </div>
+
+  <!-- === TOTAL GERAL === -->
   <div class="cartao total">
-    <div class="linha-item">
-      <div class="nome-conta">
-        <span class="icone" style="background: rgba(0, 255, 148, 0.2);">📊</span>
+    <div class="linha-item" style="border-bottom: none;">
+      <div class="nome-conta" style="font-weight: 600;">
+        <span class="icone" style="background: rgba(0,255,148,0.2);">📊</span>
         TOTAL GERAL
       </div>
-      <div class="valor-total" id="resultado">R$ 0,00</div>
+      <div class="valor-total" id="resultadoGeral">R$ 0,00</div>
     </div>
   </div>
 
   <div class="botoes">
-    <button class="btn btn-salvar" onclick="salvarDados()">💾 Salvar Dados</button>
-    <button class="btn btn-limpar" onclick="limparTudo()">🗑️ Limpar Tudo</button>
+    <button class="btn btn-salvar" onclick="salvarTudo()">💾 Salvar</button>
+    <button class="btn btn-limpar" onclick="limparTudo()">🗑️ Limpar</button>
   </div>
 </div>
 
@@ -314,61 +468,117 @@ function formatarValor(valor) {
   const numero = parseInt(valor) / 100;
   return numero.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
-
 function extrairNumero(valor) {
   return parseFloat(valor.replace(/\D/g, '')) / 100 || 0;
 }
 
-function atualizarTotal() {
-  const campos = ['luz', 'agua', 'compras', 'internet', 'cartoes', 'lanches', 'viagens', 'reserva', 'contaBancaria'];
-  let soma = 0;
-  
-  campos.forEach(id => {
-    const input = document.getElementById(id);
-    soma += extrairNumero(input.value);
-  });
-  
-  document.getElementById('resultado').textContent = 
-    soma.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
+function calcularDistribuicao() {
+  const luz = extrairNumero(document.getElementById('luz').value);
+  const agua = extrairNumero(document.getElementById('agua').value);
+  const compras = extrairNumero(document.getElementById('compras').value);
+  const internet = extrairNumero(document.getElementById('internet').value);
+  const cartoes = extrairNumero(document.getElementById('cartoes').value);
+  const contaBancaria = extrairNumero(document.getElementById('contaBancaria').value);
 
-function salvarDados() {
-  const campos = ['luz', 'agua', 'compras', 'internet', 'cartoes', 'lanches', 'viagens', 'reserva', 'contaBancaria'];
-  campos.forEach(id => {
-    localStorage.setItem(id, document.getElementById(id).value);
-  });
-  alert('✅ Dados salvos com sucesso!');
-}
+  const somaFixas = luz + agua + compras + internet + cartoes;
+  const disponivel = contaBancaria - somaFixas;
 
-function carregarDados() {
-  const campos = ['luz', 'agua', 'compras', 'internet', 'cartoes', 'lanches', 'viagens', 'reserva', 'contaBancaria'];
-  campos.forEach(id => {
-    const valor = localStorage.getItem(id);
-    if (valor) {
-      document.getElementById(id).value = valor;
-    }
-  });
-  atualizarTotal();
-}
-
-function limparTudo() {
-  if (confirm('Tem certeza que quer apagar todos os valores?')) {
-    localStorage.clear();
-    const campos = ['luz', 'agua', 'compras', 'internet', 'cartoes', 'lanches', 'viagens', 'reserva', 'contaBancaria'];
-    campos.forEach(id => {
-      document.getElementById(id).value = '';
-    });
-    atualizarTotal();
+  let lanches = 0, viagens = 0, reserva = 0;
+  if (disponivel > 0) {
+    lanches = disponivel * 0.10;
+    viagens = disponivel * 0.30;
+    reserva = disponivel * 0.60;
   }
+
+  document.getElementById('lanches').value = lanches > 0 ? lanches.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '';
+  document.getElementById('viagens').value = viagens > 0 ? viagens.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '';
+  document.getElementById('reserva').value = reserva > 0 ? reserva.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '';
+
+  document.getElementById('distConta').textContent = contaBancaria.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  document.getElementById('distFixas').textContent = somaFixas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  document.getElementById('distDisponivel').textContent = disponivel.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  document.getElementById('distLanches').textContent = lanches.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  document.getElementById('distViagens').textContent = viagens.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  document.getElementById('distReserva').textContent = reserva.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+  const saldo = contaBancaria - (somaFixas + lanches + viagens + reserva);
+  const elSaldo = document.getElementById('distSaldo');
+  elSaldo.textContent = saldo === 0 ? '✅ Ok!' : saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  elSaldo.className = saldo < 0 ? 'negativo' : 'positivo';
+
+  document.getElementById('resultadoGeral').textContent = (somaFixas + lanches + viagens + reserva).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-document.querySelectorAll('.valor-input').forEach(input => {
-  input.addEventListener('blur', function() {
-    this.value = formatarValor(this.value);
+function atualizarTotalMensal() {
+  const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  let soma = 0;
+  meses.forEach(id => soma += extrairNumero(document.getElementById(id).value));
+  document.getElementById('totalMensal').textContent = soma.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function adicionarLinha(dados={nome:'',parcelas:'',valor:''}) {
+  const corpo = document.getElementById('corpoTabela');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input type="text" class="nome-col" value="${dados.nome}" placeholder="Nome"></td>
+    <td><input type="text" class="parc-col" value="${dados.parcelas}" placeholder="10x"></td>
+    <td><input type="text" class="valor-col" value="${dados.valor}" placeholder="R$ 0,00" onblur="this.value=formatarValor(this.value)"></td>
+    <td><button class="btn-linha" onclick="apagarLinha(this)">🗑️</button></td>
+  `;
+  corpo.appendChild(tr);
+}
+function apagarLinha(btn) { btn.closest('tr').remove(); }
+
+function salvarTudo() {
+  const campos = ['luz','agua','compras','internet','cartoes','contaBancaria'];
+  campos.forEach(id => localStorage.setItem(id, document.getElementById(id).value));
+  
+  const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  meses.forEach(id => localStorage.setItem('mes_'+id, document.getElementById(id).value));
+  
+  const linhas = [];
+  document.querySelectorAll('#corpoTabela tr').forEach(tr => {
+    linhas.push({
+      nome: tr.querySelector('.nome-col').value,
+      parcelas: tr.querySelector('.parc-col').value,
+      valor: tr.querySelector('.valor-col').value
+    });
   });
+  localStorage.setItem('tabelaParcelas', JSON.stringify(linhas));
+  
+  alert('✅ Salvo!');
+}
+
+function carregarTudo() {
+  const campos = ['luz','agua','compras','internet','cartoes','contaBancaria'];
+  campos.forEach(id => {
+    const v = localStorage.getItem(id);
+    if(v) document.getElementById(id).value = v;
+  });
+  
+  const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  meses.forEach(id => {
+    const v = localStorage.getItem('mes_'+id);
+    if(v) document.getElementById(id).value = v;
+  });
+  
+  const salvas = localStorage.getItem('tabelaParcelas');
+  if(salvas) {
+    document.getElementById('corpoTabela').innerHTML = '';
+    JSON.parse(salvas).forEach(dados => adicionarLinha(dados));
+  } else {
+    adicionarLinha();
+  }
+  
+  calcularDistribuicao();
+  atualizarTotalMensal();
+}
+
+document.querySelectorAll('.tabela-meses input').forEach(i => {
+  i.addEventListener('blur', function(){ this.value = formatarValor(this.value); });
 });
 
-carregarDados();
+carregarTudo();
 </script>
 
 </body>

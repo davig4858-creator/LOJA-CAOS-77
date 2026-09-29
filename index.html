@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Gastos — Casa</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+:root {
+  --bg: #050714;
+  --card: #0F152B;
+  --card-hover: #182247;
+  --borda: #1E2A5C;
+  --azul: #00D4FF;
+  --verde: #00FF94;
+  --rosa: #FF2E88;
+  --laranja: #FF9500;
+  --roxo: #7B61FF;
+  --amarelo: #FFD600;
+  --branco: #FFFFFF;
+  --cinza: #8892B8;
+}
+
+body {
+  background: linear-gradient(135deg, #050714 0%, #0F152B 100%);
+  min-height: 100vh;
+  color: var(--branco);
+  padding: 20px;
+}
+
+.cabecalho {
+  text-align: center;
+  padding: 30px 20px;
+  margin-bottom: 30px;
+}
+
+.cabecalho h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--azul), var(--verde));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+.cabecalho p {
+  color: var(--cinza);
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cartao {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  padding: 25px 30px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 32px rgba(0, 212, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.cartao:hover {
+  border-color: var(--azul);
+  box-shadow: 0 12px 40px rgba(0, 212, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.linha-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--borda);
+}
+
+.linha-item:last-child {
+  border-bottom: none;
+}
+
+.nome-conta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.icone {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.valor-input {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  color: var(--branco);
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: right;
+  width: 180px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.valor-input:focus {
+  border-color: var(--azul);
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.25);
+}
+
+.valor-input::placeholder {
+  color: var(--cinza);
+}
+
+.total {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 255, 148, 0.15));
+  border: 2px solid var(--azul);
+  margin-top: 10px;
+}
+
+.total .nome-conta {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.valor-total {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--verde);
+}
+
+.botoes {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  flex: 1;
+  min-width: 140px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-salvar {
+  background: linear-gradient(90deg, var(--verde), #00CC76);
+  color: #000;
+}
+
+.btn-salvar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 148, 0.3);
+}
+
+.btn-limpar {
+  background: rgba(255, 46, 136, 0.15);
+  color: var(--rosa);
+  border: 1px solid rgba(255, 46, 136, 0.3);
+}
+
+.btn-limpar:hover {
+  background: rgba(255, 46, 136, 0.25);
+}
+
+@media(max-width: 600px) {
+  .linha-item {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .valor-input {
+    width: 100%;
+    text-align: left;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="cabecalho">
+  <h1>🏠 CONTROLE DE GASTOS — CASA</h1>
+  <p>Atualize os valores e veja o total automaticamente</p>
+</div>
+
+<div class="container">
+  <div class="cartao">
+    <!-- LUZ -->
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(255, 214, 0, 0.15);">⚡</span>
+        LUZ
+      </div>
+      <input type="text" class="valor-input" id="luz" placeholder="R$ 0,00" oninput="atualizarTotal()">
+    </div>
+
+    <!-- ÁGUA -->
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(0, 212, 255, 0.15);">💧</span>
+        ÁGUA
+      </div>
+      <input type="text" class="valor-input" id="agua" placeholder="R$ 0,00" oninput="atualizarTotal()">
+    </div>
+
+    <!-- COMPRAS -->
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(255, 46, 136, 0.15);">🛒</span>
+        COMPRAS
+      </div>
+      <input type="text" class="valor-input" id="compras" placeholder="R$ 0,00" oninput="atualizarTotal()">
+    </div>
+
+    <!-- INTERNET -->
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(123, 97, 255, 0.15);">📶</span>
+        INTERNET
+      </div>
+      <input type="text" class="valor-input" id="internet" placeholder="R$ 0,00" oninput="atualizarTotal()">
+    </div>
+
+    <!-- CARTÕES -->
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(255, 149, 0, 0.15);">💳</span>
+        CARTÕES
+      </div>
+      <input type="text" class="valor-input" id="cartoes" placeholder="R$ 0,00" oninput="atualizarTotal()">
+    </div>
+
+    <!-- LANCHES -->
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(255, 92, 0, 0.15);">🍔</span>
+        LANCHES
+      </div>
+      <input type="text" class="valor-input" id="lanches" placeholder="R$ 0,00" oninput="atualizarTotal()">
+    </div>
+
+    <!-- VIAGENS -->
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(0, 200, 200, 0.15);">✈️</span>
+        VIAGENS
+      </div>
+      <input type="text" class="valor-input" id="viagens" placeholder="R$ 0,00" oninput="atualizarTotal()">
+    </div>
+
+    <!-- RESERVA -->
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(0, 255, 148, 0.15);">💰</span>
+        RESERVA
+      </div>
+      <input type="text" class="valor-input" id="reserva" placeholder="R$ 0,00" oninput="atualizarTotal()">
+    </div>
+
+    <!-- CONTA BANCÁRIA -->
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(0, 212, 255, 0.15);">🏦</span>
+        CONTA BANCÁRIA
+      </div>
+      <input type="text" class="valor-input" id="contaBancaria" placeholder="R$ 0,00" oninput="atualizarTotal()">
+    </div>
+  </div>
+
+  <div class="cartao total">
+    <div class="linha-item">
+      <div class="nome-conta">
+        <span class="icone" style="background: rgba(0, 255, 148, 0.2);">📊</span>
+        TOTAL GERAL
+      </div>
+      <div class="valor-total" id="resultado">R$ 0,00</div>
+    </div>
+  </div>
+
+  <div class="botoes">
+    <button class="btn btn-salvar" onclick="salvarDados()">💾 Salvar Dados</button>
+    <button class="btn btn-limpar" onclick="limparTudo()">🗑️ Limpar Tudo</button>
+  </div>
+</div>
+
+<script>
+function formatarValor(valor) {
+  valor = valor.replace(/\D/g, '');
+  if (!valor) return '';
+  const numero = parseInt(valor) / 100;
+  return numero.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function extrairNumero(valor) {
+  return parseFloat(valor.replace(/\D/g, '')) / 100 || 0;
+}
+
+function atualizarTotal() {
+  const campos = ['luz', 'agua', 'compras', 'internet', 'cartoes', 'lanches', 'viagens', 'reserva', 'contaBancaria'];
+  let soma = 0;
+  
+  campos.forEach(id => {
+    const input = document.getElementById(id);
+    soma += extrairNumero(input.value);
+  });
+  
+  document.getElementById('resultado').textContent = 
+    soma.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function salvarDados() {
+  const campos = ['luz', 'agua', 'compras', 'internet', 'cartoes', 'lanches', 'viagens', 'reserva', 'contaBancaria'];
+  campos.forEach(id => {
+    localStorage.setItem(id, document.getElementById(id).value);
+  });
+  alert('✅ Dados salvos com sucesso!');
+}
+
+function carregarDados() {
+  const campos = ['luz', 'agua', 'compras', 'internet', 'cartoes', 'lanches', 'viagens', 'reserva', 'contaBancaria'];
+  campos.forEach(id => {
+    const valor = localStorage.getItem(id);
+    if (valor) {
+      document.getElementById(id).value = valor;
+    }
+  });
+  atualizarTotal();
+}
+
+function limparTudo() {
+  if (confirm('Tem certeza que quer apagar todos os valores?')) {
+    localStorage.clear();
+    const campos = ['luz', 'agua', 'compras', 'internet', 'cartoes', 'lanches', 'viagens', 'reserva', 'contaBancaria'];
+    campos.forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    atualizarTotal();
+  }
+}
+
+document.querySelectorAll('.valor-input').forEach(input => {
+  input.addEventListener('blur', function() {
+    this.value = formatarValor(this.value);
+  });
+});
+
+carregarDados();
+</script>
+
+</body>
+</html>

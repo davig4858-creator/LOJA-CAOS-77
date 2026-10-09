@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAINEL DE CONTROLE — F.B.I.</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+:root {
+  --bg: #070A13;
+  --card: #0F172A;
+  --card-2: #1E293B;
+  --azul: #1E40AF;
+  --azul-claro: #3B82F6;
+  --azul-brilhante: #00D4FF;
+  --verde: #10B981;
+  --amarelo: #F59E0B;
+  --vermelho: #EF4444;
+  --vermelho-escuro: #DC2626;
+  --texto: #F1F5F9;
+  --texto-claro: #94A3B8;
+  --borda: #1E3A5F;
+  --sombra: rgba(0, 0, 0, 0.35);
+}
+
+body {
+  background: linear-gradient(135deg, var(--bg) 0%, #0F172A 100%);
+  color: var(--texto);
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  padding: 30px 0;
+  margin-bottom: 10px;
+}
+
+header h1 {
+  font-size: 30px;
+  color: var(--azul-brilhante);
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+header p {
+  font-size: 14px;
+  color: var(--texto-claro);
+  margin-top: 8px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px var(--sombra);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px var(--sombra);
+}
+
+.card h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: var(--azul-brilhante);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--borda);
+}
+
+input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--card-2);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  color: var(--texto);
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--azul-brilhante);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.btn-add {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-claro) 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btn-add:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn-remove {
+  background: var(--vermelho-escuro);
+  color: white;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.btn-remove:hover {
+  background: var(--vermelho);
+}
+
+.btn-secundario {
+  background: var(--card-2);
+  color: var(--texto);
+  padding: 6px 14px;
+  font-size: 13px;
+  border: 1px solid var(--borda);
+}
+
+.btn-secundario:hover {
+  background: var(--azul);
+  border-color: var(--azul);
+}
+
+.membro-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--card-2);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 3px solid var(--azul-claro);
+  transition: all 0.2s;
+}
+
+.membro-row:hover {
+  background: #263449;
+}
+
+.nome-membro {
+  flex: 1;
+  min-width: 180px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--texto);
+}
+
+.dia-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #1E293B;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.dia-btn:hover {
+  transform: scale(1.1);
+  border-color: var(--azul-brilhante);
+  background: #263449;
+}
+
+.repri-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #1E293B;
+  border: 1px solid #334155;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.repri-box.cheio {
+  background: var(--vermelho);
+  border-color: var(--vermelho);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+}
+
+.repri-box:hover {
+  border-color: var(--vermelho);
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background: var(--card-2);
+  transition: transform 0.2s;
+}
+
+.ranking-item:hover {
+  transform: translateX(4px);
+}
+
+.posicao {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--azul);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.posicao-1 {
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+  color: #000;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+}
+
+.posicao-2 {
+  background: linear-gradient(135deg, #E2E8F0 0%, #94A3B8 100%);
+  color: #000;
+}
+
+.posicao-3 {
+  background: linear-gradient(135deg, #D97706 0%, #92400E 100%);
+  color: #fff;
+}
+
+.pontos {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--verde);
+  font-size: 16px;
+}
+
+.add-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 16px;
+  background: var(--card-2);
+  border-radius: 10px;
+  border: 1px dashed var(--borda);
+}
+
+.add-area input {
+  flex: 1;
+  min-width: 220px;
+}
+
+.links-box {
+  background: linear-gradient(135deg, rgba(30, 64, 175, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%);
+  border: 1px solid var(--azul);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.links-box h3 {
+  color: var(--azul-brilhante);
+  margin-bottom: 16px;
+  font-size: 17px;
+}
+
+.link-item {
+  margin: 14px 0;
+}
+
+.link-label {
+  font-size: 13px;
+  color: var(--texto-claro);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.link-valor {
+  background: #000;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: var(--azul-brilhante);
+  word-break: break-all;
+  border: 1px solid #1E3A5F;
+}
+
+.oculto-visitante {
+  display: block;
+}
+
+.modo-visitante .oculto-visitante {
+  display: none !important;
+}
+
+.modo-visitante .dia-btn,
+.modo-visitante .repri-box,
+.modo-visitante button {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.dias-label {
+  font-size: 11px;
+  color: var(--texto-claro);
+  text-align: center;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 6px;
+  padding-left: 190px;
+}
+
+.dias-label span {
+  width: 42px;
+  text-align: center;
+}
+
+.repri-label {
+  font-size: 11px;
+  color: var(--texto-claro);
+  margin-left: 12px;
+}
+
+.area-exonerados {
+  margin-top: 18px;
+  padding: 14px;
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px dashed var(--vermelho);
+  border-radius: 10px;
+}
+
+.area-exonerados h4 {
+  color: var(--vermelho);
+  font-size: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.area-exonerados h4:hover {
+  color: #F87171;
+}
+
+.lista-exonerados {
+  display: none;
+}
+
+.lista-exonerados.visivel {
+  display: block;
+  margin-top: 10px;
+}
+
+.exonerado-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--card-2);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border-left: 2px solid var(--vermelho);
+}
+
+.exonerado-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exonerado-nome {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--vermelho);
+}
+
+.exonerado-repri {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 13px;
+  color: var(--texto-claro);
+}
+
+.repri-ex-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #1E293B;
+  border: 1px solid #334155;
+}
+
+.repri-ex-box.cheia {
+  background: var(--vermelho);
+  border-color: var(--vermelho);
+  box-shadow: 0 0 4px rgba(239, 68, 68, 0.4);
+}
+
+.vazio {
+  text-align: center;
+  padding: 20px;
+  color: var(--texto-claro);
+  font-style: italic;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 12px;
+  }
+  .dias-label {
+    padding-left: 0;
+    justify-content: flex-start;
+  }
+  .membro-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .nome-membro {
+    width: 100%;
+  }
+  header h1 {
+    font-size: 22px;
+  }
+  .exonerado-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>⚖️ PAINEL DE CONTROLE — F.B.I.</h1>
+    <p>Federação Brasileira de Investigações • Sistema de Gestão Interna</p>
+  </header>
+
+  <!-- PREFEITURA -->
+  <div class="card">
+    <h2>🏛️ PREFEITURA — MEMBROS</h2>
+    <div class="dias-label">
+      <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+      <span class="repri-label">Reprimendas</span>
+    </div>
+    <div id="lista-prefeitura"></div>
+    <div class="add-area oculto-visitante">
+      <input type="text" id="nome-prefeitura" placeholder="Digite o nome do membro...">
+      <button class="btn-add" id="btn-prefeitura">➕ Adicionar Membro</button>
+    </div>
+    <div class="area-exonerados oculto-visitante">
+      <h4 id="toggle-prefeitura">📂 Exonerados (clique para expandir) ▾</h4>
+      <div class="lista-exonerados" id="ex-prefeitura"></div>
+    </div>
+  </div>
+
+  <!-- INVESTIGADORES -->
+  <div class="card">
+    <h2>🕵️ F.B.I. — INVESTIGADORES</h2>
+    <div class="dias-label">
+      <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+      <span class="repri-label">Reprimendas</span>
+    </div>
+    <div id="lista-investigadores"></div>
+    <div class="add-area oculto-visitante">
+      <input type="text" id="nome-investigadores" placeholder="Digite o nome do investigador...">
+      <button class="btn-add" id="btn-investigadores">➕ Adicionar Investigador</button>
+    </div>
+    <div class="area-exonerados oculto-visitante">
+      <h4 id="toggle-investigadores">📂 Exonerados (clique para expandir) ▾</h4>
+      <div class="lista-exonerados" id="ex-investigadores"></div>
+    </div>
+  </div>
+
+  <!-- AGENTES -->
+  <div class="card">
+    <h2>👮 F.B.I. — AGENTES</h2>
+    <div class="dias-label">
+      <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+      <span class="repri-label">Reprimendas</span>
+    </div>
+    <div id="lista-agentes"></div>
+    <div class="add-area oculto-visitante">
+      <input type="text" id="nome-agentes" placeholder="Digite o nome do agente...">
+      <button class="btn-add" id="btn-agentes">➕ Adicionar Agente</button>
+    </div>
+    <div class="area-exonerados oculto-visitante">
+      <h4 id="toggle-agentes">📂 Exonerados (clique para expandir) ▾</h4>
+      <div class="lista-exonerados" id="ex-agentes"></div>
+    </div>
+  </div>
+
+  <!-- RANKING SEMANAL -->
+  <div class="card">
+    <h2>🏆 RANKING — MAIOR PRESENÇA (Semanal)</h2>
+    <div id="area-ranking">
+      <p class="vazio">Nenhum registro de presença ainda.</p>
+    </div>
+  </div>
+
+  <!-- LINKS DE ACESSO -->
+  <div class="links-box">
+    <h3>🔗 LINKS DE ACESSO AO SISTEMA</h3>
+    <div class="link-item">
+      <span class="link-label">🔐 Administrador — Acesso Completo</span>
+      <div class="link-valor" id="link-admin"></div>
+    </div>
+    <div class="link-item">
+      <span class="link-label">👁️ Visitante — Apenas Visualização</span>
+      <div class="link-valor" id="link-visitante"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DIAS = 6;
+const DIAS_NOMES = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+const MARCADORES = ['', '🟢', '🟡', '🔴'];
+const PESOS = { '🟢': 2, '🟡': 1, '🔴': 0, '': 0 };
+
+let dados = {
+  prefeitura: [],
+  investigadores: [],
+  agentes: [],
+  exonerados: { prefeitura: [], investigadores: [], agentes: [] }
+};
+
+function novoMembro(nome) {
+  return {
+    id: Date.now(),
+    nome: nome.trim(),
+    presenca: Array(DIAS).fill(''),
+    reprimendas: 0,
+    dataAdmissao: new Date().toLocaleDateString('pt-BR'),
+    dataExoneracao: null
+  };
+}
+
+function salvar() {
+  localStorage.setItem('fbi-painel-dados', JSON.stringify(dados));
+  atualizarTudo();
+}
+
+function carregar() {
+  try {
+    const guardado = localStorage.getItem('fbi-painel-dados');
+    if (guardado) dados = JSON.parse(guardado);
+  } catch (e) {
+    console.log('Nenhum dado salvo ainda');
+  }
+  atualizarTudo();
+}
+
+function adicionar(tipo) {
+  const input = document.getElementById('nome-' + tipo);
+  const nome = input.value.trim();
+  if (!nome) {
+    alert('⚠️ Por favor, digite um nome antes de adicionar.');
+    input.focus();
+    return;
+  }
+  dados[tipo].push(novoMembro(nome));
+  input.value = '';
+  salvar();
+  input.focus();
+}
+
+function remover(tipo, indice) {
+  if (!confirm(`❌ Tem certeza que deseja remover "${dados[tipo][indice].nome}"?\nEsta ação não pode ser desfeita.`)) return;
+  dados[tipo].splice(indice, 1);
+  salvar();
+}
+
+function readmitir(tipo, indice) {
+  if (!confirm(`✅ Readmitir "${dados.exonerados[tipo][indice].nome}"?\nReprimendas serão zeradas.`)) return;
+  const membro = dados.exonerados[tipo].splice(indice, 1)[0];
+  membro.reprimendas = 0;
+  membro.presenca = Array(DIAS).fill('');
+  membro.dataExoneracao = null;
+  dados[tipo].push(membro);
+  salvar();
+}
+
+function marcarDia(tipo, indice, dia) {
+  const atual = dados[tipo][indice].presenca[dia];
+  const i = MARCADORES.indexOf(atual);
+  dados[tipo][indice].presenca[dia] = MARCADORES[(i + 1) % MARCADORES.length];
+  salvar();
+}
+
+function marcarReprimenda(tipo, indice, pos) {
+  if (pos === dados[tipo][indice].reprimendas - 1) {
+    dados[tipo][indice].reprimendas--;
+  } else {
+    dados[tipo][indice].reprimendas = pos + 1;
+    if (dados[tipo][indice].reprimendas >= 3) {
+      const nome = dados[tipo][indice].nome;
+      const exonerado = dados[tipo].splice(indice, 1)[0];
+      exonerado.dataExoneracao = new Date().toLocaleDateString('pt-BR');
+      dados.exonerados[tipo].push(exonerado);
+      alert(`⚠️ ATENÇÃO\n\n${nome} recebeu 3 reprimendas e foi EXONERADO!\n\nO membro foi movido para a lista de exonerados.`);
+    }
+  }
+  salvar();
+}
+
+function desenharLista(tipo) {
+  const container = document.getElementById('lista-' + tipo);
+  container.innerHTML = '';
+
+  if (dados[tipo].length === 0) {
+    container.innerHTML = '<p class="vazio">Nenhum membro cadastrado ainda.</p>';
+    desenharExonerados(tipo);
+    return;
+  }
+
+  dados[tipo].forEach((membro, idx) => {
+    const div = document.createElement('div');
+    div.className = 'membro-row';
+
+    let presencaHTML = '';
+    for (let d = 0; d < DIAS; d++) {
+      const valor = membro.presenca[d];
+      presencaHTML += `<div class="dia-btn" data-tipo="${tipo}" data-idx="${idx}" data-dia="${d}" title="${DIAS_NOMES[d]}">${valor}</div>`;
+    }
+
+    let repriHTML = '';
+    for (let r = 0; r < 3; r++) {
+      const cheia = r < membro.reprimendas ? 'cheia' : '';
+      repriHTML += `<div class="repri-box ${cheia}" data-tipo="${tipo}" data-idx="${idx}" data-repri="${r}" title="Reprimenda ${r + 1}"></div>`;
+    }
+
+    div.innerHTML = `
+      <div class="nome-membro">${membro.nome}</div>
+      <div style="display:flex;gap:6px;">${presencaHTML}</div>
+      <div style="display:flex;gap:6px;margin-left:4px;">${repriHTML}</div>
+      <button class="btn-remove oculto-visitante" data-tipo="${tipo}" data-del="${idx}" title="Remover membro">🗑️</button>
+    `;
+    container.appendChild(div);
+  });
+
+  desenharExonerados(tipo);
+}
+
+function desenharExonerados(tipo) {
+  const container = document.getElementById('ex-' + tipo);
+  container.innerHTML = '';
+
+  if (dados.exonerados[tipo].length === 0) {
+    container.innerHTML = '<p class="vazio" style="padding:0;">Nenhum exonerado</p>';
+    return;
+  }
+
+  dados.exonerados[tipo].forEach((membro, idx) => {
+    const div = document.createElement('div');
+    div.className = 'exonerado-item';
+
+    let repriBolinhas = '';
+    for (let r = 0; r < 3; r++) {
+      const cheia = r < membro.reprimendas ? 'cheia' : '';
+      repriBolinhas += `<div class="repri-ex-box ${cheia}"></div>`;
+    }
+
+    div.innerHTML = `
+      <div class="exonerado-info">
+        <div class="exonerado-nome">${membro.nome}</div>
+        <div class="exonerado-repri">
+          ${repriBolinhas}
+          <span>• ${membro.reprimendas}/3 reprimendas • Exonerado em ${membro.dataExoneracao || '---'}</span>
+        </div>
+      </div>
+      <button class="btn-secundario" data-tipo="${tipo}" data-readm="${idx}">✅ Readmitir</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function calcularPontos(membro) {
+  return membro.presenca.reduce((total, valor) => total + (PESOS[valor] || 0), 0);
+}
+
+function atualizarRanking() {
+  const todos = [...dados.prefeitura, ...dados.investigadores, ...dados.agentes];
+  todos.sort((a, b) => calcularPontos(b) - calcularPontos(a));
+
+  const container = document.getElementById('area-ranking');
+  container.innerHTML = '';
+  const top = todos.filter(m => calcularPontos(m) > 0);
+
+  if (top.length === 0) {
+    container.innerHTML = '<p class="vazio">Nenhum registro de presença ainda. Marque as presenças para gerar o ranking.</p>';
+    return;
+  }
+
+  top.slice(0, 5).forEach((m, pos) => {
+    const div = document.createElement('div');
+    let classe = '';
+    if (pos === 0) classe = 'posicao-1';
+    else if (pos === 1) classe = 'posicao-2';
+    else if (pos === 2) classe = 'posicao-3';
+
+    div.className = 'ranking-item';
+    div.innerHTML = `
+      <div class="posicao ${classe}">${pos + 1}</div>
+      <div>
+        <div style="font-weight:600;font-size:15px;">${m.nome}</div>
+        <div style="font-size:12px;color:var(--texto-claro);margin-top:2px;">
+          🟢 ${m.presenca.filter(x => x === '🟢').length} presentes • 
+          🟡 ${m.presenca.filter(x => x === '🟡').length} justificadas • 
+          🔴 ${m.presenca.filter(x => x === '🔴').length} faltas
+        </div>
+      </div>
+      <div class="pontos">${calcularPontos(m)} pts</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function atualizarTudo() {
+  desenharLista('prefeitura');
+  desenharLista('investigadores');
+  desenharLista('agentes');
+  atualizarRanking();
+}
+
+function gerarLinks() {
+  const base = window.location.href.split('?')[0];
+  document.getElementById('link-admin').textContent = base;
+  document.getElementById('link-visitante').textContent = base + '?modo=visitante';
+}
+
+function verificarModo() {
+  const modo = new URLSearchParams(window.location.search).get('modo');
+  if (modo === 'visitante') {
+    document.body.classList.add('modo-visitante');
+  }
+}
+
+// ==== EVENTOS ====
+document.addEventListener('click', function(e) {
+  // Botões Adicionar
+  if (e.target.id === 'btn-prefeitura') adicionar('prefeitura');
+  if (e.target.id === 'btn-investigadores') adicionar('investigadores');
+  if (e.target.id === 'btn-agentes') adicionar('agentes');
+
+  // Toggle Exonerados
+  if (e.target.id === 'toggle-prefeitura') document.getElementById('ex-prefeitura').classList.toggle('visivel');
+  if (e.target.id === 'toggle-investigadores') document.getElementById('ex-investigadores').classList.toggle('visivel');
+  if (e.target.id === 'toggle-agentes') document.getElementById('ex-agentes').classList.toggle('visivel');
+
+  // Marcar presença
+  if (e.target.classList.contains('dia-btn')) {
+    marcarDia(e.target.dataset.tipo, parseInt(e.target.dataset.idx), parseInt(e.target.dataset.dia));
+  }
+
+  // Marcar reprimenda
+  if (e.target.classList.contains('repri-box') && e.target.dataset.repri !== undefined) {
+    marcarReprimenda(e.target.dataset.tipo, parseInt(e.target.dataset.idx), parseInt(e.target.dataset.repri));
+  }
+
+  // Remover membro
+  if (e.target.dataset.del !== undefined) {
+    remover(e.target.dataset.tipo, parseInt(e.target.dataset.del));
+  }
+
+  // Readmitir exonerado
+  if (e.target.dataset.readm !== undefined) {
+    readmitir(e.target.dataset.tipo, parseInt(e.target.dataset.readm));
+  }
+});
+
+// Inicializar
+carregar();
+verificarModo();
+gerarLinks();
+</script>
+</body>
+</html>

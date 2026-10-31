@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DK HAMBURGUERIA - Painel de Controle</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+:root {
+  --roxo: #4B0082;
+  --roxo-claro: #800080;
+  --dourado: #D4AF37;
+  --dourado-claro: #F4E48F;
+  --fundo: #1A0A2E;
+  --card: #2E1050;
+  --texto: #FFFFFF;
+  --sombra: rgba(0,0,0,0.3);
+}
+
+body {
+  background: var(--fundo);
+  color: var(--texto);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.cabecalho {
+  text-align: center;
+  padding: 25px;
+  background: linear-gradient(135deg, var(--roxo), var(--roxo-claro));
+  border-radius: 16px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 20px var(--sombra);
+  border: 2px solid var(--dourado);
+}
+
+.cabecalho h1 {
+  font-size: 2.2rem;
+  color: var(--dourado);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.cabecalho p {
+  color: var(--dourado-claro);
+  margin-top: 5px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+@media(max-width: 768px) {
+  .container { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--card);
+  padding: 25px;
+  border-radius: 14px;
+  border: 2px solid var(--dourado);
+  box-shadow: 0 4px 15px var(--sombra);
+}
+
+.card h2 {
+  color: var(--dourado);
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  border-bottom: 1px solid var(--dourado);
+  padding-bottom: 8px;
+}
+
+input, button, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+input, textarea {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid var(--dourado);
+}
+
+button {
+  background: linear-gradient(135deg, var(--dourado), #B8960C);
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212,175,55,0.4);
+}
+
+button.vermelho {
+  background: #8B0000;
+  color: white;
+}
+
+button.verde {
+  background: #006400;
+  color: white;
+}
+
+ul {
+  list-style: none;
+  margin-top: 15px;
+}
+
+li {
+  padding: 10px;
+  background: rgba(75,0,130,0.4);
+  margin: 6px 0;
+  border-radius: 6px;
+  border-left: 3px solid var(--dourado);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.valor {
+  color: var(--dourado);
+  font-weight: 600;
+}
+
+.total {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(212,175,55,0.2);
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: right;
+  color: var(--dourado);
+}
+
+.data-filtro {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.data-filtro input {
+  flex: 1;
+  min-width: 150px;
+}
+
+.venda-item {
+  background: rgba(75,0,130,0.3);
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border-left: 3px solid var(--dourado);
+}
+
+.venda-data {
+  font-size: 0.85rem;
+  color: var(--dourado-claro);
+  margin-bottom: 5px;
+}
+
+.venda-itens {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.venda-total {
+  margin-top: 6px;
+  font-weight: 600;
+  color: var(--dourado);
+}
+
+.resumo-dia {
+  margin-top: 15px;
+  padding: 12px;
+  background: rgba(212,175,55,0.15);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.acoes {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.acoes button {
+  flex: 1;
+  font-size: 0.9rem;
+  padding: 8px;
+}
+
+.lixeira {
+  background: #8B0000;
+  color: white;
+  width: auto;
+  padding: 4px 10px;
+  margin-left: 8px;
+}
+
+.lixeira:hover {
+  background: #A00000;
+}
+
+.secao-historico {
+  grid-column: 1 / -1;
+}
+
+.botoes-salvar {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+@media(max-width: 768px) {
+  .secao-historico { grid-column: 1; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="cabecalho">
+  <h1>🍔 DK HAMBURGUERIA</h1>
+  <p>Painel de Controle de Pedidos e Vendas</p>
+</div>
+
+<div class="container">
+
+  <!-- ADICIONAR LANCHES -->
+  <div class="card">
+    <h2>📋 Cadastrar Lanche</h2>
+    <input type="text" id="nomeLanche" placeholder="Nome do lanche">
+    <input type="number" id="valorLanche" placeholder="Valor R$" step="0.01">
+    <button onclick="adicionarLanche()">➕ Adicionar ao Cardápio</button>
+
+    <h3 style="margin-top:25px; color:#F4E48F;">Cardápio</h3>
+    <ul id="listaCardapio"></ul>
+    
+    <div class="botoes-salvar">
+      <button class="verde" onclick="exportarCardapio()">💾 Salvar Cardápio</button>
+    </div>
+  </div>
+
+  <!-- REGISTRAR PEDIDO -->
+  <div class="card">
+    <h2>🛒 Anotar Pedido</h2>
+    <textarea id="clienteNome" placeholder="Nome do cliente / Mesa" rows="2"></textarea>
+    
+    <div id="selecionarItens"></div>
+    
+    <div class="total">
+      Total: R$ <span id="valorTotal">0,00</span>
+    </div>
+    
+    <div class="acoes">
+      <button onclick="limparPedido()">🗑️ Limpar</button>
+      <button onclick="finalizarPedido()">✅ Finalizar Pedido</button>
+    </div>
+  </div>
+
+  <!-- HISTÓRICO DE VENDAS -->
+  <div class="card secao-historico">
+    <h2>📊 Histórico de Vendas</h2>
+    
+    <div class="data-filtro">
+      <label>Filtrar por data:</label>
+      <input type="date" id="filtroData">
+      <button onclick="filtrarData()">🔍 Buscar</button>
+      <button onclick="limparFiltro()">📅 Hoje</button>
+    </div>
+
+    <div class="botoes-salvar">
+      <button class="verde" onclick="exportarVendas()">📥 Salvar Vendas (Excel/Texto)</button>
+      <button onclick="exportarVendasPDF()">📄 Salvar como PDF</button>
+    </div>
+    
+    <div id="resumoDia" class="resumo-dia" style="display:none;"></div>
+    
+    <div id="listaVendas"></div>
+    
+    <div class="acoes" style="margin-top:20px;">
+      <button class="vermelho" onclick="limparHistorico()">⚠️ Limpar Todo o Histórico</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Armazenamento automático
+let cardapio = JSON.parse(localStorage.getItem('dk_cardapio')) || [];
+let vendas = JSON.parse(localStorage.getItem('dk_vendas')) || [];
+let pedidoAtual = [];
+
+// Iniciar
+atualizarCardapio();
+atualizarHistorico();
+document.getElementById('filtroData').value = dataAtual();
+
+function dataAtual() {
+  const d = new Date();
+  return d.toISOString().split('T')[0];
+}
+
+function salvarCardapio() {
+  localStorage.setItem('dk_cardapio', JSON.stringify(cardapio));
+}
+
+function salvarVendas() {
+  localStorage.setItem('dk_vendas', JSON.stringify(vendas));
+}
+
+// Adicionar lanche
+function adicionarLanche() {
+  const nome = document.getElementById('nomeLanche').value.trim();
+  const valor = parseFloat(document.getElementById('valorLanche').value);
+  
+  if (!nome || isNaN(valor) || valor <= 0) {
+    alert('Preencha nome e valor corretamente!');
+    return;
+  }
+  
+  cardapio.push({ nome, valor });
+  salvarCardapio();
+  atualizarCardapio();
+  
+  document.getElementById('nomeLanche').value = '';
+  document.getElementById('valorLanche').value = '';
+  alert('✅ Lanche salvo com sucesso!');
+}
+
+function removerLanche(index) {
+  if (confirm('Remover este lanche do cardápio?')) {
+    cardapio.splice(index, 1);
+    salvarCardapio();
+    atualizarCardapio();
+    atualizarSelecaoItens();
+  }
+}
+
+function atualizarCardapio() {
+  const lista = document.getElementById('listaCardapio');
+  lista.innerHTML = '';
+  
+  cardapio.forEach((item, i) => {
+    lista.innerHTML += `
+      <li>
+        <span>${item.nome}</span>
+        <span class="valor">R$ ${item.valor.toFixed(2)}</span>
+        <button class="lixeira" onclick="removerLanche(${i})">✕</button>
+      </li>
+    `;
+  });
+  
+  atualizarSelecaoItens();
+}
+
+function atualizarSelecaoItens() {
+  const container = document.getElementById('selecionarItens');
+  container.innerHTML = '<h3 style="margin:15px 0 10px; color:#F4E48F;">Selecione os itens:</h3>';
+  
+  cardapio.forEach((item, i) => {
+    const qtd = pedidoAtual.filter(p => p.index === i).length;
+    container.innerHTML += `
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 0;">
+        <span>${item.nome} — R$ ${item.valor.toFixed(2)}</span>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <button style="width:32px; padding:4px; margin:0;" onclick="removerItem(${i})">−</button>
+          <span style="min-width:24px; text-align:center; font-weight:600;">${qtd}</span>
+          <button style="width:32px; padding:4px; margin:0;" onclick="adicionarItem(${i})">+</button>
+        </div>
+      </div>
+    `;
+  });
+  
+  atualizarTotal();
+}
+
+function adicionarItem(index) {
+  pedidoAtual.push({ index, ...cardapio[index] });
+  atualizarSelecaoItens();
+}
+
+function removerItem(index) {
+  const pos = pedidoAtual.findIndex(p => p.index === index);
+  if (pos !== -1) {
+    pedidoAtual.splice(pos, 1);
+    atualizarSelecaoItens();
+  }
+}
+
+function atualizarTotal() {
+  const total = pedidoAtual.reduce((soma, item) => soma + item.valor, 0);
+  document.getElementById('valorTotal').textContent = total.toFixed(2).replace('.', ',');
+}
+
+function limparPedido() {
+  pedidoAtual = [];
+  document.getElementById('clienteNome').value = '';
+  atualizarSelecaoItens();
+}
+
+function finalizarPedido() {
+  const cliente = document.getElementById('clienteNome').value.trim() || 'Sem nome';
+  
+  if (pedidoAtual.length === 0) {
+    alert('Adicione pelo menos um item ao pedido!');
+    return;
+  }
+  
+  const total = pedidoAtual.reduce((soma, item) => soma + item.valor, 0);
+  const agora = new Date();
+  const dataStr = agora.toLocaleDateString('pt-BR');
+  const horaStr = agora.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+  const dataISO = agora.toISOString().split('T')[0];
+  
+  // Agrupar itens
+  const agrupado = {};
+  pedidoAtual.forEach(item => {
+    if (!agrupado[item.nome]) agrupado[item.nome] = { qtd:0, valor:item.valor };
+    agrupado[item.nome].qtd++;
+  });
+  
+  vendas.unshift({
+    id: Date.now(),
+    data: dataISO,
+    dataStr,
+    hora: horaStr,
+    cliente,
+    itens: agrupado,
+    total
+  });
+  
+  salvarVendas();
+  alert(`✅ Pedido salvo!\nTotal: R$ ${total.toFixed(2)}`);
+  limparPedido();
+  atualizarHistorico();
+}
+
+function atualizarHistorico(filtroData = null) {
+  const lista = document.getElementById('listaVendas');
+  lista.innerHTML = '';
+  
+  let vendasFiltradas = vendas;
+  if (filtroData) {
+    vendasFiltradas = vendas.filter(v => v.data === filtroData);
+  }
+  
+  let totalDia = 0;
+  
+  if (vendasFiltradas.length === 0) {
+    lista.innerHTML = '<p style="text-align:center; color:#aaa; padding:20px;">Nenhuma venda registrada nesta data.</p>';
+    document.getElementById('resumoDia').style.display = 'none';
+    return;
+  }
+  
+  vendasFiltradas.forEach(venda => {
+    totalDia += venda.total;
+    let itensHtml = '';
+    for (const nome in venda.itens) {
+      const i = venda.itens[nome];
+      itensHtml += `${i.qtd}x ${nome} — R$ ${(i.valor * i.qtd).toFixed(2)}<br>`;
+    }
+    
+    lista.innerHTML += `
+      <div class="venda-item">
+        <div class="venda-data">📅 ${venda.dataStr} às ${venda.hora} — 👤 ${venda.cliente}</div>
+        <div class="venda-itens">${itensHtml}</div>
+        <div class="venda-total">💰 Total: R$ ${venda.total.toFixed(2)}</div>
+        <button class="lixeira" style="margin-top:8px;" onclick="excluirVenda(${venda.id})">🗑️ Excluir</button>
+      </div>
+    `;
+  });
+  
+  document.getElementById('resumoDia').style.display = 'block';
+  document.getElementById('resumoDia').innerHTML = `📊 Total do dia: <strong>R$ ${totalDia.toFixed(2)}</strong> — ${vendasFiltradas.length} vendas`;
+}
+
+function filtrarData() {
+  const data = document.getElementById('filtroData').value;
+  atualizarHistorico(data);
+}
+
+function limparFiltro() {
+  document.getElementById('filtroData').value = dataAtual();
+  atualizarHistorico();
+}
+
+function excluirVenda(id) {
+  if (confirm('Excluir esta venda?')) {
+    vendas = vendas.filter(v => v.id !== id);
+    salvarVendas();
+    filtrarData();
+  }
+}
+
+function limparHistorico() {
+  if (confirm('⚠️ TEM CERTEZA? Isso apagará TODAS as vendas!')) {
+    if (confirm('Tem MUITA certeza?')) {
+      vendas = [];
+      salvarVendas();
+      atualizarHistorico();
+    }
+  }
+}
+
+// 📥 FUNÇÕES DE SALVAR / EXPORTAR ARQUIVOS
+
+function exportarCardapio() {
+  let texto = "📋 CARDÁPIO - DK HAMBURGUERIA\n";
+  texto += "Data de exportação: " + new Date().toLocaleDateString('pt-BR') + "\n\n";
+  texto += "ITEM\t\tVALOR\n";
+  texto += "----------------------------------------\n";
+  
+  cardapio.forEach(item => {
+    texto += `${item.nome}\t\tR$ ${item.valor.toFixed(2)}\n`;
+  });
+  
+  const blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `cardapio-dk-${dataAtual()}.txt`;
+  link.click();
+  alert('✅ Cardápio salvo em arquivo!');
+}
+
+function exportarVendas() {
+  let texto = "📊 RELATÓRIO DE VENDAS - DK HAMBURGUERIA\n";
+  texto += "Data de exportação: " + new Date().toLocaleDateString('pt-BR') + "\n\n";
+  texto += "DATA\tHORA\tCLIENTE\tITENS\tTOTAL\n";
+  texto += "--------------------------------------------------------\n";
+  
+  vendas.forEach(venda => {
+    let itensTxt = '';
+    for (const nome in venda.itens) {
+      itensTxt += `${venda.itens[nome].qtd}x${nome} `;
+    }
+    texto += `${venda.dataStr}\t${venda.hora}\t${venda.cliente}\t${itensTxt}\tR$ ${venda.total.toFixed(2)}\n`;
+  });
+  
+  const totalGeral = vendas.reduce((soma, v) => soma + v.total, 0);
+  texto += "\n--------------------------------------------------------\n";
+  texto += `TOTAL GERAL: R$ ${totalGeral.toFixed(2)}\n`;
+  texto += `Total de Vendas: ${vendas.length}\n`;
+  
+  const blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `vendas-dk-${dataAtual()}.txt`;
+  link.click();
+  alert('✅ Relatório de vendas salvo em arquivo!');
+}
+
+function exportarVendasPDF() {
+  window.print();
+}
+
+</script>
+
+</body>
+</html>

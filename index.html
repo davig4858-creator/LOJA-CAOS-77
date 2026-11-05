@@ -3,615 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DK HAMBURGUERIA - Painel Completo</title>
+<title>DK HAMBURGUERIA - Painel</title>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-:root {
-  --roxo: #4B0082;
-  --roxo-claro: #800080;
-  --dourado: #D4AF37;
-  --dourado-claro: #F4E48F;
-  --fundo: #1A0A2E;
-  --card: #2E1050;
-  --texto: #FFFFFF;
-}
-
-body {
-  background: var(--fundo);
-  color: var(--texto);
-  padding: 15px;
-  min-height: 100vh;
-}
-
-.cabecalho {
-  text-align: center;
-  padding: 20px;
-  background: linear-gradient(135deg, var(--roxo), var(--roxo-claro));
-  border-radius: 12px;
-  margin-bottom: 20px;
-  border: 3px solid var(--dourado);
-}
-
-.cabecalho h1 {
-  font-size: 1.6rem;
-  color: var(--dourado);
-}
-
-.cabecalho p {
-  color: var(--dourado-claro);
-  margin-top: 5px;
-  font-size: 0.9rem;
-}
-
-.container {
-  max-width: 700px;
-  margin: 0 auto;
-  display: grid;
-  gap: 20px;
-}
-
-.card {
-  background: var(--card);
-  padding: 20px;
-  border-radius: 12px;
-  border: 2px solid var(--dourado);
-}
-
-.card h2 {
-  color: var(--dourado);
-  margin-bottom: 15px;
-  font-size: 1.1rem;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--dourado);
-}
-
-h3 {
-  color: var(--dourado-claro);
-  margin: 15px 0 10px;
-  font-size: 0.95rem;
-}
-
-input, button, textarea {
-  width: 100%;
-  padding: 12px;
-  margin: 6px 0;
-  border-radius: 6px;
-  border: none;
-  font-size: 1rem;
-}
-
-input, textarea {
-  background: rgba(255,255,255,0.1);
-  color: white;
-  border: 1px solid var(--dourado);
-}
-
-button {
-  background: linear-gradient(135deg, var(--dourado), #B8960C);
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-
-button:active {
-  transform: scale(0.98);
-}
-
-button.roxo {
-  background: linear-gradient(135deg, #6A0DAD, #4B0082);
-  color: gold;
-  border: 2px solid gold;
-}
-
-button.verde {
-  background: #006400;
-  color: white;
-}
-
-button.vermelho {
-  background: #8B0000;
-  color: white;
-}
-
-ul {
-  list-style: none;
-  margin-top: 10px;
-}
-
-li {
-  padding: 10px;
-  background: rgba(75,0,130,0.4);
-  margin: 5px 0;
-  border-radius: 6px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.valor {
-  color: var(--dourado);
-  font-weight: bold;
-}
-
-.lixeira {
-  background: #8B0000;
-  color: white;
-  width: auto;
-  padding: 5px 10px;
-  margin-left: auto;
-  font-size: 0.85rem;
-}
-
-.total {
-  margin-top: 15px;
-  padding: 12px;
-  background: rgba(212,175,55,0.2);
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  text-align: right;
-  color: var(--dourado);
-}
-
-.item-pedido {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 10px;
-  background: rgba(75,0,130,0.2);
-  border-radius: 6px;
-  margin: 4px 0;
-}
-
-.controle-qtd {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.controle-qtd button {
-  width: 36px;
-  padding: 4px;
-  margin: 0;
-  font-weight: bold;
-}
-
-.controle-qtd span {
-  min-width: 24px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.acoes {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-.acoes button {
-  flex: 1;
-  font-size: 0.9rem;
-  padding: 10px;
-}
-
-.data-filtro {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.data-filtro input {
-  flex: 1;
-  min-width: 130px;
-}
-
-.venda-item {
-  background: rgba(75,0,130,0.3);
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border-left: 3px solid var(--dourado);
-}
-
-.venda-data {
-  font-size: 0.85rem;
-  color: var(--dourado-claro);
-  margin-bottom: 5px;
-}
-
-.resumo-dia {
-  margin-top: 12px;
-  padding: 10px;
-  background: rgba(212,175,55,0.15);
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 0.95rem;
-}
-
-.vazio {
-  text-align: center;
-  color: #888;
-  padding: 20px;
-}
-
-.botoes-salvar {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-.botoes-salvar button {
-  flex: 1;
-  min-width: 120px;
-}
+* {margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
+body {background:#1A0A2E; color:#fff; padding:15px; min-height:100vh;}
+.topo {text-align:center; padding:20px; background:linear-gradient(135deg,#4B0082,#800080); border-radius:12px; border:3px solid #D4AF37; margin-bottom:20px;}
+.topo h1 {color:#D4AF37; font-size:1.4rem;}
+.caixa {max-width:500px; margin:0 auto 20px; background:#2E1050; padding:20px; border-radius:12px; border:2px solid #D4AF37;}
+h2 {color:#D4AF37; font-size:1.1rem; margin-bottom:15px; padding-bottom:8px; border-bottom:1px solid #D4AF37;}
+h3 {color:#F4E48F; font-size:0.95rem; margin:15px 0 8px;}
+input, button, textarea {width:100%; padding:12px; margin:6px 0; border-radius:6px; border:none; font-size:1rem;}
+input, textarea {background:rgba(255,255,255,.1); color:#fff; border:1px solid #D4AF37;}
+button {background:linear-gradient(135deg,#D4AF37,#B8960C); color:#000; font-weight:bold; cursor:pointer;}
+button:active {transform:scale(.97);}
+button.verde {background:#006400; color:#fff;}
+button.roxo {background:#4B0082; color:#fff;}
+button.vermelho {background:#8B0000; color:#fff;}
+button.pequeno {width:auto; padding:6px 10px; font-size:0.9rem;}
+.linha {display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(75,0,130,.3); border-radius:6px; margin:5px 0; flex-wrap:wrap; gap:8px;}
+.valor {color:#D4AF37; font-weight:bold;}
+.total {padding:12px; background:rgba(212,175,55,.2); border-radius:6px; font-size:1.1rem; font-weight:bold; text-align:right; color:#D4AF37; margin-top:10px;}
+.item-pedido {display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:rgba(75,0,130,.2); border-radius:6px; margin:4px 0;}
+.controle {display:flex; gap:6px; align-items:center;}
+.controle button {width:32px; padding:4px; margin:0;}
+.controle span {min-width:24px; text-align:center; font-weight:bold;}
+.venda {background:rgba(75,0,130,.25); padding:12px; border-radius:6px; margin:8px 0; border-left:3px solid #D4AF37;}
+.data {font-size:0.85rem; color:#F4E48F; margin-bottom:5px;}
+.vazio {text-align:center; color:#888; padding:20px;}
+.botoes {display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;}
+.botoes button {flex:1; min-width:100px;}
 </style>
 </head>
 <body>
 
-<div class="cabecalho">
+<div class="topo">
   <h1>🍔 DK HAMBURGUERIA</h1>
-  <p>Painel de Controle Completo</p>
+  <p style="color:#F4E48F; font-size:0.9rem;">Painel de Controle</p>
 </div>
 
-<div class="container">
+<!-- CADASTRAR LANCHES -->
+<div class="caixa">
+  <h2>📋 Cadastrar Lanche</h2>
+  <input type="text" id="nomeLanche" placeholder="Nome do lanche">
+  <input type="number" id="valorLanche" placeholder="Valor (ex: 16.00)" step="0.01">
+  <button onclick="cadastrarLanche()">➕ Adicionar ao Cardápio</button>
+  
+  <h3>Cardápio</h3>
+  <div id="listaCardapio" class="vazio">Nenhum lanche cadastrado</div>
+</div>
 
-  <!-- CARDÁPIO -->
-  <div class="card">
-    <h2>📋 Cadastrar Lanche</h2>
-    <input type="text" id="nomeLanche" placeholder="Nome do lanche (ex: DK JR)">
-    <input type="number" id="valorLanche" placeholder="Valor (ex: 16.00)" step="0.01">
-    <button onclick="adicionarLanche()">➕ Adicionar ao Cardápio</button>
-
-    <h3>Cardápio</h3>
-    <ul id="listaCardapio">
-      <li style="justify-content:center; color:#aaa;">Nenhum lanche cadastrado</li>
-    </ul>
-    
-    <div class="botoes-salvar">
-      <button class="verde" onclick="exportarCardapio()">💾 Salvar Cardápio</button>
-    </div>
+<!-- FAZER PEDIDO -->
+<div class="caixa">
+  <h2>🛒 Novo Pedido</h2>
+  <textarea id="nomeCliente" placeholder="Nome do cliente / Mesa" rows="2"></textarea>
+  
+  <div id="itensPedido" class="vazio">Cadastre lanches primeiro</div>
+  
+  <div class="total">Total: R$ <span id="valorTotal">0.00</span></div>
+  
+  <div class="botoes">
+    <button class="vermelho" onclick="limparPedido()">🗑️ Limpar</button>
+    <button class="roxo" onclick="imprimir()">🖨️ Imprimir</button>
+    <button class="verde" onclick="finalizar()">✅ Finalizar</button>
   </div>
+</div>
 
-  <!-- PEDIDOS -->
-  <div class="card">
-    <h2>🛒 Fazer Pedido</h2>
-    <textarea id="clienteNome" placeholder="Nome do cliente / Mesa" rows="2"></textarea>
-    
-    <div id="selecionarItens">
-      <p class="vazio">Cadastre lanches primeiro acima!</p>
-    </div>
-    
-    <div class="total">
-      Total: R$ <span id="valorTotal">0,00</span>
-    </div>
-    
-    <div class="acoes">
-      <button onclick="limparPedido()">🗑️ Limpar</button>
-      <button class="roxo" onclick="imprimirPedido()">🖨️ Imprimir</button>
-      <button class="verde" onclick="finalizarPedido()">✅ Finalizar</button>
-    </div>
+<!-- HISTÓRICO -->
+<div class="caixa">
+  <h2>📊 Vendas</h2>
+  <div style="display:flex; gap:8px; margin-bottom:10px;">
+    <input type="date" id="dataFiltro" style="flex:1; margin:0;">
+    <button class="pequeno" onclick="filtrar()">🔍</button>
+    <button class="pequeno" onclick="hoje()">Hoje</button>
   </div>
-
-  <!-- HISTÓRICO -->
-  <div class="card">
-    <h2>📊 Histórico de Vendas</h2>
-    
-    <div class="data-filtro">
-      <input type="date" id="filtroData">
-      <button onclick="filtrarData()">🔍 Buscar</button>
-      <button onclick="limparFiltro()">Hoje</button>
-    </div>
-
-    <div class="botoes-salvar">
-      <button class="verde" onclick="exportarVendas()">📥 Salvar Vendas</button>
-      <button onclick="window.print()">📄 Imprimir Relatório</button>
-    </div>
-    
-    <div id="resumoDia" class="resumo-dia" style="display:none;"></div>
-    
-    <div id="listaVendas">
-      <p class="vazio">Nenhuma venda registrada ainda.</p>
-    </div>
-    
-    <div class="acoes" style="margin-top:15px;">
-      <button class="vermelho" onclick="limparHistorico()">⚠️ Limpar Histórico</button>
-    </div>
-  </div>
-
+  <div id="resumo" style="display:none; padding:8px; background:rgba(212,175,55,.15); border-radius:6px; margin-bottom:10px; font-weight:bold;"></div>
+  <div id="listaVendas" class="vazio">Nenhuma venda ainda</div>
+  <button class="vermelho" style="margin-top:15px;" onclick="limparTudo()">⚠️ Limpar Histórico</button>
 </div>
 
 <script>
-// DADOS SALVOS
+// DADOS
 let cardapio = JSON.parse(localStorage.getItem('dk_cardapio')) || [];
 let vendas = JSON.parse(localStorage.getItem('dk_vendas')) || [];
-let pedidoAtual = [];
+let pedido = [];
 
 // INICIAR
 atualizarCardapio();
-atualizarHistorico();
-document.getElementById('filtroData').value = dataHoje();
+atualizarVendas();
+document.getElementById('dataFiltro').value = hojeData();
 
-function dataHoje() {
-  return new Date().toISOString().split('T')[0];
-}
+function hojeData() { return new Date().toISOString().split('T')[0]; }
+function salvarCardapio() { localStorage.setItem('dk_cardapio', JSON.stringify(cardapio)); }
+function salvarVendas() { localStorage.setItem('dk_vendas', JSON.stringify(vendas)); }
 
-function salvarCardapio() {
-  localStorage.setItem('dk_cardapio', JSON.stringify(cardapio));
-}
-
-function salvarVendas() {
-  localStorage.setItem('dk_vendas', JSON.stringify(vendas));
-}
-
-// ================== CADASTRAR LANCHE ==================
-function adicionarLanche() {
-  const nome = document.getElementById('nomeLanche').value.trim();
-  const valor = parseFloat(document.getElementById('valorLanche').value);
+// ============= CADASTRAR LANCHE =============
+function cadastrarLanche() {
+  let nome = document.getElementById('nomeLanche').value.trim();
+  let valor = parseFloat(document.getElementById('valorLanche').value);
   
-  if (!nome) { alert('⚠️ Digite o nome do lanche!'); return; }
-  if (isNaN(valor) || valor <= 0) { alert('⚠️ Digite um valor válido! Ex: 16.00'); return; }
+  if (!nome) { alert('⚠️ Digite o nome!'); return; }
+  if (!valor || valor <= 0) { alert('⚠️ Digite um valor válido! Ex: 16.00'); return; }
   
-  cardapio.push({ nome, valor });
+  cardapio.push({nome, valor});
   salvarCardapio();
   atualizarCardapio();
   
   document.getElementById('nomeLanche').value = '';
   document.getElementById('valorLanche').value = '';
-  alert('✅ Lanche cadastrado com SUCESSO!');
+  alert('✅ Lanche cadastrado!');
 }
 
-function removerLanche(indice) {
-  if (confirm('Remover este lanche?')) {
-    cardapio.splice(indice, 1);
+function removerLanche(i) {
+  if (confirm('Excluir este lanche?')) {
+    cardapio.splice(i, 1);
     salvarCardapio();
     atualizarCardapio();
-    atualizarSelecaoItens();
+    atualizarItensPedido();
   }
 }
 
 function atualizarCardapio() {
-  const lista = document.getElementById('listaCardapio');
-  
+  let el = document.getElementById('listaCardapio');
   if (cardapio.length === 0) {
-    lista.innerHTML = '<li style="justify-content:center; color:#aaa;">Nenhum lanche cadastrado</li>';
-    atualizarSelecaoItens();
+    el.innerHTML = '<div class="vazio">Nenhum lanche cadastrado</div>';
+    atualizarItensPedido();
     return;
   }
-  
-  lista.innerHTML = '';
+  el.innerHTML = '';
   cardapio.forEach((item, i) => {
-    lista.innerHTML += `
-      <li>
-        <span>${item.nome}</span>
-        <span class="valor">R$ ${item.valor.toFixed(2)}</span>
-        <button class="lixeira" onclick="removerLanche(${i})">✕</button>
-      </li>
-    `;
+    el.innerHTML += `<div class="linha"><span>${item.nome}</span><span class="valor">R$ ${item.valor.toFixed(2)}</span><button class="pequeno vermelho" onclick="removerLanche(${i})">✕</button></div>`;
   });
-  
-  atualizarSelecaoItens();
+  atualizarItensPedido();
 }
 
-// ================== FAZER PEDIDO ==================
-function atualizarSelecaoItens() {
-  const container = document.getElementById('selecionarItens');
-  
+// ============= PEDIDOS =============
+function atualizarItensPedido() {
+  let el = document.getElementById('itensPedido');
   if (cardapio.length === 0) {
-    container.innerHTML = '<p class="vazio">Cadastre lanches primeiro!</p>';
+    el.innerHTML = '<div class="vazio">Cadastre lanches primeiro</div>';
     atualizarTotal();
     return;
   }
-  
-  container.innerHTML = '<h3>Itens do Pedido:</h3>';
+  el.innerHTML = '';
   cardapio.forEach((item, i) => {
-    const qtd = pedidoAtual.filter(p => p.index === i).length;
-    container.innerHTML += `
-      <div class="item-pedido">
-        <span>${item.nome} — R$ ${item.valor.toFixed(2)}</span>
-        <div class="controle-qtd">
-          <button onclick="removerItem(${i})">−</button>
-          <span>${qtd}</span>
-          <button onclick="adicionarItem(${i})">+</button>
-        </div>
-      </div>
-    `;
+    let qtd = pedido.filter(p => p.i === i).length;
+    el.innerHTML += `<div class="item-pedido"><span>${item.nome} — R$ ${item.valor.toFixed(2)}</span><div class="controle"><button onclick="menos(${i})">−</button><span>${qtd}</span><button onclick="mais(${i})">+</button></div></div>`;
   });
-  
   atualizarTotal();
 }
 
-function adicionarItem(indice) {
-  pedidoAtual.push({ index: indice, ...cardapio[indice] });
-  atualizarSelecaoItens();
+function mais(i) {
+  pedido.push({i:i, nome:cardapio[i].nome, valor:cardapio[i].valor});
+  atualizarItensPedido();
 }
 
-function removerItem(indice) {
-  const posicao = pedidoAtual.findIndex(p => p.index === indice);
-  if (posicao !== -1) {
-    pedidoAtual.splice(posicao, 1);
-    atualizarSelecaoItens();
-  }
+function menos(i) {
+  let pos = pedido.findIndex(p => p.i === i);
+  if (pos !== -1) { pedido.splice(pos, 1); atualizarItensPedido(); }
 }
 
 function atualizarTotal() {
-  const total = pedidoAtual.reduce((soma, item) => soma + item.valor, 0);
-  document.getElementById('valorTotal').textContent = total.toFixed(2).replace('.', ',');
+  let total = pedido.reduce((s, p) => s + p.valor, 0);
+  document.getElementById('valorTotal').textContent = total.toFixed(2);
 }
 
 function limparPedido() {
-  if (pedidoAtual.length > 0 && !confirm('Limpar o pedido atual?')) return;
-  pedidoAtual = [];
-  document.getElementById('clienteNome').value = '';
-  atualizarSelecaoItens();
+  if (pedido.length && !confirm('Limpar pedido?')) return;
+  pedido = [];
+  document.getElementById('nomeCliente').value = '';
+  atualizarItensPedido();
 }
 
-// ================== IMPRIMIR NO RAWBT ==================
-function imprimirPedido() {
-  const cliente = document.getElementById('clienteNome').value.trim() || 'Cliente';
+// ============= IMPRIMIR =============
+function imprimir() {
+  if (pedido.length === 0) { alert('Adicione itens primeiro!'); return; }
+  let cliente = document.getElementById('nomeCliente').value.trim() || 'Cliente';
+  let agora = new Date();
+  let data = agora.toLocaleDateString('pt-BR');
+  let hora = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
   
-  if (pedidoAtual.length === 0) {
-    alert('Adicione itens ao pedido primeiro!');
-    return;
+  let agrupado = {};
+  pedido.forEach(p => { agrupado[p.nome] = agrupado[p.nome] || {qtd:0, valor:p.valor}; agrupado[p.nome].qtd++; });
+  let total = pedido.reduce((s, p) => s + p.valor, 0);
+  
+  let cupom = "══════════════════════════\nDK HAMBÚRGUERIA\n══════════════════════════\nData: "+data+"  Hora: "+hora+"\nCliente: "+cliente+"\n══════════════════════════\nITEM          QTD  VALOR\n──────────────────────────\n";
+  for (let n in agrupado) {
+    let sub = agrupado[n].valor * agrupado[n].qtd;
+    cupom += n.substring(0,12).padEnd(12) + " " + String(agrupado[n].qtd).padStart(3) + "  R$" + sub.toFixed(2).padStart(5) + "\n";
   }
+  cupom += "──────────────────────────\nTOTAL:         R$ " + total.toFixed(2) + "\n══════════════════════════\nObrigado!\n\n\n";
   
-  const agora = new Date();
-  const dataStr = agora.toLocaleDateString('pt-BR');
-  const horaStr = agora.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
-  
-  const agrupado = {};
-  pedidoAtual.forEach(item => {
-    if (!agrupado[item.nome]) agrupado[item.nome] = { qtd: 0, valor: item.valor };
-    agrupado[item.nome].qtd++;
-  });
-  
-  const total = pedidoAtual.reduce((soma, item) => soma + item.valor, 0);
-  
-  let cupom = "══════════════════════════════\n";
-  cupom += "       DK HAMBÚRGUERIA\n";
-  cupom += "══════════════════════════════\n";
-  cupom += `Data: ${dataStr}  Hora: ${horaStr}\n`;
-  cupom += `Cliente: ${cliente}\n`;
-  cupom += "══════════════════════════════\n";
-  cupom += "ITEM                QTD  VALOR\n";
-  cupom += "──────────────────────────────\n";
-  
-  for (const nome in agrupado) {
-    const i = agrupado[nome];
-    const subtotal = i.valor * i.qtd;
-    cupom += `${nome.substring(0,16).padEnd(16)} ${String(i.qtd).padStart(3)}  R$${subtotal.toFixed(2).padStart(6)}\n`;
-  }
-  
-  cupom += "──────────────────────────────\n";
-  cupom += `TOTAL:               R$ ${total.toFixed(2)}\n`;
-  cupom += "══════════════════════════════\n";
-  cupom += "  Obrigado pela preferência!\n\n\n\n";
-  
-  const texto = encodeURIComponent(cupom);
-  try {
-    window.location.href = `intent:${texto}#Intent;scheme=rawbt;package=ru.a402d.rawbtprinter;end;`;
-  } catch (erro) {
-    alert("📋 Cupom:\n\n" + cupom);
-  }
+  let cod = encodeURIComponent(cupom);
+  try { window.location.href = "intent:"+cod+"#Intent;scheme=rawbt;package=ru.a402d.rawbtprinter;end;"; }
+  catch(e) { alert(cupom); }
 }
 
-// ================== FINALIZAR PEDIDO ==================
-function finalizarPedido() {
-  const cliente = document.getElementById('clienteNome').value.trim() || 'Sem nome';
+// ============= FINALIZAR PEDIDO =============
+function finalizar() {
+  if (pedido.length === 0) { alert('Adicione itens primeiro!'); return; }
+  let cliente = document.getElementById('nomeCliente').value.trim() || 'Sem nome';
+  let total = pedido.reduce((s, p) => s + p.valor, 0);
+  let agora = new Date();
+  let dataStr = agora.toLocaleDateString('pt-BR');
+  let horaStr = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  let dataISO = agora.toISOString().split('T')[0];
   
-  if (pedidoAtual.length === 0) {
-    alert('Adicione pelo menos um item!');
-    return;
-  }
+  let agrupado = {};
+  pedido.forEach(p => { agrupado[p.nome] = agrupado[p.nome] || {qtd:0, valor:p.valor}; agrupado[p.nome].qtd++; });
   
-  const total = pedidoAtual.reduce((soma, item) => soma + item.valor, 0);
-  const agora = new Date();
-  const dataStr = agora.toLocaleDateString('pt-BR');
-  const horaStr = agora.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
-  const dataISO = agora.toISOString().split('T')[0];
-  
-  const agrupado = {};
-  pedidoAtual.forEach(item => {
-    if (!agrupado[item.nome]) agrupado[item.nome] = { qtd:0, valor:item.valor };
-    agrupado[item.nome].qtd++;
-  });
-  
-  vendas.unshift({
-    id: Date.now(),
-    data: dataISO,
-    dataStr,
-    hora: horaStr,
-    cliente,
-    itens: agrupado,
-    total
-  });
-  
+  vendas.unshift({id:Date.now(), data:dataISO, dataStr, hora:horaStr, cliente, itens:agrupado, total});
   salvarVendas();
-  alert(`✅ Pedido salvo!\nTotal: R$ ${total.toFixed(2)}`);
-  limparPedido();
-  atualizarHistorico();
+  alert('✅ Pedido finalizado! Total: R$ ' + total.toFixed(2));
+  pedido = [];
+  document.getElementById('nomeCliente').value = '';
+  atualizarItensPedido();
+  atualizarVendas();
 }
 
-// ================== HISTÓRICO ==================
-function atualizarHistorico(filtroData = null) {
-  const lista = document.getElementById('listaVendas');
-  let vendasFiltradas = filtroData ? vendas.filter(v => v.data === filtroData) : vendas;
+// ============= HISTÓRICO =============
+function atualizarVendas(filtro = null) {
+  let el = document.getElementById('listaVendas');
+  let vendasMostrar = filtro ? vendas.filter(v => v.data === filtro) : vendas;
   
-  if (vendasFiltradas.length === 0) {
-    lista.innerHTML = '<p class="vazio">Nenhuma venda registrada nesta data.</p>';
-    document.getElementById('resumoDia').style.display = 'none';
+  if (vendasMostrar.length === 0) {
+    el.innerHTML = '<div class="vazio">Nenhuma venda ainda</div>';
+    document.getElementById('resumo').style.display = 'none';
     return;
   }
   
-  lista.innerHTML = '';
+  el.innerHTML = '';
   let totalDia = 0;
-  
-  vendasFiltradas.forEach(venda => {
-    totalDia += venda.total;
-    let itensTexto = '';
-    for (const nome in venda.itens) {
-      const i = venda.itens[nome];
-      itensTexto += `${i.qtd}x ${nome} — R$ ${(i.valor * i.qtd).toFixed(2)}<br>`;
-    }
-    
-    lista.innerHTML += `
-      <div class="venda-item">
-        <div class="venda-data">📅 ${venda.dataStr} às ${venda.hora} — 👤 ${venda.cliente}</div>
-        <div style="margin:5px 0; font-size:0.9rem;">${itensTexto}</div>
-        <div style="font-weight:bold; color:#D4AF37;">💰 Total: R$ ${venda.total.toFixed(2)}</div>
-        <button class="lixeira" style="margin-top:8px;" onclick="excluirVenda(${venda.id})">🗑️ Excluir</button>
-      </div>
-    `;
+  vendasMostrar.forEach(v => {
+    totalDia += v.total;
+    let itensTxt = '';
+    for (let n in v.itens) itensTxt += v.itens[n].qtd + 'x ' + n + ' — R$ ' + (v.itens[n].valor*v.itens[n].qtd).toFixed(2) + '<br>';
+    el.innerHTML += `<div class="venda"><div class="data">📅 ${v.dataStr} ${v.hora} — 👤 ${v.cliente}</div><div style="font-size:0.9rem; margin:5px 0;">${itensTxt}</div><div style="font-weight:bold; color:#D4AF37;">💰 R$ ${v.total.toFixed(2)}</div><button class="pequeno vermelho" style="margin-top:8px;" onclick="apagarVenda(${v.id})">🗑️ Excluir</button></div>`;
   });
   
-  document.getElementById('resumoDia').style.display = 'block';
-  document.getElementById('resumoDia').innerHTML = `📊 Total do dia: R$ ${totalDia.toFixed(2)} — ${vendasFiltradas.length} vendas`;
+  document.getElementById('resumo').style.display = 'block';
+  document.getElementById('resumo').innerHTML = `📊 Total: R$ ${totalDia.toFixed(2)} — ${vendasMostrar.length} vendas`;
 }
 
-function filtrarData() {
-  const data = document.getElementById('filtroData').value;
-  atualizarHistorico(data);
-}
+function filtrar() { atualizarVendas(document.getElementById('dataFiltro').value); }
+function hoje() { document.getElementById('dataFiltro').value = hojeData(); atualizarVendas(); }
+function apagarVenda(id) { if(confirm('Excluir venda?')){vendas = vendas.filter(v=>v.id!==id); salvarVendas(); filtrar();} }
+function limparTudo() { if(confirm('Tem certeza? Isso apaga TUDO!') && confirm('Tem MUITA certeza?')){vendas=[]; salvarVendas(); atualizarVendas();} }
+</script>
 
-function limparFiltro() {
-  document.getElementById('filtroData').value = dataHoje();
-  atualizarHistorico();
-}
-
-function excluirVenda(id) {
-  if (confirm('Excluir esta venda?')) {
-    vendas = vendas.filter(v => v.id !== id);
-    salvarVendas();
-    filtrarData();
-  }
-}
-
-function limparHistorico() {
-  if (confirm('⚠️ TEM CERTEZA? Isso apaga TODAS as vendas!')) {
-    if (confirm('Tem MUITA certeza?')) {
-      vendas = [];
-      salvarVendas();
-      atualizarHistorico();
-    }
-  }
-}
-
-// ================== SALVAR ARQUIVOS ==================
-function exportarCardapio() {
-  let texto = "📋 CARDÁPIO - DK HAMBÚRGUERIA\n";
-  texto += "Data: " + new Date().toLocaleDateString('pt-BR') + "\n\n";
-  cardapio.forEach(item => {
-    texto += `${item.nome} — R$ ${item.valor.toFixed(2)}\n`;
-  });
+</body>
+</html>

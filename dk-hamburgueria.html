@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DK HAMBURGUERIA - Painel de Controle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 * {
   margin: 0;
@@ -81,6 +83,12 @@ body {
   padding-bottom: 8px;
 }
 
+h3 {
+  color: var(--dourado-claro);
+  margin: 15px 0 10px;
+  font-size: 1rem;
+}
+
 input, button, textarea {
   width: 100%;
   padding: 12px;
@@ -107,6 +115,12 @@ button {
 button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(212,175,55,0.4);
+}
+
+button.roxo {
+  background: linear-gradient(135deg, #6A0DAD, #4B0082);
+  color: gold;
+  border: 2px solid gold;
 }
 
 button.vermelho {
@@ -232,6 +246,31 @@ li {
   margin-top: 15px;
 }
 
+.item-pedido {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.controle-qtd {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.controle-qtd button {
+  width: 32px;
+  padding: 4px;
+  margin: 0;
+}
+
+.controle-qtd span {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
 @media(max-width: 768px) {
   .secao-historico { grid-column: 1; }
 }
@@ -254,7 +293,7 @@ li {
     <input type="number" id="valorLanche" placeholder="Valor R$" step="0.01">
     <button onclick="adicionarLanche()">➕ Adicionar ao Cardápio</button>
 
-    <h3 style="margin-top:25px; color:#F4E48F;">Cardápio</h3>
+    <h3>Cardápio</h3>
     <ul id="listaCardapio"></ul>
     
     <div class="botoes-salvar">
@@ -275,7 +314,8 @@ li {
     
     <div class="acoes">
       <button onclick="limparPedido()">🗑️ Limpar</button>
-      <button onclick="finalizarPedido()">✅ Finalizar Pedido</button>
+      <button class="roxo" onclick="imprimirPedido()">🖨️ Imprimir Pedido</button>
+      <button class="verde" onclick="finalizarPedido()">✅ Finalizar Pedido</button>
     </div>
   </div>
 
@@ -291,7 +331,7 @@ li {
     </div>
 
     <div class="botoes-salvar">
-      <button class="verde" onclick="exportarVendas()">📥 Salvar Vendas (Excel/Texto)</button>
+      <button class="verde" onclick="exportarVendas()">📥 Salvar Vendas</button>
       <button onclick="exportarVendasPDF()">📄 Salvar como PDF</button>
     </div>
     
@@ -300,7 +340,7 @@ li {
     <div id="listaVendas"></div>
     
     <div class="acoes" style="margin-top:20px;">
-      <button class="vermelho" onclick="limparHistorico()">⚠️ Limpar Todo o Histórico</button>
+      <button class="vermelho" onclick="limparHistorico()">⚠️ Limpar Histórico</button>
     </div>
   </div>
 
@@ -377,17 +417,17 @@ function atualizarCardapio() {
 
 function atualizarSelecaoItens() {
   const container = document.getElementById('selecionarItens');
-  container.innerHTML = '<h3 style="margin:15px 0 10px; color:#F4E48F;">Selecione os itens:</h3>';
+  container.innerHTML = '<h3>Selecione os itens:</h3>';
   
   cardapio.forEach((item, i) => {
     const qtd = pedidoAtual.filter(p => p.index === i).length;
     container.innerHTML += `
-      <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 0;">
+      <div class="item-pedido">
         <span>${item.nome} — R$ ${item.valor.toFixed(2)}</span>
-        <div style="display:flex; gap:6px; align-items:center;">
-          <button style="width:32px; padding:4px; margin:0;" onclick="removerItem(${i})">−</button>
-          <span style="min-width:24px; text-align:center; font-weight:600;">${qtd}</span>
-          <button style="width:32px; padding:4px; margin:0;" onclick="adicionarItem(${i})">+</button>
+        <div class="controle-qtd">
+          <button onclick="removerItem(${i})">−</button>
+          <span>${qtd}</span>
+          <button onclick="adicionarItem(${i})">+</button>
         </div>
       </div>
     `;
@@ -418,6 +458,60 @@ function limparPedido() {
   pedidoAtual = [];
   document.getElementById('clienteNome').value = '';
   atualizarSelecaoItens();
+}
+
+// 🖨️ FUNÇÃO DE IMPRIMIR NO RAWBT
+function imprimirPedido() {
+  const cliente = document.getElementById('clienteNome').value.trim() || 'Cliente';
+  
+  if (pedidoAtual.length === 0) {
+    alert('Adicione pelo menos um item para imprimir!');
+    return;
+  }
+  
+  const agora = new Date();
+  const dataStr = agora.toLocaleDateString('pt-BR');
+  const horaStr = agora.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+  
+  // Agrupar itens
+  const agrupado = {};
+  pedidoAtual.forEach(item => {
+    if (!agrupado[item.nome]) agrupado[item.nome] = { qtd: 0, valor: item.valor };
+    agrupado[item.nome].qtd++;
+  });
+  
+  const total = pedidoAtual.reduce((soma, item) => soma + item.valor, 0);
+  
+  // Montar texto do cupom
+  let cupom = "══════════════════════════════\n";
+  cupom += "       DK HAMBÚRGUERIA\n";
+  cupom += "   Sabor de Verdade é Aqui!\n";
+  cupom += "══════════════════════════════\n";
+  cupom += `Data: ${dataStr}  Hora: ${horaStr}\n`;
+  cupom += `Cliente: ${cliente}\n`;
+  cupom += "══════════════════════════════\n";
+  cupom += "ITEM                QTD  VALOR\n";
+  cupom += "──────────────────────────────\n";
+  
+  for (const nome in agrupado) {
+    const i = agrupado[nome];
+    const subtotal = i.valor * i.qtd;
+    cupom += `${nome.substring(0,16).padEnd(16)} ${String(i.qtd).padStart(3)}  R$${subtotal.toFixed(2).padStart(6)}\n`;
+  }
+  
+  cupom += "──────────────────────────────\n";
+  cupom += `TOTAL:               R$ ${total.toFixed(2)}\n`;
+  cupom += "══════════════════════════════\n";
+  cupom += "  Obrigado pela preferência!\n";
+  cupom += "      Volte Sempre! 😋\n\n\n\n";
+  
+  // Enviar para o RawBT
+  const texto = encodeURIComponent(cupom);
+  try {
+    window.location.href = `intent:${texto}#Intent;scheme=rawbt;package=ru.a402d.rawbtprinter;end;`;
+  } catch (e) {
+    alert("✅ Cupom pronto! Copie e imprima:\n\n" + cupom);
+  }
 }
 
 function finalizarPedido() {
@@ -527,55 +621,4 @@ function limparHistorico() {
 // 📥 FUNÇÕES DE SALVAR / EXPORTAR ARQUIVOS
 
 function exportarCardapio() {
-  let texto = "📋 CARDÁPIO - DK HAMBURGUERIA\n";
-  texto += "Data de exportação: " + new Date().toLocaleDateString('pt-BR') + "\n\n";
-  texto += "ITEM\t\tVALOR\n";
-  texto += "----------------------------------------\n";
-  
-  cardapio.forEach(item => {
-    texto += `${item.nome}\t\tR$ ${item.valor.toFixed(2)}\n`;
-  });
-  
-  const blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = `cardapio-dk-${dataAtual()}.txt`;
-  link.click();
-  alert('✅ Cardápio salvo em arquivo!');
-}
-
-function exportarVendas() {
-  let texto = "📊 RELATÓRIO DE VENDAS - DK HAMBURGUERIA\n";
-  texto += "Data de exportação: " + new Date().toLocaleDateString('pt-BR') + "\n\n";
-  texto += "DATA\tHORA\tCLIENTE\tITENS\tTOTAL\n";
-  texto += "--------------------------------------------------------\n";
-  
-  vendas.forEach(venda => {
-    let itensTxt = '';
-    for (const nome in venda.itens) {
-      itensTxt += `${venda.itens[nome].qtd}x${nome} `;
-    }
-    texto += `${venda.dataStr}\t${venda.hora}\t${venda.cliente}\t${itensTxt}\tR$ ${venda.total.toFixed(2)}\n`;
-  });
-  
-  const totalGeral = vendas.reduce((soma, v) => soma + v.total, 0);
-  texto += "\n--------------------------------------------------------\n";
-  texto += `TOTAL GERAL: R$ ${totalGeral.toFixed(2)}\n`;
-  texto += `Total de Vendas: ${vendas.length}\n`;
-  
-  const blob = new Blob([texto], { type: 'text/plain;charset=utf-8' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = `vendas-dk-${dataAtual()}.txt`;
-  link.click();
-  alert('✅ Relatório de vendas salvo em arquivo!');
-}
-
-function exportarVendasPDF() {
-  window.print();
-}
-
-</script>
-
-</body>
-</html>
+  let texto = "📋 CARDÁPIO - DK

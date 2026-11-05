@@ -3,17 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DK HAMBURGUERIA - Painel de Controle</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>DK HAMBURGUERIA - Painel Completo</title>
 <style>
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 :root {
@@ -24,76 +20,68 @@
   --fundo: #1A0A2E;
   --card: #2E1050;
   --texto: #FFFFFF;
-  --sombra: rgba(0,0,0,0.3);
 }
 
 body {
   background: var(--fundo);
   color: var(--texto);
+  padding: 15px;
   min-height: 100vh;
-  padding: 20px;
 }
 
 .cabecalho {
   text-align: center;
-  padding: 25px;
+  padding: 20px;
   background: linear-gradient(135deg, var(--roxo), var(--roxo-claro));
-  border-radius: 16px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 20px var(--sombra);
-  border: 2px solid var(--dourado);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 3px solid var(--dourado);
 }
 
 .cabecalho h1 {
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   color: var(--dourado);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .cabecalho p {
   color: var(--dourado-claro);
   margin-top: 5px;
+  font-size: 0.9rem;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 700px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px;
-}
-
-@media(max-width: 768px) {
-  .container { grid-template-columns: 1fr; }
+  gap: 20px;
 }
 
 .card {
   background: var(--card);
-  padding: 25px;
-  border-radius: 14px;
+  padding: 20px;
+  border-radius: 12px;
   border: 2px solid var(--dourado);
-  box-shadow: 0 4px 15px var(--sombra);
 }
 
 .card h2 {
   color: var(--dourado);
-  margin-bottom: 20px;
-  font-size: 1.3rem;
-  border-bottom: 1px solid var(--dourado);
+  margin-bottom: 15px;
+  font-size: 1.1rem;
   padding-bottom: 8px;
+  border-bottom: 1px solid var(--dourado);
 }
 
 h3 {
   color: var(--dourado-claro);
   margin: 15px 0 10px;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 input, button, textarea {
   width: 100%;
   padding: 12px;
-  margin: 8px 0;
-  border-radius: 8px;
+  margin: 6px 0;
+  border-radius: 6px;
   border: none;
   font-size: 1rem;
 }
@@ -107,14 +95,13 @@ input, textarea {
 button {
   background: linear-gradient(135deg, var(--dourado), #B8960C);
   color: #000;
-  font-weight: 700;
+  font-weight: bold;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.1s;
 }
 
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212,175,55,0.4);
+button:active {
+  transform: scale(0.98);
 }
 
 button.roxo {
@@ -123,92 +110,85 @@ button.roxo {
   border: 2px solid gold;
 }
 
-button.vermelho {
-  background: #8B0000;
-  color: white;
-}
-
 button.verde {
   background: #006400;
   color: white;
 }
 
+button.vermelho {
+  background: #8B0000;
+  color: white;
+}
+
 ul {
   list-style: none;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 li {
   padding: 10px;
   background: rgba(75,0,130,0.4);
-  margin: 6px 0;
+  margin: 5px 0;
   border-radius: 6px;
-  border-left: 3px solid var(--dourado);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .valor {
   color: var(--dourado);
-  font-weight: 600;
+  font-weight: bold;
+}
+
+.lixeira {
+  background: #8B0000;
+  color: white;
+  width: auto;
+  padding: 5px 10px;
+  margin-left: auto;
+  font-size: 0.85rem;
 }
 
 .total {
-  margin-top: 20px;
-  padding: 15px;
+  margin-top: 15px;
+  padding: 12px;
   background: rgba(212,175,55,0.2);
-  border-radius: 8px;
-  font-size: 1.2rem;
-  font-weight: 700;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
   text-align: right;
   color: var(--dourado);
 }
 
-.data-filtro {
+.item-pedido {
   display: flex;
-  gap: 10px;
   align-items: center;
-  margin-bottom: 15px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: rgba(75,0,130,0.2);
+  border-radius: 6px;
+  margin: 4px 0;
 }
 
-.data-filtro input {
-  flex: 1;
-  min-width: 150px;
+.controle-qtd {
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
 
-.venda-item {
-  background: rgba(75,0,130,0.3);
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border-left: 3px solid var(--dourado);
+.controle-qtd button {
+  width: 36px;
+  padding: 4px;
+  margin: 0;
+  font-weight: bold;
 }
 
-.venda-data {
-  font-size: 0.85rem;
-  color: var(--dourado-claro);
-  margin-bottom: 5px;
-}
-
-.venda-itens {
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.venda-total {
-  margin-top: 6px;
-  font-weight: 600;
-  color: var(--dourado);
-}
-
-.resumo-dia {
-  margin-top: 15px;
-  padding: 12px;
-  background: rgba(212,175,55,0.15);
-  border-radius: 8px;
-  font-weight: 600;
+.controle-qtd span {
+  min-width: 24px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .acoes {
@@ -221,92 +201,98 @@ li {
 .acoes button {
   flex: 1;
   font-size: 0.9rem;
-  padding: 8px;
+  padding: 10px;
 }
 
-.lixeira {
-  background: #8B0000;
-  color: white;
-  width: auto;
-  padding: 4px 10px;
-  margin-left: 8px;
+.data-filtro {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
 }
 
-.lixeira:hover {
-  background: #A00000;
+.data-filtro input {
+  flex: 1;
+  min-width: 130px;
 }
 
-.secao-historico {
-  grid-column: 1 / -1;
+.venda-item {
+  background: rgba(75,0,130,0.3);
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border-left: 3px solid var(--dourado);
+}
+
+.venda-data {
+  font-size: 0.85rem;
+  color: var(--dourado-claro);
+  margin-bottom: 5px;
+}
+
+.resumo-dia {
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(212,175,55,0.15);
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.vazio {
+  text-align: center;
+  color: #888;
+  padding: 20px;
 }
 
 .botoes-salvar {
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
 }
 
-.item-pedido {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 0;
+.botoes-salvar button {
+  flex: 1;
+  min-width: 120px;
 }
-
-.controle-qtd {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.controle-qtd button {
-  width: 32px;
-  padding: 4px;
-  margin: 0;
-}
-
-.controle-qtd span {
-  min-width: 24px;
-  text-align: center;
-  font-weight: 600;
-}
-
-@media(max-width: 768px) {
-  .secao-historico { grid-column: 1; }
-}
-
 </style>
 </head>
 <body>
 
 <div class="cabecalho">
   <h1>🍔 DK HAMBURGUERIA</h1>
-  <p>Painel de Controle de Pedidos e Vendas</p>
+  <p>Painel de Controle Completo</p>
 </div>
 
 <div class="container">
 
-  <!-- ADICIONAR LANCHES -->
+  <!-- CARDÁPIO -->
   <div class="card">
     <h2>📋 Cadastrar Lanche</h2>
-    <input type="text" id="nomeLanche" placeholder="Nome do lanche">
-    <input type="number" id="valorLanche" placeholder="Valor R$" step="0.01">
+    <input type="text" id="nomeLanche" placeholder="Nome do lanche (ex: DK JR)">
+    <input type="number" id="valorLanche" placeholder="Valor (ex: 16.00)" step="0.01">
     <button onclick="adicionarLanche()">➕ Adicionar ao Cardápio</button>
 
     <h3>Cardápio</h3>
-    <ul id="listaCardapio"></ul>
+    <ul id="listaCardapio">
+      <li style="justify-content:center; color:#aaa;">Nenhum lanche cadastrado</li>
+    </ul>
     
     <div class="botoes-salvar">
       <button class="verde" onclick="exportarCardapio()">💾 Salvar Cardápio</button>
     </div>
   </div>
 
-  <!-- REGISTRAR PEDIDO -->
+  <!-- PEDIDOS -->
   <div class="card">
-    <h2>🛒 Anotar Pedido</h2>
+    <h2>🛒 Fazer Pedido</h2>
     <textarea id="clienteNome" placeholder="Nome do cliente / Mesa" rows="2"></textarea>
     
-    <div id="selecionarItens"></div>
+    <div id="selecionarItens">
+      <p class="vazio">Cadastre lanches primeiro acima!</p>
+    </div>
     
     <div class="total">
       Total: R$ <span id="valorTotal">0,00</span>
@@ -314,32 +300,33 @@ li {
     
     <div class="acoes">
       <button onclick="limparPedido()">🗑️ Limpar</button>
-      <button class="roxo" onclick="imprimirPedido()">🖨️ Imprimir Pedido</button>
-      <button class="verde" onclick="finalizarPedido()">✅ Finalizar Pedido</button>
+      <button class="roxo" onclick="imprimirPedido()">🖨️ Imprimir</button>
+      <button class="verde" onclick="finalizarPedido()">✅ Finalizar</button>
     </div>
   </div>
 
-  <!-- HISTÓRICO DE VENDAS -->
-  <div class="card secao-historico">
+  <!-- HISTÓRICO -->
+  <div class="card">
     <h2>📊 Histórico de Vendas</h2>
     
     <div class="data-filtro">
-      <label>Filtrar por data:</label>
       <input type="date" id="filtroData">
       <button onclick="filtrarData()">🔍 Buscar</button>
-      <button onclick="limparFiltro()">📅 Hoje</button>
+      <button onclick="limparFiltro()">Hoje</button>
     </div>
 
     <div class="botoes-salvar">
       <button class="verde" onclick="exportarVendas()">📥 Salvar Vendas</button>
-      <button onclick="exportarVendasPDF()">📄 Salvar como PDF</button>
+      <button onclick="window.print()">📄 Imprimir Relatório</button>
     </div>
     
     <div id="resumoDia" class="resumo-dia" style="display:none;"></div>
     
-    <div id="listaVendas"></div>
+    <div id="listaVendas">
+      <p class="vazio">Nenhuma venda registrada ainda.</p>
+    </div>
     
-    <div class="acoes" style="margin-top:20px;">
+    <div class="acoes" style="margin-top:15px;">
       <button class="vermelho" onclick="limparHistorico()">⚠️ Limpar Histórico</button>
     </div>
   </div>
@@ -347,19 +334,18 @@ li {
 </div>
 
 <script>
-// Armazenamento automático
+// DADOS SALVOS
 let cardapio = JSON.parse(localStorage.getItem('dk_cardapio')) || [];
 let vendas = JSON.parse(localStorage.getItem('dk_vendas')) || [];
 let pedidoAtual = [];
 
-// Iniciar
+// INICIAR
 atualizarCardapio();
 atualizarHistorico();
-document.getElementById('filtroData').value = dataAtual();
+document.getElementById('filtroData').value = dataHoje();
 
-function dataAtual() {
-  const d = new Date();
-  return d.toISOString().split('T')[0];
+function dataHoje() {
+  return new Date().toISOString().split('T')[0];
 }
 
 function salvarCardapio() {
@@ -370,15 +356,13 @@ function salvarVendas() {
   localStorage.setItem('dk_vendas', JSON.stringify(vendas));
 }
 
-// Adicionar lanche
+// ================== CADASTRAR LANCHE ==================
 function adicionarLanche() {
   const nome = document.getElementById('nomeLanche').value.trim();
   const valor = parseFloat(document.getElementById('valorLanche').value);
   
-  if (!nome || isNaN(valor) || valor <= 0) {
-    alert('Preencha nome e valor corretamente!');
-    return;
-  }
+  if (!nome) { alert('⚠️ Digite o nome do lanche!'); return; }
+  if (isNaN(valor) || valor <= 0) { alert('⚠️ Digite um valor válido! Ex: 16.00'); return; }
   
   cardapio.push({ nome, valor });
   salvarCardapio();
@@ -386,12 +370,12 @@ function adicionarLanche() {
   
   document.getElementById('nomeLanche').value = '';
   document.getElementById('valorLanche').value = '';
-  alert('✅ Lanche salvo com sucesso!');
+  alert('✅ Lanche cadastrado com SUCESSO!');
 }
 
-function removerLanche(index) {
-  if (confirm('Remover este lanche do cardápio?')) {
-    cardapio.splice(index, 1);
+function removerLanche(indice) {
+  if (confirm('Remover este lanche?')) {
+    cardapio.splice(indice, 1);
     salvarCardapio();
     atualizarCardapio();
     atualizarSelecaoItens();
@@ -400,8 +384,14 @@ function removerLanche(index) {
 
 function atualizarCardapio() {
   const lista = document.getElementById('listaCardapio');
-  lista.innerHTML = '';
   
+  if (cardapio.length === 0) {
+    lista.innerHTML = '<li style="justify-content:center; color:#aaa;">Nenhum lanche cadastrado</li>';
+    atualizarSelecaoItens();
+    return;
+  }
+  
+  lista.innerHTML = '';
   cardapio.forEach((item, i) => {
     lista.innerHTML += `
       <li>
@@ -415,10 +405,17 @@ function atualizarCardapio() {
   atualizarSelecaoItens();
 }
 
+// ================== FAZER PEDIDO ==================
 function atualizarSelecaoItens() {
   const container = document.getElementById('selecionarItens');
-  container.innerHTML = '<h3>Selecione os itens:</h3>';
   
+  if (cardapio.length === 0) {
+    container.innerHTML = '<p class="vazio">Cadastre lanches primeiro!</p>';
+    atualizarTotal();
+    return;
+  }
+  
+  container.innerHTML = '<h3>Itens do Pedido:</h3>';
   cardapio.forEach((item, i) => {
     const qtd = pedidoAtual.filter(p => p.index === i).length;
     container.innerHTML += `
@@ -436,15 +433,15 @@ function atualizarSelecaoItens() {
   atualizarTotal();
 }
 
-function adicionarItem(index) {
-  pedidoAtual.push({ index, ...cardapio[index] });
+function adicionarItem(indice) {
+  pedidoAtual.push({ index: indice, ...cardapio[indice] });
   atualizarSelecaoItens();
 }
 
-function removerItem(index) {
-  const pos = pedidoAtual.findIndex(p => p.index === index);
-  if (pos !== -1) {
-    pedidoAtual.splice(pos, 1);
+function removerItem(indice) {
+  const posicao = pedidoAtual.findIndex(p => p.index === indice);
+  if (posicao !== -1) {
+    pedidoAtual.splice(posicao, 1);
     atualizarSelecaoItens();
   }
 }
@@ -455,17 +452,18 @@ function atualizarTotal() {
 }
 
 function limparPedido() {
+  if (pedidoAtual.length > 0 && !confirm('Limpar o pedido atual?')) return;
   pedidoAtual = [];
   document.getElementById('clienteNome').value = '';
   atualizarSelecaoItens();
 }
 
-// 🖨️ FUNÇÃO DE IMPRIMIR NO RAWBT
+// ================== IMPRIMIR NO RAWBT ==================
 function imprimirPedido() {
   const cliente = document.getElementById('clienteNome').value.trim() || 'Cliente';
   
   if (pedidoAtual.length === 0) {
-    alert('Adicione pelo menos um item para imprimir!');
+    alert('Adicione itens ao pedido primeiro!');
     return;
   }
   
@@ -473,7 +471,6 @@ function imprimirPedido() {
   const dataStr = agora.toLocaleDateString('pt-BR');
   const horaStr = agora.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
   
-  // Agrupar itens
   const agrupado = {};
   pedidoAtual.forEach(item => {
     if (!agrupado[item.nome]) agrupado[item.nome] = { qtd: 0, valor: item.valor };
@@ -482,10 +479,8 @@ function imprimirPedido() {
   
   const total = pedidoAtual.reduce((soma, item) => soma + item.valor, 0);
   
-  // Montar texto do cupom
   let cupom = "══════════════════════════════\n";
   cupom += "       DK HAMBÚRGUERIA\n";
-  cupom += "   Sabor de Verdade é Aqui!\n";
   cupom += "══════════════════════════════\n";
   cupom += `Data: ${dataStr}  Hora: ${horaStr}\n`;
   cupom += `Cliente: ${cliente}\n`;
@@ -502,23 +497,22 @@ function imprimirPedido() {
   cupom += "──────────────────────────────\n";
   cupom += `TOTAL:               R$ ${total.toFixed(2)}\n`;
   cupom += "══════════════════════════════\n";
-  cupom += "  Obrigado pela preferência!\n";
-  cupom += "      Volte Sempre! 😋\n\n\n\n";
+  cupom += "  Obrigado pela preferência!\n\n\n\n";
   
-  // Enviar para o RawBT
   const texto = encodeURIComponent(cupom);
   try {
     window.location.href = `intent:${texto}#Intent;scheme=rawbt;package=ru.a402d.rawbtprinter;end;`;
-  } catch (e) {
-    alert("✅ Cupom pronto! Copie e imprima:\n\n" + cupom);
+  } catch (erro) {
+    alert("📋 Cupom:\n\n" + cupom);
   }
 }
 
+// ================== FINALIZAR PEDIDO ==================
 function finalizarPedido() {
   const cliente = document.getElementById('clienteNome').value.trim() || 'Sem nome';
   
   if (pedidoAtual.length === 0) {
-    alert('Adicione pelo menos um item ao pedido!');
+    alert('Adicione pelo menos um item!');
     return;
   }
   
@@ -528,7 +522,6 @@ function finalizarPedido() {
   const horaStr = agora.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
   const dataISO = agora.toISOString().split('T')[0];
   
-  // Agrupar itens
   const agrupado = {};
   pedidoAtual.forEach(item => {
     if (!agrupado[item.nome]) agrupado[item.nome] = { qtd:0, valor:item.valor };
@@ -551,43 +544,40 @@ function finalizarPedido() {
   atualizarHistorico();
 }
 
+// ================== HISTÓRICO ==================
 function atualizarHistorico(filtroData = null) {
   const lista = document.getElementById('listaVendas');
-  lista.innerHTML = '';
-  
-  let vendasFiltradas = vendas;
-  if (filtroData) {
-    vendasFiltradas = vendas.filter(v => v.data === filtroData);
-  }
-  
-  let totalDia = 0;
+  let vendasFiltradas = filtroData ? vendas.filter(v => v.data === filtroData) : vendas;
   
   if (vendasFiltradas.length === 0) {
-    lista.innerHTML = '<p style="text-align:center; color:#aaa; padding:20px;">Nenhuma venda registrada nesta data.</p>';
+    lista.innerHTML = '<p class="vazio">Nenhuma venda registrada nesta data.</p>';
     document.getElementById('resumoDia').style.display = 'none';
     return;
   }
   
+  lista.innerHTML = '';
+  let totalDia = 0;
+  
   vendasFiltradas.forEach(venda => {
     totalDia += venda.total;
-    let itensHtml = '';
+    let itensTexto = '';
     for (const nome in venda.itens) {
       const i = venda.itens[nome];
-      itensHtml += `${i.qtd}x ${nome} — R$ ${(i.valor * i.qtd).toFixed(2)}<br>`;
+      itensTexto += `${i.qtd}x ${nome} — R$ ${(i.valor * i.qtd).toFixed(2)}<br>`;
     }
     
     lista.innerHTML += `
       <div class="venda-item">
         <div class="venda-data">📅 ${venda.dataStr} às ${venda.hora} — 👤 ${venda.cliente}</div>
-        <div class="venda-itens">${itensHtml}</div>
-        <div class="venda-total">💰 Total: R$ ${venda.total.toFixed(2)}</div>
+        <div style="margin:5px 0; font-size:0.9rem;">${itensTexto}</div>
+        <div style="font-weight:bold; color:#D4AF37;">💰 Total: R$ ${venda.total.toFixed(2)}</div>
         <button class="lixeira" style="margin-top:8px;" onclick="excluirVenda(${venda.id})">🗑️ Excluir</button>
       </div>
     `;
   });
   
   document.getElementById('resumoDia').style.display = 'block';
-  document.getElementById('resumoDia').innerHTML = `📊 Total do dia: <strong>R$ ${totalDia.toFixed(2)}</strong> — ${vendasFiltradas.length} vendas`;
+  document.getElementById('resumoDia').innerHTML = `📊 Total do dia: R$ ${totalDia.toFixed(2)} — ${vendasFiltradas.length} vendas`;
 }
 
 function filtrarData() {
@@ -596,7 +586,7 @@ function filtrarData() {
 }
 
 function limparFiltro() {
-  document.getElementById('filtroData').value = dataAtual();
+  document.getElementById('filtroData').value = dataHoje();
   atualizarHistorico();
 }
 
@@ -609,7 +599,7 @@ function excluirVenda(id) {
 }
 
 function limparHistorico() {
-  if (confirm('⚠️ TEM CERTEZA? Isso apagará TODAS as vendas!')) {
+  if (confirm('⚠️ TEM CERTEZA? Isso apaga TODAS as vendas!')) {
     if (confirm('Tem MUITA certeza?')) {
       vendas = [];
       salvarVendas();
@@ -618,7 +608,10 @@ function limparHistorico() {
   }
 }
 
-// 📥 FUNÇÕES DE SALVAR / EXPORTAR ARQUIVOS
-
+// ================== SALVAR ARQUIVOS ==================
 function exportarCardapio() {
-  let texto = "📋 CARDÁPIO - DK
+  let texto = "📋 CARDÁPIO - DK HAMBÚRGUERIA\n";
+  texto += "Data: " + new Date().toLocaleDateString('pt-BR') + "\n\n";
+  cardapio.forEach(item => {
+    texto += `${item.nome} — R$ ${item.valor.toFixed(2)}\n`;
+  });

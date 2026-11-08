@@ -167,47 +167,55 @@ function limparPedido() {
   atualizarPedidos();
 }
 
+// ✅ CUPOM MELHORADO
 function gerarCupom() {
   if (pedido.length === 0) return '';
   const cliente = document.getElementById('clienteInput').value.trim() || 'Cliente';
   const agora = new Date();
-  let texto = '==============================\\n';
-  texto += '   DK HAMBURGUERIA\\n';
-  texto += '==============================\\n';
-  texto += 'Data: ' + agora.toLocaleDateString('pt-BR') + '  Hora: ' + agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}) + '\\n';
-  texto += 'Cliente: ' + cliente + '\\n';
-  texto += '==============================\\n';
-  texto += 'ITEM           QTD   VALOR\\n';
-  texto += '------------------------------\\n';
+  const data = agora.toLocaleDateString('pt-BR');
+  const hora = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+
   const agrupado = {};
   pedido.forEach(item => {
     if (!agrupado[item.nome]) agrupado[item.nome] = {qtd:0, valor:item.valor};
     agrupado[item.nome].qtd++;
   });
-  let total = 0;
+  const total = pedido.reduce((soma, item) => soma + item.valor, 0);
+
+  let cupom = "==============================\n";
+  cupom += "       DK HAMBURGUERIA\n";
+  cupom += "==============================\n";
+  cupom += `DATA: ${data.padEnd(14)} HORA: ${hora}\n`;
+  cupom += `CLIENTE: ${cliente}\n`;
+  cupom += "==============================\n";
+  cupom += "DESCRICAO         QTD  VALOR\n";
+  cupom += "------------------------------\n";
+  
   for (const nome in agrupado) {
-    const subtotal = agrupado[nome].valor * agrupado[nome].qtd;
-    total += subtotal;
-    texto += nome.substring(0,13).padEnd(13) + ' ' + String(agrupado[nome].qtd).padStart(3) + '  R$' + subtotal.toFixed(2).padStart(6) + '\\n';
+    const sub = agrupado[nome].valor * agrupado[nome].qtd;
+    const nomeCurto = nome.length > 16 ? nome.substring(0,16) : nome;
+    cupom += `${nomeCurto.padEnd(16)} ${String(agrupado[nome].qtd).padStart(3)}  R$${sub.toFixed(2).padStart(6)}\n`;
   }
-  texto += '------------------------------\\n';
-  texto += 'TOTAL:           R$ ' + total.toFixed(2) + '\\n';
-  texto += '==============================\\n';
-  texto += '   Obrigado! Volte Sempre!\\n';
-  return texto;
+  
+  cupom += "------------------------------\n";
+  cupom += `TOTAL:                R$ ${total.toFixed(2)}\n`;
+  cupom += "==============================\n";
+  cupom += "    Obrigado! Volte Sempre!\n";
+  cupom += "\n\n\n";
+  return cupom;
 }
 
 function copiar() {
   const texto = gerarCupom();
   if (!texto) { alert('Adicione itens primeiro!'); return; }
-  navigator.clipboard.writeText(texto).then(() => alert('✅ Copiado!'));
+  navigator.clipboard.writeText(texto).then(() => alert('✅ Cupom copiado!'));
 }
 
 function imprimir() {
   const texto = gerarCupom();
   if (!texto) { alert('Adicione itens primeiro!'); return; }
   navigator.clipboard.writeText(texto).then(() => {
-    alert('✅ Copiado! Abra o RawBT');
+    alert('✅ Pronto! Abra o RawBT e imprima');
     window.location.href = 'rawbt://print?text=' + encodeURIComponent(texto);
   });
 }
@@ -257,23 +265,23 @@ function salvarTudo() {
   if (vendas.length === 0) { alert('Nenhuma venda!'); return; }
   const agora = new Date();
   const dataArq = agora.toLocaleDateString('pt-BR').replace(/\//g, '-');
-  let texto = '==============================\\n';
-  texto += '   RELATÓRIO GERAL\\n';
-  texto += '==============================\\n';
-  texto += 'Gerado em: ' + agora.toLocaleString('pt-BR') + '\\n';
-  texto += 'Total de vendas: ' + vendas.length + '\\n';
-  texto += '==============================\\n\\n';
+  let texto = '==============================\n';
+  texto += '   RELATÓRIO GERAL\n';
+  texto += '==============================\n';
+  texto += 'Gerado em: ' + agora.toLocaleString('pt-BR') + '\n';
+  texto += 'Total de vendas: ' + vendas.length + '\n';
+  texto += '==============================\n\n';
   let totalGeral = 0;
   vendas.forEach((v, i) => {
     totalGeral += v.total;
-    texto += (i+1) + '. ' + v.dataStr + ' ' + v.hora + ' | ' + v.cliente + '\\n';
+    texto += (i+1) + '. ' + v.dataStr + ' ' + v.hora + ' | ' + v.cliente + '\n';
     for (const nome in v.itens) {
-      texto += '   ' + nome + ' x' + v.itens[nome].qtd + ' = R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '\\n';
+      texto += '   ' + nome + ' x' + v.itens[nome].qtd + ' = R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '\n';
     }
-    texto += '   TOTAL: R$ ' + v.total.toFixed(2) + '\\n';
-    texto += '------------------------------\\n';
+    texto += '   TOTAL: R$ ' + v.total.toFixed(2) + '\n';
+    texto += '------------------------------\n';
   });
-  texto += '\\nTOTAL GERAL: R$ ' + totalGeral.toFixed(2) + '\\n';
+  texto += '\nTOTAL GERAL: R$ ' + totalGeral.toFixed(2) + '\n';
   baixarArquivo(texto, 'todas_vendas_' + dataArq + '.txt');
   alert('✅ Salvo!');
 }
@@ -284,20 +292,20 @@ function salvarDia() {
   const vendasDia = vendas.filter(v => v.data === data);
   if (vendasDia.length === 0) { alert('Nenhuma venda neste dia!'); return; }
   const dt = data.split('-').reverse().join('/');
-  let texto = '==============================\\n';
-  texto += '   VENDAS DO DIA ' + dt + '\\n';
-  texto += '==============================\\n\\n';
+  let texto = '==============================\n';
+  texto += '   VENDAS DO DIA ' + dt + '\n';
+  texto += '==============================\n\n';
   let totalDia = 0;
   vendasDia.forEach((v, i) => {
     totalDia += v.total;
-    texto += (i+1) + '. ' + v.hora + ' | ' + v.cliente + '\\n';
+    texto += (i+1) + '. ' + v.hora + ' | ' + v.cliente + '\n';
     for (const nome in v.itens) {
-      texto += '   ' + nome + ' x' + v.itens[nome].qtd + ' = R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '\\n';
+      texto += '   ' + nome + ' x' + v.itens[nome].qtd + ' = R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '\n';
     }
-    texto += '   TOTAL: R$ ' + v.total.toFixed(2) + '\\n';
-    texto += '------------------------------\\n';
+    texto += '   TOTAL: R$ ' + v.total.toFixed(2) + '\n';
+    texto += '------------------------------\n';
   });
-  texto += '\\nTOTAL DO DIA: R$ ' + totalDia.toFixed(2) + '\\n';
+  texto += '\nTOTAL DO DIA: R$ ' + totalDia.toFixed(2) + '\n';
   baixarArquivo(texto, 'vendas_dia_' + dt.replace(/\//g, '-') + '.txt');
   alert('✅ Salvo!');
 }

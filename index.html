@@ -3,100 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DK HAMBURGUERIA - Painel</title>
+<title>DK HAMBURGUERIA</title>
 <style>
-* {margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
-body {background:#1A0A2E; color:#fff; padding:15px; min-height:100vh;}
-.topo {text-align:center; padding:20px; background:linear-gradient(135deg,#4B0082,#800080); border-radius:12px; border:3px solid #D4AF37; margin-bottom:20px;}
-.topo h1 {color:#D4AF37; font-size:1.4rem;}
-.topo p {color:#F4E48F; font-size:0.9rem; margin-top:5px;}
-.caixa {max-width:500px; margin:0 auto 20px; background:#2E1050; padding:20px; border-radius:12px; border:2px solid #D4AF37;}
-h2 {color:#D4AF37; font-size:1.1rem; margin-bottom:15px; padding-bottom:8px; border-bottom:1px solid #D4AF37;}
-h3 {color:#F4E48F; font-size:0.95rem; margin:15px 0 8px;}
-input, button, textarea {width:100%; padding:12px; margin:6px 0; border-radius:6px; border:none; font-size:1rem;}
-input, textarea {background:rgba(255,255,255,.1); color:#fff; border:1px solid #D4AF37;}
-button {background:linear-gradient(135deg,#D4AF37,#B8960C); color:#000; font-weight:bold; cursor:pointer; transition:0.2s;}
-button:active {transform:scale(.97);}
-button.verde {background:#006400; color:#fff;}
-button.roxo {background:#4B0082; color:#fff;}
-button.vermelho {background:#8B0000; color:#fff;}
-button.azul {background:#0066CC; color:#fff;}
-button.pequeno {width:auto; padding:6px 10px; font-size:0.9rem;}
-.linha {display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(75,0,130,.3); border-radius:6px; margin:5px 0; flex-wrap:wrap; gap:8px;}
+body {background:#2E1050; color:#fff; font-family:Arial; padding:20px; max-width:500px; margin:0 auto;}
+h1 {text-align:center; color:#D4AF37;}
+h2 {color:#D4AF37; font-size:18px; margin-top:25px;}
+input {width:100%; padding:10px; margin:5px 0; border-radius:5px; border:1px solid #D4AF37; background:rgba(255,255,255,0.1); color:#fff;}
+button {padding:10px 15px; border:none; border-radius:5px; font-weight:bold; cursor:pointer; margin:3px;}
+.btn-add {background:#D4AF37; color:#000; width:100%; margin-top:8px;}
+.btn-verde {background:#006400; color:#fff;}
+.btn-roxo {background:#4B0082; color:#fff;}
+.btn-vermelho {background:#8B0000; color:#fff;}
+.btn-azul {background:#0066CC; color:#fff;}
+.linha {display:flex; justify-content:space-between; align-items:center; padding:8px; background:rgba(75,0,130,0.3); border-radius:5px; margin:5px 0;}
 .valor {color:#D4AF37; font-weight:bold;}
-.total {padding:12px; background:rgba(212,175,55,.2); border-radius:6px; font-size:1.1rem; font-weight:bold; text-align:right; color:#D4AF37; margin-top:10px;}
-.item-pedido {display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(75,0,130,.2); border-radius:6px; margin:5px 0;}
-.controle {display:flex; gap:8px; align-items:center;}
-.controle button {width:36px; padding:6px; margin:0; font-size:1.1rem;}
-.controle span {min-width:30px; text-align:center; font-weight:bold; font-size:1.1rem;}
-.venda {background:rgba(75,0,130,.25); padding:12px; border-radius:6px; margin:8px 0; border-left:3px solid #D4AF37;}
-.data {font-size:0.85rem; color:#F4E48F; margin-bottom:5px;}
-.vazio {text-align:center; color:#888; padding:25px;}
-.botoes {display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;}
-.botoes button {flex:1; min-width:90px;}
+.vazio {color:#888; text-align:center; padding:20px;}
+.total {padding:10px; background:rgba(212,175,55,0.2); border-radius:5px; font-weight:bold; text-align:right; color:#D4AF37; margin-top:10px;}
+.controle {display:flex; gap:5px; align-items:center;}
+.controle button {width:30px; padding:5px;}
+.botoes {display:flex; flex-wrap:wrap; gap:5px; margin-top:10px;}
+.botoes button {flex:1; min-width:80px;}
 </style>
 </head>
 <body>
 
-<div class="topo">
-  <h1>🍔 DK HAMBURGUERIA</h1>
-  <p>Painel de Controle</p>
+<h1>🍔 DK HAMBURGUERIA</h1>
+
+<h2>📋 Cadastrar Lanche</h2>
+<input type="text" id="nomeInput" placeholder="Nome do lanche">
+<input type="number" id="valorInput" placeholder="Preço" step="0.01">
+<button class="btn-add" onclick="adicionarLanche()">➕ Adicionar ao Cardápio</button>
+
+<h3>Cardápio</h3>
+<div id="listaCardapio" class="vazio">Nenhum lanche cadastrado</div>
+
+<h2>🛒 Novo Pedido</h2>
+<input type="text" id="clienteInput" placeholder="Nome do Cliente">
+<div id="listaPedidos" class="vazio">Cadastre lanches primeiro</div>
+<div class="total">Total: R$ <span id="totalGeral">0.00</span></div>
+<div class="botoes">
+  <button class="btn-vermelho" onclick="limparPedido()">🗑️ Limpar</button>
+  <button class="btn-azul" onclick="imprimir()">🖨️ Imprimir</button>
+  <button class="btn-roxo" onclick="copiar()">📋 Copiar</button>
+  <button class="btn-verde" onclick="finalizar()">✅ Finalizar</button>
 </div>
 
-<!-- CADASTRAR LANCHES -->
-<div class="caixa">
-  <h2>📋 Cadastrar Lanche</h2>
-  <input type="text" id="nomeLanche" placeholder="Nome do lanche">
-  <input type="number" id="valorLanche" placeholder="Valor (ex: 16.00)" step="0.01">
-  <button onclick="cadastrarLanche()">➕ Adicionar ao Cardápio</button>
-  
-  <h3>Cardápio</h3>
-  <div id="listaCardapio" class="vazio">Nenhum lanche cadastrado</div>
+<h2>📊 Vendas</h2>
+<input type="date" id="dataFiltro">
+<div class="botoes">
+  <button class="btn-azul" onclick="filtrar()">🔍 Filtrar</button>
+  <button class="btn-roxo" onclick="hoje()">Hoje</button>
 </div>
-
-<!-- FAZER PEDIDO -->
-<div class="caixa">
-  <h2>🛒 Novo Pedido</h2>
-  <textarea id="nomeCliente" placeholder="Nome do cliente / Mesa" rows="2"></textarea>
-  
-  <h3>Itens do Pedido</h3>
-  <div id="itensPedido" class="vazio">Cadastre lanches primeiro</div>
-  
-  <div class="total">Total: R$ <span id="valorTotal">0.00</span></div>
-  
-  <div class="botoes">
-    <button class="vermelho" onclick="limparPedido()">🗑️ Limpar</button>
-    <button class="roxo" onclick="copiarCupom()">📋 Cupom</button>
-    <button class="verde" onclick="finalizar()">✅ Finalizar</button>
-  </div>
+<div class="botoes">
+  <button class="btn-azul" onclick="salvarTudo()">📁 Salvar Tudo</button>
+  <button class="btn-roxo" onclick="salvarDia()">💾 Salvar Dia</button>
 </div>
-
-<!-- HISTÓRICO -->
-<div class="caixa">
-  <h2>📊 Vendas</h2>
-  <div style="display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
-    <input type="date" id="dataFiltro" style="flex:1; margin:0; min-width:140px;">
-    <button class="pequeno" onclick="filtrar()">🔍</button>
-    <button class="pequeno" onclick="hoje()">Hoje</button>
-  </div>
-  
-  <div style="display:flex; gap:8px; margin:10px 0; flex-wrap:wrap;">
-    <button class="azul" onclick="salvarTudo()">📁 Salvar Tudo</button>
-    <button class="roxo" onclick="salvarDia()">💾 Salvar Dia</button>
-  </div>
-  
-  <div id="resumo" style="display:none; padding:10px; background:rgba(212,175,55,.15); border-radius:6px; margin:10px 0; font-weight:bold;"></div>
-  <div id="listaVendas" class="vazio">Nenhuma venda ainda</div>
-  <button class="vermelho" style="margin-top:15px;" onclick="limparHistorico()">⚠️ Limpar Histórico</button>
-</div>
+<div id="listaVendas" class="vazio">Nenhuma venda ainda</div>
+<button class="btn-vermelho" style="width:100%; margin-top:10px;" onclick="limparHistorico()">⚠️ Limpar Histórico</button>
 
 <script>
-// DADOS
 let cardapio = JSON.parse(localStorage.getItem('dk_cardapio')) || [];
 let vendas = JSON.parse(localStorage.getItem('dk_vendas')) || [];
 let pedido = [];
 
-// SALVAR DADOS
 function salvarCardapio() {
   localStorage.setItem('dk_cardapio', JSON.stringify(cardapio));
 }
@@ -107,159 +76,160 @@ function hojeData() {
   return new Date().toISOString().split('T')[0];
 }
 
-// INICIAR
 document.getElementById('dataFiltro').value = hojeData();
-atualizarListaCardapio();
-atualizarItensPedido();
-atualizarListaVendas();
+atualizarCardapio();
+atualizarPedidos();
+atualizarVendas();
 
-// ============= CADASTRAR LANCHE =============
-function cadastrarLanche() {
-  let nomeInput = document.getElementById('nomeLanche');
-  let valorInput = document.getElementById('valorLanche');
-  let nome = nomeInput.value.trim();
-  let valor = parseFloat(valorInput.value);
+function adicionarLanche() {
+  const nome = document.getElementById('nomeInput').value.trim();
+  const valor = parseFloat(document.getElementById('valorInput').value);
   
-  if (!nome) {
-    alert('⚠️ Digite o nome do lanche!');
-    return;
-  }
-  if (!valor || valor <= 0) {
-    alert('⚠️ Digite um valor válido! Ex: 16.00');
-    return;
-  }
+  if (!nome) { alert('Digite o nome!'); return; }
+  if (!valor || valor <= 0) { alert('Digite um preço válido!'); return; }
   
-  cardapio.push({ nome: nome, valor: valor });
+  cardapio.push({nome: nome, valor: valor});
   salvarCardapio();
-  atualizarListaCardapio();
-  atualizarItensPedido();
+  atualizarCardapio();
+  atualizarPedidos();
   
-  nomeInput.value = '';
-  valorInput.value = '';
-  alert('✅ Lanche cadastrado com sucesso!');
+  document.getElementById('nomeInput').value = '';
+  document.getElementById('valorInput').value = '';
+  alert('✅ Lanche cadastrado!');
 }
 
-function removerLanche(indice) {
-  if (confirm('Excluir este lanche?')) {
-    cardapio.splice(indice, 1);
+function removerLanche(i) {
+  if (confirm('Excluir?')) {
+    cardapio.splice(i, 1);
     salvarCardapio();
-    atualizarListaCardapio();
-    atualizarItensPedido();
+    atualizarCardapio();
+    atualizarPedidos();
   }
 }
 
-function atualizarListaCardapio() {
-  let lista = document.getElementById('listaCardapio');
+function atualizarCardapio() {
+  const div = document.getElementById('listaCardapio');
   if (cardapio.length === 0) {
-    lista.innerHTML = '<div class="vazio">Nenhum lanche cadastrado</div>';
+    div.innerHTML = '<div class="vazio">Nenhum lanche cadastrado</div>';
     return;
   }
-  lista.innerHTML = '';
-  for (let i = 0; i < cardapio.length; i++) {
-    lista.innerHTML += `
+  div.innerHTML = '';
+  cardapio.forEach((lanche, i) => {
+    div.innerHTML += `
       <div class="linha">
-        <span>${cardapio[i].nome}</span>
-        <span class="valor">R$ ${cardapio[i].valor.toFixed(2)}</span>
-        <button class="pequeno vermelho" onclick="removerLanche(${i})">✕</button>
+        <span>${lanche.nome}</span>
+        <span class="valor">R$ ${lanche.valor.toFixed(2)}</span>
+        <button class="btn-vermelho" style="padding:3px 8px;" onclick="removerLanche(${i})">✕</button>
       </div>
     `;
-  }
+  });
 }
 
-// ============= PEDIDOS =============
-function atualizarItensPedido() {
-  let lista = document.getElementById('itensPedido');
+function atualizarPedidos() {
+  const div = document.getElementById('listaPedidos');
   if (cardapio.length === 0) {
-    lista.innerHTML = '<div class="vazio">Cadastre lanches primeiro</div>';
-    atualizarTotal();
+    div.innerHTML = '<div class="vazio">Cadastre lanches primeiro</div>';
+    document.getElementById('totalGeral').textContent = '0.00';
     return;
   }
-  lista.innerHTML = '';
-  for (let i = 0; i < cardapio.length; i++) {
-    let qtd = pedido.filter(p => p.indice === i).length;
-    lista.innerHTML += `
-      <div class="item-pedido">
-        <span>${cardapio[i].nome} — R$ ${cardapio[i].valor.toFixed(2)}</span>
+  div.innerHTML = '';
+  cardapio.forEach((lanche, i) => {
+    const qtd = pedido.filter(p => p.indice === i).length;
+    div.innerHTML += `
+      <div class="linha">
+        <span>${lanche.nome} — R$ ${lanche.valor.toFixed(2)}</span>
         <div class="controle">
-          <button onclick="diminuir(${i})">−</button>
+          <button onclick="menos(${i})">−</button>
           <span>${qtd}</span>
-          <button onclick="aumentar(${i})">+</button>
+          <button onclick="mais(${i})">+</button>
         </div>
       </div>
     `;
-  }
-  atualizarTotal();
+  });
+  const total = pedido.reduce((soma, item) => soma + item.valor, 0);
+  document.getElementById('totalGeral').textContent = total.toFixed(2);
 }
 
-function aumentar(i) {
-  pedido.push({ indice: i, nome: cardapio[i].nome, valor: cardapio[i].valor });
-  atualizarItensPedido();
+function mais(i) {
+  pedido.push({indice: i, nome: cardapio[i].nome, valor: cardapio[i].valor});
+  atualizarPedidos();
 }
 
-function diminuir(i) {
-  let pos = pedido.findIndex(p => p.indice === i);
-  if (pos !== -1) {
-    pedido.splice(pos, 1);
-    atualizarItensPedido();
-  }
-}
-
-function atualizarTotal() {
-  let total = pedido.reduce((soma, item) => soma + item.valor, 0);
-  document.getElementById('valorTotal').textContent = total.toFixed(2);
+function menos(i) {
+  const pos = pedido.findIndex(p => p.indice === i);
+  if (pos !== -1) { pedido.splice(pos, 1); atualizarPedidos(); }
 }
 
 function limparPedido() {
-  if (pedido.length > 0 && !confirm('Limpar este pedido?')) return;
+  if (pedido.length > 0 && !confirm('Limpar pedido?')) return;
   pedido = [];
-  document.getElementById('nomeCliente').value = '';
-  atualizarItensPedido();
+  document.getElementById('clienteInput').value = '';
+  atualizarPedidos();
 }
 
-function copiarCupom() {
-  if (pedido.length === 0) { alert('Adicione itens primeiro!'); return; }
-  let cliente = document.getElementById('nomeCliente').value.trim() || 'Cliente';
-  let agora = new Date();
-  let data = agora.toLocaleDateString('pt-BR');
-  let hora = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
-  
-  let agrupado = {};
+function gerarCupom() {
+  if (pedido.length === 0) return '';
+  const cliente = document.getElementById('clienteInput').value.trim() || 'Cliente';
+  const agora = new Date();
+  let texto = '==============================\\n';
+  texto += '   DK HAMBURGUERIA\\n';
+  texto += '==============================\\n';
+  texto += 'Data: ' + agora.toLocaleDateString('pt-BR') + '  Hora: ' + agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}) + '\\n';
+  texto += 'Cliente: ' + cliente + '\\n';
+  texto += '==============================\\n';
+  texto += 'ITEM           QTD   VALOR\\n';
+  texto += '------------------------------\\n';
+  const agrupado = {};
   pedido.forEach(item => {
-    if (!agrupado[item.nome]) agrupado[item.nome] = { qtd: 0, valor: item.valor };
+    if (!agrupado[item.nome]) agrupado[item.nome] = {qtd:0, valor:item.valor};
     agrupado[item.nome].qtd++;
   });
-  let total = pedido.reduce((soma, item) => soma + item.valor, 0);
-  
-  let cupom = "══════════════════════════\nDK HAMBÚRGUERIA\n══════════════════════════\nData: " + data + "  Hora: " + hora + "\nCliente: " + cliente + "\n══════════════════════════\nITEM          QTD  VALOR\n──────────────────────────\n";
-  for (let nome in agrupado) {
-    let sub = agrupado[nome].valor * agrupado[nome].qtd;
-    cupom += nome.substring(0,12).padEnd(12) + " " + String(agrupado[nome].qtd).padStart(3) + "  R$" + sub.toFixed(2).padStart(5) + "\n";
+  let total = 0;
+  for (const nome in agrupado) {
+    const subtotal = agrupado[nome].valor * agrupado[nome].qtd;
+    total += subtotal;
+    texto += nome.substring(0,13).padEnd(13) + ' ' + String(agrupado[nome].qtd).padStart(3) + '  R$' + subtotal.toFixed(2).padStart(6) + '\\n';
   }
-  cupom += "──────────────────────────\nTOTAL:         R$ " + total.toFixed(2) + "\n══════════════════════════\nObrigado!\n\n\n";
-  
-  navigator.clipboard.writeText(cupom).then(() => alert('✅ Cupom copiado!')).catch(() => alert(cupom));
+  texto += '------------------------------\\n';
+  texto += 'TOTAL:           R$ ' + total.toFixed(2) + '\\n';
+  texto += '==============================\\n';
+  texto += '   Obrigado! Volte Sempre!\\n';
+  return texto;
+}
+
+function copiar() {
+  const texto = gerarCupom();
+  if (!texto) { alert('Adicione itens primeiro!'); return; }
+  navigator.clipboard.writeText(texto).then(() => alert('✅ Copiado!'));
+}
+
+function imprimir() {
+  const texto = gerarCupom();
+  if (!texto) { alert('Adicione itens primeiro!'); return; }
+  navigator.clipboard.writeText(texto).then(() => {
+    alert('✅ Copiado! Abra o RawBT');
+    window.location.href = 'rawbt://print?text=' + encodeURIComponent(texto);
+  });
 }
 
 function finalizar() {
   if (pedido.length === 0) { alert('Adicione itens primeiro!'); return; }
-  let cliente = document.getElementById('nomeCliente').value.trim() || 'Sem nome';
-  let total = pedido.reduce((soma, item) => soma + item.valor, 0);
-  let agora = new Date();
-  let dataStr = agora.toLocaleDateString('pt-BR');
-  let horaStr = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
-  let dataISO = agora.toISOString().split('T')[0];
+  const cliente = document.getElementById('clienteInput').value.trim() || 'Sem nome';
+  const total = pedido.reduce((soma, item) => soma + item.valor, 0);
+  const agora = new Date();
+  const dataISO = agora.toISOString().split('T')[0];
   
-  let agrupado = {};
+  const agrupado = {};
   pedido.forEach(item => {
-    if (!agrupado[item.nome]) agrupado[item.nome] = { qtd: 0, valor: item.valor };
+    if (!agrupado[item.nome]) agrupado[item.nome] = {qtd:0, valor:item.valor};
     agrupado[item.nome].qtd++;
   });
   
   vendas.unshift({
     id: Date.now(),
     data: dataISO,
-    dataStr: dataStr,
-    hora: horaStr,
+    dataStr: agora.toLocaleDateString('pt-BR'),
+    hora: agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}),
     cliente: cliente,
     itens: agrupado,
     total: total
@@ -268,139 +238,120 @@ function finalizar() {
   alert('✅ Pedido salvo! Total: R$ ' + total.toFixed(2));
   
   pedido = [];
-  document.getElementById('nomeCliente').value = '';
-  atualizarItensPedido();
-  atualizarListaVendas();
+  document.getElementById('clienteInput').value = '';
+  atualizarPedidos();
+  atualizarVendas();
 }
 
-// ============= HISTÓRICO =============
 function baixarArquivo(conteudo, nome) {
-  let blob = new Blob([conteudo], {type: 'text/plain;charset=utf-8'});
-  let link = document.createElement('a');
+  const blob = new Blob([conteudo], {type: 'text/plain;charset=utf-8'});
+  const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = nome;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  URL.revokeObjectURL(link.href);
 }
 
 function salvarTudo() {
-  if (vendas.length === 0) { alert('Nenhuma venda para salvar!'); return; }
-  let agora = new Date();
-  let dataArq = agora.toLocaleDateString('pt-BR').replace(/\//g, '-');
-  
-  let texto = '═══════════════════════════════\n';
-  texto += '   RELATÓRIO GERAL — DK HAMBURGUERIA\n';
-  texto += '═══════════════════════════════\n';
-  texto += 'Gerado em: ' + agora.toLocaleString('pt-BR') + '\n';
-  texto += 'Total de vendas: ' + vendas.length + '\n';
-  texto += '═══════════════════════════════\n\n';
-  
+  if (vendas.length === 0) { alert('Nenhuma venda!'); return; }
+  const agora = new Date();
+  const dataArq = agora.toLocaleDateString('pt-BR').replace(/\//g, '-');
+  let texto = '==============================\\n';
+  texto += '   RELATÓRIO GERAL\\n';
+  texto += '==============================\\n';
+  texto += 'Gerado em: ' + agora.toLocaleString('pt-BR') + '\\n';
+  texto += 'Total de vendas: ' + vendas.length + '\\n';
+  texto += '==============================\\n\\n';
   let totalGeral = 0;
-  for (let i = 0; i < vendas.length; i++) {
-    let v = vendas[i];
+  vendas.forEach((v, i) => {
     totalGeral += v.total;
-    texto += (i+1) + '. 📅 ' + v.dataStr + ' ' + v.hora + ' | 👤 ' + v.cliente + '\n';
-    for (let nome in v.itens) {
-      texto += '   • ' + nome + ' ' + v.itens[nome].qtd + 'x = R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '\n';
+    texto += (i+1) + '. ' + v.dataStr + ' ' + v.hora + ' | ' + v.cliente + '\\n';
+    for (const nome in v.itens) {
+      texto += '   ' + nome + ' x' + v.itens[nome].qtd + ' = R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '\\n';
     }
-    texto += '   💰 R$ ' + v.total.toFixed(2) + '\n';
-    texto += '───────────────────────────────\n';
-  }
-  texto += '\n💵 TOTAL GERAL: R$ ' + totalGeral.toFixed(2) + '\n';
+    texto += '   TOTAL: R$ ' + v.total.toFixed(2) + '\\n';
+    texto += '------------------------------\\n';
+  });
+  texto += '\\nTOTAL GERAL: R$ ' + totalGeral.toFixed(2) + '\\n';
   baixarArquivo(texto, 'todas_vendas_' + dataArq + '.txt');
-  alert('✅ Salvo com sucesso!');
+  alert('✅ Salvo!');
 }
 
 function salvarDia() {
-  let data = document.getElementById('dataFiltro').value;
+  const data = document.getElementById('dataFiltro').value;
   if (!data) { alert('Escolha uma data!'); return; }
-  
-  let vendasDia = vendas.filter(v => v.data === data);
+  const vendasDia = vendas.filter(v => v.data === data);
   if (vendasDia.length === 0) { alert('Nenhuma venda neste dia!'); return; }
-  
-  let dt = data.split('-').reverse().join('/');
-  let nomeArq = data.split('-').reverse().join('-');
-  
-  let texto = '═══════════════════════════════\n';
-  texto += '   VENDAS DO DIA — ' + dt + '\n';
-  texto += '      DK HAMBURGUERIA\n';
-  texto += '═══════════════════════════════\n\n';
-  
+  const dt = data.split('-').reverse().join('/');
+  let texto = '==============================\\n';
+  texto += '   VENDAS DO DIA ' + dt + '\\n';
+  texto += '==============================\\n\\n';
   let totalDia = 0;
-  for (let i = 0; i < vendasDia.length; i++) {
-    let v = vendasDia[i];
+  vendasDia.forEach((v, i) => {
     totalDia += v.total;
-    texto += (i+1) + '. 🕒 ' + v.hora + ' | 👤 ' + v.cliente + '\n';
-    for (let nome in v.itens) {
-      texto += '   • ' + nome + ' ' + v.itens[nome].qtd + 'x = R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '\n';
+    texto += (i+1) + '. ' + v.hora + ' | ' + v.cliente + '\\n';
+    for (const nome in v.itens) {
+      texto += '   ' + nome + ' x' + v.itens[nome].qtd + ' = R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '\\n';
     }
-    texto += '   💰 R$ ' + v.total.toFixed(2) + '\n';
-    texto += '───────────────────────────────\n';
-  }
-  texto += '\n📊 Vendas: ' + vendasDia.length + ' | 💵 TOTAL: R$ ' + totalDia.toFixed(2) + '\n';
-  baixarArquivo(texto, 'vendas_dia_' + nomeArq + '.txt');
-  alert('✅ Salvo com sucesso!');
+    texto += '   TOTAL: R$ ' + v.total.toFixed(2) + '\\n';
+    texto += '------------------------------\\n';
+  });
+  texto += '\\nTOTAL DO DIA: R$ ' + totalDia.toFixed(2) + '\\n';
+  baixarArquivo(texto, 'vendas_dia_' + dt.replace(/\//g, '-') + '.txt');
+  alert('✅ Salvo!');
 }
 
 function apagarVenda(id) {
-  if (confirm('Excluir esta venda?')) {
+  if (confirm('Excluir venda?')) {
     vendas = vendas.filter(v => v.id !== id);
     salvarVendas();
-    atualizarListaVendas();
+    atualizarVendas();
   }
 }
 
 function limparHistorico() {
-  if (!confirm('⚠️ Tem certeza? Isso apaga TODAS as vendas!')) return;
+  if (!confirm('Apagar TODAS as vendas?')) return;
   vendas = [];
   salvarVendas();
-  atualizarListaVendas();
+  atualizarVendas();
 }
 
 function filtrar() {
-  let data = document.getElementById('dataFiltro').value;
-  atualizarListaVendas(data);
+  atualizarVendas(document.getElementById('dataFiltro').value);
 }
 
 function hoje() {
   document.getElementById('dataFiltro').value = hojeData();
-  atualizarListaVendas(hojeData());
+  atualizarVendas(hojeData());
 }
 
-function atualizarListaVendas(filtro) {
-  let lista = document.getElementById('listaVendas');
-  let resumo = document.getElementById('resumo');
-  let mostrar = filtro ? vendas.filter(v => v.data === filtro) : vendas;
-  
-  if (mostrar.length === 0) {
-    lista.innerHTML = '<div class="vazio">Nenhuma venda registrada</div>';
-    resumo.style.display = 'none';
+function atualizarVendas(filtroData) {
+  const div = document.getElementById('listaVendas');
+  const lista = filtroData ? vendas.filter(v => v.data === filtroData) : vendas;
+  if (lista.length === 0) {
+    div.innerHTML = '<div class="vazio">Nenhuma venda ainda</div>';
     return;
   }
-  
-  lista.innerHTML = '';
-  let totalMostrar = 0;
-  mostrar.forEach(v => {
-    totalMostrar += v.total;
-    let itensTxt = '';
-    for (let nome in v.itens) {
-      itensTxt += v.itens[nome].qtd + 'x ' + nome + ' — R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '<br>';
+  div.innerHTML = '';
+  lista.forEach((v, i) => {
+    let itensTexto = '';
+    for (const nome in v.itens) {
+      itensTexto += nome + ' x' + v.itens[nome].qtd + '  ';
     }
-    lista.innerHTML += `
-      <div class="venda">
-        <div class="data">📅 ${v.dataStr} ${v.hora} — 👤 ${v.cliente}</div>
-        <div style="font-size:0.9rem; margin:5px 0;">${itensTxt}</div>
-        <div style="font-weight:bold; color:#D4AF37;">💰 R$ ${v.total.toFixed(2)}</div>
-        <button class="pequeno vermelho" style="margin-top:8px;" onclick="apagarVenda(${v.id})">🗑️ Excluir</button>
+    div.innerHTML += `
+      <div class="linha">
+        <div>
+          <strong>${v.dataStr} ${v.hora}</strong> — ${v.cliente}<br>
+          <small>${itensTexto}</small><br>
+          <strong style="color:#D4AF37">R$ ${v.total.toFixed(2)}</strong>
+        </div>
+        <button class="btn-vermelho" style="padding:3px 6px;" onclick="apagarVenda(${v.id})">✕</button>
       </div>
     `;
   });
-  
-  resumo.style.display = 'block';
-  resumo.innerHTML = `📊 Total: ${mostrar.length} vendas | 💵 Valor: R$ ${totalMostrar.toFixed(2)}`;
 }
 </script>
 
 </body>
+</html>

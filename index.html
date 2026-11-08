@@ -19,7 +19,9 @@ button:active {transform:scale(.97);}
 button.verde {background:#006400; color:#fff;}
 button.roxo {background:#4B0082; color:#fff;}
 button.vermelho {background:#8B0000; color:#fff;}
+button.azul {background:#0066CC; color:#fff;}
 button.pequeno {width:auto; padding:6px 10px; font-size:0.9rem;}
+button.medio {width:auto; padding:8px 14px; font-size:0.95rem;}
 .linha {display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(75,0,130,.3); border-radius:6px; margin:5px 0; flex-wrap:wrap; gap:8px;}
 .valor {color:#D4AF37; font-weight:bold;}
 .total {padding:12px; background:rgba(212,175,55,.2); border-radius:6px; font-size:1.1rem; font-weight:bold; text-align:right; color:#D4AF37; margin-top:10px;}
@@ -32,6 +34,7 @@ button.pequeno {width:auto; padding:6px 10px; font-size:0.9rem;}
 .vazio {text-align:center; color:#888; padding:20px;}
 .botoes {display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;}
 .botoes button {flex:1; min-width:100px;}
+.botoes-lado {display:flex; gap:8px; margin:10px 0; flex-wrap:wrap;}
 </style>
 </head>
 <body>
@@ -71,12 +74,18 @@ button.pequeno {width:auto; padding:6px 10px; font-size:0.9rem;}
 <!-- HISTÓRICO -->
 <div class="caixa">
   <h2>📊 Vendas</h2>
-  <div style="display:flex; gap:8px; margin-bottom:10px;">
-    <input type="date" id="dataFiltro" style="flex:1; margin:0;">
+  <div style="display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
+    <input type="date" id="dataFiltro" style="flex:1; margin:0; min-width:140px;">
     <button class="pequeno" onclick="filtrar()">🔍</button>
     <button class="pequeno" onclick="hoje()">Hoje</button>
   </div>
-  <div id="resumo" style="display:none; padding:8px; background:rgba(212,175,55,.15); border-radius:6px; margin-bottom:10px; font-weight:bold;"></div>
+  
+  <div class="botoes-lado">
+    <button class="azul medio" onclick="salvarVendas()">📁 Salvar Vendas</button>
+    <button class="roxo medio" onclick="salvarDia()">💾 Salvar Apenas Hoje</button>
+  </div>
+  
+  <div id="resumo" style="display:none; padding:8px; background:rgba(212,175,55,.15); border-radius:6px; margin:10px 0; font-weight:bold;"></div>
   <div id="listaVendas" class="vazio">Nenhuma venda ainda</div>
   <button class="vermelho" style="margin-top:15px;" onclick="limparTudo()">⚠️ Limpar Histórico</button>
 </div>
@@ -94,7 +103,7 @@ document.getElementById('dataFiltro').value = hojeData();
 
 function hojeData() { return new Date().toISOString().split('T')[0]; }
 function salvarCardapio() { localStorage.setItem('dk_cardapio', JSON.stringify(cardapio)); }
-function salvarVendas() { localStorage.setItem('dk_vendas', JSON.stringify(vendas)); }
+function salvarVendasStorage() { localStorage.setItem('dk_vendas', JSON.stringify(vendas)); }
 
 // ============= CADASTRAR LANCHE =============
 function cadastrarLanche() {
@@ -212,12 +221,100 @@ function finalizar() {
   pedido.forEach(p => { agrupado[p.nome] = agrupado[p.nome] || {qtd:0, valor:p.valor}; agrupado[p.nome].qtd++; });
   
   vendas.unshift({id:Date.now(), data:dataISO, dataStr, hora:horaStr, cliente, itens:agrupado, total});
-  salvarVendas();
-  alert('✅ Pedido finalizado! Total: R$ ' + total.toFixed(2));
+  salvarVendasStorage();
+  alert('✅ Pedido finalizado e salvo! Total: R$ ' + total.toFixed(2));
   pedido = [];
   document.getElementById('nomeCliente').value = '';
   atualizarItensPedido();
   atualizarVendas();
+}
+
+// ============= BOTÃO SALVAR VENDAS =============
+function salvarVendas() {
+  if (vendas.length === 0) { alert('📭 Nenhuma venda para salvar ainda!'); return; }
+  
+  let agora = new Date();
+  let dataArquivo = agora.toLocaleDateString('pt-BR').replace(/\//g, '-');
+  let horaArquivo = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  
+  let texto = '═══════════════════════════════════════════\n';
+  texto += '         RELATÓRIO DE VENDAS — DK HAMBURGUERIA\n';
+  texto += '═══════════════════════════════════════════\n';
+  texto += `Gerado em: ${agora.toLocaleString('pt-BR')}\n`;
+  texto += `Total de vendas registradas: ${vendas.length}\n`;
+  texto += '═══════════════════════════════════════════\n\n';
+  
+  let valorGeral = 0;
+  vendas.forEach((venda, indice) => {
+    valorGeral += venda.total;
+    texto += `📅 Venda #${indice + 1}\n`;
+    texto += `   Data: ${venda.dataStr} às ${venda.hora}\n`;
+    texto += `   Cliente: ${venda.cliente}\n`;
+    texto += `   Itens:\n`;
+    for (let nomeItem in venda.itens) {
+      let qtd = venda.itens[nomeItem].qtd;
+      let val = venda.itens[nomeItem].valor;
+      texto += `     • ${nomeItem} — ${qtd}x = R$ ${(qtd * val).toFixed(2)}\n`;
+    }
+    texto += `   💰 TOTAL: R$ ${venda.total.toFixed(2)}\n`;
+    texto += '─────────────────────────────────────────────\n\n';
+  });
+  
+  texto += '\n═══════════════════════════════════════════\n';
+  texto += `💵 VALOR TOTAL GERAL: R$ ${valorGeral.toFixed(2)}\n`;
+  texto += '═══════════════════════════════════════════\n';
+  texto += '  Arquivo salvo com sucesso! 😊\n';
+  
+  baixarArquivo(texto, `todas_vendas_${dataArquivo}_${horaArquivo}.txt`);
+  alert('✅ Todas as vendas salvas em arquivo! 📁');
+}
+
+function salvarDia() {
+  let dataEscolhida = document.getElementById('dataFiltro').value;
+  if (!dataEscolhida) { alert('⚠️ Escolha uma data primeiro!'); return; }
+  
+  let vendasDoDia = vendas.filter(v => v.data === dataEscolhida);
+  if (vendasDoDia.length === 0) { alert(`📭 Nenhuma venda encontrada para esta data!`); return; }
+  
+  let dataFormatada = dataEscolhida.split('-').reverse().join('/');
+  let nomeArquivo = dataEscolhida.split('-').reverse().join('-');
+  
+  let texto = '═══════════════════════════════════════════\n';
+  texto += `       VENDAS DO DIA — ${dataFormatada}\n`;
+  texto += '           DK HAMBURGUERIA\n';
+  texto += '═══════════════════════════════════════════\n\n';
+  
+  let totalDia = 0;
+  vendasDoDia.forEach((venda, i) => {
+    totalDia += venda.total;
+    texto += `${i + 1}. 🕒 ${venda.hora} | 👤 ${venda.cliente}\n`;
+    for (let nomeItem in venda.itens) {
+      let qtd = venda.itens[nomeItem].qtd;
+      let val = venda.itens[nomeItem].valor;
+      texto += `   • ${nomeItem} — ${qtd}x = R$ ${(qtd * val).toFixed(2)}\n`;
+    }
+    texto += `   💰 R$ ${venda.total.toFixed(2)}\n`;
+    texto += '─────────────────────────────────────────────\n';
+  });
+  
+  texto += '\n═══════════════════════════════════════════\n';
+  texto += `📊 Vendas no dia: ${vendasDoDia.length}\n`;
+  texto += `💵 TOTAL DO DIA: R$ ${totalDia.toFixed(2)}\n`;
+  texto += '═══════════════════════════════════════════\n';
+  
+  baixarArquivo(texto, `vendas_dia_${nomeArquivo}.txt`);
+  alert(`✅ Vendas do dia ${dataFormatada} salvas! 📁`);
+}
+
+function baixarArquivo(conteudo, nomeArquivo) {
+  let blob = new Blob([conteudo], {type: 'text/plain;charset=utf-8'});
+  let link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = nomeArquivo;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(link.href);
 }
 
 // ============= HISTÓRICO =============
@@ -244,11 +341,4 @@ function atualizarVendas(filtro = null) {
   document.getElementById('resumo').innerHTML = `📊 Total: R$ ${totalDia.toFixed(2)} — ${vendasMostrar.length} vendas`;
 }
 
-function filtrar() { atualizarVendas(document.getElementById('dataFiltro').value); }
-function hoje() { document.getElementById('dataFiltro').value = hojeData(); atualizarVendas(); }
-function apagarVenda(id) { if(confirm('Excluir venda?')){vendas = vendas.filter(v=>v.id!==id); salvarVendas(); filtrar();} }
-function limparTudo() { if(confirm('Tem certeza? Isso apaga TUDO!') && confirm('Tem MUITA certeza?')){vendas=[]; salvarVendas(); atualizarVendas();} }
-</script>
-
-</body>
-</html>
+function filtrar() { atualiza

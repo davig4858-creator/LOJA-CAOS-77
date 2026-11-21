@@ -3,363 +3,550 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DK HAMBURGUERIA</title>
+<title>DK HAMBURGUERIA — Painel</title>
 <style>
-body {background:#2E1050; color:#fff; font-family:Arial; padding:20px; max-width:500px; margin:0 auto;}
-h1 {text-align:center; color:#D4AF37;}
-h2 {color:#D4AF37; font-size:18px; margin-top:25px;}
-input {width:100%; padding:10px; margin:5px 0; border-radius:5px; border:1px solid #D4AF37; background:rgba(255,255,255,0.1); color:#fff;}
-button {padding:10px 15px; border:none; border-radius:5px; font-weight:bold; cursor:pointer; margin:3px;}
-.btn-add {background:#D4AF37; color:#000; width:100%; margin-top:8px;}
-.btn-verde {background:#006400; color:#fff;}
-.btn-roxo {background:#4B0082; color:#fff;}
-.btn-vermelho {background:#8B0000; color:#fff;}
-.btn-azul {background:#0066CC; color:#fff;}
-.linha {display:flex; justify-content:space-between; align-items:center; padding:8px; background:rgba(75,0,130,0.3); border-radius:5px; margin:5px 0;}
-.valor {color:#D4AF37; font-weight:bold;}
-.vazio {color:#888; text-align:center; padding:20px;}
-.total {padding:10px; background:rgba(212,175,55,0.2); border-radius:5px; font-weight:bold; text-align:right; color:#D4AF37; margin-top:10px;}
-.controle {display:flex; gap:5px; align-items:center;}
-.controle button {width:30px; padding:5px;}
-.botoes {display:flex; flex-wrap:wrap; gap:5px; margin-top:10px;}
-.botoes button {flex:1; min-width:80px;}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+body {
+  background: #080418;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 12px;
+}
+.topo {
+  text-align: center;
+  padding: 22px;
+  border-radius: 16px;
+  border: 2px solid #D4AF37;
+  background: linear-gradient(135deg, #250650, #5a109b);
+  box-shadow: 0 0 18px #7b2cbf;
+  margin-bottom: 16px;
+}
+.topo h1 {
+  color: #D4AF37;
+  font-size: 28px;
+  text-shadow: 0 0 6px #D4AF37;
+}
+.abas {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.botaoAba {
+  flex: 1;
+  min-width: 100px;
+  padding: 12px 8px;
+  border: none;
+  border-radius: 10px 10px 0 0;
+  font-weight: bold;
+  background: #220b44;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 14px;
+}
+.botaoAba.ativa {
+  background: #D4AF37;
+  color: #000;
+  box-shadow: 0 0 10px #D4AF37;
+}
+.conteudoAba {
+  display: none;
+  background: #14072b;
+  border: 1px solid #7b2cbf;
+  border-radius: 0 14px 14px 14px;
+  padding: 16px;
+  box-shadow: 0 0 14px #3c1270;
+}
+.conteudoAba.visivel {
+  display: block;
+}
+h2 {
+  color: #D4AF37;
+  margin-bottom: 12px;
+}
+h3 {
+  margin: 14px 0 6px;
+}
+input {
+  width: 100%;
+  padding: 11px;
+  border-radius: 8px;
+  border: 1px solid #7b2cbf;
+  background: #0b041b;
+  color: #fff;
+  margin: 6px 0;
+}
+.botao {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 9px;
+  font-weight: bold;
+  margin: 7px 0;
+  cursor: pointer;
+  font-size: 15px;
+}
+.botaoDourado {
+  background: #D4AF37;
+  color: #000;
+  box-shadow: 0 0 8px #D4AF37;
+}
+.botaoVerde {
+  background: #2cc95b;
+  color: #000;
+}
+.botaoVermelho {
+  background: #e63946;
+  color: #fff;
+}
+.botaoMais {
+  background: #2cc95b;
+  color: #000;
+  font-weight: bold;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  margin: 0 2px;
+}
+.botaoMenos {
+  background: #e63946;
+  color: #fff;
+  font-weight: bold;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  margin: 0 2px;
+}
+.item {
+  background: #200d3f;
+  border: 1px solid #D4AF37;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 9px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.quantidadeItem {
+  background: #110622;
+  border: 1px solid #D4AF37;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin: 0 6px;
+  font-weight: bold;
+  min-width: 36px;
+  text-align: center;
+}
+.totalDia {
+  background: #1f0b3b;
+  border: 2px solid #D4AF37;
+  border-radius: 10px;
+  padding: 14px;
+  margin: 12px 0;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #D4AF37;
+}
+.historicoPedido {
+  background: #0f0520;
+  border: 1px solid #D4AF37;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0;
+}
+.botoesQuantidade {
+  display: flex;
+  align-items: center;
+}
+.avisoCombo {
+  background: #2a1055;
+  border: 1px solid #7b2cbf;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 8px 0;
+  font-size: 14px;
+  color: #e0c9ff;
+}
 </style>
 </head>
 <body>
-
-<h1>🍔 DK HAMBURGUERIA</h1>
-
-<h2>📋 Cadastrar Lanche</h2>
-<input type="text" id="nomeInput" placeholder="Nome do lanche">
-<input type="number" id="valorInput" placeholder="Preço" step="0.01">
-<button class="btn-add" onclick="adicionarLanche()">➕ Adicionar ao Cardápio</button>
-
-<h3>Cardápio</h3>
-<div id="listaCardapio" class="vazio">Nenhum lanche cadastrado</div>
-
-<h2>🛒 Novo Pedido</h2>
-<input type="text" id="clienteInput" placeholder="Nome do Cliente">
-<div id="listaPedidos" class="vazio">Cadastre lanches primeiro</div>
-<div class="total">Total: R$ <span id="totalGeral">0.00</span></div>
-<div class="botoes">
-  <button class="btn-vermelho" onclick="limparPedido()">🗑️ Limpar</button>
-  <button class="btn-azul" onclick="imprimir()">🖨️ Imprimir</button>
-  <button class="btn-roxo" onclick="copiar()">📋 Copiar</button>
-  <button class="btn-verde" onclick="finalizar()">✅ Finalizar</button>
+<div class="topo">
+  <h1>DK HAMBURGUERIA</h1>
 </div>
 
-<h2>📊 Vendas</h2>
-<input type="date" id="dataFiltro">
-<div class="botoes">
-  <button class="btn-azul" onclick="filtrar()">🔍 Filtrar</button>
-  <button class="btn-roxo" onclick="hoje()">Hoje</button>
+<div class="abas">
+  <button class="botaoAba ativa" onclick="mudarAba(0)">📋 Pedidos</button>
+  <button class="botaoAba" onclick="mudarAba(1)">🍔 Lanches</button>
+  <button class="botaoAba" onclick="mudarAba(2)">🎁 Combos do Dia</button>
 </div>
-<div class="botoes">
-  <button class="btn-azul" onclick="salvarTudo()">📁 Salvar Tudo</button>
-  <button class="btn-roxo" onclick="salvarDia()">💾 Salvar Dia</button>
+
+<div class="conteudoAba visivel" id="aba0">
+  <h2>Novo Pedido</h2>
+  <input type="text" id="nomeCliente" placeholder="Nome do cliente">
+  <input type="text" id="enderecoCliente" placeholder="Endereço">
+  <input type="number" id="taxaEntrega" step="0.01" placeholder="Taxa de Entrega R$">
+
+  <h3>🍔 Lanches disponíveis:</h3>
+  <div id="listaLanchesPedido"></div>
+
+  <h3>🎁 Combos do Dia:</h3>
+  <div id="listaCombosPedido"></div>
+
+  <h3>📝 Itens do pedido:</h3>
+  <div id="itensDoPedido"></div>
+
+  <div class="totalDia">
+    💰 Total vendido no dia: R$ <span id="somaDia">0.00</span>
+  </div>
+
+  <button class="botao botaoVerde" onclick="finalizarPedido()">✅ Finalizar Pedido</button>
+  <button class="botao botaoDourado" onclick="imprimirPedido()">🖨️ Imprimir Pedido</button>
+  <button class="botao botaoDourado" onclick="salvarEDownloadDia()">💾 Salvar e baixar vendas</button>
+  <button class="botao botaoVermelho" onclick="limparHistoricoDia()">🗑️ Limpar histórico</button>
+
+  <h3>📜 Histórico de pedidos do dia:</h3>
+  <div id="historicoPedidos"></div>
 </div>
-<div id="listaVendas" class="vazio">Nenhuma venda ainda</div>
-<button class="btn-vermelho" style="width:100%; margin-top:10px;" onclick="limparHistorico()">⚠️ Limpar Histórico</button>
+
+<div class="conteudoAba" id="aba1">
+  <h2>Cadastrar Lanches do Cardápio</h2>
+  <input type="text" id="nomeLancheNovo" placeholder="Ex: Dk JR">
+  <input type="number" id="precoLancheNovo" step="0.01" placeholder="Ex: 17.99">
+  <button class="botao botaoDourado" onclick="cadastrarLanche()">➕ Cadastrar Lanche</button>
+
+  <h3>📋 Lanches cadastrados:</h3>
+  <div id="listaLanchesCadastrados"></div>
+</div>
+
+<div class="conteudoAba" id="aba2">
+  <h2>🎁 Combos do Dia</h2>
+  <div class="avisoCombo">
+    ⚡ Os combos são temporários — digite os de hoje, use e amanhã coloca os novos!
+  </div>
+  
+  <input type="text" id="nomeComboNovo" placeholder="Nome do combo (ex: Combo Quarta-Feira)">
+  <input type="number" id="precoComboNovo" step="0.01" placeholder="Valor R$">
+  <button class="botao botaoVerde" onclick="adicionarComboDoDia()">➕ Adicionar Combo</button>
+
+  <h3>📋 Combos de hoje:</h3>
+  <div id="listaCombosCadastrados"></div>
+  
+  <button class="botao botaoVermelho" style="margin-top:16px;" onclick="limparCombosDoDia()">🗑️ Limpar todos os combos</button>
+</div>
 
 <script>
-let cardapio = JSON.parse(localStorage.getItem('dk_cardapio')) || [];
-let vendas = JSON.parse(localStorage.getItem('dk_vendas')) || [];
-let pedido = [];
+let abaAtual = 0;
+let lanches = [];
+let combosDoDia = []; // Os combos ficam só na memória, não salvam
+let itensPedidoAtual = [];
+let historicoPedidos = [];
 
-function salvarCardapio() {
-  localStorage.setItem('dk_cardapio', JSON.stringify(cardapio));
-}
-function salvarVendas() {
-  localStorage.setItem('dk_vendas', JSON.stringify(vendas));
-}
-function hojeData() {
-  return new Date().toISOString().split('T')[0];
-}
-
-document.getElementById('dataFiltro').value = hojeData();
-atualizarCardapio();
-atualizarPedidos();
-atualizarVendas();
-
-function adicionarLanche() {
-  const nome = document.getElementById('nomeInput').value.trim();
-  const valor = parseFloat(document.getElementById('valorInput').value);
-  
-  if (!nome) { alert('Digite o nome!'); return; }
-  if (!valor || valor <= 0) { alert('Digite um preço válido!'); return; }
-  
-  cardapio.push({nome: nome, valor: valor});
-  salvarCardapio();
-  atualizarCardapio();
-  atualizarPedidos();
-  
-  document.getElementById('nomeInput').value = '';
-  document.getElementById('valorInput').value = '';
-  alert('✅ Lanche cadastrado!');
-}
-
-function removerLanche(i) {
-  if (confirm('Excluir?')) {
-    cardapio.splice(i, 1);
-    salvarCardapio();
-    atualizarCardapio();
-    atualizarPedidos();
+function salvarLocal(chave, valor) {
+  try {
+    localStorage.setItem(chave, JSON.stringify(valor));
+    return true;
+  } catch (e) {
+    console.error('Erro ao salvar:', e);
+    return false;
   }
 }
 
-function atualizarCardapio() {
-  const div = document.getElementById('listaCardapio');
-  if (cardapio.length === 0) {
-    div.innerHTML = '<div class="vazio">Nenhum lanche cadastrado</div>';
-    return;
+function carregarLocal(chave) {
+  try {
+    const dados = localStorage.getItem(chave);
+    return dados ? JSON.parse(dados) : [];
+  } catch (e) {
+    console.error('Erro ao carregar:', e);
+    return [];
   }
-  div.innerHTML = '';
-  cardapio.forEach((lanche, i) => {
-    div.innerHTML += `
-      <div class="linha">
-        <span>${lanche.nome}</span>
-        <span class="valor">R$ ${lanche.valor.toFixed(2)}</span>
-        <button class="btn-vermelho" style="padding:3px 8px;" onclick="removerLanche(${i})">✕</button>
-      </div>
-    `;
+}
+
+function baixarArquivoTexto(nomeArquivo, conteudoTexto) {
+  const blob = new Blob([conteudoTexto], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = nomeArquivo;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  lanches = carregarLocal('lanches');
+  historicoPedidos = carregarLocal('historicoPedidos');
+  mudarAba(0);
+});
+
+function mudarAba(numero) {
+  abaAtual = numero;
+  document.querySelectorAll('.conteudoAba').forEach((el, i) => {
+    el.classList.toggle('visivel', i === numero);
   });
+  document.querySelectorAll('.botaoAba').forEach((el, i) => {
+    el.classList.toggle('ativa', i === numero);
+  });
+  carregarLanchesPedido();
+  carregarCombosPedido();
+  carregarListaCadastrados();
+  carregarListaCombos();
+  carregarHistorico();
+  calcularTotalDoDia();
 }
 
-function atualizarPedidos() {
-  const div = document.getElementById('listaPedidos');
-  if (cardapio.length === 0) {
-    div.innerHTML = '<div class="vazio">Cadastre lanches primeiro</div>';
-    document.getElementById('totalGeral').textContent = '0.00';
-    return;
-  }
+// ===== LANCHES =====
+function carregarLanchesPedido() {
+  const div = document.getElementById('listaLanchesPedido');
   div.innerHTML = '';
-  cardapio.forEach((lanche, i) => {
-    const qtd = pedido.filter(p => p.indice === i).length;
+  lanches.forEach(l => {
+    const qtd = contarItemPedido(l.nome);
     div.innerHTML += `
-      <div class="linha">
-        <span>${lanche.nome} — R$ ${lanche.valor.toFixed(2)}</span>
-        <div class="controle">
-          <button onclick="menos(${i})">−</button>
-          <span>${qtd}</span>
-          <button onclick="mais(${i})">+</button>
+      <div class="item">
+        <span>${l.nome} — R$ ${Number(l.preco).toFixed(2)}</span>
+        <div class="botoesQuantidade">
+          <button class="botaoMenos" onclick="removerUmDoPedido('${l.nome}')">−</button>
+          <span class="quantidadeItem">${qtd}</span>
+          <button class="botaoMais" onclick="adicionarAoPedido('${l.nome}', ${l.preco})">+</button>
         </div>
       </div>
     `;
   });
-  const total = pedido.reduce((soma, item) => soma + item.valor, 0);
-  document.getElementById('totalGeral').textContent = total.toFixed(2);
 }
 
-function mais(i) {
-  pedido.push({indice: i, nome: cardapio[i].nome, valor: cardapio[i].valor});
-  atualizarPedidos();
+function contarItemPedido(nome) {
+  return itensPedidoAtual.filter(i => i.nome === nome).length;
 }
 
-function menos(i) {
-  const pos = pedido.findIndex(p => p.indice === i);
-  if (pos !== -1) { pedido.splice(pos, 1); atualizarPedidos(); }
+function adicionarAoPedido(nome, preco) {
+  itensPedidoAtual.push({nome, preco, tipo: 'lanche'});
+  atualizarItensPedido();
+  carregarLanchesPedido();
+  carregarCombosPedido();
 }
 
-function limparPedido() {
-  if (pedido.length > 0 && !confirm('Limpar pedido?')) return;
-  pedido = [];
-  document.getElementById('clienteInput').value = '';
-  atualizarPedidos();
-}
-
-// ✅ CUPOM MELHORADO
-function gerarCupom() {
-  if (pedido.length === 0) return '';
-  const cliente = document.getElementById('clienteInput').value.trim() || 'Cliente';
-  const agora = new Date();
-  const data = agora.toLocaleDateString('pt-BR');
-  const hora = agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
-
-  const agrupado = {};
-  pedido.forEach(item => {
-    if (!agrupado[item.nome]) agrupado[item.nome] = {qtd:0, valor:item.valor};
-    agrupado[item.nome].qtd++;
-  });
-  const total = pedido.reduce((soma, item) => soma + item.valor, 0);
-
-  let cupom = "==============================\n";
-  cupom += "       DK HAMBURGUERIA\n";
-  cupom += "==============================\n";
-  cupom += `DATA: ${data.padEnd(14)} HORA: ${hora}\n`;
-  cupom += `CLIENTE: ${cliente}\n`;
-  cupom += "==============================\n";
-  cupom += "DESCRICAO         QTD  VALOR\n";
-  cupom += "------------------------------\n";
-  
-  for (const nome in agrupado) {
-    const sub = agrupado[nome].valor * agrupado[nome].qtd;
-    const nomeCurto = nome.length > 16 ? nome.substring(0,16) : nome;
-    cupom += `${nomeCurto.padEnd(16)} ${String(agrupado[nome].qtd).padStart(3)}  R$${sub.toFixed(2).padStart(6)}\n`;
-  }
-  
-  cupom += "------------------------------\n";
-  cupom += `TOTAL:                R$ ${total.toFixed(2)}\n`;
-  cupom += "==============================\n";
-  cupom += "    Obrigado! Volte Sempre!\n";
-  cupom += "\n\n\n";
-  return cupom;
-}
-
-function copiar() {
-  const texto = gerarCupom();
-  if (!texto) { alert('Adicione itens primeiro!'); return; }
-  navigator.clipboard.writeText(texto).then(() => alert('✅ Cupom copiado!'));
-}
-
-function imprimir() {
-  const texto = gerarCupom();
-  if (!texto) { alert('Adicione itens primeiro!'); return; }
-  navigator.clipboard.writeText(texto).then(() => {
-    alert('✅ Pronto! Abra o RawBT e imprima');
-    window.location.href = 'rawbt://print?text=' + encodeURIComponent(texto);
-  });
-}
-
-function finalizar() {
-  if (pedido.length === 0) { alert('Adicione itens primeiro!'); return; }
-  const cliente = document.getElementById('clienteInput').value.trim() || 'Sem nome';
-  const total = pedido.reduce((soma, item) => soma + item.valor, 0);
-  const agora = new Date();
-  const dataISO = agora.toISOString().split('T')[0];
-  
-  const agrupado = {};
-  pedido.forEach(item => {
-    if (!agrupado[item.nome]) agrupado[item.nome] = {qtd:0, valor:item.valor};
-    agrupado[item.nome].qtd++;
-  });
-  
-  vendas.unshift({
-    id: Date.now(),
-    data: dataISO,
-    dataStr: agora.toLocaleDateString('pt-BR'),
-    hora: agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}),
-    cliente: cliente,
-    itens: agrupado,
-    total: total
-  });
-  salvarVendas();
-  alert('✅ Pedido salvo! Total: R$ ' + total.toFixed(2));
-  
-  pedido = [];
-  document.getElementById('clienteInput').value = '';
-  atualizarPedidos();
-  atualizarVendas();
-}
-
-function baixarArquivo(conteudo, nome) {
-  const blob = new Blob([conteudo], {type: 'text/plain;charset=utf-8'});
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = nome;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-
-function salvarTudo() {
-  if (vendas.length === 0) { alert('Nenhuma venda!'); return; }
-  const agora = new Date();
-  const dataArq = agora.toLocaleDateString('pt-BR').replace(/\//g, '-');
-  let texto = '==============================\n';
-  texto += '   RELATÓRIO GERAL\n';
-  texto += '==============================\n';
-  texto += 'Gerado em: ' + agora.toLocaleString('pt-BR') + '\n';
-  texto += 'Total de vendas: ' + vendas.length + '\n';
-  texto += '==============================\n\n';
-  let totalGeral = 0;
-  vendas.forEach((v, i) => {
-    totalGeral += v.total;
-    texto += (i+1) + '. ' + v.dataStr + ' ' + v.hora + ' | ' + v.cliente + '\n';
-    for (const nome in v.itens) {
-      texto += '   ' + nome + ' x' + v.itens[nome].qtd + ' = R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '\n';
-    }
-    texto += '   TOTAL: R$ ' + v.total.toFixed(2) + '\n';
-    texto += '------------------------------\n';
-  });
-  texto += '\nTOTAL GERAL: R$ ' + totalGeral.toFixed(2) + '\n';
-  baixarArquivo(texto, 'todas_vendas_' + dataArq + '.txt');
-  alert('✅ Salvo!');
-}
-
-function salvarDia() {
-  const data = document.getElementById('dataFiltro').value;
-  if (!data) { alert('Escolha uma data!'); return; }
-  const vendasDia = vendas.filter(v => v.data === data);
-  if (vendasDia.length === 0) { alert('Nenhuma venda neste dia!'); return; }
-  const dt = data.split('-').reverse().join('/');
-  let texto = '==============================\n';
-  texto += '   VENDAS DO DIA ' + dt + '\n';
-  texto += '==============================\n\n';
-  let totalDia = 0;
-  vendasDia.forEach((v, i) => {
-    totalDia += v.total;
-    texto += (i+1) + '. ' + v.hora + ' | ' + v.cliente + '\n';
-    for (const nome in v.itens) {
-      texto += '   ' + nome + ' x' + v.itens[nome].qtd + ' = R$ ' + (v.itens[nome].valor * v.itens[nome].qtd).toFixed(2) + '\n';
-    }
-    texto += '   TOTAL: R$ ' + v.total.toFixed(2) + '\n';
-    texto += '------------------------------\n';
-  });
-  texto += '\nTOTAL DO DIA: R$ ' + totalDia.toFixed(2) + '\n';
-  baixarArquivo(texto, 'vendas_dia_' + dt.replace(/\//g, '-') + '.txt');
-  alert('✅ Salvo!');
-}
-
-function apagarVenda(id) {
-  if (confirm('Excluir venda?')) {
-    vendas = vendas.filter(v => v.id !== id);
-    salvarVendas();
-    atualizarVendas();
+function removerUmDoPedido(nome) {
+  const indice = itensPedidoAtual.findIndex(i => i.nome === nome);
+  if (indice !== -1) {
+    itensPedidoAtual.splice(indice, 1);
+    atualizarItensPedido();
+    carregarLanchesPedido();
+    carregarCombosPedido();
   }
 }
 
-function limparHistorico() {
-  if (!confirm('Apagar TODAS as vendas?')) return;
-  vendas = [];
-  salvarVendas();
-  atualizarVendas();
-}
+// ===== COMBOS DO DIA =====
+function adicionarComboDoDia() {
+  const nomeInput = document.getElementById('nomeComboNovo');
+  const precoInput = document.getElementById('precoComboNovo');
+  const nome = nomeInput.value.trim();
+  const preco = Number(precoInput.value);
 
-function filtrar() {
-  atualizarVendas(document.getElementById('dataFiltro').value);
-}
-
-function hoje() {
-  document.getElementById('dataFiltro').value = hojeData();
-  atualizarVendas(hojeData());
-}
-
-function atualizarVendas(filtroData) {
-  const div = document.getElementById('listaVendas');
-  const lista = filtroData ? vendas.filter(v => v.data === filtroData) : vendas;
-  if (lista.length === 0) {
-    div.innerHTML = '<div class="vazio">Nenhuma venda ainda</div>';
+  if (!nome || !preco || preco <= 0) {
+    alert('⚠️ Preencha o nome e um valor válido!');
     return;
   }
+
+  combosDoDia.push({nome, preco});
+  nomeInput.value = '';
+  precoInput.value = '';
+  
+  carregarCombosPedido();
+  carregarListaCombos();
+  alert('✅ Combo adicionado! Lembre: amanhã é só apagar e colocar os novos!');
+}
+
+function carregarListaCombos() {
+  const div = document.getElementById('listaCombosCadastrados');
   div.innerHTML = '';
-  lista.forEach((v, i) => {
+  if (combosDoDia.length === 0) {
+    div.innerHTML = '<p style="opacity:0.7">Nenhum combo cadastrado hoje.</p>';
+    return;
+  }
+  combosDoDia.forEach((c, i) => {
+    div.innerHTML += `
+      <div class="item">
+        <span>${c.nome} — R$ ${Number(c.preco).toFixed(2)}</span>
+        <button class="botao botaoVermelho" style="width:auto;padding:8px 12px;" onclick="excluirCombo(${i})">Excluir</button>
+      </div>
+    `;
+  });
+}
+
+function excluirCombo(i) {
+  combosDoDia.splice(i, 1);
+  carregarCombosPedido();
+  carregarListaCombos();
+}
+
+function limparCombosDoDia() {
+  if (!confirm('⚠️ Limpar todos os combos de hoje?')) return;
+  combosDoDia = [];
+  carregarCombosPedido();
+  carregarListaCombos();
+}
+
+function carregarCombosPedido() {
+  const div = document.getElementById('listaCombosPedido');
+  div.innerHTML = '';
+  if (combosDoDia.length === 0) {
+    div.innerHTML = '<p style="opacity:0.7">Nenhum combo cadastrado hoje. Vá na aba "Combos do Dia" e adicione!</p>';
+    return;
+  }
+  combosDoDia.forEach(c => {
+    const qtd = contarItemPedido(c.nome);
+    div.innerHTML += `
+      <div class="item">
+        <span>🎁 ${c.nome} — R$ ${Number(c.preco).toFixed(2)}</span>
+        <div class="botoesQuantidade">
+          <button class="botaoMenos" onclick="removerUmDoPedido('${c.nome}')">−</button>
+          <span class="quantidadeItem">${qtd}</span>
+          <button class="botaoMais" onclick="adicionarComboAoPedido('${c.nome}', ${c.preco})">+</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function adicionarComboAoPedido(nome, preco) {
+  itensPedidoAtual.push({nome, preco, tipo: 'combo'});
+  atualizarItensPedido();
+  carregarLanchesPedido();
+  carregarCombosPedido();
+}
+
+// ===== ITENS DO PEDIDO =====
+function atualizarItensPedido() {
+  const div = document.getElementById('itensDoPedido');
+  div.innerHTML = '';
+  itensPedidoAtual.forEach((item, i) => {
+    const icone = item.tipo === 'combo' ? '🎁' : '🍔';
+    div.innerHTML += `
+      <div class="item">
+        <span>${icone} ${item.nome} — R$ ${item.preco.toFixed(2)}</span>
+        <button class="botao botaoVermelho" style="width:auto;padding:8px 12px;" onclick="removerItem(${i})">Remover</button>
+      </div>
+    `;
+  });
+}
+
+function removerItem(indice) {
+  itensPedidoAtual.splice(indice, 1);
+  atualizarItensPedido();
+  carregarLanchesPedido();
+  carregarCombosPedido();
+}
+
+// ===== PEDIDOS =====
+function finalizarPedido() {
+  const nomeCli = document.getElementById('nomeCliente').value.trim();
+  const endCli = document.getElementById('enderecoCliente').value.trim();
+  const taxaEntrega = Number(document.getElementById('taxaEntrega').value) || 0;
+
+  if (!nomeCli || itensPedidoAtual.length === 0) {
+    alert('⚠️ Preencha o nome do cliente e adicione os itens!');
+    return;
+  }
+
+  let valorLanches = 0;
+  itensPedidoAtual.forEach(i => valorLanches += i.preco);
+  let valorPedido = valorLanches + taxaEntrega;
+
+  const pedido = {
+    dataHora: new Date().toLocaleString('pt-BR'),
+    nomeCliente: nomeCli,
+    endereco: endCli,
+    taxaEntrega: taxaEntrega,
+    itens: [...itensPedidoAtual],
+    total: valorPedido
+  };
+
+  historicoPedidos.push(pedido);
+  salvarLocal('historicoPedidos', historicoPedidos);
+
+  carregarHistorico();
+  calcularTotalDoDia();
+
+  itensPedidoAtual = [];
+  document.getElementById('nomeCliente').value = '';
+  document.getElementById('enderecoCliente').value = '';
+  document.getElementById('taxaEntrega').value = '';
+  atualizarItensPedido();
+  carregarLanchesPedido();
+  carregarCombosPedido();
+
+  alert('✅ Pedido finalizado!');
+}
+
+function calcularTotalDoDia() {
+  let total = 0;
+  historicoPedidos.forEach(ped => {
+    total += ped.total;
+  });
+  document.getElementById('somaDia').textContent = total.toFixed(2);
+  salvarLocal('vendasDia', total);
+}
+
+function carregarHistorico() {
+  const div = document.getElementById('historicoPedidos');
+  div.innerHTML = '';
+  historicoPedidos.forEach((ped, indice) => {
     let itensTexto = '';
-    for (const nome in v.itens) {
-      itensTexto += nome + ' x' + v.itens[nome].qtd + '  ';
-    }
+    ped.itens.forEach(i => {
+      const icone = i.tipo === 'combo' ? '🎁' : '🍔';
+      itensTexto += `${icone} ${i.nome} R$ ${i.preco.toFixed(2)}<br>`;
+    });
     div.innerHTML += `
-      <div class="linha">
-        <div>
-          <strong>${v.dataStr} ${v.hora}</strong> — ${v.cliente}<br>
-          <small>${itensTexto}</small><br>
-          <strong style="color:#D4AF37">R$ ${v.total.toFixed(2)}</strong>
-        </div>
-        <button class="btn-vermelho" style="padding:3px 6px;" onclick="apagarVenda(${v.id})">✕</button>
+      <div class="historicoPedido">
+        <strong>DK HAMBURGUERIA</strong><br>
+        ${ped.dataHora}<br>
+        <strong>Cliente: ${ped.nomeCliente}</strong><br>
+        Endereço: ${ped.endereco}<br>
+        Taxa de Entrega: R$ ${ped.taxaEntrega.toFixed(2)}<br>
+        ${itensTexto}
+        <strong>TOTAL: R$ ${ped.total.toFixed(2)}</strong><br>
+        <button class="botao botaoVermelho" style="margin-top:8px;" onclick="excluirPedidoDoDia(${indice})">🗑️ Excluir este pedido</button>
       </div>
     `;
   });
 }
-</script>
 
-</body>
-</html>
+function excluirPedidoDoDia(indice) {
+  if (!confirm('⚠️ Tem certeza que deseja excluir este pedido?')) return;
+  historicoPedidos.splice(indice, 1);
+  salvarLocal('historicoPedidos', historicoPedidos);
+  carregarHistorico();
+  calcularTotalDoDia();
+}
+
+function imprimirPedido() {
+  const nomeCli = document.getElementById('nomeCliente').value;
+  const endCli = document.getElementById('enderecoCliente').value;
+  const taxaEntrega = Number(document.getElementById('taxaEntrega').value) || 0;
+  let totalPedido = 0;
+
+  let texto = 'DK HAMBURGUERIA\n';
+  texto += '-------------------------\n';
+  texto += 'CLIENTE: ' + nomeCli + '\n';
+  texto += 'ENDEREÇO: ' + endCli + '\n';
+  texto += 'TAXA DE ENTREGA: R$ ' + taxaEntrega.toFixed(2) + '\n';
+  texto += '-------------------------\n';
+
+  const agrupado = {};
+  itensPedidoAtual.forEach(i => {
+    if(!agrupado[i.nome]) agrupado

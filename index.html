@@ -35,12 +35,10 @@ body {
   display: flex;
   gap: 6px;
   margin-bottom: 16px;
-  flex-wrap: wrap;
 }
 .botaoAba {
   flex: 1;
-  min-width: 100px;
-  padding: 12px 8px;
+  padding: 12px;
   border: none;
   border-radius: 10px 10px 0 0;
   font-weight: bold;
@@ -48,7 +46,6 @@ body {
   color: #fff;
   cursor: pointer;
   transition: 0.2s;
-  font-size: 14px;
 }
 .botaoAba.ativa {
   background: #D4AF37;
@@ -173,12 +170,12 @@ input {
   display: flex;
   align-items: center;
 }
-.avisoCombo {
+.aviso {
   background: #2a1055;
   border: 1px solid #7b2cbf;
   border-radius: 8px;
   padding: 10px;
-  margin: 8px 0;
+  margin: 10px 0;
   font-size: 14px;
   color: #e0c9ff;
 }
@@ -190,22 +187,27 @@ input {
 </div>
 
 <div class="abas">
-  <button class="botaoAba ativa" onclick="mudarAba(0)">📋 Pedidos</button>
-  <button class="botaoAba" onclick="mudarAba(1)">🍔 Lanches</button>
-  <button class="botaoAba" onclick="mudarAba(2)">🎁 Combos do Dia</button>
+  <button class="botaoAba ativa" onclick="mudarAba(0)">📋 Lançar Pedidos</button>
+  <button class="botaoAba" onclick="mudarAba(1)">🍔 Cadastrar Lanches</button>
 </div>
 
 <div class="conteudoAba visivel" id="aba0">
   <h2>Novo Pedido</h2>
+  
   <input type="text" id="nomeCliente" placeholder="Nome do cliente">
   <input type="text" id="enderecoCliente" placeholder="Endereço">
   <input type="number" id="taxaEntrega" step="0.01" placeholder="Taxa de Entrega R$">
 
+  <div class="aviso">
+    🎁 Combo do dia — digite o nome e o valor abaixo:
+  </div>
+  
+  <input type="text" id="nomeCombo" placeholder="Nome do Combo (ex: Combo Terça)">
+  <input type="number" id="valorCombo" step="0.01" placeholder="Valor R$">
+  <button class="botao botaoVerde" onclick="adicionarComboAoPedido()">➕ Adicionar Combo ao Pedido</button>
+
   <h3>🍔 Lanches disponíveis:</h3>
   <div id="listaLanchesPedido"></div>
-
-  <h3>🎁 Combos do Dia:</h3>
-  <div id="listaCombosPedido"></div>
 
   <h3>📝 Itens do pedido:</h3>
   <div id="itensDoPedido"></div>
@@ -216,8 +218,8 @@ input {
 
   <button class="botao botaoVerde" onclick="finalizarPedido()">✅ Finalizar Pedido</button>
   <button class="botao botaoDourado" onclick="imprimirPedido()">🖨️ Imprimir Pedido</button>
-  <button class="botao botaoDourado" onclick="salvarEDownloadDia()">💾 Salvar e baixar vendas</button>
-  <button class="botao botaoVermelho" onclick="limparHistoricoDia()">🗑️ Limpar histórico</button>
+  <button class="botao botaoDourado" onclick="salvarEDownloadDia()">💾 Salvar e baixar vendas do dia</button>
+  <button class="botao botaoVermelho" onclick="limparHistoricoDia()">🗑️ Limpar histórico para o próximo dia</button>
 
   <h3>📜 Histórico de pedidos do dia:</h3>
   <div id="historicoPedidos"></div>
@@ -233,26 +235,9 @@ input {
   <div id="listaLanchesCadastrados"></div>
 </div>
 
-<div class="conteudoAba" id="aba2">
-  <h2>🎁 Combos do Dia</h2>
-  <div class="avisoCombo">
-    ⚡ Os combos são temporários — digite os de hoje, use e amanhã coloca os novos!
-  </div>
-  
-  <input type="text" id="nomeComboNovo" placeholder="Nome do combo (ex: Combo Quarta-Feira)">
-  <input type="number" id="precoComboNovo" step="0.01" placeholder="Valor R$">
-  <button class="botao botaoVerde" onclick="adicionarComboDoDia()">➕ Adicionar Combo</button>
-
-  <h3>📋 Combos de hoje:</h3>
-  <div id="listaCombosCadastrados"></div>
-  
-  <button class="botao botaoVermelho" style="margin-top:16px;" onclick="limparCombosDoDia()">🗑️ Limpar todos os combos</button>
-</div>
-
 <script>
 let abaAtual = 0;
 let lanches = [];
-let combosDoDia = []; // Os combos ficam só na memória, não salvam
 let itensPedidoAtual = [];
 let historicoPedidos = [];
 
@@ -303,11 +288,28 @@ function mudarAba(numero) {
     el.classList.toggle('ativa', i === numero);
   });
   carregarLanchesPedido();
-  carregarCombosPedido();
   carregarListaCadastrados();
-  carregarListaCombos();
   carregarHistorico();
   calcularTotalDoDia();
+}
+
+// ===== COMBOS =====
+function adicionarComboAoPedido() {
+  const nomeCombo = document.getElementById('nomeCombo').value.trim();
+  const valorCombo = Number(document.getElementById('valorCombo').value);
+
+  if (!nomeCombo || !valorCombo || valorCombo <= 0) {
+    alert('⚠️ Preencha o nome e o valor do combo corretamente!');
+    return;
+  }
+
+  itensPedidoAtual.push({ nome: '🎁 ' + nomeCombo, preco: valorCombo });
+  
+  document.getElementById('nomeCombo').value = '';
+  document.getElementById('valorCombo').value = '';
+  
+  atualizarItensPedido();
+  alert('✅ Combo adicionado ao pedido!');
 }
 
 // ===== LANCHES =====
@@ -334,10 +336,9 @@ function contarItemPedido(nome) {
 }
 
 function adicionarAoPedido(nome, preco) {
-  itensPedidoAtual.push({nome, preco, tipo: 'lanche'});
+  itensPedidoAtual.push({nome, preco});
   atualizarItensPedido();
   carregarLanchesPedido();
-  carregarCombosPedido();
 }
 
 function removerUmDoPedido(nome) {
@@ -346,88 +347,7 @@ function removerUmDoPedido(nome) {
     itensPedidoAtual.splice(indice, 1);
     atualizarItensPedido();
     carregarLanchesPedido();
-    carregarCombosPedido();
   }
-}
-
-// ===== COMBOS DO DIA =====
-function adicionarComboDoDia() {
-  const nomeInput = document.getElementById('nomeComboNovo');
-  const precoInput = document.getElementById('precoComboNovo');
-  const nome = nomeInput.value.trim();
-  const preco = Number(precoInput.value);
-
-  if (!nome || !preco || preco <= 0) {
-    alert('⚠️ Preencha o nome e um valor válido!');
-    return;
-  }
-
-  combosDoDia.push({nome, preco});
-  nomeInput.value = '';
-  precoInput.value = '';
-  
-  carregarCombosPedido();
-  carregarListaCombos();
-  alert('✅ Combo adicionado! Lembre: amanhã é só apagar e colocar os novos!');
-}
-
-function carregarListaCombos() {
-  const div = document.getElementById('listaCombosCadastrados');
-  div.innerHTML = '';
-  if (combosDoDia.length === 0) {
-    div.innerHTML = '<p style="opacity:0.7">Nenhum combo cadastrado hoje.</p>';
-    return;
-  }
-  combosDoDia.forEach((c, i) => {
-    div.innerHTML += `
-      <div class="item">
-        <span>${c.nome} — R$ ${Number(c.preco).toFixed(2)}</span>
-        <button class="botao botaoVermelho" style="width:auto;padding:8px 12px;" onclick="excluirCombo(${i})">Excluir</button>
-      </div>
-    `;
-  });
-}
-
-function excluirCombo(i) {
-  combosDoDia.splice(i, 1);
-  carregarCombosPedido();
-  carregarListaCombos();
-}
-
-function limparCombosDoDia() {
-  if (!confirm('⚠️ Limpar todos os combos de hoje?')) return;
-  combosDoDia = [];
-  carregarCombosPedido();
-  carregarListaCombos();
-}
-
-function carregarCombosPedido() {
-  const div = document.getElementById('listaCombosPedido');
-  div.innerHTML = '';
-  if (combosDoDia.length === 0) {
-    div.innerHTML = '<p style="opacity:0.7">Nenhum combo cadastrado hoje. Vá na aba "Combos do Dia" e adicione!</p>';
-    return;
-  }
-  combosDoDia.forEach(c => {
-    const qtd = contarItemPedido(c.nome);
-    div.innerHTML += `
-      <div class="item">
-        <span>🎁 ${c.nome} — R$ ${Number(c.preco).toFixed(2)}</span>
-        <div class="botoesQuantidade">
-          <button class="botaoMenos" onclick="removerUmDoPedido('${c.nome}')">−</button>
-          <span class="quantidadeItem">${qtd}</span>
-          <button class="botaoMais" onclick="adicionarComboAoPedido('${c.nome}', ${c.preco})">+</button>
-        </div>
-      </div>
-    `;
-  });
-}
-
-function adicionarComboAoPedido(nome, preco) {
-  itensPedidoAtual.push({nome, preco, tipo: 'combo'});
-  atualizarItensPedido();
-  carregarLanchesPedido();
-  carregarCombosPedido();
 }
 
 // ===== ITENS DO PEDIDO =====
@@ -435,10 +355,9 @@ function atualizarItensPedido() {
   const div = document.getElementById('itensDoPedido');
   div.innerHTML = '';
   itensPedidoAtual.forEach((item, i) => {
-    const icone = item.tipo === 'combo' ? '🎁' : '🍔';
     div.innerHTML += `
       <div class="item">
-        <span>${icone} ${item.nome} — R$ ${item.preco.toFixed(2)}</span>
+        <span>${item.nome} — R$ ${item.preco.toFixed(2)}</span>
         <button class="botao botaoVermelho" style="width:auto;padding:8px 12px;" onclick="removerItem(${i})">Remover</button>
       </div>
     `;
@@ -449,7 +368,6 @@ function removerItem(indice) {
   itensPedidoAtual.splice(indice, 1);
   atualizarItensPedido();
   carregarLanchesPedido();
-  carregarCombosPedido();
 }
 
 // ===== PEDIDOS =====
@@ -463,9 +381,9 @@ function finalizarPedido() {
     return;
   }
 
-  let valorLanches = 0;
-  itensPedidoAtual.forEach(i => valorLanches += i.preco);
-  let valorPedido = valorLanches + taxaEntrega;
+  let valorTotal = 0;
+  itensPedidoAtual.forEach(i => valorTotal += i.preco);
+  valorTotal += taxaEntrega;
 
   const pedido = {
     dataHora: new Date().toLocaleString('pt-BR'),
@@ -473,7 +391,7 @@ function finalizarPedido() {
     endereco: endCli,
     taxaEntrega: taxaEntrega,
     itens: [...itensPedidoAtual],
-    total: valorPedido
+    total: valorTotal
   };
 
   historicoPedidos.push(pedido);
@@ -488,7 +406,6 @@ function finalizarPedido() {
   document.getElementById('taxaEntrega').value = '';
   atualizarItensPedido();
   carregarLanchesPedido();
-  carregarCombosPedido();
 
   alert('✅ Pedido finalizado!');
 }
@@ -508,8 +425,7 @@ function carregarHistorico() {
   historicoPedidos.forEach((ped, indice) => {
     let itensTexto = '';
     ped.itens.forEach(i => {
-      const icone = i.tipo === 'combo' ? '🎁' : '🍔';
-      itensTexto += `${icone} ${i.nome} R$ ${i.preco.toFixed(2)}<br>`;
+      itensTexto += i.nome + ' R$ ' + i.preco.toFixed(2) + '<br>';
     });
     div.innerHTML += `
       <div class="historicoPedido">
@@ -547,6 +463,84 @@ function imprimirPedido() {
   texto += 'TAXA DE ENTREGA: R$ ' + taxaEntrega.toFixed(2) + '\n';
   texto += '-------------------------\n';
 
-  const agrupado = {};
   itensPedidoAtual.forEach(i => {
-    if(!agrupado[i.nome]) agrupado
+    texto += i.nome + '  R$ ' + i.preco.toFixed(2) + '\n';
+    totalPedido += i.preco;
+  });
+
+  totalPedido += taxaEntrega;
+  texto += '-------------------------\n';
+  texto += 'TOTAL: R$ ' + totalPedido.toFixed(2) + '\n';
+  texto += '-------------------------\n';
+
+  const linkRawbt = 'rawbt://print?text=' + encodeURIComponent(texto);
+  window.location.href = linkRawbt;
+}
+
+function salvarEDownloadDia() {
+  calcularTotalDoDia();
+  const dataArquivo = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
+  let relatorio = '';
+  relatorio += 'DK HAMBURGUERIA - RELATÓRIO DE VENDAS\n';
+  relatorio += 'Gerado em: ' + new Date().toLocaleString('pt-BR') + '\n';
+  relatorio += 'Quantidade de pedidos: ' + historicoPedidos.length + '\n';
+  relatorio += '----------------------------------------\n';
+
+  for(let indice = 0; indice < historicoPedidos.length; indice++){
+    const ped = historicoPedidos[indice];
+    relatorio += 'PEDIDO ' + (indice + 1) + '\n';
+    relatorio += 'Data/Hora: ' + ped.dataHora + '\n';
+    relatorio += 'Cliente: ' + ped.nomeCliente + '\n';
+    relatorio += 'Endereço: ' + ped.endereco + '\n';
+    relatorio += 'Taxa de Entrega: R$ ' + ped.taxaEntrega.toFixed(2) + '\n';
+    relatorio += 'Itens: \n';
+    ped.itens.forEach(item => {
+      relatorio += '  - ' + item.nome + '  R$ ' + item.preco.toFixed(2) + '\n';
+    });
+    relatorio += 'TOTAL DO PEDIDO: R$ ' + ped.total.toFixed(2) + '\n';
+    relatorio += '----------------------------------------\n';
+  }
+
+  let totalGeral = 0;
+  historicoPedidos.forEach(p => totalGeral += p.total);
+  relatorio += 'TOTAL GERAL DO DIA: R$ ' + totalGeral.toFixed(2) + '\n';
+
+  baixarArquivoTexto('todas_vendas_' + dataArquivo + '.txt', relatorio);
+  alert('💾 Relatório baixado com sucesso!');
+}
+
+function limparHistoricoDia() {
+  if (!confirm('⚠️ Primeiro faça o download do relatório! Tem certeza que deseja limpar tudo?')) return;
+  historicoPedidos = [];
+  salvarLocal('historicoPedidos', historicoPedidos);
+  carregarHistorico();
+  calcularTotalDoDia();
+  alert('🗑️ Histórico limpo! Pronto para o próximo dia!');
+}
+
+function cadastrarLanche() {
+  const nomeInput = document.getElementById('nomeLancheNovo');
+  const precoInput = document.getElementById('precoLancheNovo');
+  const nome = nomeInput.value.trim();
+  const preco = Number(precoInput.value);
+
+  if (!nome || !preco || preco <= 0) {
+    alert('⚠️ Preencha o nome e um preço válido!');
+    return;
+  }
+
+  lanches.push({nome: nome, preco: preco});
+  salvarLocal('lanches', lanches);
+
+  nomeInput.value = '';
+  precoInput.value = '';
+
+  carregarLanchesPedido();
+  carregarListaCadastrados();
+  alert('✅ Lanche cadastrado!');
+}
+
+function carregarListaCadastrados() {
+  const div = document.getElementById('listaLanchesCadastrados');
+  div.innerHTML = '';
+  lanches.forEach((l

@@ -1,297 +1,103 @@
-/* DK HAMBURGUERIA — AJUSTE VISUAL APENAS
-   Cole este CSS no FINAL do bloco <style> que já existe no index.html.
-   Não altera HTML, JavaScript, cadastro, pedidos ou salvamento. */
-
-:root{
-  --dk-bg:#100d16;
-  --dk-surface:#1b1625;
-  --dk-surface-2:#241d30;
-  --dk-border:#3b2e4d;
-  --dk-purple:#7c3aed;
-  --dk-purple-dark:#4c1d95;
-  --dk-gold:#f5c451;
-  --dk-text:#faf7ff;
-  --dk-muted:#b9aec9;
-  --dk-green:#55d99a;
-  --dk-red:#ff7182;
-}
-
-*{box-sizing:border-box}
-
-body{
-  background:
-    radial-gradient(ellipse at 90% 0%,#30194a 0,transparent 35%),
-    var(--dk-bg)!important;
-  color:var(--dk-text)!important;
-  min-height:100vh;
-  padding:clamp(12px,2.5vw,28px)!important;
-  line-height:1.5;
-}
-
-.topo{
-  max-width:1180px;
-  margin:0 auto 22px!important;
-  padding:clamp(22px,4vw,34px)!important;
-  border:1px solid #b78a35!important;
-  border-radius:20px!important;
-  background:linear-gradient(125deg,#21122f 0%,#40206b 55%,#29143e 100%)!important;
-  box-shadow:0 16px 38px #0005!important;
-}
-
-.topo h1{
-  color:var(--dk-gold)!important;
-  font-size:clamp(24px,4vw,36px)!important;
-  letter-spacing:1.2px;
-  text-shadow:none!important;
-}
-
-.abas{
-  max-width:1180px;
-  margin:0 auto 12px!important;
-  gap:10px!important;
-}
-
-.botaoAba{
-  border:1px solid var(--dk-border)!important;
-  border-radius:12px!important;
-  padding:14px 16px!important;
-  background:var(--dk-surface)!important;
-  color:var(--dk-muted)!important;
-  box-shadow:none!important;
-}
-
-.botaoAba.ativa{
-  background:linear-gradient(135deg,#f7d36f,#e4ad37)!important;
-  color:#211707!important;
-  border-color:#e8bd55!important;
-  box-shadow:0 7px 18px #d4af3725!important;
-}
-
-.conteudoAba{
-  max-width:1180px;
-  margin:0 auto 18px!important;
-  padding:clamp(15px,2.5vw,26px)!important;
-  background:linear-gradient(145deg,#1b1625,#17121f)!important;
-  border:1px solid var(--dk-border)!important;
-  border-radius:16px!important;
-  box-shadow:0 14px 34px #0004!important;
-}
-
-h2{
-  color:var(--dk-gold)!important;
-  font-size:clamp(20px,2.5vw,26px)!important;
-  margin:0 0 16px!important;
-  letter-spacing:-.3px;
-}
-
-h3{
-  color:#eee5ff;
-  font-size:16px;
-  margin:24px 0 10px!important;
-}
-
-input{
-  width:100%;
-  padding:13px 14px!important;
-  border:1px solid var(--dk-border)!important;
-  border-radius:11px!important;
-  background:#120e19!important;
-  color:var(--dk-text)!important;
-  margin:7px 0!important;
-  font-size:15px;
-  outline:none;
-  transition:border-color .15s,box-shadow .15s;
-}
-
-input::placeholder{color:#8f849f}
-
-input:focus{
-  border-color:var(--dk-purple)!important;
-  box-shadow:0 0 0 3px #7c3aed22!important;
-}
-
-.botao{
-  padding:13px 15px!important;
-  border-radius:11px!important;
-  font-size:14px!important;
-  font-weight:750!important;
-  margin:6px 0!important;
-  box-shadow:none!important;
-  transition:filter .15s,transform .15s;
-}
-
-.botao:hover{
-  filter:brightness(1.08);
-  transform:translateY(-1px);
-}
-
-.botaoDourado{
-  background:linear-gradient(135deg,#f7d36f,#e5ad36)!important;
-  color:#241907!important;
-}
-
-.botaoVerde{
-  background:#235c43!important;
-  color:#eafff2!important;
-  border:1px solid #347b59!important;
-}
-
-.botaoVermelho{
-  background:#572735!important;
-  color:#ffdce1!important;
-  border:1px solid #783746!important;
-}
-
-.botaoMais,.botaoMenos{
-  width:38px!important;
-  height:38px!important;
-  min-width:38px;
-  border-radius:11px!important;
-  font-size:21px!important;
-  box-shadow:none!important;
-}
-
-.botaoMais{
-  background:#245a43!important;
-  color:#bff8d8!important;
-}
-
-.botaoMenos{
-  background:#5b2935!important;
-  color:#ffd5dc!important;
-}
-
-.item{
-  background:linear-gradient(135deg,#211a2d,#1b1525)!important;
-  border:1px solid var(--dk-border)!important;
-  border-radius:13px!important;
-  padding:14px 15px!important;
-  margin:9px 0!important;
-  gap:12px!important;
-  box-shadow:0 5px 16px #0002;
-}
-
-.item>span{
-  font-weight:650;
-  line-height:1.4;
-}
-
-.quantidadeItem{
-  background:#120e19!important;
-  border:1px solid var(--dk-border)!important;
-  border-radius:9px!important;
-  padding:7px 12px!important;
-  min-width:38px!important;
-  color:var(--dk-gold);
-}
-
-.botoesQuantidade{gap:8px!important}
-
-.totalDia{
-  background:linear-gradient(135deg,#281b38,#1b1427)!important;
-  border:1px solid #9a742d!important;
-  border-radius:14px!important;
-  padding:18px!important;
-  margin:18px 0!important;
-  color:var(--dk-gold)!important;
-  font-size:clamp(17px,2.5vw,22px)!important;
-  box-shadow:inset 0 1px #ffffff08;
-}
-
-.historicoPedido{
-  background:#15101e!important;
-  border:1px solid var(--dk-border)!important;
-  border-radius:13px!important;
-  padding:16px!important;
-  margin:12px 0!important;
-  line-height:1.75;
-}
-
-.aviso{
-  background:#251b35!important;
-  border:1px solid #4c356c!important;
-  border-radius:11px!important;
-  padding:13px 15px!important;
-  margin:14px 0!important;
-  color:#d9c9f3!important;
-  line-height:1.5;
-}
-
-#listaLanchesPedido,
-#itensDoPedido,
-#historicoPedidos,
-#listaLanchesCadastrados{
-  display:block;
-}
-
-/* Ajustes para tablet e celular */
-@media(max-width:700px){
-  body{padding:10px!important}
-
-  .topo{
-    padding:22px 14px!important;
-    margin-bottom:14px!important;
-    border-radius:16px!important;
-  }
-
-  .topo h1{
-    font-size:25px!important;
-    letter-spacing:.6px;
-  }
-
-  .abas{gap:7px!important}
-
-  .botaoAba{
-    padding:12px 8px!important;
-    font-size:13px;
-    line-height:1.25;
-  }
-
-  .conteudoAba{
-    padding:14px!important;
-    border-radius:13px!important;
-  }
-
-  h3{margin-top:20px!important}
-
-  .item{
-    align-items:center!important;
-    padding:12px!important;
-  }
-
-  .item>span{
-    flex:1;
-    min-width:130px;
-  }
-
-  .botoesQuantidade{flex-shrink:0}
-
-  .botao{
-    font-size:13px!important;
-    padding:12px 10px!important;
-  }
-}
-
-@media(max-width:420px){
-  .abas{flex-direction:column}
-
-  .botaoAba{
-    width:100%;
-    border-radius:10px!important;
-  }
-
-  .topo h1{font-size:22px!important}
-
-  .item{gap:8px!important}
-
-  .botaoMais,.botaoMenos{
-    width:34px!important;
-    height:34px!important;
-    min-width:34px;
-  }
-
-  .quantidadeItem{
-    min-width:32px!important;
-    padding:6px 8px!important;
-  }
-}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DK HAMBURGUERIA — Painel</title>
+<style>
+:root{--bg:#100d16;--surface:#1b1625;--surface2:#241d30;--border:#3b2e4d;--purple:#7c3aed;--gold:#f5c451;--text:#faf7ff;--muted:#b9aec9;--green:#55d99a;--red:#ff7182}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,sans-serif}
+body{background:radial-gradient(ellipse at 90% 0%,#30194a 0,transparent 35%),var(--bg);color:var(--text);min-height:100vh;padding:clamp(12px,2.5vw,28px);line-height:1.5}
+.topo{max-width:1180px;margin:0 auto 22px;text-align:center;padding:clamp(22px,4vw,34px);border:1px solid #b78a35;border-radius:20px;background:linear-gradient(125deg,#21122f,#40206b 55%,#29143e);box-shadow:0 16px 38px #0005}
+.topo h1{color:var(--gold);font-size:clamp(24px,4vw,36px);letter-spacing:1.2px;text-shadow:none}
+.abas{max-width:1180px;margin:0 auto 12px;display:flex;gap:10px}
+.botaoAba{flex:1;border:1px solid var(--border);border-radius:12px;padding:14px 16px;font-weight:700;background:var(--surface);color:var(--muted);cursor:pointer;transition:.2s}
+.botaoAba.ativa{background:linear-gradient(135deg,#f7d36f,#e4ad37);color:#211707;border-color:#e8bd55;box-shadow:0 7px 18px #d4af3725}
+.conteudoAba{display:none;max-width:1180px;margin:0 auto 18px;padding:clamp(15px,2.5vw,26px);background:linear-gradient(145deg,#1b1625,#17121f);border:1px solid var(--border);border-radius:16px;box-shadow:0 14px 34px #0004}
+.conteudoAba.visivel{display:block}
+h2{color:var(--gold);font-size:clamp(20px,2.5vw,26px);margin:0 0 16px;letter-spacing:-.3px}
+h3{color:#eee5ff;font-size:16px;margin:24px 0 10px}
+input{width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:11px;background:#120e19;color:var(--text);margin:7px 0;font-size:15px;outline:none;transition:border-color .15s,box-shadow .15s}
+input::placeholder{color:#8f849f}input:focus{border-color:var(--purple);box-shadow:0 0 0 3px #7c3aed22}
+.botao{width:100%;padding:13px 15px;border:none;border-radius:11px;font-size:14px;font-weight:750;margin:6px 0;cursor:pointer;transition:filter .15s,transform .15s}
+.botao:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.botaoDourado{background:linear-gradient(135deg,#f7d36f,#e5ad36);color:#241907}
+.botaoVerde{background:#235c43;color:#eafff2;border:1px solid #347b59}
+.botaoVermelho{background:#572735;color:#ffdce1;border:1px solid #783746}
+.botaoMais,.botaoMenos{width:38px;height:38px;min-width:38px;border-radius:11px;font-weight:bold;font-size:21px;cursor:pointer;border:0}
+.botaoMais{background:#245a43;color:#bff8d8}.botaoMenos{background:#5b2935;color:#ffd5dc}
+.item{background:linear-gradient(135deg,#211a2d,#1b1525);border:1px solid var(--border);border-radius:13px;padding:14px 15px;margin:9px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 5px 16px #0002}
+.item>span{font-weight:650;line-height:1.4;flex:1;min-width:130px}
+.quantidadeItem{background:#120e19;border:1px solid var(--border);border-radius:9px;padding:7px 12px;min-width:38px;text-align:center;color:var(--gold);font-weight:700}
+.totalDia{background:linear-gradient(135deg,#281b38,#1b1427);border:1px solid #9a742d;border-radius:14px;padding:18px;margin:18px 0;text-align:center;color:var(--gold);font-size:clamp(17px,2.5vw,22px);font-weight:800}
+.historicoPedido{background:#15101e;border:1px solid var(--border);border-radius:13px;padding:16px;margin:12px 0;line-height:1.75;overflow-wrap:anywhere}
+.botoesQuantidade{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.aviso{background:#251b35;border:1px solid #4c356c;border-radius:11px;padding:13px 15px;margin:14px 0;color:#d9c9f3;line-height:1.5}
+@media(max-width:700px){body{padding:10px}.topo{padding:22px 14px;margin-bottom:14px;border-radius:16px}.topo h1{font-size:25px;letter-spacing:.6px}.abas{gap:7px}.botaoAba{padding:12px 8px;font-size:13px;line-height:1.25}.conteudoAba{padding:14px;border-radius:13px}h3{margin-top:20px}.item{padding:12px;gap:8px}.botao{font-size:13px;padding:12px 10px}}
+@media(max-width:420px){.abas{flex-direction:column}.botaoAba{width:100%;border-radius:10px}.topo h1{font-size:22px}.botaoMais,.botaoMenos{width:34px;height:34px;min-width:34px}.quantidadeItem{min-width:32px;padding:6px 8px}}
+</style>
+</head>
+<body>
+<div class="topo"><h1>DK HAMBURGUERIA</h1></div>
+<div class="abas">
+<button class="botaoAba ativa" onclick="mudarAba(0)">📋 Lançar Pedidos</button>
+<button class="botaoAba" onclick="mudarAba(1)">🍔 Cadastrar Lanches</button>
+</div>
+<div class="conteudoAba visivel" id="aba0">
+<h2>Novo Pedido</h2>
+<input type="text" id="nomeCliente" placeholder="Nome do cliente">
+<input type="text" id="enderecoCliente" placeholder="Endereço">
+<input type="number" id="taxaEntrega" step="0.01" placeholder="Taxa de Entrega R$">
+<div class="aviso">🎁 Combo — digite nome e valor:</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;">
+<input type="text" id="nomeCombo" placeholder="Nome do Combo" style="flex:1;min-width:150px;margin:0;">
+<input type="number" id="valorCombo" step="0.01" placeholder="R$" style="width:100px;margin:0;">
+</div>
+<button class="botao botaoVerde" style="margin-top:8px;" onclick="adicionarComboAoPedido()">➕ Adicionar Combo</button>
+<h3>🍔 Lanches disponíveis:</h3><div id="listaLanchesPedido"></div>
+<h3>📝 Itens do pedido:</h3><div id="itensDoPedido"></div>
+<div class="totalDia">💰 Total vendido no dia: R$ <span id="somaDia">0.00</span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;">
+<button class="botao botaoVerde" style="flex:1;min-width:140px;" onclick="finalizarPedido()">✅ Finalizar Pedido</button>
+<button class="botao botaoDourado" style="flex:1;min-width:140px;" onclick="imprimirPedido()">🖨️ Imprimir</button>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;">
+<button class="botao botaoDourado" style="flex:1;min-width:140px;" onclick="salvarEDownloadDia()">💾 Salvar/Vendas</button>
+<button class="botao botaoVermelho" style="flex:1;min-width:140px;" onclick="limparHistoricoDia()">🗑️ Limpar Dia</button>
+</div>
+<h3>📜 Histórico de pedidos do dia:</h3><div id="historicoPedidos"></div>
+</div>
+<div class="conteudoAba" id="aba1">
+<h2>Cadastrar Lanches</h2>
+<input type="text" id="nomeLancheNovo" placeholder="Nome do lanche">
+<input type="number" id="precoLancheNovo" step="0.01" placeholder="Preço R$">
+<button class="botao botaoDourado" onclick="cadastrarLanche()">➕ Cadastrar Lanche</button>
+<h3>📋 Lanches cadastrados:</h3><div id="listaLanchesCadastrados"></div>
+</div>
+<script>
+let abaAtual=0,lanches=[],itensPedidoAtual=[],historicoPedidos=[];
+function salvarLocal(c,v){try{localStorage.setItem(c,JSON.stringify(v));return true}catch(e){return false}}
+function carregarLocal(c){try{const d=localStorage.getItem(c);return d?JSON.parse(d):[]}catch(e){return []}}
+function baixarArquivoTexto(n,t){const b=new Blob([t],{type:'text/plain'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=n;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)}
+document.addEventListener('DOMContentLoaded',function(){lanches=carregarLocal('lanches');historicoPedidos=carregarLocal('historicoPedidos');mudarAba(0)});
+function mudarAba(n){abaAtual=n;document.querySelectorAll('.conteudoAba').forEach((e,i)=>e.classList.toggle('visivel',i===n));document.querySelectorAll('.botaoAba').forEach((e,i)=>e.classList.toggle('ativa',i===n));carregarLanchesPedido();carregarListaCadastrados();carregarHistorico();calcularTotalDoDia()}
+function adicionarComboAoPedido(){const n=document.getElementById('nomeCombo').value.trim(),v=Number(document.getElementById('valorCombo').value);if(!n||!v||v<=0){alert('⚠️ Preencha nome e valor do combo!');return}itensPedidoAtual.push({nome:'🎁 '+n,preco:v});document.getElementById('nomeCombo').value='';document.getElementById('valorCombo').value='';atualizarItensPedido();alert('✅ Combo adicionado!')}
+function carregarLanchesPedido(){const d=document.getElementById('listaLanchesPedido');d.innerHTML='';lanches.forEach(l=>{const q=contarItemPedido(l.nome);d.innerHTML+=`<div class="item"><span>${l.nome} — R$ ${Number(l.preco).toFixed(2)}</span><div class="botoesQuantidade"><button class="botaoMenos" onclick="removerUmDoPedido('${l.nome}')">−</button><span class="quantidadeItem">${q}</span><button class="botaoMais" onclick="adicionarAoPedido('${l.nome}',${l.preco})">+</button></div></div>`})}
+function contarItemPedido(n){return itensPedidoAtual.filter(i=>i.nome===n).length}
+function adicionarAoPedido(n,v){itensPedidoAtual.push({nome:n,preco:v});atualizarItensPedido();carregarLanchesPedido()}
+function removerUmDoPedido(n){const i=itensPedidoAtual.findIndex(x=>x.nome===n);if(i!==-1){itensPedidoAtual.splice(i,1);atualizarItensPedido();carregarLanchesPedido()}}
+function atualizarItensPedido(){const d=document.getElementById('itensDoPedido');d.innerHTML='';itensPedidoAtual.forEach((x,i)=>{d.innerHTML+=`<div class="item"><span>${x.nome} — R$ ${x.preco.toFixed(2)}</span><button class="botao botaoVermelho" style="width:auto;padding:6px 10px;" onclick="removerItem(${i})">✕</button></div>`})}
+function removerItem(i){itensPedidoAtual.splice(i,1);atualizarItensPedido();carregarLanchesPedido()}
+function finalizarPedido(){const nc=document.getElementById('nomeCliente').value.trim(),ec=document.getElementById('enderecoCliente').value.trim(),tx=Number(document.getElementById('taxaEntrega').value)||0;if(!nc){alert('⚠️ Digite o nome do cliente!');return}if(itensPedidoAtual.length===0){alert('⚠️ Adicione pelo menos um item!');return}let t=0;itensPedidoAtual.forEach(i=>t+=i.preco);t+=tx;const p={dataHora:new Date().toLocaleString('pt-BR'),nomeCliente:nc,endereco:ec,taxaEntrega:tx,itens:[...itensPedidoAtual],total:t};historicoPedidos.push(p);salvarLocal('historicoPedidos',historicoPedidos);carregarHistorico();calcularTotalDoDia();itensPedidoAtual=[];document.getElementById('nomeCliente').value='';document.getElementById('enderecoCliente').value='';document.getElementById('taxaEntrega').value='';atualizarItensPedido();carregarLanchesPedido();alert('✅ Pedido salvo! Total: R$ '+t.toFixed(2))}
+function calcularTotalDoDia(){let t=0;historicoPedidos.forEach(p=>t+=p.total);document.getElementById('somaDia').textContent=t.toFixed(2);salvarLocal('vendasDia',t)}
+function carregarHistorico(){const d=document.getElementById('historicoPedidos');d.innerHTML='';if(historicoPedidos.length===0){d.innerHTML='<p style="opacity:0.7;text-align:center;padding:20px;">Nenhum pedido salvo ainda.</p>';return}historicoPedidos.forEach((p,i)=>{let it='';p.itens.forEach(x=>it+='• '+x.nome+' — R$ '+x.preco.toFixed(2)+'<br>');d.innerHTML+=`<div class="historicoPedido"><strong>#${i+1} — ${p.dataHora}</strong><br><strong>Cliente:</strong> ${p.nomeCliente}<br>${p.endereco?'<strong>Endereço:</strong> '+p.endereco+'<br>':''}<strong>Itens:</strong><br>${it}${p.taxaEntrega>0?'<strong>Entrega:</strong> R$ '+p.taxaEntrega.toFixed(2)+'<br>':''}<strong style="color:#D4AF37;font-size:16px;">TOTAL: R$ ${p.total.toFixed(2)}</strong><br><button class="botao botaoVermelho" style="margin-top:8px;padding:8px;" onclick="excluirPedido(${i})">🗑️ Excluir este pedido</button></div>`})}
+function excluirPedido(i){if(!confirm('Excluir este pedido?'))return;historicoPedidos.splice(i,1);salvarLocal('historicoPedidos',historicoPedidos);carregarHistorico();calcularTotalDoDia()}
+function imprimirPedido(){const nc=document.getElementById('nomeCliente').value||'Cliente',ec=document.getElementById('enderecoCliente').value||'',tx=Number(document.getElementById('taxaEntrega').value)||0,agrupado={};itensPedidoAtual.forEach(i=>{if(!agrupado[i.nome])agrupado[i.nome]={qtd:0,preco:i.preco};agrupado[i.nome].qtd++});let st=0,linhas=[];linhas.push('==========================');linhas.push('    DK HAMBURGUERIA');linhas.push('==========================');linhas.push('DATA: '+new Date().toLocaleString('pt-BR'));linhas.push('CLIENTE: '+nc);if(ec)linhas.push('ENDERECO: '+ec);linhas.push('--------------------------');linhas.push('ITENS:');for(const n in agrupado){const x=agrupado[n],v=x.qtd*x.preco;st+=v;linhas.push(x.qtd+'x '+n);linhas.push('       R$ '+v.toFixed(2))}linhas.push('--------------------------');linhas.push('SUBTOTAL....: R$ '+st.toFixed(2));if(tx>0)linhas.push('ENTREGA.....: R$ '+tx.toFixed(2));linhas.push('--------------------------');linhas.push('TOTAL.......: R$ '+(st+tx).toFixed(2));linhas.push('==========================');linhas.push('Obrigado! Volte sempre!');linhas.push('');linhas.push('');linhas.push('');const textoFinal=linhas.join('\n');window.location.href='rawbt://print?text='+encodeURIComponent(textoFinal)}
+function salvarEDownloadDia(){if(historicoPedidos.length===0){alert('⚠️ Nenhum pedido salvo ainda!');return}calcularTotalDoDia();const d=new Date().toLocaleDateString('pt-BR').replace(/\//g,'-');let r='==============================\n';r+='   DK HAMBURGUERIA\n';r+='RELATORIO DE VENDAS — '+new Date().toLocaleDateString('pt-BR')+'\n';r+='==============================\n\n';let tg=0;historicoPedidos.forEach((p,i)=>{tg+=p.total;r+='PEDIDO '+(i+1)+' — '+p.dataHora+'\n';r+='Cliente: '+p.nomeCliente+'\n';if(p.endereco)r+='Endereco: '+p.endereco+'\n';r+='Itens:\n';p.itens.forEach(x=>r+='  - '+x.nome+'  R$ '+x.preco.toFixed(2)+'\n');if(p.taxaEntrega>0)r+='  Entrega: R$ '+p.taxaEntrega.toFixed(2)+'\n';r+='TOTAL: R$ '+p.total.toFixed(2)+'\n';r+='------------------------------\n\n'});r+='\n==============================\n';r+='TOTAL GERAL DO DIA: R$ '+tg.toFixed(2)+'\n';r+='Quantidade de pedidos: '+historicoPedidos.length+'\n';r+='==============================\n';baixarArquivoTexto('vendas_'+d+'.txt',r);alert('💾 Relatório baixado com sucesso!')}
+function limparHistoricoDia(){if(historicoPedidos.length===0){alert('Ja esta vazio!');return}if(!confirm('⚠️ Primeiro faca o download do relatorio!\nTem certeza que deseja apagar TODOS os pedidos?'))return;historicoPedidos=[];salvarLocal('historicoPedidos',historicoPedidos);carregarHistorico();calcularTotalDoDia();alert('🗑️ Historico limpo! Pronto para o proximo dia!')}
+function cadastrarLanche(){const n=document.getElementById('nomeLancheNovo').value.trim(),v=Number(document.getElementById('precoLancheNovo').value);if(!n||!v||v<=0){alert('⚠️ Digite nome e preco valido!');return}lanches.push({nome:n,preco:v});salvarLocal('lanches',lanches);document.getElementById('nomeLancheNovo').value='';document.getElementById('precoLancheNovo').value='';carregarLanchesPedido();carregarListaCadastrados();alert('✅ Lanche cadastrado!')}
+function carregarListaCadastrados(){const d=document.getElementById('listaLanchesCadastrados');d.innerHTML='';lanches.forEach((l,i)=>{d.innerHTML+=`<div class="item"><span>${l.nome} — R$ ${Number(l.preco).toFixed(2)}</span><button class="botao botaoVermelho" style="width:auto;padding:6px 10px;" onclick="excluirLanche(${i})">Excluir</button></div>`})}
+function excluirLanche(i){lanches.splice(i,1);salvarLocal('lanches',lanches);carregarLanchesPedido();carregarListaCadastrados()}
+</script>
+</body>
+</html>

@@ -15,251 +15,76 @@
             --muted: #9999aa;
             --success: #28c76f;
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            padding: 16px;
-        }
-        .topo {
-            text-align: center;
-            padding: 24px;
-            border-radius: 16px;
-            border: 2px solid var(--accent);
-            background: linear-gradient(135deg, #1a1a22, #252530);
-            margin-bottom: 20px;
-        }
-        .topo h1 {
-            font-size: 28px;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-        .topo p {
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        /* Abas */
-        .abas {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-        }
-        .aba-btn {
-            padding: 12px 24px;
-            background: var(--panel2);
-            border: none;
-            color: var(--muted);
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 15px;
-            transition: all 0.25s;
-            white-space: nowrap;
-        }
-        .aba-btn.ativa {
-            background: var(--accent);
-            color: white;
-            font-weight: 600;
-        }
-        .aba-btn:hover:not(.ativa) {
-            background: #2f2f3f;
-            color: var(--text);
-        }
-
-        .aba-conteudo {
-            display: none;
-            animation: aparece 0.3s ease;
-        }
-        .aba-conteudo.mostra {
-            display: block;
-        }
-        @keyframes aparece {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Cards e Formulários */
-        .card {
-            background: var(--panel);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 16px;
-            border: 1px solid #2a2a35;
-        }
-        .card h2 {
-            font-size: 18px;
-            margin-bottom: 16px;
-            color: var(--accent);
-        }
-        input, button {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 8px;
-            border: none;
-            font-size: 15px;
-            outline: none;
-        }
-        input {
-            background: var(--panel2);
-            color: var(--text);
-            border: 1px solid #333344;
-            margin-bottom: 12px;
-        }
-        input:focus {
-            border-color: var(--accent);
-        }
-        button {
-            background: var(--accent);
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        button:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-        button.secundario {
-            background: var(--panel2);
-            color: var(--text);
-        }
-        button.sucesso {
-            background: var(--success);
-        }
-        button.perigo {
-            background: #ea5455;
-        }
-
-        .linha {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .linha input, .linha button {
-            flex: 1;
-            min-width: 140px;
-        }
-
-        /* Lista de Itens */
-        .item {
-            background: var(--panel2);
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .item .info {
-            flex: 1;
-            min-width: 180px;
-        }
-        .item .nome {
-            font-weight: 600;
-            font-size: 15px;
-        }
-        .item .valor {
-            color: var(--gold);
-            font-size: 14px;
-        }
-        .item .acoes {
-            display: flex;
-            gap: 6px;
-        }
-        .item button {
-            width: auto;
-            padding: 8px 12px;
-            font-size: 13px;
-        }
-
-        /* Resumo */
-        .resumo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .resumo-card {
-            background: var(--panel);
-            padding: 16px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #2a2a35;
-        }
-        .resumo-card .numero {
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--gold);
-        }
-        .resumo-card .rotulo {
-            font-size: 13px;
-            color: var(--muted);
-            margin-top: 4px;
-        }
-
-        .vazio {
-            text-align: center;
-            padding: 30px;
-            color: var(--muted);
-        }
-        .oculto {
-            display: none !important;
-        }
+        * {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+        body {background:var(--bg);color:var(--text);min-height:100vh;padding:16px;}
+        .topo {text-align:center;padding:24px;border-radius:16px;border:2px solid var(--accent);background:linear-gradient(135deg,#1a1a22,#252530);margin-bottom:20px;}
+        .topo h1 {font-size:28px;color:var(--accent);margin-bottom:4px;}
+        .topo p {color:var(--muted);font-size:14px;}
+        .abas {display:flex;gap:8px;margin-bottom:20px;overflow-x:auto;}
+        .aba-btn {padding:12px 24px;background:var(--panel2);border:none;color:var(--muted);border-radius:10px;cursor:pointer;font-size:15px;transition:all 0.25s;white-space:nowrap;}
+        .aba-btn.ativa {background:var(--accent);color:white;font-weight:600;}
+        .aba-btn:hover:not(.ativa) {background:#2f2f3f;color:var(--text);}
+        .aba-conteudo {display:none;animation:aparece 0.3s ease;}
+        .aba-conteudo.mostra {display:block;}
+        @keyframes aparece {from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+        .card {background:var(--panel);border-radius:14px;padding:20px;margin-bottom:16px;border:1px solid #2a2a35;}
+        .card h2 {font-size:18px;margin-bottom:16px;color:var(--accent);}
+        input,button {width:100%;padding:12px 14px;border-radius:8px;border:none;font-size:15px;outline:none;}
+        input {background:var(--panel2);color:var(--text);border:1px solid #333344;margin-bottom:12px;}
+        input:focus {border-color:var(--accent);}
+        button {background:var(--accent);color:white;font-weight:600;cursor:pointer;transition:0.2s;}
+        button:hover {opacity:0.9;transform:translateY(-1px);}
+        button.secundario {background:var(--panel2);color:var(--text);}
+        button.sucesso {background:var(--success);}
+        button.perigo {background:#ea5455;}
+        .linha {display:flex;gap:10px;flex-wrap:wrap;}
+        .linha input,.linha button {flex:1;min-width:140px;}
+        .item {background:var(--panel2);padding:14px;border-radius:10px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .item .info {flex:1;min-width:180px;}
+        .item .nome {font-weight:600;font-size:15px;}
+        .item .valor {color:var(--gold);font-size:14px;}
+        .item .acoes {display:flex;gap:6px;}
+        .item button {width:auto;padding:8px 12px;font-size:13px;}
+        .resumo {display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px;}
+        .resumo-card {background:var(--panel);padding:16px;border-radius:12px;text-align:center;border:1px solid #2a2a35;}
+        .resumo-card .numero {font-size:26px;font-weight:700;color:var(--gold);}
+        .resumo-card .rotulo {font-size:13px;color:var(--muted);margin-top:4px;}
+        .vazio {text-align:center;padding:30px;color:var(--muted);}
     </style>
 </head>
 <body>
-
-    <!-- Topo -->
     <div class="topo">
         <h1>🔥 LOJA CAOS 77</h1>
         <p>Painel de Controle Interno</p>
     </div>
 
-    <!-- Abas -->
     <div class="abas">
         <button class="aba-btn ativa" data-aba="pedidos">📋 Pedidos</button>
         <button class="aba-btn" data-aba="produtos">🛒 Produtos</button>
         <button class="aba-btn" data-aba="historico">📊 Histórico</button>
     </div>
 
-    <!-- === ABA PEDIDOS === -->
     <div id="pedidos" class="aba-conteudo mostra">
         <div class="card">
             <h2>Novo Pedido</h2>
             <input type="text" id="clienteNome" placeholder="Nome do Cliente">
             <input type="text" id="clienteEndereco" placeholder="Endereço">
-            
             <div id="listaProdutosPedido" style="margin:16px 0;">
                 <p style="color:var(--muted);font-size:14px;">Selecione os produtos na aba "Produtos"</p>
             </div>
-
-            <div class="linha" style="margin-top:16px;">
-                <button onclick="finalizarPedido()" class="sucesso">✅ Finalizar Pedido</button>
-                <button onclick="limparPedido()" class="secundario">🗑️ Limpar</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Pedido Atual</h2>
             <div id="itensPedidoAtual">
                 <p class="vazio">Nenhum item adicionado</p>
             </div>
             <div style="margin-top:16px;text-align:right;font-size:20px;font-weight:bold;color:var(--gold);">
                 Total: R$ <span id="totalPedido">0,00</span>
             </div>
+            <div class="linha" style="margin-top:16px;">
+                <button onclick="finalizarPedido()" class="sucesso">✅ Finalizar Pedido</button>
+                <button onclick="limparPedido()" class="secundario">🗑️ Limpar</button>
+            </div>
         </div>
     </div>
 
-    <!-- === ABA PRODUTOS === -->
     <div id="produtos" class="aba-conteudo">
         <div class="card">
             <h2>Adicionar Produto</h2>
@@ -267,14 +92,12 @@
             <input type="number" id="produtoValor" placeholder="Valor R$" step="0.01">
             <button onclick="adicionarProduto()">➕ Salvar Produto</button>
         </div>
-
         <div class="card">
             <h2>Cardápio / Produtos</h2>
-            <div id="listaProdutos"></div>
+            <div id="listaProdutos"><p class="vazio">Nenhum produto cadastrado</p></div>
         </div>
     </div>
 
-    <!-- === ABA HISTÓRICO === -->
     <div id="historico" class="aba-conteudo">
         <div class="resumo">
             <div class="resumo-card">
@@ -286,10 +109,9 @@
                 <div class="rotulo">Pedidos Feitos</div>
             </div>
         </div>
-
         <div class="card">
             <h2>Pedidos do Dia</h2>
-            <div id="listaHistorico"></div>
+            <div id="listaHistorico"><p class="vazio">Nenhum pedido ainda</p></div>
             <div class="linha" style="margin-top:20px;">
                 <button onclick="baixarRelatorio()" class="secundario">📥 Baixar Relatório</button>
                 <button onclick="limparHistorico()" class="perigo">🗑️ Limpar Dia</button>
@@ -298,50 +120,39 @@
     </div>
 
 <script>
-// ==================== INICIALIZAÇÃO ====================
 let produtos = JSON.parse(localStorage.getItem('caos77_produtos')) || [];
 let historico = JSON.parse(localStorage.getItem('caos77_historico')) || [];
 let pedidoAtual = [];
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
     configurarAbas();
     renderizarProdutos();
     renderizarHistorico();
     atualizarResumo();
 });
 
-// ==================== SISTEMA DE ABAS ====================
 function configurarAbas() {
     document.querySelectorAll('.aba-btn').forEach(botao => {
-        botao.addEventListener('click', () => {
-            // Remove classe ativa de todos
+        botao.addEventListener('click', function() {
             document.querySelectorAll('.aba-btn').forEach(b => b.classList.remove('ativa'));
-            botao.classList.add('ativa');
-            
-            // Esconde todos os conteúdos
+            this.classList.add('ativa');
             document.querySelectorAll('.aba-conteudo').forEach(c => c.classList.remove('mostra'));
-            
-            // Mostra o conteúdo selecionado
-            const abaId = botao.getAttribute('data-aba');
+            const abaId = this.getAttribute('data-aba');
             document.getElementById(abaId).classList.add('mostra');
         });
     });
 }
 
-// ==================== PRODUTOS ====================
 function adicionarProduto() {
     const nome = document.getElementById('produtoNome').value.trim();
     const valor = parseFloat(document.getElementById('produtoValor').value);
-
     if (!nome || isNaN(valor) || valor <= 0) {
-        alert('Preencha corretamente nome e valor!');
+        alert('Preencha nome e valor corretamente!');
         return;
     }
-
-    produtos.push({ id: Date.now(), nome, valor });
-    salvarProdutos();
+    produtos.push({id:Date.now(), nome:nome, valor:valor});
+    localStorage.setItem('caos77_produtos', JSON.stringify(produtos));
     renderizarProdutos();
-
     document.getElementById('produtoNome').value = '';
     document.getElementById('produtoValor').value = '';
 }
@@ -349,23 +160,17 @@ function adicionarProduto() {
 function removerProduto(id) {
     if (confirm('Excluir esse produto?')) {
         produtos = produtos.filter(p => p.id !== id);
-        salvarProdutos();
+        localStorage.setItem('caos77_produtos', JSON.stringify(produtos));
         renderizarProdutos();
     }
 }
 
-function salvarProdutos() {
-    localStorage.setItem('caos77_produtos', JSON.stringify(produtos));
-}
-
 function renderizarProdutos() {
     const container = document.getElementById('listaProdutos');
-    
     if (produtos.length === 0) {
         container.innerHTML = '<p class="vazio">Nenhum produto cadastrado</p>';
         return;
     }
-
     container.innerHTML = produtos.map(p => `
         <div class="item">
             <div class="info">
@@ -380,16 +185,14 @@ function renderizarProdutos() {
     `).join('');
 }
 
-// ==================== PEDIDOS ====================
 function adicionarAoPedido(idProduto) {
     const produto = produtos.find(p => p.id === idProduto);
     if (!produto) return;
-
     const itemExistente = pedidoAtual.find(i => i.id === idProduto);
     if (itemExistente) {
         itemExistente.quantidade++;
     } else {
-        pedidoAtual.push({ ...produto, quantidade: 1 });
+        pedidoAtual.push({id:produto.id, nome:produto.nome, valor:produto.valor, quantidade:1});
     }
     renderizarPedidoAtual();
 }
@@ -407,13 +210,11 @@ function alterarQuantidade(idProduto, delta) {
 
 function renderizarPedidoAtual() {
     const container = document.getElementById('itensPedidoAtual');
-    
     if (pedidoAtual.length === 0) {
         container.innerHTML = '<p class="vazio">Nenhum item adicionado</p>';
         document.getElementById('totalPedido').textContent = '0,00';
         return;
     }
-
     container.innerHTML = pedidoAtual.map(item => `
         <div class="item">
             <div class="info">
@@ -427,7 +228,6 @@ function renderizarPedidoAtual() {
             </div>
         </div>
     `).join('');
-
     const total = pedidoAtual.reduce((s, i) => s + (i.valor * i.quantidade), 0);
     document.getElementById('totalPedido').textContent = total.toFixed(2).replace('.', ',');
 }
@@ -443,47 +243,88 @@ function limparPedido() {
 function finalizarPedido() {
     const nome = document.getElementById('clienteNome').value.trim();
     const endereco = document.getElementById('clienteEndereco').value.trim();
-
-    if (!nome) {
-        alert('Digite o nome do cliente!');
-        return;
-    }
-    if (pedidoAtual.length === 0) {
-        alert('Adicione pelo menos um item!');
-        return;
-    }
-
+    if (!nome) { alert('Digite o nome do cliente!'); return; }
+    if (pedidoAtual.length === 0) { alert('Adicione pelo menos um item!'); return; }
+    
     const total = pedidoAtual.reduce((s, i) => s + (i.valor * i.quantidade), 0);
     const pedido = {
         id: Date.now(),
         data: new Date().toLocaleString('pt-BR'),
         cliente: nome,
         endereco: endereco,
-        itens: pedidoAtual.map(i => ({ nome: i.nome, quantidade: i.quantidade, valorUnitario: i.valor })),
+        itens: pedidoAtual.map(i => ({nome:i.nome, qtd:i.quantidade, val:i.valor})),
         total: total
     };
-
-    historico.unshift(pedido);
-    salvarHistorico();
     
-    imprimirPedido(pedido);
+    historico.unshift(pedido);
+    localStorage.setItem('caos77_historico', JSON.stringify(historico));
+    
+    window.print();
     
     pedidoAtual = [];
     document.getElementById('clienteNome').value = '';
     document.getElementById('clienteEndereco').value = '';
-    
     renderizarPedidoAtual();
     renderizarHistorico();
     atualizarResumo();
 }
 
-function imprimirPedido(pedido) {
+function renderizarHistorico() {
+    const container = document.getElementById('listaHistorico');
+    if (historico.length === 0) {
+        container.innerHTML = '<p class="vazio">Nenhum pedido ainda</p>';
+        return;
+    }
+    container.innerHTML = historico.map(p => `
+        <div class="item">
+            <div class="info">
+                <div class="nome">${p.cliente} — ${p.data}</div>
+                <div class="valor">Total: R$ ${p.total.toFixed(2).replace('.', ',')}</div>
+            </div>
+            <div class="acoes">
+                <button onclick="imprimirUmPedido(${p.id})">🖨️ Imprimir</button>
+                <button onclick="excluirPedido(${p.id})" class="perigo">🗑️</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function excluirPedido(id) {
+    if (confirm('Excluir este pedido?')) {
+        historico = historico.filter(p => p.id !== id);
+        localStorage.setItem('caos77_historico', JSON.stringify(historico));
+        renderizarHistorico();
+        atualizarResumo();
+    }
+}
+
+function imprimirUmPedido(id) {
+    const pedido = historico.find(p => p.id === id);
+    if (!pedido) return;
+    pedidoAtual = pedido.itens.map(i => ({id:Date.now()+Math.random(), nome:i.nome, valor:i.val, quantidade:i.qtd}));
+    document.getElementById('clienteNome').value = pedido.cliente;
+    document.getElementById('clienteEndereco').value = pedido.endereco || '';
+    renderizarPedidoAtual();
+    document.querySelector('[data-aba="pedidos"]').click();
+    window.print();
+}
+
+function atualizarResumo() {
+    const total = historico.reduce((s, p) => s + p.total, 0);
+    document.getElementById('totalVendasDia').textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
+    document.getElementById('qtdPedidosDia').textContent = historico.length;
+}
+
+function limparHistorico() {
+    if (!confirm('Tem CERTEZA? Isso apaga todos os pedidos do dia!')) return;
+    historico = [];
+    localStorage.setItem('caos77_historico', JSON.stringify(historico));
+    renderizarHistorico();
+    atualizarResumo();
+}
+
+function baixarRelatorio() {
+    if (historico.length === 0) { alert('Sem pedidos para exportar!'); return; }
     let texto = '========================================\n';
-    texto += '          LOJA CAOS 77\n';
+    texto += '         🔥 LOJA CAOS 77 — RELATÓRIO\n';
     texto += '========================================\n';
-    texto += `Data: ${pedido.data}\n`;
-    texto += `Cliente: ${pedido.cliente}\n`;
-    if (pedido.endereco) texto += `Endereço: ${pedido.endereco}\n`;
-    texto += '----------------------------------------\n';
-    
-    pedido.itens.forEach(i =>

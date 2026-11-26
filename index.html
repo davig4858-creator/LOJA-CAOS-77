@@ -1,330 +1,181 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 LOJA CAOS 77 — Controle</title>
-    <style>
-        :root {
-            --bg: #0f0f13;
-            --panel: #1a1a22;
-            --panel2: #252530;
-            --accent: #ff4d4d;
-            --gold: #ffc107;
-            --text: #f0f0f0;
-            --muted: #9999aa;
-            --success: #28c76f;
-        }
-        * {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-        body {background:var(--bg);color:var(--text);min-height:100vh;padding:16px;}
-        .topo {text-align:center;padding:24px;border-radius:16px;border:2px solid var(--accent);background:linear-gradient(135deg,#1a1a22,#252530);margin-bottom:20px;}
-        .topo h1 {font-size:28px;color:var(--accent);margin-bottom:4px;}
-        .topo p {color:var(--muted);font-size:14px;}
-        .abas {display:flex;gap:8px;margin-bottom:20px;overflow-x:auto;}
-        .aba-btn {padding:12px 24px;background:var(--panel2);border:none;color:var(--muted);border-radius:10px;cursor:pointer;font-size:15px;transition:all 0.25s;white-space:nowrap;}
-        .aba-btn.ativa {background:var(--accent);color:white;font-weight:600;}
-        .aba-btn:hover:not(.ativa) {background:#2f2f3f;color:var(--text);}
-        .aba-conteudo {display:none;animation:aparece 0.3s ease;}
-        .aba-conteudo.mostra {display:block;}
-        @keyframes aparece {from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-        .card {background:var(--panel);border-radius:14px;padding:20px;margin-bottom:16px;border:1px solid #2a2a35;}
-        .card h2 {font-size:18px;margin-bottom:16px;color:var(--accent);}
-        input,button {width:100%;padding:12px 14px;border-radius:8px;border:none;font-size:15px;outline:none;}
-        input {background:var(--panel2);color:var(--text);border:1px solid #333344;margin-bottom:12px;}
-        input:focus {border-color:var(--accent);}
-        button {background:var(--accent);color:white;font-weight:600;cursor:pointer;transition:0.2s;}
-        button:hover {opacity:0.9;transform:translateY(-1px);}
-        button.secundario {background:var(--panel2);color:var(--text);}
-        button.sucesso {background:var(--success);}
-        button.perigo {background:#ea5455;}
-        .linha {display:flex;gap:10px;flex-wrap:wrap;}
-        .linha input,.linha button {flex:1;min-width:140px;}
-        .item {background:var(--panel2);padding:14px;border-radius:10px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-        .item .info {flex:1;min-width:180px;}
-        .item .nome {font-weight:600;font-size:15px;}
-        .item .valor {color:var(--gold);font-size:14px;}
-        .item .acoes {display:flex;gap:6px;}
-        .item button {width:auto;padding:8px 12px;font-size:13px;}
-        .resumo {display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px;}
-        .resumo-card {background:var(--panel);padding:16px;border-radius:12px;text-align:center;border:1px solid #2a2a35;}
-        .resumo-card .numero {font-size:26px;font-weight:700;color:var(--gold);}
-        .resumo-card .rotulo {font-size:13px;color:var(--muted);margin-top:4px;}
-        .vazio {text-align:center;padding:30px;color:var(--muted);}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 LOJA CAOS 77 — Controle</title>
+<style>
+:root{--bg:#101014;--panel:#1b1b23;--panel2:#272731;--red:#ff4d4d;--gold:#ffc107;--text:#f5f5f7;--muted:#a5a5b3;--green:#28c76f}
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:radial-gradient(circle at top,#24202a 0,#101014 55%);color:var(--text);min-height:100vh;padding:16px}
+.wrap{max-width:1000px;margin:auto}
+.topo{text-align:center;padding:25px 18px;border-radius:18px;border:1px solid #ff4d4d88;background:linear-gradient(135deg,#1b1b23,#302027);margin-bottom:18px;box-shadow:0 10px 35px #0005}
+.topo h1{margin:0 0 7px;color:var(--red);font-size:clamp(24px,5vw,34px);letter-spacing:1px}
+.topo p{margin:0;color:var(--muted);font-size:14px}
+.abas{display:flex;gap:8px;margin-bottom:18px;overflow:auto;padding-bottom:3px}
+.aba-btn{flex:1;min-width:105px;padding:13px 16px;background:var(--panel2);border:1px solid #3b3b48;color:var(--muted);border-radius:11px;font-weight:bold;cursor:pointer}
+.aba-btn.ativa{background:var(--red);color:#fff;border-color:var(--red)}
+.aba-conteudo{display:none}.aba-conteudo.mostra{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:var(--panel);border:1px solid #34343f;border-radius:15px;padding:20px;margin-bottom:16px;box-shadow:0 7px 24px #0002}
+.card h2{margin:0 0 16px;color:var(--red);font-size:19px}
+input{width:100%;padding:13px 14px;border:1px solid #3b3b49;border-radius:9px;background:var(--panel2);color:var(--text);font-size:16px;margin-bottom:12px;outline:none}
+input:focus{border-color:var(--red)}
+button{border:0;border-radius:9px;padding:12px 14px;background:var(--red);color:white;font-weight:bold;font-size:14px;cursor:pointer;transition:.15s}
+button:hover{filter:brightness(1.08)}button:active{transform:scale(.98)}
+button.secundario{background:#353541;color:var(--text)}button.sucesso{background:var(--green);color:#07170d}button.perigo{background:#b8323c}
+.linha{display:flex;gap:10px;flex-wrap:wrap}.linha>*{flex:1;min-width:130px}
+.item{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--panel2);border:1px solid #393944;border-radius:11px;padding:13px;margin-bottom:10px}
+.info{flex:1;min-width:150px}.nome{font-weight:bold;overflow-wrap:anywhere}.valor{color:var(--gold);font-weight:bold;margin-top:5px;font-size:14px}
+.acoes{display:flex;align-items:center;gap:6px}.acoes button{padding:9px 11px}.acoes .qtd{min-width:25px;text-align:center;font-weight:bold}
+.resumo{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.resumo-card{background:var(--panel);border:1px solid #34343f;border-radius:13px;text-align:center;padding:18px}
+.numero{font-size:clamp(22px,4vw,28px);font-weight:bold;color:var(--gold);overflow-wrap:anywhere}.rotulo{color:var(--muted);font-size:13px;margin-top:5px}
+.vazio{text-align:center;padding:24px 10px;color:var(--muted)}
+.total{margin:18px 0;text-align:right;font-size:22px;font-weight:bold;color:var(--gold)}
+.nota{color:var(--muted);font-size:12px;margin-top:10px}
+@media(max-width:520px){body{padding:10px}.card{padding:15px}.abas{gap:6px}.aba-btn{padding:12px 10px}.item{align-items:flex-start}.acoes{width:100%;justify-content:flex-end}.linha button{min-width:100%}}
+@media print{
+ body{background:#fff;color:#000;padding:0}.wrap{max-width:none}.topo,.abas,#produtos,#historico,.no-print{display:none!important}
+ #pedidos{display:block!important}.card{background:#fff;border:0;box-shadow:none;padding:0}
+ #pedidos h2{color:#000}.item{background:#fff;border:1px solid #bbb;color:#000}
+ .valor,.total{color:#000}.acoes{display:none!important}input{border:0;background:#fff;color:#000;padding:4px}
+}
+</style>
 </head>
 <body>
-    <div class="topo">
-        <h1>🔥 LOJA CAOS 77</h1>
-        <p>Painel de Controle Interno</p>
-    </div>
-
-    <div class="abas">
-        <button class="aba-btn ativa" data-aba="pedidos">📋 Pedidos</button>
-        <button class="aba-btn" data-aba="produtos">🛒 Produtos</button>
-        <button class="aba-btn" data-aba="historico">📊 Histórico</button>
-    </div>
-
-    <div id="pedidos" class="aba-conteudo mostra">
-        <div class="card">
-            <h2>Novo Pedido</h2>
-            <input type="text" id="clienteNome" placeholder="Nome do Cliente">
-            <input type="text" id="clienteEndereco" placeholder="Endereço">
-            <div id="listaProdutosPedido" style="margin:16px 0;">
-                <p style="color:var(--muted);font-size:14px;">Selecione os produtos na aba "Produtos"</p>
-            </div>
-            <div id="itensPedidoAtual">
-                <p class="vazio">Nenhum item adicionado</p>
-            </div>
-            <div style="margin-top:16px;text-align:right;font-size:20px;font-weight:bold;color:var(--gold);">
-                Total: R$ <span id="totalPedido">0,00</span>
-            </div>
-            <div class="linha" style="margin-top:16px;">
-                <button onclick="finalizarPedido()" class="sucesso">✅ Finalizar Pedido</button>
-                <button onclick="limparPedido()" class="secundario">🗑️ Limpar</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="produtos" class="aba-conteudo">
-        <div class="card">
-            <h2>Adicionar Produto</h2>
-            <input type="text" id="produtoNome" placeholder="Nome do Produto">
-            <input type="number" id="produtoValor" placeholder="Valor R$" step="0.01">
-            <button onclick="adicionarProduto()">➕ Salvar Produto</button>
-        </div>
-        <div class="card">
-            <h2>Cardápio / Produtos</h2>
-            <div id="listaProdutos"><p class="vazio">Nenhum produto cadastrado</p></div>
-        </div>
-    </div>
-
-    <div id="historico" class="aba-conteudo">
-        <div class="resumo">
-            <div class="resumo-card">
-                <div class="numero" id="totalVendasDia">R$ 0,00</div>
-                <div class="rotulo">Total do Dia</div>
-            </div>
-            <div class="resumo-card">
-                <div class="numero" id="qtdPedidosDia">0</div>
-                <div class="rotulo">Pedidos Feitos</div>
-            </div>
-        </div>
-        <div class="card">
-            <h2>Pedidos do Dia</h2>
-            <div id="listaHistorico"><p class="vazio">Nenhum pedido ainda</p></div>
-            <div class="linha" style="margin-top:20px;">
-                <button onclick="baixarRelatorio()" class="secundario">📥 Baixar Relatório</button>
-                <button onclick="limparHistorico()" class="perigo">🗑️ Limpar Dia</button>
-            </div>
-        </div>
-    </div>
-
+<div class="wrap">
+<header class="topo"><h1>🔥 LOJA CAOS 77</h1><p>Painel de Controle Interno</p></header>
+<nav class="abas">
+<button class="aba-btn ativa" data-aba="pedidos">📋 Pedidos</button>
+<button class="aba-btn" data-aba="produtos">🛒 Produtos</button>
+<button class="aba-btn" data-aba="historico">📊 Histórico</button>
+</nav>
+<section id="pedidos" class="aba-conteudo mostra">
+<div class="card">
+<h2>Novo Pedido</h2>
+<input id="clienteNome" type="text" placeholder="Nome do cliente" autocomplete="name">
+<input id="clienteEndereco" type="text" placeholder="Endereço / local de entrega">
+<div id="itensPedidoAtual"><p class="vazio">Nenhum item adicionado. Vá em Produtos para escolher.</p></div>
+<div class="total">Total: <span id="totalPedido">R$ 0,00</span></div>
+<div class="linha no-print"><button class="sucesso" onclick="finalizarPedido()">✅ Finalizar e imprimir</button><button class="secundario" onclick="limparPedido()">🗑️ Limpar pedido</button></div>
+<p class="nota">Os pedidos e produtos ficam salvos neste navegador/aparelho.</p>
+</div>
+</section>
+<section id="produtos" class="aba-conteudo">
+<div class="card">
+<h2>Adicionar Produto</h2>
+<input id="produtoNome" type="text" placeholder="Nome do produto">
+<input id="produtoValor" type="number" placeholder="Valor (R$)" min="0.01" step="0.01">
+<button onclick="adicionarProduto()">➕ Salvar produto</button>
+</div>
+<div class="card"><h2>Cardápio / Produtos</h2><div id="listaProdutos"></div></div>
+</section>
+<section id="historico" class="aba-conteudo">
+<div class="resumo">
+<div class="resumo-card"><div class="numero" id="totalVendasDia">R$ 0,00</div><div class="rotulo">Total de vendas</div></div>
+<div class="resumo-card"><div class="numero" id="qtdPedidosDia">0</div><div class="rotulo">Pedidos registrados</div></div>
+</div>
+<div class="card"><h2>Pedidos registrados</h2><div id="listaHistorico"></div>
+<div class="linha no-print" style="margin-top:16px"><button class="secundario" onclick="baixarRelatorio()">📥 Baixar relatório</button><button class="perigo" onclick="limparHistorico()">🗑️ Limpar histórico</button></div>
+</div>
+</section>
+</div>
 <script>
-let produtos = JSON.parse(localStorage.getItem('caos77_produtos')) || [];
-let historico = JSON.parse(localStorage.getItem('caos77_historico')) || [];
-let pedidoAtual = [];
-
-document.addEventListener('DOMContentLoaded', function() {
-    configurarAbas();
-    renderizarProdutos();
-    renderizarHistorico();
-    atualizarResumo();
-});
-
-function configurarAbas() {
-    document.querySelectorAll('.aba-btn').forEach(botao => {
-        botao.addEventListener('click', function() {
-            document.querySelectorAll('.aba-btn').forEach(b => b.classList.remove('ativa'));
-            this.classList.add('ativa');
-            document.querySelectorAll('.aba-conteudo').forEach(c => c.classList.remove('mostra'));
-            const abaId = this.getAttribute('data-aba');
-            document.getElementById(abaId).classList.add('mostra');
-        });
-    });
+"use strict";
+const STORAGE_PRODUCTS="caos77_produtos", STORAGE_HISTORY="caos77_historico";
+function lerStorage(chave){try{const v=JSON.parse(localStorage.getItem(chave)||"[]");return Array.isArray(v)?v:[]}catch(e){return []}}
+let produtos=lerStorage(STORAGE_PRODUCTS),historico=lerStorage(STORAGE_HISTORY),pedidoAtual=[];
+const dinheiro=v=>Number(v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const escapeHTML=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function salvarProdutos(){localStorage.setItem(STORAGE_PRODUCTS,JSON.stringify(produtos))}
+function salvarHistorico(){localStorage.setItem(STORAGE_HISTORY,JSON.stringify(historico))}
+document.querySelectorAll(".aba-btn").forEach(btn=>btn.addEventListener("click",()=>{
+ document.querySelectorAll(".aba-btn").forEach(b=>b.classList.toggle("ativa",b===btn));
+ document.querySelectorAll(".aba-conteudo").forEach(a=>a.classList.toggle("mostra",a.id===btn.dataset.aba));
+}));
+function adicionarProduto(){
+ const nome=document.getElementById("produtoNome").value.trim(),valor=Number(document.getElementById("produtoValor").value);
+ if(!nome||!Number.isFinite(valor)||valor<=0){alert("Informe o nome e um valor válido.");return}
+ produtos.push({id:Date.now()+Math.random(),nome,valor});
+ salvarProdutos();renderizarProdutos();
+ document.getElementById("produtoNome").value="";document.getElementById("produtoValor").value="";
 }
-
-function adicionarProduto() {
-    const nome = document.getElementById('produtoNome').value.trim();
-    const valor = parseFloat(document.getElementById('produtoValor').value);
-    if (!nome || isNaN(valor) || valor <= 0) {
-        alert('Preencha nome e valor corretamente!');
-        return;
-    }
-    produtos.push({id:Date.now(), nome:nome, valor:valor});
-    localStorage.setItem('caos77_produtos', JSON.stringify(produtos));
-    renderizarProdutos();
-    document.getElementById('produtoNome').value = '';
-    document.getElementById('produtoValor').value = '';
+function removerProduto(id){
+ if(!confirm("Excluir este produto do cardápio?"))return;
+ produtos=produtos.filter(p=>p.id!==id);salvarProdutos();renderizarProdutos();
 }
-
-function removerProduto(id) {
-    if (confirm('Excluir esse produto?')) {
-        produtos = produtos.filter(p => p.id !== id);
-        localStorage.setItem('caos77_produtos', JSON.stringify(produtos));
-        renderizarProdutos();
-    }
+function renderizarProdutos(){
+ const el=document.getElementById("listaProdutos");
+ if(!produtos.length){el.innerHTML='<p class="vazio">Nenhum produto cadastrado.</p>';return}
+ el.innerHTML=produtos.map(p=>`<div class="item"><div class="info"><div class="nome">${escapeHTML(p.nome)}</div><div class="valor">${dinheiro(p.valor)}</div></div><div class="acoes"><button onclick="adicionarAoPedido(${Number(p.id)})">➕ Pedido</button><button class="perigo" onclick="removerProduto(${Number(p.id)})" aria-label="Excluir produto">🗑️</button></div></div>`).join("");
 }
-
-function renderizarProdutos() {
-    const container = document.getElementById('listaProdutos');
-    if (produtos.length === 0) {
-        container.innerHTML = '<p class="vazio">Nenhum produto cadastrado</p>';
-        return;
-    }
-    container.innerHTML = produtos.map(p => `
-        <div class="item">
-            <div class="info">
-                <div class="nome">${p.nome}</div>
-                <div class="valor">R$ ${p.valor.toFixed(2).replace('.', ',')}</div>
-            </div>
-            <div class="acoes">
-                <button onclick="adicionarAoPedido(${p.id})">➕ Pedido</button>
-                <button onclick="removerProduto(${p.id})" class="perigo">🗑️</button>
-            </div>
-        </div>
-    `).join('');
+function adicionarAoPedido(id){
+ const p=produtos.find(x=>Number(x.id)===Number(id));if(!p)return;
+ const existente=pedidoAtual.find(x=>Number(x.id)===Number(id));
+ if(existente)existente.quantidade++;else pedidoAtual.push({id:p.id,nome:p.nome,valor:Number(p.valor),quantidade:1});
+ renderizarPedidoAtual();
 }
-
-function adicionarAoPedido(idProduto) {
-    const produto = produtos.find(p => p.id === idProduto);
-    if (!produto) return;
-    const itemExistente = pedidoAtual.find(i => i.id === idProduto);
-    if (itemExistente) {
-        itemExistente.quantidade++;
-    } else {
-        pedidoAtual.push({id:produto.id, nome:produto.nome, valor:produto.valor, quantidade:1});
-    }
-    renderizarPedidoAtual();
+function alterarQuantidade(id,delta){
+ const i=pedidoAtual.find(x=>Number(x.id)===Number(id));if(!i)return;
+ i.quantidade+=delta;if(i.quantidade<=0)pedidoAtual=pedidoAtual.filter(x=>x!==i);
+ renderizarPedidoAtual();
 }
-
-function alterarQuantidade(idProduto, delta) {
-    const item = pedidoAtual.find(i => i.id === idProduto);
-    if (item) {
-        item.quantidade += delta;
-        if (item.quantidade <= 0) {
-            pedidoAtual = pedidoAtual.filter(i => i.id !== idProduto);
-        }
-    }
-    renderizarPedidoAtual();
+function renderizarPedidoAtual(){
+ const el=document.getElementById("itensPedidoAtual");
+ if(!pedidoAtual.length){el.innerHTML='<p class="vazio">Nenhum item adicionado.</p>';document.getElementById("totalPedido").textContent=dinheiro(0);return}
+ el.innerHTML=pedidoAtual.map(i=>`<div class="item"><div class="info"><div class="nome">${escapeHTML(i.nome)}</div><div class="valor">${dinheiro(i.valor*i.quantidade)}</div></div><div class="acoes"><button class="secundario" onclick="alterarQuantidade(${Number(i.id)},-1)">−</button><span class="qtd">${i.quantidade}</span><button onclick="alterarQuantidade(${Number(i.id)},1)">+</button></div></div>`).join("");
+ document.getElementById("totalPedido").textContent=dinheiro(pedidoAtual.reduce((s,i)=>s+i.valor*i.quantidade,0));
 }
-
-function renderizarPedidoAtual() {
-    const container = document.getElementById('itensPedidoAtual');
-    if (pedidoAtual.length === 0) {
-        container.innerHTML = '<p class="vazio">Nenhum item adicionado</p>';
-        document.getElementById('totalPedido').textContent = '0,00';
-        return;
-    }
-    container.innerHTML = pedidoAtual.map(item => `
-        <div class="item">
-            <div class="info">
-                <div class="nome">${item.nome}</div>
-                <div class="valor">R$ ${(item.valor * item.quantidade).toFixed(2).replace('.', ',')}</div>
-            </div>
-            <div class="acoes">
-                <button onclick="alterarQuantidade(${item.id}, -1)">−</button>
-                <span style="padding:0 8px;">${item.quantidade}</span>
-                <button onclick="alterarQuantidade(${item.id}, 1)">+</button>
-            </div>
-        </div>
-    `).join('');
-    const total = pedidoAtual.reduce((s, i) => s + (i.valor * i.quantidade), 0);
-    document.getElementById('totalPedido').textContent = total.toFixed(2).replace('.', ',');
+function limparPedido(){
+ if(pedidoAtual.length&&!confirm("Limpar o pedido atual?"))return;
+ pedidoAtual=[];document.getElementById("clienteNome").value="";document.getElementById("clienteEndereco").value="";renderizarPedidoAtual();
 }
-
-function limparPedido() {
-    if (pedidoAtual.length > 0 && !confirm('Limpar pedido atual?')) return;
-    pedidoAtual = [];
-    document.getElementById('clienteNome').value = '';
-    document.getElementById('clienteEndereco').value = '';
-    renderizarPedidoAtual();
+function finalizarPedido(){
+ const cliente=document.getElementById("clienteNome").value.trim(),endereco=document.getElementById("clienteEndereco").value.trim();
+ if(!cliente){alert("Digite o nome do cliente.");return}if(!pedidoAtual.length){alert("Adicione pelo menos um produto.");return}
+ const total=pedidoAtual.reduce((s,i)=>s+i.valor*i.quantidade,0);
+ const pedido={id:Date.now(),data:new Date().toLocaleString("pt-BR"),cliente,endereco,itens:pedidoAtual.map(i=>({nome:i.nome,qtd:i.quantidade,val:i.valor})),total};
+ historico.unshift(pedido);salvarHistorico();renderizarHistorico();atualizarResumo();
+ window.print();
+ pedidoAtual=[];document.getElementById("clienteNome").value="";document.getElementById("clienteEndereco").value="";renderizarPedidoAtual();
 }
-
-function finalizarPedido() {
-    const nome = document.getElementById('clienteNome').value.trim();
-    const endereco = document.getElementById('clienteEndereco').value.trim();
-    if (!nome) { alert('Digite o nome do cliente!'); return; }
-    if (pedidoAtual.length === 0) { alert('Adicione pelo menos um item!'); return; }
-    
-    const total = pedidoAtual.reduce((s, i) => s + (i.valor * i.quantidade), 0);
-    const pedido = {
-        id: Date.now(),
-        data: new Date().toLocaleString('pt-BR'),
-        cliente: nome,
-        endereco: endereco,
-        itens: pedidoAtual.map(i => ({nome:i.nome, qtd:i.quantidade, val:i.valor})),
-        total: total
-    };
-    
-    historico.unshift(pedido);
-    localStorage.setItem('caos77_historico', JSON.stringify(historico));
-    
-    window.print();
-    
-    pedidoAtual = [];
-    document.getElementById('clienteNome').value = '';
-    document.getElementById('clienteEndereco').value = '';
-    renderizarPedidoAtual();
-    renderizarHistorico();
-    atualizarResumo();
+function renderizarHistorico(){
+ const el=document.getElementById("listaHistorico");
+ if(!historico.length){el.innerHTML='<p class="vazio">Nenhum pedido registrado.</p>';return}
+ el.innerHTML=historico.map(p=>`<div class="item"><div class="info"><div class="nome">${escapeHTML(p.cliente)} — ${escapeHTML(p.data)}</div><div class="valor">Total: ${dinheiro(p.total)}</div><div class="nota">${escapeHTML(p.endereco||"Sem endereço")}</div></div><div class="acoes"><button onclick="imprimirUmPedido(${Number(p.id)})">🖨️ Imprimir</button><button class="perigo" onclick="excluirPedido(${Number(p.id)})">🗑️</button></div></div>`).join("");
 }
-
-function renderizarHistorico() {
-    const container = document.getElementById('listaHistorico');
-    if (historico.length === 0) {
-        container.innerHTML = '<p class="vazio">Nenhum pedido ainda</p>';
-        return;
-    }
-    container.innerHTML = historico.map(p => `
-        <div class="item">
-            <div class="info">
-                <div class="nome">${p.cliente} — ${p.data}</div>
-                <div class="valor">Total: R$ ${p.total.toFixed(2).replace('.', ',')}</div>
-            </div>
-            <div class="acoes">
-                <button onclick="imprimirUmPedido(${p.id})">🖨️ Imprimir</button>
-                <button onclick="excluirPedido(${p.id})" class="perigo">🗑️</button>
-            </div>
-        </div>
-    `).join('');
+function excluirPedido(id){
+ if(!confirm("Excluir este pedido do histórico?"))return;
+ historico=historico.filter(p=>Number(p.id)!==Number(id));salvarHistorico();renderizarHistorico();atualizarResumo();
 }
-
-function excluirPedido(id) {
-    if (confirm('Excluir este pedido?')) {
-        historico = historico.filter(p => p.id !== id);
-        localStorage.setItem('caos77_historico', JSON.stringify(historico));
-        renderizarHistorico();
-        atualizarResumo();
-    }
+function imprimirUmPedido(id){
+ const p=historico.find(x=>Number(x.id)===Number(id));if(!p)return;
+ pedidoAtual=p.itens.map(i=>({id:Date.now()+Math.random(),nome:i.nome,valor:Number(i.val),quantidade:Number(i.qtd)}));
+ document.getElementById("clienteNome").value=p.cliente||"";document.getElementById("clienteEndereco").value=p.endereco||"";
+ renderizarPedidoAtual();document.querySelector('[data-aba="pedidos"]').click();window.print();
 }
-
-function imprimirUmPedido(id) {
-    const pedido = historico.find(p => p.id === id);
-    if (!pedido) return;
-    pedidoAtual = pedido.itens.map(i => ({id:Date.now()+Math.random(), nome:i.nome, valor:i.val, quantidade:i.qtd}));
-    document.getElementById('clienteNome').value = pedido.cliente;
-    document.getElementById('clienteEndereco').value = pedido.endereco || '';
-    renderizarPedidoAtual();
-    document.querySelector('[data-aba="pedidos"]').click();
-    window.print();
+function atualizarResumo(){
+ document.getElementById("totalVendasDia").textContent=dinheiro(historico.reduce((s,p)=>s+Number(p.total||0),0));
+ document.getElementById("qtdPedidosDia").textContent=historico.length;
 }
-
-function atualizarResumo() {
-    const total = historico.reduce((s, p) => s + p.total, 0);
-    document.getElementById('totalVendasDia').textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
-    document.getElementById('qtdPedidosDia').textContent = historico.length;
+function limparHistorico(){
+ if(!confirm("Tem certeza que deseja apagar todos os pedidos do histórico?"))return;
+ historico=[];salvarHistorico();renderizarHistorico();atualizarResumo();
 }
-
-function limparHistorico() {
-    if (!confirm('Tem CERTEZA? Isso apaga todos os pedidos do dia!')) return;
-    historico = [];
-    localStorage.setItem('caos77_historico', JSON.stringify(historico));
-    renderizarHistorico();
-    atualizarResumo();
+function baixarRelatorio(){
+ if(!historico.length){alert("Não há pedidos para exportar.");return}
+ let linhas=["LOJA CAOS 77 — RELATÓRIO DE PEDIDOS","Gerado em: "+new Date().toLocaleString("pt-BR"),"========================================"];
+ historico.forEach(p=>{
+  linhas.push("Pedido: "+p.id,"Data: "+p.data,"Cliente: "+p.cliente,"Endereço: "+(p.endereco||"Não informado"));
+  (p.itens||[]).forEach(i=>linhas.push(" - "+i.nome+" | "+i.qtd+" x "+dinheiro(i.val)+" = "+dinheiro(i.qtd*i.val)));
+  linhas.push("TOTAL: "+dinheiro(p.total),"----------------------------------------");
+ });
+ linhas.push("TOTAL GERAL: "+dinheiro(historico.reduce((s,p)=>s+Number(p.total||0),0)));
+ const blob=new Blob(["\uFEFF"+linhas.join("\n")],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="relatorio-caos77-"+new Date().toISOString().slice(0,10)+".txt";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
 }
-
-function baixarRelatorio() {
-    if (historico.length === 0) { alert('Sem pedidos para exportar!'); return; }
-    let texto = '========================================\n';
-    texto += '         🔥 LOJA CAOS 77 — RELATÓRIO\n';
-    texto += '========================================\n';
+renderizarProdutos();renderizarHistorico();renderizarPedidoAtual();atualizarResumo();
+</script>
+</body>
+</html>
